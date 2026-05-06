@@ -228,6 +228,8 @@ export type Locale = {
     designToggle: string;
     designToggleTitle: string;
     fontPresetCustom: string;
+    shuffleAria: string;
+    shuffleTitle: string;
   };
 
   asset: {
