@@ -10,8 +10,14 @@ const DEBOUNCE_MS = 600;
 
 type Target = { slideId: string; index: number };
 
+// HMR is suppressed for our writes, so the cached slide module's `notes`
+// stays stale across navigation. Cache last-saved text per target so
+// switching slides and back doesn't surface the old value.
+const sessionCache = new Map<string, string>();
+const cacheKey = (slideId: string, index: number) => `${slideId}:${index}`;
+
 export function useNotes(slideId: string, index: number, initial: string | undefined) {
-  const initialText = initial ?? '';
+  const initialText = sessionCache.get(cacheKey(slideId, index)) ?? initial ?? '';
   const [value, setValueState] = useState(initialText);
   const [status, setStatus] = useState<NoteSaveStatus>({ kind: 'idle' });
 
@@ -20,6 +26,8 @@ export function useNotes(slideId: string, index: number, initial: string | undef
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inflightRef = useRef<AbortController | null>(null);
   const targetRef = useRef<Target>({ slideId, index });
+  const valueRef = useRef(value);
+  valueRef.current = value;
 
   const cancelTimer = useCallback(() => {
     if (timerRef.current != null) {
@@ -42,6 +50,7 @@ export function useNotes(slideId: string, index: number, initial: string | undef
       });
       const body = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) throw new Error(body.error ?? `PUT /__notes → ${res.status}`);
+      sessionCache.set(cacheKey(target.slideId, target.index), text);
       if (inflightRef.current !== ctl) return;
       lastSavedRef.current = text;
       dirtyRef.current = false;
@@ -58,8 +67,8 @@ export function useNotes(slideId: string, index: number, initial: string | undef
     cancelTimer();
     if (!dirtyRef.current) return;
     const target = targetRef.current;
-    await persist(target, value);
-  }, [cancelTimer, persist, value]);
+    await persist(target, valueRef.current);
+  }, [cancelTimer, persist]);
 
   // When the (slideId, index) target changes, flush pending edits for the
   // previous target before adopting the new initial text.
@@ -68,8 +77,8 @@ export function useNotes(slideId: string, index: number, initial: string | undef
     const targetChanged = prev.slideId !== slideId || prev.index !== index;
     if (targetChanged && dirtyRef.current) {
       cancelTimer();
-      const pending = lastSavedRef.current === value ? null : value;
-      if (pending !== null) void persist(prev, pending);
+      const pending = valueRef.current;
+      if (lastSavedRef.current !== pending) void persist(prev, pending);
     }
     targetRef.current = { slideId, index };
     cancelTimer();
@@ -77,7 +86,7 @@ export function useNotes(slideId: string, index: number, initial: string | undef
     lastSavedRef.current = initialText;
     dirtyRef.current = false;
     setStatus({ kind: 'idle' });
-  }, [slideId, index, initialText, persist, value, cancelTimer]);
+  }, [slideId, index, initialText, persist, cancelTimer]);
 
   useEffect(() => {
     return () => {

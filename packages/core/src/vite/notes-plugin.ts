@@ -191,9 +191,22 @@ export type NotesPluginOptions = {
 export function notesPlugin(opts: NotesPluginOptions): Plugin {
   const userCwd = opts.userCwd;
   const slidesDir = opts.slidesDir ?? 'slides';
+  // Suppress HMR for our own writes — RFR bails on the slide's mixed exports
+  // and remounts the tree, stealing textarea focus mid-typing.
+  const recentWrites = new Map<string, number>();
+  const RECENT_WRITE_WINDOW_MS = 1500;
+
   return {
     name: 'open-slide:notes',
     apply: 'serve',
+    handleHotUpdate(ctx) {
+      const ts = recentWrites.get(ctx.file);
+      if (ts != null && Date.now() - ts < RECENT_WRITE_WINDOW_MS) {
+        recentWrites.delete(ctx.file);
+        return [];
+      }
+      return undefined;
+    },
     configureServer(server: ViteDevServer) {
       server.middlewares.use('/__notes', async (req, res, next) => {
         const url = new URL(req.url ?? '/', 'http://local');
@@ -218,7 +231,10 @@ export function notesPlugin(opts: NotesPluginOptions): Plugin {
           const result = applyNotesEdit(source, body.index, body.text);
           if (!result.ok) return json(res, result.status, { error: result.error });
           const changed = result.source !== source;
-          if (changed) await fs.writeFile(file, result.source, 'utf8');
+          if (changed) {
+            recentWrites.set(file, Date.now());
+            await fs.writeFile(file, result.source, 'utf8');
+          }
           return json(res, 200, { ok: true, changed });
         } catch (err) {
           json(res, 500, { error: String((err as Error).message ?? err) });
