@@ -275,6 +275,7 @@ export const ja: Locale = {
     scopeSlide: 'このスライド',
     scopeGlobal: 'グローバル',
     fileCount: { one: 'ファイル {count} 件', other: 'ファイル {count} 件' },
+    usageUnused: '未使用',
     searchLogos: 'ロゴを検索',
     upload: 'アップロード',
     dropToUpload: 'ドロップでアップロード',

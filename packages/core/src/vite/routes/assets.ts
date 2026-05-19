@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { ViteDevServer } from 'vite';
-import { findAssetUsages } from '../../editing/revert-asset.ts';
+import { findAssetUsages, findReferencedAssets } from '../../editing/revert-asset.ts';
 import { resolveSlideEntry, SLIDE_ID_RE } from '../../editing/slide-ops.ts';
 import {
   ASSET_MAX_BYTES,
@@ -89,7 +89,14 @@ export function registerAssetRoutes(server: ViteDevServer, ctx: ApiContext): voi
           throw err;
         }
 
-        const assets = [];
+        const assets: Array<{
+          name: string;
+          size: number;
+          mtime: number;
+          mime: string;
+          url: string;
+          unused: boolean;
+        }> = [];
         for (const name of entries) {
           if (!validateAssetName(name)) continue;
           const stat = await fs.stat(path.join(scopedDir, name));
@@ -100,9 +107,44 @@ export function registerAssetRoutes(server: ViteDevServer, ctx: ApiContext): voi
             mtime: stat.mtimeMs,
             mime: mimeForFilename(name),
             url: `/__assets/${slideId}/${encodeURIComponent(name)}`,
+            unused: true,
           });
         }
         assets.sort((a, b) => a.name.localeCompare(b.name));
+
+        if (assets.length > 0) {
+          const isGlobal = slideId === GLOBAL_SCOPE;
+          let scanIds: string[];
+          if (isGlobal) {
+            try {
+              const dirs = await fs.readdir(ctx.slidesRoot, { withFileTypes: true });
+              scanIds = dirs
+                .filter((e) => e.isDirectory() && SLIDE_ID_RE.test(e.name))
+                .map((e) => e.name);
+            } catch {
+              scanIds = [];
+            }
+          } else {
+            scanIds = SLIDE_ID_RE.test(slideId) ? [slideId] : [];
+          }
+          const paths = assets.map((a) => (isGlobal ? `@assets/${a.name}` : `./assets/${a.name}`));
+          const pathToAsset = new Map(paths.map((p, i) => [p, assets[i]]));
+          for (const sid of scanIds) {
+            const entry = resolveSlideEntry(ctx.slidesRoot, sid);
+            if (!entry) continue;
+            let source: string;
+            try {
+              source = await fs.readFile(entry, 'utf8');
+            } catch {
+              continue;
+            }
+            for (const p of findReferencedAssets(source, paths)) {
+              const a = pathToAsset.get(p);
+              if (a) a.unused = false;
+            }
+          }
+        }
+
         return json(res, 200, { assets });
       }
 

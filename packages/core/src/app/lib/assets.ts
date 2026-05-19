@@ -6,6 +6,7 @@ export type AssetEntry = {
   mtime: number;
   mime: string;
   url: string;
+  unused: boolean;
 };
 
 export type UploadOptions = { overwrite?: boolean };
@@ -90,6 +91,7 @@ export async function uploadWithAutoRename(
     mtime: body?.mtime ?? Date.now(),
     mime: body?.mime ?? uploaded.type ?? 'application/octet-stream',
     url: body?.url ?? `/__assets/${slideId}/${encodeURIComponent(uploaded.name)}`,
+    unused: body?.unused ?? false,
   };
   return { ok: true, status: res.status, entry };
 }

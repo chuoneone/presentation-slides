@@ -414,7 +414,14 @@ function AssetCard({
           <div className="truncate text-[12.5px] font-medium" title={asset.name}>
             {asset.name}
           </div>
-          <div className="folio truncate">{formatSize(asset.size)}</div>
+          <div className="folio flex items-center gap-1.5">
+            <span className="truncate">{formatSize(asset.size)}</span>
+            {asset.unused ? (
+              <span className="shrink-0 rounded-sm bg-muted px-1 py-px text-[10px] font-medium text-muted-foreground leading-none">
+                {t.asset.usageUnused}
+              </span>
+            ) : null}
+          </div>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger

@@ -273,6 +273,7 @@ export const en: Locale = {
     scopeSlide: 'This slide',
     scopeGlobal: 'Global',
     fileCount: { one: '{count} file', other: '{count} files' },
+    usageUnused: 'Unused',
     searchLogos: 'Search logos',
     upload: 'Upload',
     dropToUpload: 'Drop to upload',

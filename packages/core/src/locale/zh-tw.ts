@@ -272,6 +272,7 @@ export const zhTW: Locale = {
     scopeSlide: '此投影片',
     scopeGlobal: '全域',
     fileCount: { one: '{count} 個檔案', other: '{count} 個檔案' },
+    usageUnused: '未使用',
     searchLogos: '搜尋 Logo',
     upload: '上傳',
     dropToUpload: '拖入即可上傳',

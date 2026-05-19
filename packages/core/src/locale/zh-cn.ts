@@ -272,6 +272,7 @@ export const zhCN: Locale = {
     scopeSlide: '当前幻灯片',
     scopeGlobal: '全局',
     fileCount: { one: '{count} 个文件', other: '{count} 个文件' },
+    usageUnused: '未使用',
     searchLogos: '搜索 Logo',
     upload: '上传',
     dropToUpload: '拖入即可上传',

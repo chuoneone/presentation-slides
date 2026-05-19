@@ -275,6 +275,7 @@ export type Locale = {
     scopeGlobal: string;
     /** templates: "{count} file" / "{count} files" */
     fileCount: Plural;
+    usageUnused: string;
     searchLogos: string;
     upload: string;
     dropToUpload: string;
