@@ -45,6 +45,10 @@ export type Locale = {
     newFolder: string;
     folderName: string;
     updateAvailable: string;
+    updatePackage: string;
+    updatingPackage: string;
+    updatePackageDone: string;
+    updatePackageFailed: string;
     changeIcon: string;
     iconEmojiTab: string;
     iconColorTab: string;

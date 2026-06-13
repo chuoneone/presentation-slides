@@ -46,6 +46,10 @@ export const ja: Locale = {
     folderName: 'フォルダ名',
     updateAvailable:
       'open-slide {version} が利用可能です — パッケージを更新して最新版を入手してください。',
+    updatePackage: '更新',
+    updatingPackage: '更新中',
+    updatePackageDone: '更新しました。新しいバージョンを使うには dev server を再起動してください。',
+    updatePackageFailed: '更新に失敗しました。dev server の出力を確認してください。',
     changeIcon: 'アイコンを変更',
     iconEmojiTab: '絵文字',
     iconColorTab: 'カラー',
