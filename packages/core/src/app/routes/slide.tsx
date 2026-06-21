@@ -763,6 +763,7 @@ export function Slide() {
                   onClose={() => setOverviewOpen(false)}
                   onSelect={goTo}
                   variant="editor"
+                  moduleTransition={slide.transition}
                 />
               </div>
             </DesignProvider>
