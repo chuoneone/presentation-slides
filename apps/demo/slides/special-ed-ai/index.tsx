@@ -330,39 +330,127 @@ const AgendaCard = ({ num, unit, title, children, delay = 0 }: { num: string; un
 // 3. 投影片頁面定義 (Slide 01 - 35)
 // ==========================================
 
+// Abstract Montessori blocks graphic representing special education custom material construction
+const BlockGraphic = () => (
+  <div style={{
+    position: 'relative',
+    width: '100%',
+    height: '480px',
+    background: '#f8fafc',
+    border: '2px solid #cbd5e1',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: 'inset 0 4px 12px rgba(0, 0, 0, 0.02)'
+  }}>
+    <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(#cbd5e1 1.5px, transparent 1.5px)', backgroundSize: '20px 20px', opacity: 0.3 }} />
+    <div style={{
+      position: 'absolute',
+      bottom: '50px',
+      left: '50px',
+      width: '160px',
+      height: '80px',
+      background: colors.accent,
+      borderTopLeftRadius: '80px',
+      borderTopRightRadius: '80px',
+      opacity: 0.9,
+      boxShadow: '0 8px 16px rgba(13, 148, 136, 0.15)'
+    }} />
+    <div style={{
+      position: 'absolute',
+      bottom: '150px',
+      left: '90px',
+      width: '80px',
+      height: '80px',
+      borderRadius: '50%',
+      background: colors.orange,
+      opacity: 0.9,
+      boxShadow: '0 8px 16px rgba(234, 88, 12, 0.15)'
+    }} />
+    <div style={{
+      position: 'absolute',
+      bottom: '50px',
+      right: '50px',
+      width: '80px',
+      height: '200px',
+      background: '#eab308',
+      borderRadius: '40px 40px 0 0',
+      opacity: 0.9,
+      boxShadow: '0 8px 16px rgba(234, 179, 8, 0.15)'
+    }} />
+    <div style={{
+      position: 'absolute',
+      bottom: '270px',
+      right: '60px',
+      width: '0',
+      height: '0',
+      borderStyle: 'solid',
+      borderWidth: '0 0 100px 100px',
+      borderColor: 'transparent transparent #94a3b8 transparent',
+      opacity: 0.8
+    }} />
+    <div style={{
+      position: 'absolute',
+      top: '50px',
+      left: '60px',
+      width: '140px',
+      height: '4px',
+      background: '#cbd5e1',
+      borderRadius: '2px',
+      transform: 'rotate(-12deg)'
+    }} />
+  </div>
+);
+
 // Slide 1: 標題頁
 const Slide01_Title: Page = () => (
-  <div style={{ ...fill, justifyContent: 'center', alignItems: 'center' }}>
+  <div style={fill}>
     <TextbookBg />
     <div
       className="es-fadeUp"
       style={{
+        display: 'grid',
+        gridTemplateColumns: '0.85fr 1.15fr',
+        gap: 50,
+        flex: 1,
         zIndex: 2,
+        alignItems: 'center',
         background: '#ffffff',
         border: '3px solid #e2e8f0',
         borderRadius: '24px',
-        padding: '50px 70px',
-        boxShadow: '0 12px 48px rgba(100, 116, 139, 0.06)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        maxWidth: '1200px',
-        textAlign: 'center',
+        padding: '50px 60px',
+        boxShadow: '0 12px 48px rgba(100, 116, 139, 0.05)',
       }}
     >
-      <span style={{ fontSize: '28px', letterSpacing: '0.4em', color: colors.accent, fontWeight: 800, textTransform: 'uppercase', marginBottom: '20px', background: colors.accentMuted, padding: '6px 20px', borderRadius: '8px' }}>
-        1150707 嘉義輔導團進階實務工作坊
-      </span>
-      <h1 style={{ fontSize: '65px', fontWeight: 900, lineHeight: 1.25, color: colors.text, margin: '16px 0 24px 0', letterSpacing: '-0.02em' }}>
-        生成式 AI × 特殊教育備課<br />
-        <span style={{ color: colors.orange }}>從客製教材到互動實務</span>
-      </h1>
-      <div style={{ height: '3px', width: '200px', background: colors.accent, margin: '12px auto 32px auto', borderRadius: '2px' }} />
-      <p style={{ fontSize: '32px', color: colors.muted, fontWeight: 500, margin: 0 }}>
-        主軸：針對不同障礙類別的學生設計不同教材
-      </p>
+      <BlockGraphic />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, marginBottom: '24px' }}>
+          <span style={{ fontSize: '20px', letterSpacing: '0.15em', color: colors.accent, fontWeight: 800, background: colors.accentMuted, padding: '6px 16px', borderRadius: '6px', border: `1px solid ${colors.accent}` }}>
+            🏫 嘉義輔導團
+          </span>
+          <span style={{ fontSize: '20px', letterSpacing: '0.15em', color: colors.orange, fontWeight: 800, background: colors.orangeLight, padding: '6px 16px', borderRadius: '6px', border: `1px solid ${colors.orange}` }}>
+            🛠️ 進階實務工作坊
+          </span>
+        </div>
+        <h1 style={{ fontSize: '62px', fontWeight: 900, lineHeight: 1.2, color: colors.text, margin: '0 0 20px 0', letterSpacing: '-0.02em' }}>
+          生成式 AI <span style={{ color: colors.orange, fontWeight: 400 }}>×</span><br />
+          特殊教育備課
+        </h1>
+        <div style={{ display: 'inline-block', background: colors.accentMuted, padding: '10px 18px', borderRadius: '8px', borderLeft: `6px solid ${colors.accent}`, marginBottom: '30px', alignSelf: 'flex-start' }}>
+          <span style={{ fontSize: '30px', fontWeight: 800, color: colors.accent }}>
+            🎯 從客製教材到互動實務
+          </span>
+        </div>
+        <div style={{ width: '100%', height: '2px', background: '#f1f5f9', marginBottom: '24px' }} />
+        <p style={{ margin: 0, fontSize: '26px', color: colors.muted, lineHeight: 1.4, fontWeight: 500 }}>
+          📌 主軸：針對不同障礙類別的學生設計不同教材<br />
+          📅 日期：115 年 7 月 7 日
+        </p>
+      </div>
     </div>
-    <TextbookFooter subtitle="研習標題頁" />
+    <TextbookFooter subtitle="進階實務工作坊" />
   </div>
 );
 
