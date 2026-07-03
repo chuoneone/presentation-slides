@@ -461,21 +461,17 @@ const Slide02_Stats: Page = () => (
     <TextbookHeader title="今天來參加研習的我們是誰？" subtitle="聽眾起點行為" unit="單元 1" />
     <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 32, flex: 1, zIndex: 2 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-        <Panel title="Gemini 使用率" delay={0.1}>
-          <div style={{ fontSize: '45px', fontWeight: 900, color: colors.accent }}>100% (10人)</div>
-          全員皆有用過 Gemini！可以多用 Google 體系作為演示。
+        <Panel title="Gemini 使用經驗" delay={0.1}>
+          大部份的人都用過 Gemini，今天會多以 Google 體系進行演示。
         </Panel>
-        <Panel title="ChatGPT 使用率" delay={0.2}>
-          <div style={{ fontSize: '45px', fontWeight: 900, color: colors.accent }}>80% (8人)</div>
-          大多數老師並用 ChatGPT 且開始有老師將 Claude 融入教學中。
+        <Panel title="ChatGPT 使用經驗" delay={0.2}>
+          多數老師均用過 ChatGPT，甚至已開始接觸與併用 Claude。
         </Panel>
         <Panel title="教材改寫經驗" delay={0.3}>
-          <div style={{ fontSize: '45px', fontWeight: 900, color: colors.accent }}>100%</div>
-          全員已用過 AI 改寫或簡化特教教材文本。
+          全員皆已用過 AI 來進行特教教材的文本改寫與簡化。
         </Panel>
-        <Panel title="自我熟練度 (1-5)" delay={0.4}>
-          <div style={{ fontSize: '45px', fontWeight: 900, color: colors.accent }}>平均 3.1 分</div>
-          具備基本觀念，適合直奔進階實務與痛點突破！
+        <Panel title="AI 熟練度" delay={0.4}>
+          大家都已具備基本觀念，可以直接挑戰進階實務與痛點突破！
         </Panel>
       </div>
       <Panel title="老師們的核心痛點" delay={0.5}>
