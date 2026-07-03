@@ -599,7 +599,7 @@ const Slide11_PaperTool3: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="方向一：數學簡化學習單，降低理解與書寫負荷" subtitle="簡化學習單" unit="單元 2" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="簡化學習單可調整面向" delay={0.1}>
         <p style={{ margin: '0 0 12px 0', fontSize: '32px', lineHeight: 1.4 }}>
           數學簡化不是把題目變幼稚，而是把看不見的思考步驟變成看得見的支持：
@@ -641,7 +641,7 @@ const Slide13_AIRevise: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="不用一開始就會寫完美咒語：先請 AI 加強你的提示詞" subtitle="Prompt潤飾" unit="單元 2" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="老師只要記一個潤飾口訣" delay={0.1}>
         <div style={{ background: colors.orangeLight, padding: '16px', borderRadius: '12px', fontSize: '32px', fontWeight: 700, color: colors.orange, marginBottom: 12 }}>
           「加強我的咒語：把教材調整成給國二自閉症的學生」
@@ -691,7 +691,7 @@ const Slide15_OutputModes: Page = () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="方式一：ChatGPT 生成圖像版學習單" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgModeChatGPT} alt="ChatGPT 圖像版學習單" style={{ maxWidth: '100%', maxHeight: '240px', objectFit: 'contain', borderRadius: 8 }} />
+          <img src={imgModeChatGPT} alt="ChatGPT 圖像版學習單" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
         <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.4 }}>
           將修好的咒語貼到 ChatGPT。按下「創立圖像」，請它直接生成視覺美觀的學習單圖像。適合用作教材封面、可展示版。
@@ -699,7 +699,7 @@ const Slide15_OutputModes: Page = () => (
       </Panel>
       <Panel title="方式二：Gemini Canvas 生成 HTML 仿 A4 學習單" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgModeGemini} alt="Gemini Canvas HTML 學習單" style={{ maxWidth: '100%', maxHeight: '240px', objectFit: 'contain', borderRadius: 8 }} />
+          <img src={imgModeGemini} alt="Gemini Canvas HTML 學習單" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
         <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.4 }}>
           將修好的咒語貼到 Gemini。按下 Canvas，在提示詞最後補上一句：
@@ -719,7 +719,7 @@ const Slide16_ZhuyinFontChoice: Page = () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="圖像版的限制 (不穩定)" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgZhuyin1} alt="圖片版注音不穩定範例" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: 8 }} />
+          <img src={imgZhuyin1} alt="圖片版注音不穩定範例" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
         <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.4 }}>
           ChatGPT 圖片版注音容易拼錯、排版歪斜或不符合台灣教科書格式。
@@ -727,7 +727,7 @@ const Slide16_ZhuyinFontChoice: Page = () => (
       </Panel>
       <Panel title="HTML 版的優勢 (指定線上注音字體)" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgZhuyin2} alt="線上注音體套用範例" style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: 8 }} />
+          <img src={imgZhuyin2} alt="線上注音體套用範例" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
         <p style={{ margin: 0, fontSize: '30px', color: colors.accent, fontWeight: 700, lineHeight: 1.4 }}>
           直接在對話框套用字體字嗨/芫荽/粉圓，排版比複雜的程式咒語更為穩定，且字體清晰美觀，更具現場可操作性。
