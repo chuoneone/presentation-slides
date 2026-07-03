@@ -715,23 +715,13 @@ const Slide15_OutputModes: Page = () => (
 const Slide16_ZhuyinFontChoice: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="如果學習單需要注音，建議直接指定線上注音字體" subtitle="注音排版" unit="單元 2" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
-      <Panel title="圖像版的限制 (不穩定)" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgZhuyin1} alt="圖片版注音不穩定範例" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
-        </div>
-        <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.4 }}>
-          ChatGPT 圖片版注音容易拼錯、排版歪斜或不符合台灣教科書格式。
-        </p>
+    <TextbookHeader title="如果學習單需要注音，建議直接指定線上注音字體" subtitle="注音字體範例" unit="單元 2" />
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
+      <Panel title="線上注音字體 範例一" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+        <img src={imgZhuyin1} alt="線上注音字體 範例一" style={{ width: '100%', height: 'auto', borderRadius: 8 }} />
       </Panel>
-      <Panel title="HTML 版的優勢 (指定線上注音字體)" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
-          <img src={imgZhuyin2} alt="線上注音體套用範例" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
-        </div>
-        <p style={{ margin: 0, fontSize: '30px', color: colors.accent, fontWeight: 700, lineHeight: 1.4 }}>
-          直接在對話框套用字體字嗨/芫荽/粉圓，排版比複雜的程式咒語更為穩定，且字體清晰美觀，更具現場可操作性。
-        </p>
+      <Panel title="線上注音字體 範例二" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+        <img src={imgZhuyin2} alt="線上注音字體 範例二" style={{ width: '100%', height: 'auto', borderRadius: 8 }} />
       </Panel>
     </div>
     <TextbookFooter subtitle="第二部分：紙本教材與破解" />
