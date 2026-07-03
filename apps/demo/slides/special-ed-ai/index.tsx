@@ -563,13 +563,13 @@ const Slide09_PaperTool1: Page = () => (
     <TextbookBg />
     <TextbookHeader title="方向一：用課文簡化系統快速做出語文教材第一版" subtitle="課文簡化" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
-      <Panel title="步驟 1：選擇程度貼上課文" delay={0.1}>
+      <Panel title="1. 選擇程度貼上課文" delay={0.1}>
         選擇目標學生年級程度（學前至高中），貼上原始教材課文，或直接上傳圖片進行 OCR 辨識。
       </Panel>
-      <Panel title="步驟 2：AI 自動進行多維改寫" delay={0.2}>
+      <Panel title="2. AI 自動進行多維改寫" delay={0.2}>
         一鍵生成符合程度的簡化課文與摘要，並為每段故事自動生成角色一致的 AI 配圖。
       </Panel>
-      <Panel title="步驟 3：自動出題與匯出" delay={0.3}>
+      <Panel title="3. 自動出題與匯出" delay={0.3}>
         同步產出引導問題與多元讀後評量（選擇/填充題），支援一秒下載 Word 學習單。
       </Panel>
     </div>
@@ -682,16 +682,16 @@ const Slide14_PromptCycle: Page = () => (
     <TextbookBg />
     <TextbookHeader title="提示詞不是一次定生死，而是可以反覆修正的教材設計草稿" subtitle="小步迭代" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 16, flex: 1, zIndex: 2 }}>
-      <Panel title="第一步：生成教材" delay={0.1}>
+      <Panel title="1. 生成教材" delay={0.1}>
         將擴寫後的 Prompt 貼到 AI (如 Gemini) 中生成第一版教材草稿。
       </Panel>
-      <Panel title="第二步：檢查評估" delay={0.2}>
+      <Panel title="2. 檢查評估" delay={0.2}>
         對比學生起點行為，檢查字數、詞彙、題型與視覺支持是否合適。
       </Panel>
-      <Panel title="第三步：反覆微調" delay={0.3}>
+      <Panel title="3. 反覆微調" delay={0.3}>
         回頭向 AI 對話修改，如「字數短一點」、「把填空改成選擇題」。
       </Panel>
-      <Panel title="第四步：保存 Prompt" delay={0.4}>
+      <Panel title="4. 保存 Prompt" delay={0.4}>
         將滿意的 Prompt 儲存下來，做為同類型學生的常用備課模版。
       </Panel>
     </div>
@@ -705,7 +705,7 @@ const Slide15_OutputModes: Page = () => (
     <TextbookBg />
     <TextbookHeader title="得到好咒語之後，怎麼變成漂亮學習單？" subtitle="美觀輸出" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
-      <Panel title="方式一：ChatGPT 生成圖像版學習單" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Panel title="1. ChatGPT 生成圖像版學習單" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
           <img src={imgModeChatGPT} alt="ChatGPT 圖像版學習單" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
@@ -713,7 +713,7 @@ const Slide15_OutputModes: Page = () => (
           將修好的咒語貼到 ChatGPT。按下「創立圖像」，請它直接生成視覺美觀的學習單圖像。適合用作教材封面、可展示版。
         </p>
       </Panel>
-      <Panel title="方式二：Gemini Canvas 生成 HTML 仿 A4 學習單" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Panel title="2. Gemini Canvas 生成 HTML 仿 A4 學習單" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: 12 }}>
           <img src={imgModeGemini} alt="Gemini Canvas HTML 學習單" style={{ maxWidth: '100%', maxHeight: '380px', objectFit: 'contain', borderRadius: 8 }} />
         </div>
@@ -750,13 +750,13 @@ const Slide17_MathFormat: Page = () => (
     <TextbookBg />
     <TextbookHeader title="讓 AI 幫你把數學版面變成可讀的學習支持" subtitle="數學解決對策" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
-      <Panel title="對策一：用 Markdown 表格強迫對齊直式" delay={0.1}>
+      <Panel title="1. 用 Markdown 表格強迫對齊直式" delay={0.1}>
         請 AI 將算式以表格輸出，位值各放一欄，底線用 `---` 繪製，即可保證對齊不歪斜。
       </Panel>
-      <Panel title="對策二：引導 AI 使用 LaTeX 語法" delay={0.2}>
+      <Panel title="2. 引導 AI 使用 LaTeX 語法" delay={0.2}>
         請 AI 使用標準 LaTeX 語法輸出（如：`\frac{1}{2}` 或 `\sqrt{2}`），讓分數呈現教科書級的優雅排版。
       </Panel>
-      <Panel title="對策三：在 Prompt 中指定版面規則" delay={0.3}>
+      <Panel title="3. 在 Prompt 中指定版面規則" delay={0.3}>
         指定：「請將每一道題目拆成：題目、提示、列式區、計算區、答案區，並保留足夠空白。」或用米克師內建工具。
       </Panel>
     </div>
@@ -770,13 +770,13 @@ const Slide18_Workshop1: Page = () => (
     <TextbookBg />
     <TextbookHeader title="實作挑戰一：先產第一版，再做障別精準調整" subtitle="工作坊 I" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
-      <Panel title="步驟一：工具快速產出" delay={0.1}>
+      <Panel title="1. 工具快速產出" delay={0.1}>
         使用「課文簡化系統」或「數學簡化系統」先做出一份可修改的教材草稿。
       </Panel>
-      <Panel title="步驟二：白話語句調整提示詞" delay={0.2}>
+      <Panel title="2. 白話語句調整提示詞" delay={0.2}>
         向 AI 發送「加強我的提示詞：...」，讓 AI 幫忙擴寫為特教起點行為 Prompt。
       </Panel>
-      <Panel title="步驟三：定稿生成與對比" delay={0.3}>
+      <Panel title="3. 定稿生成與對比" delay={0.3}>
         用擴寫 Prompt 重新生成，並對比前後版本，討論哪裡更符合個別化需求，並保存 Prompt。
       </Panel>
     </div>
@@ -903,13 +903,13 @@ const Slide24_WebTool3: Page = () => (
     <TextbookBg />
     <TextbookHeader title="國文差異化：通用性閱讀測驗" subtitle="互動工具" unit="單元 3" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
-      <Panel title="設計一：逐段呈現" delay={0.1}>
+      <Panel title="1. 逐段呈現" delay={0.1}>
         每次只顯露一小段文章，避免整頁密密麻麻的文字，大幅降低閱讀時的視覺負荷。
       </Panel>
-      <Panel title="設計二：語音朗讀高亮" delay={0.2}>
+      <Panel title="2. 語音朗讀高亮" delay={0.2}>
         滑鼠滑過或點擊句子時會自動播放語音朗讀並高亮該句，協助識字障礙學生。
       </Panel>
-      <Panel title="設計三：雙擊重點劃記" delay={0.3}>
+      <Panel title="3. 雙擊重點劃記" delay={0.3}>
         允許學生雙擊句子直接在下方劃記重點線，增加閱讀的專注度與互動感。
       </Panel>
     </div>
@@ -1003,13 +1003,13 @@ const Slide29_Workshop2: Page = () => (
     <TextbookBg />
     <TextbookHeader title="實作挑戰二：自製 HTML 互動網頁教材" subtitle="工作坊 II" unit="單元 3" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
-      <Panel title="任務一：白話命令 AI 寫程式" delay={0.1}>
+      <Panel title="1. 白話命令 AI 寫程式" delay={0.1}>
         不需自己手動寫 code。直接用語音或中文指令，命令 AI 幫我們編寫教材網頁。
       </Panel>
-      <Panel title="任務二：完成互動小遊戲" delay={0.2}>
+      <Panel title="2. 完成互動小遊戲" delay={0.2}>
         目標生成一個包含「拼圖、單字配對、連連看或拖放卡片」的簡單 HTML 網頁。
       </Panel>
-      <Panel title="任務三：導入真實配圖" delay={0.3}>
+      <Panel title="3. 導入真實配圖" delay={0.3}>
         解決表情符號痛點，使用 Unsplash API 動態載入照片或套用雲端硬碟圖床。
       </Panel>
     </div>
