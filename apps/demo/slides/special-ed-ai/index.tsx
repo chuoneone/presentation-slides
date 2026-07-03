@@ -718,14 +718,10 @@ const Slide16_ZhuyinFontChoice: Page = () => (
     <TextbookHeader title="如果學習單需要注音，建議直接指定線上注音字體" subtitle="注音字體範例" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="線上注音字體 範例一" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: 8 }}>
-          <img src={imgZhuyin1} alt="線上注音字體 範例一" style={{ maxWidth: '100%', maxHeight: '440px', objectFit: 'contain', borderRadius: 8 }} />
-        </div>
+        <img src={imgZhuyin1} alt="線上注音字體 範例一" style={{ width: '380px', height: '380px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }} />
       </Panel>
       <Panel title="線上注音字體 範例二" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', padding: 8 }}>
-          <img src={imgZhuyin2} alt="線上注音字體 範例二" style={{ maxWidth: '100%', maxHeight: '440px', objectFit: 'contain', borderRadius: 8 }} />
-        </div>
+        <img src={imgZhuyin2} alt="線上注音字體 範例二" style={{ width: '380px', height: '380px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }} />
       </Panel>
     </div>
     <TextbookFooter subtitle="第二部分：紙本教材與破解" />
