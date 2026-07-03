@@ -718,10 +718,10 @@ const Slide16_ZhuyinFontChoice: Page = () => (
     <TextbookHeader title="如果學習單需要注音，建議直接指定線上注音字體" subtitle="注音字體範例" unit="單元 2" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2, alignItems: 'center' }}>
       <Panel title="線上注音字體 範例一" delay={0.1} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-        <img src={imgZhuyin1} alt="線上注音字體 範例一" style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }} />
+        <img src={imgZhuyin1} alt="線上注音字體 範例一" style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto', objectPosition: '50% 50%', objectViewBox: 'inset(0% 24.64% 44.98% 0%)' }} />
       </Panel>
       <Panel title="線上注音字體 範例二" delay={0.25} style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-        <img src={imgZhuyin2} alt="線上注音字體 範例二" style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }} />
+        <img src={imgZhuyin2} alt="線上注音字體 範例二" style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto', objectPosition: '50% 50%', objectViewBox: 'inset(0% 29.63% 47.22% 0%)' }} />
       </Panel>
     </div>
     <TextbookFooter subtitle="第二部分：紙本教材與破解" />
@@ -813,10 +813,16 @@ const Slide21_WebTool1Core: Page = () => (
     <TextbookHeader title="語感與聽覺訓練：補足書寫與識字弱勢" subtitle="教育核心" unit="單元 3" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="利用聽覺理解優勢" delay={0.1}>
-        特教學生往往聽覺理解優於識字/閱讀。透過「聽覺語音朗讀輔助」，配合視覺卡片，進行多重感官整合。
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>聽覺理解優越</strong>：特教學生往往聽覺理解能力優於識字與長文閱讀。</li>
+          <li><strong>多重感官整合</strong>：以「語音朗讀」配合「視覺字卡」建立立體記憶。</li>
+        </ul>
       </Panel>
       <Panel title="自然語感培養" delay={0.25}>
-        透過耳朵記憶句子節奏，自然建立文法語感。
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>耳朵記憶節奏</strong>：透過重複聆聽與句子重組，自然熟悉句型結構。</li>
+          <li><strong>降低焦慮感</strong>：無痛建立文法直覺，跳過枯燥的語法公式背誦。</li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第三部分：網頁教材實戰" />
@@ -857,15 +863,18 @@ const Slide23_WebTool2Core: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="抗衝動設計與二次機會機制" subtitle="測驗設計" unit="單元 3" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 40, flex: 1, zIndex: 2 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="特教友善：抗衝動設計" delay={0.1}>
-        將「選擇選項」與「檢檢答案」按鈕徹底分開。
-        <p style={{ margin: '10px 0 0 0', fontSize: '30px', color: colors.muted, lineHeight: 1.4 }}>
-          * 防止 ADHD 學生不經思考、為了趕快看分數而「衝動亂猜亂點」。
-        </p>
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>按鈕徹底分離</strong>：將「選取答案」與「送出檢測」按鈕徹底分開。</li>
+          <li><strong>遏止直覺亂點</strong>：避免 ADHD 學生為趕快看分數而衝動猜題。</li>
+        </ul>
       </Panel>
       <Panel title="二次機會（敗部復活）" delay={0.25}>
-        答錯時引導學生重新審視錯誤，提供第二次嘗試的機會，並啟動錯題機制加強不熟概念。
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>錯誤引導提示</strong>：答錯時不直接給答案，而是給予提示再次嘗試。</li>
+          <li><strong>建立成功經驗</strong>：在第二次回答正確時，同樣給予正向增強。</li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第三部分：網頁教材實戰" />
@@ -899,12 +908,15 @@ const Slide25_EmojiPain: Page = () => (
     <TextbookHeader title="為什麼 AI 幫我生的網頁教材裡全是表情符號？" subtitle="痛點五" unit="單元 3" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="原因分析" delay={0.1}>
-        AI 寫 HTML 時，最喜歡直接使用 Unicode Emoji 作為圖標或插圖來避免外部網址失效破圖。
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>避免失效破圖</strong>：AI 寫 HTML 時最喜歡用 Unicode Emoji 當成圖片。</li>
+          <li><strong>版面過度幼稚</strong>：過多的表情符號會干擾與分散學生的注意力。</li>
+        </ul>
       </Panel>
       <Panel title="特教的需求" delay={0.25}>
-        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '32px' }}>
-          <li>特教學生需要的是「具體、生活化的真實照片」，而不是表情符號。</li>
-          <li>Emoji 缺乏空間感與真實環境細節，不利於概念泛化。</li>
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>生活化真實照片</strong>：特教學生需要的是「具體生活照」，而非 Emoji。</li>
+          <li><strong>概念泛化需求</strong>：Emoji 缺乏真實物理空間與深度，不利於認知泛化。</li>
         </ul>
       </Panel>
     </div>
@@ -918,11 +930,17 @@ const Slide26_EmojiHow: Page = () => (
     <TextbookBg />
     <TextbookHeader title="Unsplash API & SVG 向量繪圖對策" subtitle="網頁配圖" unit="單元 3" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1, zIndex: 2 }}>
-      <Panel title="引引導 AI 使用外部免版權圖庫 API" delay={0.1}>
-        在 Prompt 中指定：「在網頁代碼中，如果需要插圖，請使用 img 標籤，並將 src 設為 https://images.unsplash.com/photo-... 或使用 https://source.unsplash.com/featured/?{"<關鍵字>"}，以動態載入真實照片。」
+      <Panel title="引導 AI 使用外部免版權圖庫 API" delay={0.1}>
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>動態載入真實照片</strong>：使用 Unsplash API 動態嵌入具體的生活照片。</li>
+          <li><strong>自動處理英文關鍵字</strong>：讓 AI 自動將中文字詞轉換為合適的英文圖片標籤。</li>
+        </ul>
       </Panel>
       <Panel title="替換為 SVG 向量圖" delay={0.25}>
-        要求 AI 「使用 Tailwind CSS / SVG 繪製具體的 icon 或生活化簡筆畫，不要使用 Emoji」。
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>無縫適應排版</strong>：要求 AI 用 CSS/SVG 繪製簡單、高質感的圖示與簡筆畫。</li>
+          <li><strong>嚴格禁止 Emoji</strong>：在 Prompt 中加上限制，確保網頁教材呈現專業與乾淨。</li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第三部分：網頁教材實戰" />
@@ -1046,12 +1064,10 @@ const Slide34_Summary: Page = () => (
         </p>
       </Panel>
       <Panel title="溫慢備課的心法" delay={0.25}>
-        <p style={{ margin: '0 0 16px 0', fontSize: '32px', lineHeight: 1.5 }}>
-          把繁瑣的打字、排版、生圖交給 AI；
-        </p>
-        <p style={{ margin: 0, fontWeight: 700, color: colors.orange, fontSize: '32px', lineHeight: 1.5 }}>
-          把溫慢、個別化引導、心靈交會以及最重要的愛與時間，留給學生。
-        </p>
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '34px', lineHeight: '1.6' }}>
+          <li><strong>把繁瑣交給 AI</strong>：將機械性的打字、排版、生圖與代碼編寫交給 AI。</li>
+          <li><strong>把溫度留給學生</strong>：將省下的備課時間，留給引導、心靈交流與陪伴。</li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第五部分：優雅備課與總結" />
