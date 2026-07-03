@@ -462,25 +462,23 @@ const Slide02_Stats: Page = () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 32, flex: 1, zIndex: 2 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
         <Panel title="Gemini 使用經驗" delay={0.1}>
-          大部份的人都用過 Gemini，今天會多以 Google 體系進行演示。
+          大部分的人都用過 Gemini。
         </Panel>
         <Panel title="ChatGPT 使用經驗" delay={0.2}>
-          多數老師均用過 ChatGPT，甚至已開始接觸與併用 Claude。
+          多數老師均用過 ChatGPT 與 Claude。
         </Panel>
         <Panel title="教材改寫經驗" delay={0.3}>
-          全員皆已用過 AI 來進行特教教材的文本改寫與簡化。
+          全員皆有用 AI 改寫教材的經驗。
         </Panel>
         <Panel title="AI 熟練度" delay={0.4}>
-          大家都已具備基本觀念，可以直接挑戰進階實務與痛點突破！
+          具備基本觀念，直奔實務與痛點突破。
         </Panel>
       </div>
       <Panel title="老師們的核心痛點" delay={0.5}>
-        <p style={{ margin: '0 0 12px 0', fontSize: '40px', lineHeight: 1.4, fontStyle: 'italic', color: colors.orange }}>
-          「會因為教材製作時間有限，ai功能不熟練，造成心理期待使用，但無法順利完成...」
-        </p>
-        <p style={{ margin: 0, fontWeight: 700, fontSize: '40px', color: colors.text, lineHeight: 1.4 }}>
-          今天工作坊的核心目的：帶大家直接練習實際課程的教材生成流程，把時間省下來！
-        </p>
+        <ul style={{ paddingLeft: '20px', margin: 0, display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '40px', lineHeight: '1.6' }}>
+          <li><strong>時間有限、功能不熟</strong>：想使用 AI 卻不知如何順利完成。</li>
+          <li><strong>今日目標</strong>：直接練習生成流程，把時間省下來！</li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第一部分：入門與米克師體驗" />
