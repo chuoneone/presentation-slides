@@ -434,18 +434,15 @@ const Slide01_Title: Page = () => (
             🛠️ 進階實務工作坊
           </span>
         </div>
-        <h1 style={{ fontSize: '62px', fontWeight: 900, lineHeight: 1.2, color: colors.text, margin: '0 0 20px 0', letterSpacing: '-0.02em' }}>
-          生成式 AI <span style={{ color: colors.orange, fontWeight: 400 }}>×</span><br />
+        <h1 style={{ fontSize: '74px', fontWeight: 900, lineHeight: 1.2, color: colors.text, margin: '0 0 20px 0', letterSpacing: '-0.02em' }}>
+          生成式 AI <span style={{ color: colors.orange, fontWeight: 400 }}>×</span>{''}
           特殊教育備課
         </h1>
         <div style={{ display: 'inline-block', background: colors.accentMuted, padding: '10px 18px', borderRadius: '8px', borderLeft: `6px solid ${colors.accent}`, marginBottom: '30px', alignSelf: 'flex-start' }}>
-          <span style={{ fontSize: '30px', fontWeight: 800, color: colors.accent }}>
-            🎯 從客製教材到互動實務
-          </span>
+          <span style={{ fontSize: '30px', fontWeight: 800, color: colors.accent }}>🎯 從紙本教材到互動網頁</span>
         </div>
         <div style={{ width: '100%', height: '2px', background: '#f1f5f9', marginBottom: '24px' }} />
-        <p style={{ margin: 0, fontSize: '26px', color: colors.muted, lineHeight: 1.4, fontWeight: 500 }}>
-          📌 主軸：針對不同障礙類別的學生設計不同教材<br />
+        <p style={{ margin: 0, fontSize: '41px', color: colors.muted, lineHeight: 1.4, fontWeight: 500 }}>📌主講者︰朱旆誼(米克師)<br />
           📅 日期：115 年 7 月 7 日
         </p>
       </div>
@@ -524,7 +521,7 @@ const Slide04_Anxiety: Page = () => (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="核心定理" delay={0.1}>
         <div style={{ fontSize: '42px', fontWeight: 900, color: colors.orange, lineHeight: 1.3, margin: '12px 0' }}>
-          「工具會變，<br />但教學工作流（Workflow）不會變」
+          「工具會變，但教學工作流不會變」
         </div>
         <p style={{ margin: 0, fontSize: '40px', color: colors.muted, lineHeight: 1.5 }}>
           掌握核心的 Prompt 結構與特教邏輯，即使下週出了一個全新的 AI 模型，您也能一秒上手。
