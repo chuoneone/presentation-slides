@@ -782,16 +782,31 @@ const Slide03_Needs: Page = () => (
       style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        gap: 20,
+        gap: 16,
         flex: 1,
         zIndex: 2,
         minHeight: 0,
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
-        <Panel title="第一名 🏆" delay={0.1} style={{ flex: 1 }}>
-          <strong style={{ color: colors.orange }}>針對不同障礙類別學生的客製化教材設計</strong>
-          <div style={{ fontSize: '36px', color: colors.muted, marginTop: '8px' }}>
+        <Panel delay={0.1} style={{ flex: 1, padding: '16px 24px', justifyContent: 'center' }}>
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: '36px',
+              color: 'var(--osd-accent)',
+              margin: '0 0 6px 0',
+              fontWeight: 800,
+            }}
+          >
+            第一名 🏆
+          </h3>
+          <strong
+            style={{ color: colors.orange, fontSize: '30px', display: 'block', lineHeight: 1.3 }}
+          >
+            針對不同障礙類別學生的客製化教材設計
+          </strong>
+          <div style={{ fontSize: '26px', color: colors.muted, marginTop: '4px', lineHeight: 1.3 }}>
             如何為自閉、智能障礙、學習障礙學生設計教材。
           </div>
         </Panel>
