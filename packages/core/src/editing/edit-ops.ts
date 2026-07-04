@@ -209,15 +209,19 @@ function hasOnlyTextOps(ops: EditOp[]): boolean {
   return ops.length > 0 && ops.every((op) => op.kind === 'set-text');
 }
 
+function normalizeWhitespace(s: string): string {
+  return s.replace(/\s+/g, ' ').trim();
+}
+
 function elementTextMatches(element: t.JSXElement, prevText: string): boolean {
   const parts: TextRangePart[] = [];
   collectTextRangeParts(element, parts);
-  return textRangeContent(parts) === prevText;
+  return normalizeWhitespace(textRangeContent(parts)) === normalizeWhitespace(prevText);
 }
 
 function elementHasTextCandidate(ast: t.File, element: t.JSXElement, prevText: string): boolean {
-  const norm = prevText.trim();
-  return collectElementTextCandidates(ast, element).some((candidate) => candidate.current === norm);
+  const norm = normalizeWhitespace(prevText);
+  return collectElementTextCandidates(ast, element).some((candidate) => normalizeWhitespace(candidate.current) === norm);
 }
 
 function findElementForEdit(
@@ -1047,8 +1051,8 @@ function elementTextCandidateMatches(
   element: t.JSXElement,
   prevText: string,
 ): boolean {
-  const norm = prevText.trim();
-  return collectElementTextCandidates(ast, element).some((candidate) => candidate.current === norm);
+  const norm = normalizeWhitespace(prevText);
+  return collectElementTextCandidates(ast, element).some((candidate) => normalizeWhitespace(candidate.current) === norm);
 }
 
 function buildTextSplice(
@@ -1069,8 +1073,8 @@ function buildTextSplice(
   }
   // Trim: JSX collapses surrounding whitespace at render time, so the
   // DOM `prevText` won't have leading/trailing space the source might.
-  const norm = prevText.trim();
-  const matches = candidates.filter((c) => c.current === norm);
+  const norm = normalizeWhitespace(prevText);
+  const matches = candidates.filter((c) => normalizeWhitespace(c.current) === norm);
   if (matches.length === 0) {
     return { error: 'no text candidate matches the current value' };
   }
