@@ -525,7 +525,7 @@ const Slide01_Title: Page = () => (
 const Slide02_Speaker: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="講師介紹" subtitle="關於我" unit="單元 1" />
+    <TextbookHeader title="介紹" subtitle="關於我" unit="單元 1" />
     <div
       style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 40, flex: 1, zIndex: 2 }}
     >
@@ -631,7 +631,7 @@ const Slide02b_Outline: Page = () => (
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 24,
+        gap: 16,
         flex: 1,
         zIndex: 2,
         justifyContent: 'center',
@@ -651,11 +651,11 @@ const Slide02b_Outline: Page = () => (
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '24px',
+            gap: '20px',
             background: '#ffffff',
             border: '2px solid #e2e8f0',
-            borderRadius: '16px',
-            padding: '20px 28px',
+            borderRadius: '14px',
+            padding: '14px 20px',
             boxShadow: '0 2px 8px rgba(100,116,139,0.06)',
           }}
         >
@@ -817,24 +817,24 @@ const Slide04_Anxiety: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="AI 這麼快，我跟不上怎麼辦？" subtitle="觀念翻轉" unit="單元 1" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}>
       <Panel title="核心定理" delay={0.1}>
         <div
           style={{
-            fontSize: '42px',
+            fontSize: '38px',
             fontWeight: 900,
             color: colors.orange,
             lineHeight: 1.3,
-            margin: '12px 0',
+            margin: '8px 0',
           }}
         >
           「工具會變，但教學工作流不會變」
         </div>
-        <p style={{ margin: 0, fontSize: '40px', color: colors.muted, lineHeight: 1.5 }}>
+        <p style={{ margin: 0, fontSize: '36px', color: colors.muted, lineHeight: 1.5 }}>
           掌握核心的 Prompt 結構與特教邏輯，即使下週出了一個全新的 AI 模型，您也能一秒上手。
         </p>
       </Panel>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Panel title="❌ 追逐工具 (落後焦慮)" delay={0.25}>
           不要當「工具的追逐者」，盲目學習各種新 AI 的按鈕與功能。
         </Panel>
@@ -2425,6 +2425,103 @@ const Slide33_Part5Header: Page = () => (
   />
 );
 
+// Slide 34b: AI 進化路線：AI → Gem → Agent → Skill
+const Slide34b_AIEvolution: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="AI 的進化路線" subtitle="工具層次" unit="單元 5" />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        flex: 1,
+        zIndex: 2,
+        justifyContent: 'center',
+      }}
+    >
+      {(
+        [
+          [
+            '🤖 一般 AI',
+            colors.accent,
+            '#eff6ff',
+            '#bfdbfe',
+            '加速「點狀」工作',
+            '每次手動發問，加速單一任務。例：自己消化再產出的教材簡化步驟，現在 AI 幫你極速完成。',
+          ],
+          [
+            '💎 Gem（定制化 AI）',
+            '#7c3aed',
+            '#f5f3ff',
+            '#ddd6fe',
+            '點狀任務一鍵化',
+            '儲存您的角色設定與常用指令，不用每次重新輸入前置說明。單擊即可產生，也是「你想要做什麼，再去選工具」的選擇模式。',
+          ],
+          [
+            '🤖➡️ AI Agent',
+            '#059669',
+            '#f0fdf4',
+            '#a7f3d0',
+            '將點串成鏈，自動完成流程',
+            '自動依序執行多個任務。例：先簡化教材→生成網頁→产生語音報讀→自動存檔，不需手動介入。',
+          ],
+          [
+            '✨ Skill（AI 職業技能包）',
+            '#d97706',
+            '#fffbeb',
+            '#fde68a',
+            '關鍵字觸發，AI 自主判斷',
+            '關鍵字觸發後，AI 自行判斷要執行哪些任動。與 Gem 的差異：Gem 是「你選工具」，Skill 是「AI 看情況决定要做什麼」。',
+          ],
+        ] as const
+      ).map(([label, color, bg, border, tag, desc]) => (
+        <div
+          key={label}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            background: bg,
+            border: `2px solid ${border}`,
+            borderRadius: '14px',
+            padding: '16px 24px',
+          }}
+        >
+          <div
+            style={{
+              minWidth: '160px',
+              fontWeight: 900,
+              fontSize: '28px',
+              color: color,
+              fontFamily: 'var(--osd-font-display)',
+            }}
+          >
+            {label}
+          </div>
+          <div
+            style={{
+              minWidth: '180px',
+              background: 'rgba(255,255,255,0.7)',
+              border: `1.5px solid ${border}`,
+              borderRadius: '8px',
+              padding: '6px 14px',
+              fontSize: '24px',
+              fontWeight: 700,
+              color: color,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {tag}
+          </div>
+          <div style={{ fontSize: '30px', color: '#334155', lineHeight: 1.4, flex: 1 }}>{desc}</div>
+        </div>
+      ))}
+    </div>
+    <TextbookFooter subtitle="第五部分：優雅備課與總結" />
+  </div>
+);
+
 // Slide 34: 研習總結
 const Slide34_Summary: Page = () => (
   <div style={fill}>
@@ -2610,6 +2707,7 @@ export default [
   Slide31b_GithubPages,
   Slide31c_PracticeChallenge,
   Slide33_Part5Header,
+  Slide34b_AIEvolution,
   Slide34_Summary,
   Slide35_QA,
 ] satisfies Page[];
