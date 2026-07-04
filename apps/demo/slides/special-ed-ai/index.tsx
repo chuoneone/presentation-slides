@@ -521,7 +521,177 @@ const Slide01_Title: Page = () => (
   </div>
 );
 
-// Slide 2: 聽眾起點行為
+// Slide 2: 講師介紹
+const Slide02_Speaker: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="講師介紹" subtitle="關於我" unit="單元 1" />
+    <div
+      style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 40, flex: 1, zIndex: 2 }}
+    >
+      <Panel
+        title="朱旆誼 米克師"
+        delay={0.1}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '320px',
+            height: '320px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #fed7aa 0%, #fbbf24 100%)',
+            border: '6px solid #f97316',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '80px',
+            color: '#fff',
+            marginBottom: '24px',
+            boxShadow: '0 8px 32px rgba(249,115,22,0.25)',
+          }}
+        >
+          👨‍🏫
+        </div>
+        <div style={{ fontSize: '42px', fontWeight: 900, color: colors.text, textAlign: 'center' }}>
+          朱旆誼
+        </div>
+        <div
+          style={{
+            fontSize: '32px',
+            color: colors.orange,
+            fontWeight: 700,
+            marginTop: '8px',
+            textAlign: 'center',
+          }}
+        >
+          米克師
+        </div>
+      </Panel>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <Panel title="學歷" delay={0.2}>
+          <ul
+            style={{
+              paddingLeft: '20px',
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px',
+              fontSize: '34px',
+              lineHeight: '1.5',
+            }}
+          >
+            <li>
+              <strong>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
+            </li>
+            <li>
+              <strong>國立東華大學</strong> 資訊管理所
+            </li>
+            <li>
+              <strong>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
+            </li>
+          </ul>
+        </Panel>
+        <Panel title="經歷" delay={0.35}>
+          <ul
+            style={{
+              paddingLeft: '20px',
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px',
+              fontSize: '34px',
+              lineHeight: '1.5',
+            }}
+          >
+            <li>
+              <strong>花蓮縣平和國中</strong> 資源班教師（兼巡迴支援）
+            </li>
+            <li>
+              <strong>宜蘭縣凱旋國中</strong> 資源班教師
+            </li>
+          </ul>
+        </Panel>
+      </div>
+    </div>
+    <TextbookFooter subtitle="第一部分：入門心態與講師體驗" />
+  </div>
+);
+
+// Slide 2b: 研習大綱
+const Slide02b_Outline: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="今日研習大綱" subtitle="五個單元" unit="單元 1" />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+        flex: 1,
+        zIndex: 2,
+        justifyContent: 'center',
+      }}
+    >
+      {(
+        [
+          ['01', '單元一：入門心態建立', '特教老師的 AI 焦慮與突破心法'],
+          ['02', '單元二：先快速簡化，再依障別精準調整', '從一鍵產生第一版到提示詞精準微調'],
+          ['03', '單元三：網頁教材實戰三工具', '互動工具製作、圖片解法、網頁排版'],
+          ['04', '單元四：自製工具管理', '一鍵自製資源傳送門，GitHub Pages 免費發佈'],
+          ['05', '單元五：總結＋補充', 'AI 沒有溫度，無法接住哭泣的孩子'],
+        ] as const
+      ).map(([num, title, desc]) => (
+        <div
+          key={num}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '24px',
+            background: '#ffffff',
+            border: '2px solid #e2e8f0',
+            borderRadius: '16px',
+            padding: '20px 28px',
+            boxShadow: '0 2px 8px rgba(100,116,139,0.06)',
+          }}
+        >
+          <div
+            style={{
+              minWidth: '72px',
+              height: '72px',
+              borderRadius: '12px',
+              background: colors.orangeLight,
+              border: `2px solid ${colors.orange}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '28px',
+              fontWeight: 900,
+              color: colors.orange,
+              fontFamily: 'var(--osd-font-display)',
+              letterSpacing: '0.05em',
+            }}
+          >
+            PART {num}
+          </div>
+          <div>
+            <div style={{ fontSize: '36px', fontWeight: 800, color: colors.text, lineHeight: 1.3 }}>
+              {title}
+            </div>
+            <div style={{ fontSize: '28px', color: colors.muted, marginTop: '4px' }}>{desc}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <TextbookFooter subtitle="第一部分：入門心態與講師體驗" />
+  </div>
+);
+
+// Slide 2 (disabled): 聽眾起點行為
 const _Slide02_Stats: Page = () => (
   <div style={fill}>
     <TextbookBg />
@@ -2400,6 +2570,8 @@ export const meta: SlideMeta = {
 // ==========================================
 export default [
   Slide01_Title,
+  Slide02_Speaker,
+  Slide02b_Outline,
   Slide03_Needs,
   Slide04_Anxiety,
   Slide05_Mindset,
