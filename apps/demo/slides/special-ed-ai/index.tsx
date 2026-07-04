@@ -778,31 +778,40 @@ const Slide03_Needs: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="前測問卷：學習主題排名" subtitle="需求調查" unit="單元 1" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1, zIndex: 2 }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Panel title="第一名 🏆" delay={0.1}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 20,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
+        <Panel title="第一名 🏆" delay={0.1} style={{ flex: 1 }}>
           <strong style={{ color: colors.orange }}>針對不同障礙類別學生的客製化教材設計</strong>
-          <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
+          <div style={{ fontSize: '36px', color: colors.muted, marginTop: '8px' }}>
             如何為自閉、智能障礙、學習障礙學生設計教材。
           </div>
         </Panel>
-        <Panel title="第二名 🥈" delay={0.25}>
+        <Panel title="第二名 🥈" delay={0.25} style={{ flex: 1 }}>
           <strong>如何利用 AI 快速製作教材講義與學習單</strong>
-          <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
+          <div style={{ fontSize: '36px', color: colors.muted, marginTop: '8px' }}>
             加速紙本與數位學習單的生成與排版輸出。
           </div>
         </Panel>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Panel title="第三名 🥉" delay={0.15}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
+        <Panel title="第三名 🥉" delay={0.15} style={{ flex: 1 }}>
           <strong>更精準的提示詞 (Prompt) 優化技巧</strong>
-          <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
+          <div style={{ fontSize: '36px', color: colors.muted, marginTop: '8px' }}>
             寫出符合特教邏輯的 Prompt，減少重試次數。
           </div>
         </Panel>
-        <Panel title="第四名" delay={0.3}>
+        <Panel title="第四名" delay={0.3} style={{ flex: 1 }}>
           <strong>AI 製作互動網頁與網頁發佈</strong>
-          <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
+          <div style={{ fontSize: '36px', color: colors.muted, marginTop: '8px' }}>
             利用程式碼無痛自製並發佈線上互動式教材。
           </div>
         </Panel>
@@ -2425,98 +2434,250 @@ const Slide33_Part5Header: Page = () => (
   />
 );
 
-// Slide 34b: AI 進化路線：AI → Gem → Agent → Skill
-const Slide34b_AIEvolution: Page = () => (
+// Slide 34b: 一般 AI vs AI Agent
+const Slide34b_AIvsAgent: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="AI 的進化路線" subtitle="工具層次" unit="單元 5" />
+    <TextbookHeader title="一般 AI vs AI Agent" subtitle="工具層次" unit="單元 5" />
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
+        gap: 24,
         flex: 1,
         zIndex: 2,
-        justifyContent: 'center',
+        alignItems: 'stretch',
       }}
     >
-      {(
-        [
-          [
-            '🤖 一般 AI',
-            colors.accent,
-            '#eff6ff',
-            '#bfdbfe',
-            '加速「點狀」工作',
-            '每次手動發問，加速單一任務。例：自己消化再產出的教材簡化步驟，現在 AI 幫你極速完成。',
-          ],
-          [
-            '💎 Gem（定制化 AI）',
-            '#7c3aed',
-            '#f5f3ff',
-            '#ddd6fe',
-            '點狀任務一鍵化',
-            '儲存您的角色設定與常用指令，不用每次重新輸入前置說明。單擊即可產生，也是「你想要做什麼，再去選工具」的選擇模式。',
-          ],
-          [
-            '🤖➡️ AI Agent',
-            '#059669',
-            '#f0fdf4',
-            '#a7f3d0',
-            '將點串成鏈，自動完成流程',
-            '自動依序執行多個任務。例：先簡化教材→生成網頁→产生語音報讀→自動存檔，不需手動介入。',
-          ],
-          [
-            '✨ Skill（AI 職業技能包）',
-            '#d97706',
-            '#fffbeb',
-            '#fde68a',
-            '關鍵字觸發，AI 自主判斷',
-            '關鍵字觸發後，AI 自行判斷要執行哪些任動。與 Gem 的差異：Gem 是「你選工具」，Skill 是「AI 看情況决定要做什麼」。',
-          ],
-        ] as const
-      ).map(([label, color, bg, border, tag, desc]) => (
+      {/* Left: 一般 AI */}
+      <Panel
+        title="🤖 一般 AI"
+        delay={0.1}
+        style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+      >
+        <p style={{ margin: 0, fontSize: '34px', color: colors.muted, lineHeight: 1.5 }}>
+          加速「點狀」工作。每次手動發問，加速單一任動。
+        </p>
+        {/* 點狀視覺 */}
         <div
-          key={label}
+          style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}
+        >
+          {['簡化教材', '寫學習單', '製作試題'].map((task) => (
+            <div key={task} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: '50%',
+                  background: colors.accent,
+                  border: '3px solid #93c5fd',
+                  flexShrink: 0,
+                }}
+              />
+              <div
+                style={{
+                  background: '#eff6ff',
+                  border: '2px solid #bfdbfe',
+                  borderRadius: 10,
+                  padding: '10px 20px',
+                  fontSize: '34px',
+                  fontWeight: 700,
+                  color: colors.accent,
+                }}
+              >
+                {task}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: '32px', color: colors.muted, fontStyle: 'italic' }}>
+          → 每個點都需要您手動觸發
+        </div>
+      </Panel>
+      {/* Middle Arrow */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          gap: 8,
+          padding: '0 8px',
+        }}
+      >
+        <div style={{ fontSize: '48px', color: '#94a3b8' }}>⇨</div>
+        <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            background: bg,
-            border: `2px solid ${border}`,
-            borderRadius: '14px',
-            padding: '16px 24px',
+            fontSize: '24px',
+            color: colors.muted,
+            textAlign: 'center',
+            writingMode: 'vertical-rl',
           }}
         >
-          <div
-            style={{
-              minWidth: '160px',
-              fontWeight: 900,
-              fontSize: '28px',
-              color: color,
-              fontFamily: 'var(--osd-font-display)',
-            }}
-          >
-            {label}
-          </div>
-          <div
-            style={{
-              minWidth: '180px',
-              background: 'rgba(255,255,255,0.7)',
-              border: `1.5px solid ${border}`,
-              borderRadius: '8px',
-              padding: '6px 14px',
-              fontSize: '24px',
-              fontWeight: 700,
-              color: color,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {tag}
-          </div>
-          <div style={{ fontSize: '30px', color: '#334155', lineHeight: 1.4, flex: 1 }}>{desc}</div>
+          進化
         </div>
-      ))}
+      </div>
+      {/* Right: AI Agent */}
+      <Panel
+        title="🤖➡️ AI Agent"
+        delay={0.2}
+        style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+      >
+        <p style={{ margin: 0, fontSize: '34px', color: colors.muted, lineHeight: 1.5 }}>
+          將點串成鏈，自動執行完整流程。
+        </p>
+        {/* 連線點狀視覺 */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0,
+            alignItems: 'flex-start',
+            position: 'relative',
+          }}
+        >
+          {['簡化教材', '生成網頁', '語音報讀', '自動存檔'].map((task, i) => (
+            <div
+              key={task}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0,
+                flexDirection: 'column',
+                width: '100%',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: '50%',
+                      background: '#059669',
+                      border: '3px solid #6ee7b7',
+                      flexShrink: 0,
+                    }}
+                  />
+                  {i < 3 && <div style={{ width: 3, height: 24, background: '#6ee7b7' }} />}
+                </div>
+                <div
+                  style={{
+                    background: '#f0fdf4',
+                    border: '2px solid #a7f3d0',
+                    borderRadius: 10,
+                    padding: '10px 20px',
+                    fontSize: '34px',
+                    fontWeight: 700,
+                    color: '#059669',
+                  }}
+                >
+                  {task}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: '32px', color: '#059669', fontWeight: 700 }}>
+          → AI 自動依序完成，不需介入
+        </div>
+      </Panel>
+    </div>
+    <TextbookFooter subtitle="第五部分：優雅備課與總結" />
+  </div>
+);
+
+// Slide 34c: Gem vs Skill
+const Slide34c_GemVsSkill: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="Gem vs Skill" subtitle="工具層次" unit="單元 5" />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 32,
+        flex: 1,
+        zIndex: 2,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* Left: Gem */}
+      <Panel
+        title="💎 Gem（定製化 AI）"
+        delay={0.1}
+        style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
+      >
+        <div
+          style={{
+            fontSize: '34px',
+            color: '#7c3aed',
+            fontWeight: 800,
+            background: '#f5f3ff',
+            border: '2px solid #ddd6fe',
+            borderRadius: 12,
+            padding: '12px 20px',
+          }}
+        >
+          「你想要做什麼，再去選工具」
+        </div>
+        <ul
+          style={{
+            paddingLeft: 20,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 14,
+            fontSize: '34px',
+            lineHeight: 1.5,
+          }}
+        >
+          <li>儲存角色設定與常用指令，不用每次重新輸入</li>
+          <li>單擊即可產生，適合重複性简化任動</li>
+          <li>使用者主動選擇要啟用哪個 Gem</li>
+        </ul>
+        <div style={{ marginTop: 'auto', fontSize: '30px', color: '#7c3aed', fontStyle: 'italic' }}>
+          例：「特教教材簡化 Gem」→點擊→一鍵產出
+        </div>
+      </Panel>
+      {/* Right: Skill */}
+      <Panel
+        title="✨ Skill（AI 職業技能包）"
+        delay={0.2}
+        style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
+      >
+        <div
+          style={{
+            fontSize: '34px',
+            color: '#d97706',
+            fontWeight: 800,
+            background: '#fffbeb',
+            border: '2px solid #fde68a',
+            borderRadius: 12,
+            padding: '12px 20px',
+          }}
+        >
+          「AI 看情況，自行决定要做什麼」
+        </div>
+        <ul
+          style={{
+            paddingLeft: 20,
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 14,
+            fontSize: '34px',
+            lineHeight: 1.5,
+          }}
+        >
+          <li>關鍵字觸發後，AI 自主判斷要執行哪些任動</li>
+          <li>不需選工具，AI 能同時運用多種技能</li>
+          <li>AI 辨識上下文，主動判斷現在需要做什麼</li>
+        </ul>
+        <div style={{ marginTop: 'auto', fontSize: '30px', color: '#d97706', fontStyle: 'italic' }}>
+          例：輸入「特教備課」，AI 自行分析『需簡化→需語音→需存檔』
+        </div>
+      </Panel>
     </div>
     <TextbookFooter subtitle="第五部分：優雅備課與總結" />
   </div>
@@ -2707,7 +2868,8 @@ export default [
   Slide31b_GithubPages,
   Slide31c_PracticeChallenge,
   Slide33_Part5Header,
-  Slide34b_AIEvolution,
+  Slide34b_AIvsAgent,
+  Slide34c_GemVsSkill,
   Slide34_Summary,
   Slide35_QA,
 ] satisfies Page[];
