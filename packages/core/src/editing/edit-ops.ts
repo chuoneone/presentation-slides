@@ -221,7 +221,9 @@ function elementTextMatches(element: t.JSXElement, prevText: string): boolean {
 
 function elementHasTextCandidate(ast: t.File, element: t.JSXElement, prevText: string): boolean {
   const norm = normalizeWhitespace(prevText);
-  return collectElementTextCandidates(ast, element).some((candidate) => normalizeWhitespace(candidate.current) === norm);
+  return collectElementTextCandidates(ast, element).some(
+    (candidate) => normalizeWhitespace(candidate.current) === norm,
+  );
 }
 
 function findElementForEdit(
@@ -1052,7 +1054,9 @@ function elementTextCandidateMatches(
   prevText: string,
 ): boolean {
   const norm = normalizeWhitespace(prevText);
-  return collectElementTextCandidates(ast, element).some((candidate) => normalizeWhitespace(candidate.current) === norm);
+  return collectElementTextCandidates(ast, element).some(
+    (candidate) => normalizeWhitespace(candidate.current) === norm,
+  );
 }
 
 function buildTextSplice(

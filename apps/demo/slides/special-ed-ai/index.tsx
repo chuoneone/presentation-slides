@@ -4,13 +4,13 @@ import type { CSSProperties, ReactNode } from 'react';
 import imgGoogleEduNoTraining from './assets/google-edu-no-training.png';
 import imgNotebookLMNoTraining from './assets/notebooklm-no-training.png';
 import imgSpedmixHome from './assets/spedmix-home.png';
+import imgUnsplashSports from './assets/unsplash-sports.png';
 import imgPromptRevise from './assets/加強我的提示詞.png';
 import imgMathExample from './assets/單元二範例題.png';
 import imgModeChatGPT from './assets/方式一：ChatGPT 生成圖像版學習單.png';
 import imgModeGemini from './assets/方式二：Gemini Canvas 生成 HTML 仿 A4 學習單.png';
 import imgZhuyin1 from './assets/注音一.png';
 import imgTitleFullBleed from './assets/第一頁滿版.png';
-import imgUnsplashSports from './assets/unsplash-sports.png';
 
 // ==========================================
 // 1. 設計系統與視覺 Tokens (符合 Warm Textbook 風格)
@@ -134,7 +134,16 @@ const TextbookHeader = ({
       )}
     </div>
     <h2
-      style={{ fontFamily: 'var(--osd-font-display)', fontSize: '65px', fontWeight: 800, color: 'var(--osd-text)', margin: '8px 0 0 0', letterSpacing: '-0.02em', lineHeight: 1.2, textAlign: 'center' }}
+      style={{
+        fontFamily: 'var(--osd-font-display)',
+        fontSize: '65px',
+        fontWeight: 800,
+        color: 'var(--osd-text)',
+        margin: '8px 0 0 0',
+        letterSpacing: '-0.02em',
+        lineHeight: 1.2,
+        textAlign: 'center',
+      }}
     >
       {title}
     </h2>
@@ -1325,11 +1334,7 @@ const Slide14_PromptCycle: Page = () => (
 const Slide15_OutputModes: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      title="常見痛點︰怎麼變成漂亮學習單？"
-      subtitle="美觀輸出"
-      unit="單元 2"
-    />
+    <TextbookHeader title="常見痛點︰怎麼變成漂亮學習單？" subtitle="美觀輸出" unit="單元 2" />
     <div
       style={{
         display: 'grid',
@@ -1405,11 +1410,7 @@ const Slide15_OutputModes: Page = () => (
 const Slide16_ZhuyinFontChoice: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      title="常見痛點︰注音學習單如何製作？"
-      subtitle="注音字體範例"
-      unit="單元 2"
-    />
+    <TextbookHeader title="常見痛點︰注音學習單如何製作？" subtitle="注音字體範例" unit="單元 2" />
     <div
       style={{
         display: 'grid',
@@ -1670,7 +1671,11 @@ const Slide20_WebTool1: Page = () => (
           體驗說明：拖曳詞彙卡片進行造句，即時檢視文法是否正確，並支援語音朗讀輔助。
         </p>
       </Panel>
-      <Panel title="工具畫面預覽" delay={0.25} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}>
+      <Panel
+        title="工具畫面預覽"
+        delay={0.25}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
+      >
         <div style={{ color: colors.muted, fontSize: '36px' }}>【畫面圖暫留空】</div>
       </Panel>
     </div>
@@ -1751,7 +1756,11 @@ const Slide22_WebTool2: Page = () => (
           教學應用：成語具象化（看圖猜成語）、語文單字與真實生活情境的對應與泛化。
         </p>
       </Panel>
-      <Panel title="工具畫面預覽" delay={0.25} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}>
+      <Panel
+        title="工具畫面預覽"
+        delay={0.25}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
+      >
         <div style={{ color: colors.muted, fontSize: '36px' }}>【畫面圖暫留空】</div>
       </Panel>
     </div>
@@ -1837,17 +1846,24 @@ const Slide24_WebTool3: Page = () => (
           }}
         >
           <li>
-            <strong>逐段呈現</strong>：每次只顯露一小段文章，避免整頁密密麻麻的文字，大幅降低閱讀視覺負荷。
+            <strong>逐段呈現</strong>
+            ：每次只顯露一小段文章，避免整頁密密麻麻的文字，大幅降低閱讀視覺負荷。
           </li>
           <li>
-            <strong>語音朗讀高亮</strong>：點擊或懸停句子時自動語音朗讀並高亮句子，有效協助識字障礙學生。
+            <strong>語音朗讀高亮</strong>
+            ：點擊或懸停句子時自動語音朗讀並高亮句子，有效協助識字障礙學生。
           </li>
           <li>
-            <strong>雙擊重點劃記</strong>：允許學生雙擊句子直接在下方劃記重點線，增加閱讀的專注度與互動感。
+            <strong>雙擊重點劃記</strong>
+            ：允許學生雙擊句子直接在下方劃記重點線，增加閱讀的專注度與互動感。
           </li>
         </ul>
       </Panel>
-      <Panel title="工具畫面預覽" delay={0.25} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}>
+      <Panel
+        title="工具畫面預覽"
+        delay={0.25}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
+      >
         <div style={{ color: colors.muted, fontSize: '36px' }}>【畫面圖暫留空】</div>
       </Panel>
     </div>
@@ -1881,7 +1897,8 @@ const Slide25_EmojiPain: Page = () => (
             <strong>避免失效破圖</strong>：AI 寫 HTML 時最喜歡用 Unicode Emoji 當成圖片。
           </li>
           <li>
-            <strong style={{ fontSize: '200px' }}>🤣</strong>{''}
+            <strong style={{ fontSize: '200px' }}>🤣</strong>
+            {''}
           </li>
         </ul>
       </Panel>
@@ -1918,7 +1935,9 @@ const Slide26_EmojiHow: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="解法一︰Unsplash API " subtitle="網頁配圖" unit="單元 3" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 32, flex: 1, zIndex: 2 }}>
+    <div
+      style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 32, flex: 1, zIndex: 2 }}
+    >
       <Panel title="引導 AI 使用外部免版權圖庫 API" delay={0.1}>
         <ul
           style={{
@@ -1932,18 +1951,29 @@ const Slide26_EmojiHow: Page = () => (
           }}
         >
           <li>
-            <strong>動態載入真實照片</strong>：使用 Unsplash API 動態嵌入高畫質生活實景照片，跳過幼稚的表情符號。
+            <strong>動態載入真實照片</strong>：使用 Unsplash API
+            動態嵌入高畫質生活實景照片，跳過幼稚的表情符號。
           </li>
           <li>
-            <strong>{''}</strong>{''}
+            <strong>{''}</strong>
+            {''}
           </li>
         </ul>
       </Panel>
-      <Panel title="" delay={0.4} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Panel
+        title=""
+        delay={0.4}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+      >
         <img
           src={imgUnsplashSports}
           alt="球類運動互動學習樂園"
-          style={{ width: '100%', height: 'auto', borderRadius: 8, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+          style={{
+            width: '100%',
+            height: 'auto',
+            borderRadius: 8,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          }}
         />
       </Panel>
     </div>
@@ -1956,7 +1986,9 @@ const Slide26b_SvgDraw: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="解法二︰用 SVG 向量圖形繪圖" subtitle="網頁配圖" unit="單元 3" />
-    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 32, flex: 1, zIndex: 2 }}>
+    <div
+      style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 32, flex: 1, zIndex: 2 }}
+    >
       <Panel title="SVG 向量繪圖對策" delay={0.1}>
         <ul
           style={{
@@ -1970,17 +2002,24 @@ const Slide26b_SvgDraw: Page = () => (
           }}
         >
           <li>
-            <strong>明確下達繪圖指令</strong>：下指令時直接命令 AI「使用 SVG 標籤與路徑幫你畫圖」，而不是使用 Emoji。
+            <strong>明確下達繪圖指令</strong>：下指令時直接命令 AI「使用 SVG
+            標籤與路徑幫你畫圖」，而不是使用 Emoji。
           </li>
           <li>
-            <strong>控制複雜度與適應性</strong>：指示 AI 採用乾淨、線條簡單的向量風格，易於用程式碼渲染。
+            <strong>控制複雜度與適應性</strong>：指示 AI
+            採用乾淨、線條簡單的向量風格，易於用程式碼渲染。
           </li>
           <li>
-            <strong>嚴格禁止 Emoji 代替</strong>：明確加上限制條件，防止 AI 偷懶使用 Unicode 表情符號干擾畫面。
+            <strong>嚴格禁止 Emoji 代替</strong>：明確加上限制條件，防止 AI 偷懶使用 Unicode
+            表情符號干擾畫面。
           </li>
         </ul>
       </Panel>
-      <Panel title="指令下達 (Prompt) 範例" delay={0.3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Panel
+        title="指令下達 (Prompt) 範例"
+        delay={0.3}
+        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+      >
         <div
           style={{
             background: colors.orangeLight,
@@ -1994,8 +2033,13 @@ const Slide26b_SvgDraw: Page = () => (
             textAlign: 'left',
           }}
         >
-          <strong style={{ color: colors.orange, display: 'block', marginBottom: '8px' }}>💡 提示詞範例：</strong>
-          「請幫我寫一個互動網頁教材。請在配圖部分<strong>完全使用簡單、質感的 SVG 程式碼繪製</strong>圖示（例如使用 &lt;svg&gt; 搭配 &lt;path&gt; 畫一個書本或網球拍），<strong>嚴格禁止使用 Emoji 表情符號</strong>，確保畫面乾淨專業。」
+          <strong style={{ color: colors.orange, display: 'block', marginBottom: '8px' }}>
+            💡 提示詞範例：
+          </strong>
+          「請幫我寫一個互動網頁教材。請在配圖部分
+          <strong>完全使用簡單、質感的 SVG 程式碼繪製</strong>圖示（例如使用 &lt;svg&gt; 搭配
+          &lt;path&gt; 畫一個書本或網球拍），<strong>嚴格禁止使用 Emoji 表情符號</strong>
+          ，確保畫面乾淨專業。」
         </div>
       </Panel>
     </div>
@@ -2007,11 +2051,7 @@ const Slide26b_SvgDraw: Page = () => (
 const Slide27_DriveHost: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      title="解法三︰ 複製Google Drive 連結"
-      subtitle="自製圖床"
-      unit="單元 3"
-    />
+    <TextbookHeader title="解法三︰ 複製Google Drive 連結" subtitle="自製圖床" unit="單元 3" />
     <div
       style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, flex: 1, zIndex: 2 }}
     >
@@ -2105,7 +2145,8 @@ const Slide31_PortalPain: Page = () => (
           }}
         >
           <li>
-            <strong>資料散落各處</strong>：做好的一堆學習單、Prompts 和 GPTs 連結，散落各處難以管理。
+            <strong>資料散落各處</strong>：做好的一堆學習單、Prompts 和 GPTs
+            連結，散落各處難以管理。
           </li>
           <li>
             <strong>分享協作不易</strong>：要一個個複製給同事或家長，流程繁瑣且容易漏掉。
@@ -2125,10 +2166,12 @@ const Slide31_PortalPain: Page = () => (
           }}
         >
           <li>
-            <strong>網址丟給 AI 整合</strong>：將所有整理好的連結貼給 AI，下指令要求直接做成數位學習網站。
+            <strong>網址丟給 AI 整合</strong>：將所有整理好的連結貼給
+            AI，下指令要求直接做成數位學習網站。
           </li>
           <li>
-            <strong>特教友善排版</strong>：要求 AI 自動進行科目分類、加入即時搜尋、深淺色切換與放大字型按鈕。
+            <strong>特教友善排版</strong>：要求 AI
+            自動進行科目分類、加入即時搜尋、深淺色切換與放大字型按鈕。
           </li>
         </ul>
       </Panel>
@@ -2166,7 +2209,8 @@ const Slide31b_GithubPages: Page = () => (
             <strong>2. 新建儲存庫 (Repo)</strong>：點擊右上角「New」新建一個專案儲存庫。
           </li>
           <li>
-            <strong>3. 設定名稱與上傳</strong>：輸入儲存庫名稱，將 AI 寫好的 <code>index.html</code> 網頁檔案上傳。
+            <strong>3. 設定名稱與上傳</strong>：輸入儲存庫名稱，將 AI 寫好的 <code>index.html</code>{' '}
+            網頁檔案上傳。
           </li>
         </ul>
       </Panel>
@@ -2192,7 +2236,8 @@ const Slide31b_GithubPages: Page = () => (
             <strong>6. 選取部署分支</strong>：在 Branch 區塊將 None 改選為「main」分支。
           </li>
           <li>
-            <strong>7. 儲存與完成部署</strong>：點擊「Save」，稍等一分鐘即可獲得您專屬的公開網站連結！
+            <strong>7. 儲存與完成部署</strong>
+            ：點擊「Save」，稍等一分鐘即可獲得您專屬的公開網站連結！
           </li>
         </ul>
       </Panel>
