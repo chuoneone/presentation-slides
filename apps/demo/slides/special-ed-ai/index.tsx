@@ -287,7 +287,13 @@ const PartHeaderPage = ({
         PART {partNum}
       </div>
       <h2
-        style={{ fontSize: '95px', fontWeight: 800, color: colors.text, margin: '0 0 20px 0', letterSpacing: '-0.02em' }}
+        style={{
+          fontSize: '95px',
+          fontWeight: 800,
+          color: colors.text,
+          margin: '0 0 20px 0',
+          letterSpacing: '-0.02em',
+        }}
       >
         {title}
       </h2>
@@ -491,7 +497,20 @@ const Slide01_Title: Page = () => (
       }}
     />
     <div
-      style={{ position: 'absolute', top: '64%', left: '50%', transform: 'translateX(-50%)', zIndex: 2, fontFamily: 'var(--osd-font-display)', fontSize: '46px', fontWeight: 800, color: '#334155', textShadow: '0 2px 12px rgba(255, 255, 255, 0.88)', letterSpacing: 0, whiteSpace: 'nowrap' }}
+      style={{
+        position: 'absolute',
+        top: '64%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 2,
+        fontFamily: 'var(--osd-font-display)',
+        fontSize: '46px',
+        fontWeight: 800,
+        color: '#334155',
+        textShadow: '0 2px 12px rgba(255, 255, 255, 0.88)',
+        letterSpacing: 0,
+        whiteSpace: 'nowrap',
+      }}
     >
       朱旆誼(米克師)
     </div>
@@ -516,11 +535,11 @@ const Slide02_Stats: Page = () => (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 22, minHeight: 0 }}>
         <Panel title="AI 工具使用經驗" delay={0.1} style={{ flex: 1 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <div
-              style={{ fontSize: '40px', color: '#000000', lineHeight: 1.15 }}
-            >{''}</div>
+            <div style={{ fontSize: '40px', color: '#000000', lineHeight: 1.15 }}>{''}</div>
             <div style={{ fontSize: '40px', lineHeight: 1.45, color: colors.text }}>
-              都用過 Gemini。<br />多數老師均用過 ChatGPT 與 Claude。
+              都用過 Gemini。
+              <br />
+              多數老師均用過 ChatGPT 與 Claude。
             </div>
           </div>
         </Panel>
@@ -531,7 +550,9 @@ const Slide02_Stats: Page = () => (
             </span>
           </Panel>
           <Panel title="AI 熟練度" delay={0.35}>
-            <span style={{ fontSize: '38px', lineHeight: 1.45 }}>具備基本觀念，針對實務與痛點突破。</span>
+            <span style={{ fontSize: '38px', lineHeight: 1.45 }}>
+              具備基本觀念，針對實務與痛點突破。
+            </span>
           </Panel>
         </div>
       </div>
@@ -545,7 +566,9 @@ const Slide02_Stats: Page = () => (
               padding: '24px',
             }}
           >
-            <div style={{ fontSize: '46px', fontWeight: 900, color: colors.orange, lineHeight: 1.2 }}>
+            <div
+              style={{ fontSize: '46px', fontWeight: 900, color: colors.orange, lineHeight: 1.2 }}
+            >
               時間有限、功能不熟
             </div>
             <p style={{ margin: '12px 0 0 0', fontSize: '38px', lineHeight: 1.45 }}>
@@ -560,7 +583,9 @@ const Slide02_Stats: Page = () => (
               padding: '24px',
             }}
           >
-            <div style={{ fontSize: '46px', fontWeight: 900, color: colors.accent, lineHeight: 1.2 }}>
+            <div
+              style={{ fontSize: '46px', fontWeight: 900, color: colors.accent, lineHeight: 1.2 }}
+            >
               今日目標
             </div>
             <p style={{ margin: '12px 0 0 0', fontSize: '38px', lineHeight: 1.45 }}>
@@ -798,9 +823,7 @@ const Slide07_Ethics: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader title="AI 使用倫理" subtitle="特教倫理" unit="單元 1" />
-    <div
-      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}
-    >
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="可以做" delay={0.1}>
         <ul
           style={{
@@ -813,13 +836,17 @@ const Slide07_Ethics: Page = () => (
           }}
         >
           <li>
-            <strong>輸入行為</strong>：<span style={{ fontWeight: '400' }}>例如障礙類別、能力現況、學習困難。</span>
+            <strong>輸入行為</strong>：
+            <span style={{ fontWeight: '400' }}>例如障礙類別、能力現況、學習困難。</span>
           </li>
           <li>
             <strong>描述教學需求</strong>：例如想練習的概念、題型、提示層次與評量方式。
           </li>
           <li>
-            <strong>去識別化︰<span style={{ fontWeight: '400' }}>「米克師」改成「米OO」</span></strong>{''}
+            <strong>
+              去識別化︰<span style={{ fontWeight: '400' }}>「米克師」改成「米OO」</span>
+            </strong>
+            {''}
           </li>
         </ul>
       </Panel>
@@ -841,7 +868,8 @@ const Slide07_Ethics: Page = () => (
             <strong>不上傳敏感文件</strong>：診斷證明、IEP 原始檔、輔導紀錄。
           </li>
           <li>
-            <strong>{''}</strong>{''}
+            <strong>{''}</strong>
+            {''}
           </li>
         </ul>
       </Panel>
@@ -871,10 +899,26 @@ const Slide08_GoogleNoTraining: Page = () => (
     >
       <div
         className="es-fadeUp"
-        style={{ background: '#ffffff', border: '2px solid #dbeafe', borderRadius: '18px', padding: '28px', display: 'flex', flexDirection: 'column', gap: 18, boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)', fontSize: '30px' }}
+        style={{
+          background: '#ffffff',
+          border: '2px solid #dbeafe',
+          borderRadius: '18px',
+          padding: '28px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 18,
+          boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)',
+          fontSize: '30px',
+        }}
       >
         <h3
-          style={{ margin: 0, fontSize: '50px', fontFamily: 'var(--osd-font-display)', color: 'var(--osd-accent)', lineHeight: 1.15 }}
+          style={{
+            margin: 0,
+            fontSize: '50px',
+            fontFamily: 'var(--osd-font-display)',
+            color: 'var(--osd-accent)',
+            lineHeight: 1.15,
+          }}
         >
           1. 教育版帳號
         </h3>
@@ -895,10 +939,29 @@ const Slide08_GoogleNoTraining: Page = () => (
       </div>
       <div
         className="es-fadeUp"
-        style={{ background: '#ffffff', border: '2px solid #ddd6fe', borderRadius: '18px', padding: '28px', display: 'flex', flexDirection: 'column', gap: 18, boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)', animationDelay: '0.15s', objectFit: 'cover', objectPosition: '50% 50%', objectViewBox: 'inset(0% 0.96% 0% 0.95%)' }}
+        style={{
+          background: '#ffffff',
+          border: '2px solid #ddd6fe',
+          borderRadius: '18px',
+          padding: '28px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 18,
+          boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)',
+          animationDelay: '0.15s',
+          objectFit: 'cover',
+          objectPosition: '50% 50%',
+          objectViewBox: 'inset(0% 0.96% 0% 0.95%)',
+        }}
       >
         <h3
-          style={{ margin: 0, fontSize: '50px', fontFamily: 'var(--osd-font-display)', color: '#6d28d9', lineHeight: 1.15 }}
+          style={{
+            margin: 0,
+            fontSize: '50px',
+            fontFamily: 'var(--osd-font-display)',
+            color: '#6d28d9',
+            lineHeight: 1.15,
+          }}
         >
           2. NotebookLM
         </h3>
@@ -968,7 +1031,9 @@ const Slide10_PaperTool2: Page = () => (
     />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="同質變形題" delay={0.1}>
-        <p style={{ margin: '0 0 16px 0', fontSize: '40px', lineHeight: 1.4 }}>輸入一題原始題目，系統能快速生出多個結構完全相同、僅數字不同的變形題。</p>
+        <p style={{ margin: '0 0 16px 0', fontSize: '40px', lineHeight: 1.4 }}>
+          輸入一題原始題目，系統能快速生出多個結構完全相同、僅數字不同的變形題。
+        </p>
         <div
           style={{
             display: 'flex',
@@ -1052,7 +1117,8 @@ const Slide11_PaperTool3: Page = () => (
             <strong>拆解解題步驟</strong>：把一題拆成「看題目、圈關鍵字、列算式、計算、檢查」。
           </li>
           <li>
-            <strong>{''}</strong>{''}
+            <strong>{''}</strong>
+            {''}
           </li>
           <li>
             <strong>保留同一學習目標</strong>：題目變簡單，但不偏離概念。
@@ -1327,7 +1393,16 @@ const Slide16_ZhuyinFontChoice: Page = () => (
         <img
           src={imgZhuyin1}
           alt="線上注音字體 範例一"
-          style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto', objectPosition: '50% 50%', objectViewBox: 'inset(0% 30.66% 49.38% 0%)' }}
+          style={{
+            width: '500px',
+            height: '500px',
+            objectFit: 'cover',
+            borderRadius: 8,
+            display: 'block',
+            margin: '0 auto',
+            objectPosition: '50% 50%',
+            objectViewBox: 'inset(0% 30.66% 49.38% 0%)',
+          }}
         />
       </Panel>
       <Panel
@@ -1343,11 +1418,21 @@ const Slide16_ZhuyinFontChoice: Page = () => (
         <img
           src={imgZhuyin2}
           alt="線上注音字體 範例二"
-          style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }}
+          style={{
+            width: '500px',
+            height: '500px',
+            objectFit: 'cover',
+            borderRadius: 8,
+            display: 'block',
+            margin: '0 auto',
+          }}
         />
       </Panel>
     </div>
-    <TextbookFooter subtitle="第二部分：紙本教材與破解" style={{ objectPosition: '50% 50%', objectViewBox: 'inset(0% 32.59% 49.44% 0%)' }} />
+    <TextbookFooter
+      subtitle="第二部分：紙本教材與破解"
+      style={{ objectPosition: '50% 50%', objectViewBox: 'inset(0% 32.59% 49.44% 0%)' }}
+    />
   </div>
 );
 
