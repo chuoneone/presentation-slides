@@ -5,6 +5,10 @@ import imgPromptRevise from './assets/加強我的提示詞.png';
 import imgMathExample from './assets/單元二範例題.png';
 import imgModeChatGPT from './assets/方式一：ChatGPT 生成圖像版學習單.png';
 import imgModeGemini from './assets/方式二：Gemini Canvas 生成 HTML 仿 A4 學習單.png';
+import imgGoogleEduNoTraining from './assets/google-edu-no-training.png';
+import imgNotebookLMNoTraining from './assets/notebooklm-no-training.png';
+import imgSpedmixHome from './assets/spedmix-home.png';
+import imgTitleFullBleed from './assets/第一頁滿版.png';
 import imgZhuyin1 from './assets/注音一.png';
 import imgZhuyin2 from './assets/注音二.png';
 
@@ -93,7 +97,7 @@ const TextbookHeader = ({
   subtitle,
   unit = '單元 1',
 }: {
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   unit?: string;
 }) => (
@@ -237,7 +241,7 @@ const Panel = ({
           fontWeight: 800,
         }}
       >
-        <span style={{ color: '#ea580c' }}>◆</span> {title}
+        <span style={{ color: '#ea580c' }}>{''}</span> {title}
       </h3>
     )}
     <div style={{ fontSize: 40, lineHeight: 1.5, color: 'var(--osd-text)' }}>{children}</div>
@@ -283,13 +287,7 @@ const PartHeaderPage = ({
         PART {partNum}
       </div>
       <h2
-        style={{
-          fontSize: '65px',
-          fontWeight: 800,
-          color: colors.text,
-          margin: '0 0 20px 0',
-          letterSpacing: '-0.02em',
-        }}
+        style={{ fontSize: '95px', fontWeight: 800, color: colors.text, margin: '0 0 20px 0', letterSpacing: '-0.02em' }}
       >
         {title}
       </h2>
@@ -480,105 +478,23 @@ const _AgendaCard = ({
 
 // Slide 1: 標題頁
 const Slide01_Title: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <div
-      className="es-fadeUp"
+  <div style={{ ...fill, padding: 0, background: '#f8fafc' }}>
+    <img
+      src={imgTitleFullBleed}
+      alt="生成式 AI × 特殊教育備課滿版背景"
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        zIndex: 2,
-        background: '#ffffff',
-        border: '3px solid #e2e8f0',
-        borderRadius: '24px',
-        padding: '50px 80px',
-        boxShadow: '0 12px 48px rgba(100, 116, 139, 0.05)',
-        textAlign: 'center',
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
       }}
+    />
+    <div
+      style={{ position: 'absolute', top: '64%', left: '50%', transform: 'translateX(-50%)', zIndex: 2, fontFamily: 'var(--osd-font-display)', fontSize: '46px', fontWeight: 800, color: '#334155', textShadow: '0 2px 12px rgba(255, 255, 255, 0.88)', letterSpacing: 0, whiteSpace: 'nowrap' }}
     >
-      <div style={{ display: 'flex', gap: 16, marginBottom: '24px' }}>
-        <span
-          style={{
-            fontSize: '22px',
-            letterSpacing: '0.15em',
-            color: colors.accent,
-            fontWeight: 800,
-            background: colors.accentMuted,
-            padding: '8px 20px',
-            borderRadius: '6px',
-            border: `1px solid ${colors.accent}`,
-          }}
-        >
-          🏫 嘉義輔導團
-        </span>
-        <span
-          style={{
-            fontSize: '22px',
-            letterSpacing: '0.15em',
-            color: colors.orange,
-            fontWeight: 800,
-            background: colors.orangeLight,
-            padding: '8px 20px',
-            borderRadius: '6px',
-            border: `1px solid ${colors.orange}`,
-          }}
-        >
-          🛠️ 進階實務工作坊
-        </span>
-      </div>
-      <h1
-        style={{
-          fontSize: '84px',
-          fontWeight: 900,
-          lineHeight: 1.25,
-          color: colors.text,
-          margin: '0 0 24px 0',
-          letterSpacing: '-0.02em',
-        }}
-      >
-        生成式 AI <span style={{ color: colors.orange, fontWeight: 400 }}>×</span>
-        特殊教育備課
-      </h1>
-      <div
-        style={{
-          display: 'inline-block',
-          background: colors.accentMuted,
-          padding: '12px 24px',
-          borderRadius: '8px',
-          borderLeft: `6px solid ${colors.accent}`,
-          marginBottom: '32px',
-        }}
-      >
-        <span style={{ fontSize: '32px', fontWeight: 800, color: colors.accent }}>
-          🎯 從紙本教材到互動網頁
-        </span>
-      </div>
-      <div
-        style={{
-          width: '200px',
-          height: '3px',
-          background: colors.orange,
-          marginBottom: '32px',
-          borderRadius: '2px',
-        }}
-      />
-      <p
-        style={{
-          margin: 0,
-          fontSize: '42px',
-          color: colors.muted,
-          lineHeight: 1.6,
-          fontWeight: 500,
-        }}
-      >
-        📌主講者︰朱旆誼(米克師)
-        <br />📅 日期：115 年 7 月 7 日
-      </p>
+      朱旆誼(米克師)
     </div>
-    <TextbookFooter subtitle="進階實務工作坊" />
   </div>
 );
 
@@ -586,43 +502,72 @@ const Slide01_Title: Page = () => (
 const Slide02_Stats: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="今天來參加研習的我們是誰？" subtitle="聽眾起點行為" unit="單元 1" />
+    <TextbookHeader title="今天工作坊對象？" subtitle="聽眾起點行為" unit="單元 1" />
     <div
-      style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 32, flex: 1, zIndex: 2 }}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.05fr 0.95fr',
+        gap: 32,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+      }}
     >
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-        <Panel title="Gemini 使用經驗" delay={0.1}>
-          大部分的人都用過 Gemini。
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 22, minHeight: 0 }}>
+        <Panel title="AI 工具使用經驗" delay={0.1} style={{ flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            <div
+              style={{ fontSize: '40px', color: '#000000', lineHeight: 1.15 }}
+            >{''}</div>
+            <div style={{ fontSize: '40px', lineHeight: 1.45, color: colors.text }}>
+              都用過 Gemini。<br />多數老師均用過 ChatGPT 與 Claude。
+            </div>
+          </div>
         </Panel>
-        <Panel title="ChatGPT 使用經驗" delay={0.2}>
-          多數老師均用過 ChatGPT 與 Claude。
-        </Panel>
-        <Panel title="教材改寫經驗" delay={0.3}>
-          全員皆有用 AI 改寫教材的經驗。
-        </Panel>
-        <Panel title="AI 熟練度" delay={0.4}>
-          具備基本觀念，直奔實務與痛點突破。
-        </Panel>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
+          <Panel title="教材改寫經驗" delay={0.25}>
+            <span style={{ fontSize: '38px', lineHeight: 1.45 }}>
+              全員皆有用 AI 改寫教材的經驗。
+            </span>
+          </Panel>
+          <Panel title="AI 熟練度" delay={0.35}>
+            <span style={{ fontSize: '38px', lineHeight: 1.45 }}>具備基本觀念，針對實務與痛點突破。</span>
+          </Panel>
+        </div>
       </div>
-      <Panel title="老師們的核心痛點" delay={0.5}>
-        <ul
-          style={{
-            paddingLeft: '20px',
-            margin: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            fontSize: '40px',
-            lineHeight: '1.6',
-          }}
-        >
-          <li>
-            <strong>時間有限、功能不熟</strong>：想使用 AI 卻不知如何順利完成。
-          </li>
-          <li>
-            <strong>今日目標</strong>：直接練習生成流程，把時間省下來！
-          </li>
-        </ul>
+      <Panel title="老師們的核心痛點" delay={0.45} style={{ justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <div
+            style={{
+              background: colors.orangeLight,
+              border: '2px solid #fed7aa',
+              borderRadius: '16px',
+              padding: '24px',
+            }}
+          >
+            <div style={{ fontSize: '46px', fontWeight: 900, color: colors.orange, lineHeight: 1.2 }}>
+              時間有限、功能不熟
+            </div>
+            <p style={{ margin: '12px 0 0 0', fontSize: '38px', lineHeight: 1.45 }}>
+              想使用 AI，卻不知如何順利完成。
+            </p>
+          </div>
+          <div
+            style={{
+              background: '#ecfeff',
+              border: '2px solid #a5f3fc',
+              borderRadius: '16px',
+              padding: '24px',
+            }}
+          >
+            <div style={{ fontSize: '46px', fontWeight: 900, color: colors.accent, lineHeight: 1.2 }}>
+              今日目標
+            </div>
+            <p style={{ margin: '12px 0 0 0', fontSize: '38px', lineHeight: 1.45 }}>
+              直接練習生成流程，把時間省下來！
+            </p>
+          </div>
+        </div>
       </Panel>
     </div>
     <TextbookFooter subtitle="第一部分：入門與米克師體驗" />
@@ -633,16 +578,16 @@ const Slide02_Stats: Page = () => (
 const Slide03_Needs: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="前測問卷：大家今天最想學什麼？" subtitle="需求調查" unit="單元 1" />
+    <TextbookHeader title="前測問卷：學習主題排名" subtitle="需求調查" unit="單元 1" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1, zIndex: 2 }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Panel title="第一名 (10 票 / 滿票) 🏆" delay={0.1}>
+        <Panel title="第一名 🏆" delay={0.1}>
           <strong style={{ color: colors.orange }}>針對不同障礙類別學生的客製化教材設計</strong>
           <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
             如何為自閉、智能障礙、學習障礙學生設計教材。
           </div>
         </Panel>
-        <Panel title="第二名 (9 票) 🥈" delay={0.25}>
+        <Panel title="第二名 🥈" delay={0.25}>
           <strong>如何利用 AI 快速製作教材講義與學習單</strong>
           <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
             加速紙本與數位學習單的生成與排版輸出。
@@ -650,13 +595,13 @@ const Slide03_Needs: Page = () => (
         </Panel>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Panel title="第三名 (8 票) 🥉" delay={0.15}>
+        <Panel title="第三名 🥉" delay={0.15}>
           <strong>更精準的提示詞 (Prompt) 優化技巧</strong>
           <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
             寫出符合特教邏輯的 Prompt，減少重試次數。
           </div>
         </Panel>
-        <Panel title="第四名 (7 票)" delay={0.3}>
+        <Panel title="第四名" delay={0.3}>
           <strong>AI 製作互動網頁與網頁發佈</strong>
           <div style={{ fontSize: '40px', color: colors.muted, marginTop: '8px' }}>
             利用程式碼無痛自製並發佈線上互動式教材。
@@ -672,7 +617,7 @@ const Slide03_Needs: Page = () => (
 const Slide04_Anxiety: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="AI 迭代這麼快，我跟不上怎麼辦？" subtitle="觀念翻轉" unit="單元 1" />
+    <TextbookHeader title="AI 這麼快，我跟不上怎麼辦？" subtitle="觀念翻轉" unit="單元 1" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="核心定理" delay={0.1}>
         <div
@@ -707,11 +652,11 @@ const Slide04_Anxiety: Page = () => (
 const Slide05_Mindset: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="不要太貪心：與 AI 互動的健康心態" subtitle="合作心態" unit="單元 1" />
+    <TextbookHeader title="佛系心法：與 AI 互動的健康心態" subtitle="合作心態" unit="單元 1" />
     <div
       style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20, flex: 1, zIndex: 2 }}
     >
-      <Panel title="不要求一次得到 100 分" delay={0.1}>
+      <Panel title="不求一次得 100 分" delay={0.1}>
         <ul
           style={{
             paddingLeft: '20px',
@@ -731,7 +676,7 @@ const Slide05_Mindset: Page = () => (
           </li>
         </ul>
       </Panel>
-      <Panel title="「70分實習老師」理論" delay={0.2}>
+      <Panel title="70分實習生" delay={0.2}>
         <ul
           style={{
             paddingLeft: '20px',
@@ -751,7 +696,7 @@ const Slide05_Mindset: Page = () => (
           </li>
         </ul>
       </Panel>
-      <Panel title="小步迭代" delay={0.3}>
+      <Panel title="當自己學生" delay={0.3}>
         <ul
           style={{
             paddingLeft: '20px',
@@ -781,72 +726,82 @@ const Slide06_MixerIntro: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader
-      title="米克師：專為特教設計的備課小秘書"
-      subtitle="米克師初體驗"
-      unit="單元 1"
-    />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.2fr 0.8fr',
-        gap: 40,
-        flex: 1,
-        zIndex: 2,
-        alignItems: 'center',
-      }}
-    >
-      <Panel title="對焦需求：我想要課程計畫與 IEP 目標小助手" delay={0.1}>
-        <p style={{ margin: '0 0 12px 0', fontSize: '40px', lineHeight: 1.4 }}>
-          問卷中很多老師提到希望能有自動對接特教課綱向度的工具。
-        </p>
-        <p style={{ margin: 0, fontSize: '40px', color: colors.accent, fontWeight: 700 }}>
-          <strong>米克師 (https://spedmix.pages.dev/)</strong>{' '}
-          內建特教專屬工作流，一秒生成符合新課綱的學年與學期教學目標，打通備課關卡！
-        </p>
-      </Panel>
-      <Panel title="現場體驗引導" delay={0.25}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10,
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        >
-          <span
+      title={
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+          <span>米克師：專為特教設計的AI備課幫手</span>
+          <a
+            href="https://spedmix.pages.dev/"
+            target="_blank"
+            rel="noreferrer"
             style={{
-              fontSize: '40px',
+              fontSize: '32px',
               fontWeight: 800,
               color: colors.orange,
               background: colors.orangeLight,
               padding: '6px 16px',
               borderRadius: '8px',
+              letterSpacing: 0,
+              lineHeight: 1.2,
+              textDecoration: 'none',
             }}
           >
             🔗 spedmix.pages.dev
-          </span>
-          <p
-            style={{ margin: '10px 0 0 0', fontSize: '40px', color: colors.muted, lineHeight: 1.4 }}
-          >
-            請老師們用手機或平板直接打開此網址，我們來體驗如何一鍵產出個別化 IEP 目標！
-          </p>
-        </div>
-      </Panel>
+          </a>
+        </span>
+      }
+      subtitle="米克師初體驗"
+      unit="單元 1"
+    />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 22,
+        flex: 1,
+        zIndex: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <div
+        className="es-fadeUp"
+        style={{
+          width: '100%',
+          maxWidth: 1420,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 18,
+          alignItems: 'center',
+        }}
+      >
+        <img
+          src={imgSpedmixHome}
+          alt="米克師 AI 備課幫手首頁畫面"
+          style={{
+            width: '100%',
+            aspectRatio: '1776 / 888',
+            objectFit: 'contain',
+            border: '2px solid #dbeafe',
+            borderRadius: '16px',
+            boxShadow: '0 22px 48px rgba(15, 23, 42, 0.16)',
+            background: '#f8fafc',
+          }}
+        />
+      </div>
     </div>
     <TextbookFooter subtitle="第一部分：入門與米克師體驗" />
   </div>
 );
 
-// Slide 7: 特教倫理：學生的個資安全紅線
+// Slide 7: 特教倫理：可以做與不可以做
 const Slide07_Ethics: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="把學生的起點行為餵給 AI，安全嗎？" subtitle="特教倫理" unit="單元 1" />
+    <TextbookHeader title="AI 使用倫理" subtitle="特教倫理" unit="單元 1" />
     <div
-      style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 40, flex: 1, zIndex: 2 }}
+      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}
     >
-      <Panel title="個資去識別化 SOP" delay={0.1}>
+      <Panel title="可以做" delay={0.1}>
         <ul
           style={{
             paddingLeft: '20px',
@@ -858,49 +813,116 @@ const Slide07_Ethics: Page = () => (
           }}
         >
           <li>
-            <strong>絕對不要輸入</strong>：學生真實姓名、身份證字號、具體學校與班級。
+            <strong>輸入行為</strong>：<span style={{ fontWeight: '400' }}>例如障礙類別、能力現況、學習困難。</span>
           </li>
           <li>
-            <strong>完全可以輸入</strong>：起點行為描述（如：「中度智能障礙，識字量 20
-            個，只能理解具體單詞」）。
+            <strong>描述教學需求</strong>：例如想練習的概念、題型、提示層次與評量方式。
           </li>
-          <li>AI 只需要能力特質，不需要學生真實身份。</li>
+          <li>
+            <strong>去識別化︰<span style={{ fontWeight: '400' }}>「米克師」改成「米OO」</span></strong>{''}
+          </li>
         </ul>
       </Panel>
-      <Panel title="共享與雲端硬碟權限" delay={0.25}>
-        <p style={{ margin: '0 0 16px 0', fontSize: '40px', lineHeight: 1.4 }}>
-          當我們將自製教材發佈給學生，或導入圖片時，Google Drive 共享設定：
-        </p>
-        <div
+      <Panel title="不可以做" delay={0.25}>
+        <ul
           style={{
-            background: colors.orangeLight,
-            padding: '16px',
-            borderRadius: '12px',
+            paddingLeft: '20px',
+            margin: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
             fontSize: '40px',
-            fontWeight: 800,
-            color: colors.orange,
-            textAlign: 'center',
           }}
         >
-          限制為「檢視者」
-        </div>
-        <p
-          style={{
-            margin: '12px 0 0 0',
-            fontSize: '40px',
-            color: colors.muted,
-            fontStyle: 'italic',
-          }}
-        >
-          * 絕對不要開啟「編輯者」，防止教材原始檔被學生意外修改或移除。
-        </p>
+          <li>
+            <strong>不輸入個資</strong>：姓名、身分證字號、學校、班級、地址。
+          </li>
+          <li>
+            <strong>不上傳敏感文件</strong>：診斷證明、IEP 原始檔、輔導紀錄。
+          </li>
+          <li>
+            <strong>{''}</strong>{''}
+          </li>
+        </ul>
       </Panel>
     </div>
     <TextbookFooter subtitle="第一部分：入門與米克師體驗" />
   </div>
 );
 
-// Slide 8: PART 2 過渡頁
+// Slide 8: Google 不訓練模型的兩種情境
+const Slide08_GoogleNoTraining: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader
+      title="Google 不用來訓練模型的兩種情境"
+      subtitle="使用前先確認帳號與工具"
+      unit="單元 1"
+    />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 32,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+      }}
+    >
+      <div
+        className="es-fadeUp"
+        style={{ background: '#ffffff', border: '2px solid #dbeafe', borderRadius: '18px', padding: '28px', display: 'flex', flexDirection: 'column', gap: 18, boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)', fontSize: '30px' }}
+      >
+        <h3
+          style={{ margin: 0, fontSize: '50px', fontFamily: 'var(--osd-font-display)', color: 'var(--osd-accent)', lineHeight: 1.15 }}
+        >
+          1. 教育版帳號
+        </h3>
+        <p style={{ margin: 0, fontSize: '40px', lineHeight: 1.35, color: colors.text }}>
+          使用教育版 Gemini 時，畫面會提示：對話不會用於改良 Google 模型。
+        </p>
+        <img
+          src={imgGoogleEduNoTraining}
+          alt="教育版 Gemini 對話不會用於改良 Google 模型的截圖"
+          style={{
+            width: '100%',
+            marginTop: 'auto',
+            border: '2px solid #e2e8f0',
+            borderRadius: '14px',
+            boxShadow: '0 14px 28px rgba(15, 23, 42, 0.12)',
+          }}
+        />
+      </div>
+      <div
+        className="es-fadeUp"
+        style={{ background: '#ffffff', border: '2px solid #ddd6fe', borderRadius: '18px', padding: '28px', display: 'flex', flexDirection: 'column', gap: 18, boxShadow: '0 18px 36px rgba(15, 23, 42, 0.08)', animationDelay: '0.15s', objectFit: 'cover', objectPosition: '50% 50%', objectViewBox: 'inset(0% 0.96% 0% 0.95%)' }}
+      >
+        <h3
+          style={{ margin: 0, fontSize: '50px', fontFamily: 'var(--osd-font-display)', color: '#6d28d9', lineHeight: 1.15 }}
+        >
+          2. NotebookLM
+        </h3>
+        <p style={{ margin: 0, fontSize: '40px', lineHeight: 1.35, color: colors.text }}>
+          NotebookLM 說明頁承諾：重視隱私，不會將資料用於訓練 NotebookLM。
+        </p>
+        <img
+          src={imgNotebookLMNoTraining}
+          alt="NotebookLM 隱私與不訓練模型承諾的截圖"
+          style={{
+            width: '100%',
+            marginTop: 'auto',
+            border: '2px solid #e9d5ff',
+            borderRadius: '14px',
+            boxShadow: '0 14px 28px rgba(15, 23, 42, 0.12)',
+          }}
+        />
+      </div>
+    </div>
+    <TextbookFooter subtitle="第一部分：入門與米克師體驗" />
+  </div>
+);
+
+// Slide 9: PART 2 過渡頁
 const Slide08_Part2Header: Page = () => (
   <PartHeaderPage
     partNum="02"
@@ -946,11 +968,7 @@ const Slide10_PaperTool2: Page = () => (
     />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="同質變形題" delay={0.1}>
-        <p style={{ margin: '0 0 16px 0', fontSize: '40px', lineHeight: 1.4 }}>
-          輸入一題原始題目（例如：`3x + 5 =
-          20`），系統能快速衍生出多個結構完全相同、僅數字不同的變形題（例如：`7x + 2 = 23`, `4x + 9
-          = 37`, `6x + 1 = 19`）。
-        </p>
+        <p style={{ margin: '0 0 16px 0', fontSize: '40px', lineHeight: 1.4 }}>輸入一題原始題目，系統能快速生出多個結構完全相同、僅數字不同的變形題。</p>
         <div
           style={{
             display: 'flex',
@@ -1016,9 +1034,7 @@ const Slide11_PaperTool3: Page = () => (
       }}
     >
       <Panel title="簡化學習單可調整面向" delay={0.1}>
-        <p style={{ margin: '0 0 12px 0', fontSize: '40px', lineHeight: 1.4 }}>
-          數學簡化不是把題目變幼稚，而是把看不見的思考步驟變成看得見的支持：
-        </p>
+        <p style={{ margin: '0 0 12px 0', fontSize: '40px', lineHeight: 1.4 }}>{''}</p>
         <ul
           style={{
             paddingLeft: '20px',
@@ -1036,7 +1052,7 @@ const Slide11_PaperTool3: Page = () => (
             <strong>拆解解題步驟</strong>：把一題拆成「看題目、圈關鍵字、列算式、計算、檢查」。
           </li>
           <li>
-            <strong>增加視覺提示</strong>：用表格、框線、顏色、範例題協助對焦。
+            <strong>{''}</strong>{''}
           </li>
           <li>
             <strong>保留同一學習目標</strong>：題目變簡單，但不偏離概念。
@@ -1247,7 +1263,7 @@ const Slide15_OutputModes: Page = () => (
         </p>
       </Panel>
       <Panel
-        title="2. Gemini Canvas 生成 HTML 仿 A4 學習單"
+        title="2. Gemini Canvas 生成 HTML"
         delay={0.25}
         style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
       >
@@ -1268,7 +1284,7 @@ const Slide15_OutputModes: Page = () => (
           />
         </div>
         <p style={{ margin: 0, fontSize: '40px', color: colors.muted, lineHeight: 1.4 }}>
-          將修好的咒語貼到 Gemini。按下 Canvas，在提示詞最後補上一句：
+          咒語貼到 Gemini，按下 Canvas，在提示詞最後補上一句：
           <span style={{ fontStyle: 'italic', fontWeight: 700, color: colors.accent }}>
             「請用 HTML 畫一個仿 A4 的學習單，且列印出來要很美觀。」
           </span>
@@ -1311,14 +1327,7 @@ const Slide16_ZhuyinFontChoice: Page = () => (
         <img
           src={imgZhuyin1}
           alt="線上注音字體 範例一"
-          style={{
-            width: '500px',
-            height: '500px',
-            objectFit: 'cover',
-            borderRadius: 8,
-            display: 'block',
-            margin: '0 auto',
-          }}
+          style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto', objectPosition: '50% 50%', objectViewBox: 'inset(0% 30.66% 49.38% 0%)' }}
         />
       </Panel>
       <Panel
@@ -1334,18 +1343,11 @@ const Slide16_ZhuyinFontChoice: Page = () => (
         <img
           src={imgZhuyin2}
           alt="線上注音字體 範例二"
-          style={{
-            width: '500px',
-            height: '500px',
-            objectFit: 'cover',
-            borderRadius: 8,
-            display: 'block',
-            margin: '0 auto',
-          }}
+          style={{ width: '500px', height: '500px', objectFit: 'cover', borderRadius: 8, display: 'block', margin: '0 auto' }}
         />
       </Panel>
     </div>
-    <TextbookFooter subtitle="第二部分：紙本教材與破解" />
+    <TextbookFooter subtitle="第二部分：紙本教材與破解" style={{ objectPosition: '50% 50%', objectViewBox: 'inset(0% 32.59% 49.44% 0%)' }} />
   </div>
 );
 
@@ -2005,6 +2007,7 @@ export default [
   Slide05_Mindset,
   Slide06_MixerIntro,
   Slide07_Ethics,
+  Slide08_GoogleNoTraining,
   Slide08_Part2Header,
   Slide09_PaperTool1,
   Slide10_PaperTool2,
