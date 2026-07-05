@@ -1,6 +1,8 @@
-﻿import type { DesignSystem, Page, SlideMeta } from '@open-slide/core';
+import type { DesignSystem, Page, SlideMeta } from '@open-slide/core';
 import { useSlidePageNumber } from '@open-slide/core';
 import type { CSSProperties, ReactNode } from 'react';
+import imgFourPanelComic from './assets/four-panel-comic.png';
+import imgGeminiGemConsistent from './assets/gemini-gem-consistent.png';
 import imgGoogleEduNoTraining from './assets/google-edu-no-training.png';
 import imgHeadshot from './assets/headshot.png';
 import imgNotebookLMNoTraining from './assets/notebooklm-no-training.png';
@@ -3140,10 +3142,7 @@ const Slide16_ZhuyinFontChoice: Page = () => (
         </ul>
       </Unit2Card>
     </div>
-    <TextbookFooter
-      subtitle="第三部分：紙本教材與破解"
-      style={{ objectPosition: '50% 50%', objectViewBox: 'inset(0% 32.59% 49.44% 0%)' }}
-    />
+    <TextbookFooter subtitle="第三部分：紙本教材與破解" />
   </div>
 );
 
@@ -3277,7 +3276,140 @@ const Slide17_MathFormat: Page = () => (
   </div>
 );
 
+// Slide 17b: 常見痛點︰為什麼生成的圖不連貫？
+const Slide17b_ConsistentImages: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader
+      title="常見痛點︰為什麼生成的圖不連貫？"
+      subtitle="角色與畫風一致性"
+      unit="單元 3"
+    />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 40,
+        flex: 1,
+        zIndex: 2,
+      }}
+    >
+      <Unit2Card
+        num="01"
+        title="方法一︰與 AI 約定並固定特徵 (自訂 Gem)"
+        delay={0.1}
+        style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+      >
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            marginBottom: 12,
+            background: colors.white,
+            border: '2px solid #ccfbf1',
+            borderRadius: 18,
+            padding: 12,
+          }}
+        >
+          <img
+            src={imgGeminiGemConsistent}
+            alt="Gemini 自訂角色特徵設計"
+            style={{ maxWidth: '100%', maxHeight: '310px', objectFit: 'contain', borderRadius: 12 }}
+          />
+        </div>
+        <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.38 }}>
+          在自訂 Gem 寫明：只要使用者輸入故事動作，就將動作翻譯成英文，並與固定的主角外貌
+          (如年齡、髮型、穿著) 及畫風 Prompt 組合。
+        </p>
+        <div style={{ textAlign: 'center' }}>
+          <a
+            href="https://gemini.google.com/gem/1nwL4LXks9Cqxl3ZAWV6rJ851hAAleQBW?usp=sharing"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 16,
+              padding: '12px 24px',
+              background: colors.accent,
+              color: colors.white,
+              borderRadius: 12,
+              fontSize: '28px',
+              fontWeight: 800,
+              textDecoration: 'none',
+              boxShadow: '0 4px 12px rgba(13, 148, 136, 0.2)',
+            }}
+          >
+            開啟角色生圖 Gem ➜
+          </a>
+        </div>
+      </Unit2Card>
+      <Unit2Card
+        num="02"
+        title="方法二︰使用專門漫畫生成器 (AI連環漫畫工廠)"
+        delay={0.25}
+        accent={colors.orange}
+        style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+      >
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            marginBottom: 12,
+            background: colors.white,
+            border: '2px solid #fed7aa',
+            borderRadius: 18,
+            padding: 12,
+          }}
+        >
+          <img
+            src={imgFourPanelComic}
+            alt="AI連環漫畫工廠"
+            style={{ maxWidth: '100%', maxHeight: '310px', objectFit: 'contain', borderRadius: 12 }}
+          />
+        </div>
+        <p style={{ margin: 0, fontSize: '30px', color: colors.muted, lineHeight: 1.38 }}>
+          直接貼上課文或寫一小段故事，系統便會自動規劃漫畫分鏡、生成旁白對話，並使用 Imagen 3
+          引擎自動繪製出角色連貫、生動的連環漫畫。
+        </p>
+        <div style={{ textAlign: 'center' }}>
+          <a
+            href="https://spedmix.pages.dev/four-panel-comic"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 16,
+              padding: '12px 24px',
+              background: colors.orange,
+              color: colors.white,
+              borderRadius: 12,
+              fontSize: '28px',
+              fontWeight: 800,
+              textDecoration: 'none',
+              boxShadow: '0 4px 12px rgba(234, 88, 12, 0.2)',
+            }}
+          >
+            開啟 AI 連環漫畫工廠 ➜
+          </a>
+        </div>
+      </Unit2Card>
+    </div>
+    <TextbookFooter subtitle="第三部分：紙本教材與破解" />
+  </div>
+);
+
 // Slide 18: 實作挑戰二（B）：美化提示詞與多元美觀輸出
+
 const Slide18_Workshop2: Page = () => (
   <PracticeHeaderPage
     num="2"
@@ -3567,12 +3699,7 @@ const Slide19b_WhyGeminiCanvas: Page = () => (
         <CanvasReasonCard label="02" title="從想法到可試用很快" delay={0.2} accent={colors.orange}>
           文字描述、即時預覽、直接改程式，讓老師能邊試邊修。
         </CanvasReasonCard>
-        <CanvasReasonCard
-          label="03"
-          title="分享後還能再進化"
-          delay={0.3}
-          style={{ fontSize: '35px' }}
-        >
+        <CanvasReasonCard label="03" title="分享後還能再進化" delay={0.3}>
           一鍵分享、複製別人的作品再改造，讓好的點子不只被使用，還能被接力放大。
         </CanvasReasonCard>
       </div>
@@ -5171,6 +5298,7 @@ export default [
   Slide15_OutputModes,
   Slide16_ZhuyinFontChoice,
   Slide17_MathFormat,
+  Slide17b_ConsistentImages,
   Slide18_Workshop2,
   Slide18b_ChineseAiTools,
   Slide18c_MathAiTools,
