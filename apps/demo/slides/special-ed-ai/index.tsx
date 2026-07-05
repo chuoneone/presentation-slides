@@ -10,8 +10,9 @@ import imgSkill2 from './assets/skill2.png';
 import imgSkill3 from './assets/skill3.png';
 import imgSpedmixHome from './assets/spedmix-home.png';
 import imgUnsplashSports from './assets/unsplash-sports.png';
+import imgWorkshopHomepage from './assets/workshop-homepage.png';
+import imgWorkshopSearchResult from './assets/workshop-search-result.png';
 import imgPromptRevise from './assets/加強我的提示詞.png';
-import imgMathExample from './assets/單元二範例題.png';
 import imgTool1 from './assets/工具一.png';
 import imgTool3 from './assets/工具三.png';
 import imgTool2 from './assets/工具二.png';
@@ -1061,6 +1062,160 @@ const Slide02_Speaker: Page = () => (
   </div>
 );
 
+const WorkshopStepCard = ({
+  num,
+  title,
+  children,
+  delay,
+  accent = colors.accent,
+}: {
+  num: string;
+  title: string;
+  children: ReactNode;
+  delay: number;
+  accent?: string;
+}) => (
+  <div
+    className="es-fadeUp"
+    style={{
+      animationDelay: `${delay}s`,
+      display: 'grid',
+      gridTemplateColumns: '82px 1fr',
+      gap: 22,
+      alignItems: 'start',
+      background: colors.white,
+      border: `2px solid ${accent === colors.accent ? '#99f6e4' : '#fed7aa'}`,
+      borderRadius: 20,
+      padding: '24px 28px',
+      boxShadow: '0 16px 34px rgba(15, 23, 42, 0.08)',
+    }}
+  >
+    <div
+      style={{
+        width: 68,
+        height: 68,
+        borderRadius: 18,
+        background: accent === colors.accent ? colors.accentMuted : colors.orangeLight,
+        color: accent,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 34,
+        fontWeight: 950,
+        fontFamily: 'var(--osd-font-display)',
+      }}
+    >
+      {num}
+    </div>
+    <div>
+      <div
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 38,
+          lineHeight: 1.12,
+          fontWeight: 950,
+          color: colors.text,
+          marginBottom: 8,
+        }}
+      >
+        {title}
+      </div>
+      <div style={{ fontSize: 29, lineHeight: 1.36, fontWeight: 720, color: colors.muted }}>
+        {children}
+      </div>
+    </div>
+  </div>
+);
+
+const Slide02a_WorkshopSlides: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="本日研習簡報" subtitle="開啟今日簡報" unit="單元 1" />
+    <div
+      style={{
+        zIndex: 2,
+        flex: 1,
+        display: 'grid',
+        gridTemplateColumns: '0.86fr 1.14fr',
+        gap: 34,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      <div style={{ display: 'grid', gap: 18, alignContent: 'center', minHeight: 0 }}>
+        <WorkshopStepCard num="01" title="搜尋「米克師」" delay={0.1}>
+          點擊搜尋結果中的「米克師｜AI備課幫手」，進入備課平台。
+        </WorkshopStepCard>
+        <WorkshopStepCard
+          num="02"
+          title="點選右上角「研習簡報」"
+          delay={0.2}
+          accent={colors.orange}
+        >
+          進入首頁後，看右上方導覽列，按下「研習簡報」。
+        </WorkshopStepCard>
+        <WorkshopStepCard num="03" title="輸入今日密碼" delay={0.3}>
+          輸入 <strong style={{ color: colors.orange, fontSize: 36 }}>1150707</strong>
+          ，即可看到今日研習簡報。
+        </WorkshopStepCard>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: '0.72fr 1.28fr',
+          gap: 20,
+          minHeight: 0,
+        }}
+      >
+        <div
+          className="es-fadeUp"
+          style={{
+            animationDelay: '0.15s',
+            background: colors.white,
+            border: '2px solid #dbe4ee',
+            borderRadius: 18,
+            padding: 16,
+            boxShadow: '0 18px 38px rgba(15, 23, 42, 0.08)',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={imgWorkshopSearchResult}
+            alt="搜尋米克師並點擊 AI 備課幫手"
+            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+          />
+        </div>
+        <div
+          className="es-fadeUp"
+          style={{
+            animationDelay: '0.25s',
+            background: colors.white,
+            border: '2px solid #dbe4ee',
+            borderRadius: 18,
+            padding: 16,
+            boxShadow: '0 18px 38px rgba(15, 23, 42, 0.08)',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={imgWorkshopHomepage}
+            alt="米克師 AI 備課幫手首頁右上角研習簡報"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              objectPosition: '50% 50%',
+              objectViewBox: 'inset(0% 0% 46.21% 34.55%)',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+    <TextbookFooter subtitle="第一部分：AI心法" />
+  </div>
+);
+
 // Slide 2c: 社群入口
 const Slide02c_Social: Page = () => (
   <div style={fill}>
@@ -1325,6 +1480,7 @@ const SubjectToolCard = ({
   title,
   children,
   note,
+  href,
   delay,
   accent = colors.accent,
 }: {
@@ -1332,62 +1488,95 @@ const SubjectToolCard = ({
   title: string;
   children: ReactNode;
   note: string;
+  href?: string;
   delay: number;
   accent?: string;
-}) => (
-  <div
-    className="es-fadeUp"
-    style={{
-      animationDelay: `${delay}s`,
-      background: colors.white,
-      border: `2px solid ${accent === colors.accent ? '#99f6e4' : '#fed7aa'}`,
-      borderRadius: 16,
-      padding: '24px 28px',
-      boxShadow: '0 16px 36px rgba(15, 23, 42, 0.08)',
-      display: 'grid',
-      gridTemplateColumns: '84px 1fr',
-      gap: 22,
-      alignItems: 'start',
-      alignSelf: 'center',
-      minHeight: 0,
-    }}
-  >
-    <div
-      style={{
-        width: 72,
-        height: 72,
-        borderRadius: 18,
-        background: accent === colors.accent ? colors.accentMuted : colors.orangeLight,
-        color: accent,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '34px',
-        fontWeight: 900,
-        fontFamily: 'var(--osd-font-display)',
-      }}
-    >
-      {num}
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+}) => {
+  const cardStyle: CSSProperties = {
+    animationDelay: `${delay}s`,
+    background: colors.white,
+    border: `2px solid ${accent === colors.accent ? '#99f6e4' : '#fed7aa'}`,
+    borderRadius: 16,
+    padding: '24px 28px',
+    boxShadow: '0 16px 36px rgba(15, 23, 42, 0.08)',
+    display: 'grid',
+    gridTemplateColumns: '84px 1fr',
+    gap: 22,
+    alignItems: 'start',
+    alignSelf: 'center',
+    minHeight: 0,
+    color: 'inherit',
+    textDecoration: 'none',
+  };
+
+  const content = (
+    <>
       <div
         style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '38px',
+          width: 72,
+          height: 72,
+          borderRadius: 18,
+          background: accent === colors.accent ? colors.accentMuted : colors.orangeLight,
+          color: accent,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '34px',
           fontWeight: 900,
-          color: colors.text,
-          lineHeight: 1.1,
+          fontFamily: 'var(--osd-font-display)',
         }}
       >
-        {title}
+        {num}
       </div>
-      <div style={{ fontSize: '28px', color: colors.text, lineHeight: 1.42, fontWeight: 650 }}>
-        {children}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: '38px',
+            fontWeight: 900,
+            color: colors.text,
+            lineHeight: 1.1,
+          }}
+        >
+          {title}
+        </div>
+        <div style={{ fontSize: '28px', color: colors.text, lineHeight: 1.42, fontWeight: 650 }}>
+          {children}
+        </div>
+        {href ? (
+          <div
+            style={{
+              fontSize: '21px',
+              color: accent,
+              lineHeight: 1.25,
+              fontWeight: 850,
+              overflowWrap: 'anywhere',
+            }}
+          >
+            {href}
+          </div>
+        ) : null}
+        {note ? (
+          <div style={{ fontSize: '24px', color: colors.muted, lineHeight: 1.35 }}>{note}</div>
+        ) : null}
       </div>
-      <div style={{ fontSize: '24px', color: colors.muted, lineHeight: 1.35 }}>{note}</div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a className="es-fadeUp" href={href} rel="noreferrer" style={cardStyle} target="_blank">
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="es-fadeUp" style={cardStyle}>
+      {content}
     </div>
-  </div>
-);
+  );
+};
 
 const WorkshopPainCard = ({
   label,
@@ -2336,7 +2525,25 @@ const Slide08_Part3Header: Page = () => (
 const Slide09_PaperTool1: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="方向一：課文簡化系統" subtitle="課文簡化" unit="單元 3" />
+    <TextbookHeader title="Gemini Canvas︰課文簡化系統" subtitle="課文簡化" unit="單元 3" />
+    <div
+      className="es-fadeUp"
+      style={{
+        zIndex: 2,
+        marginTop: 28,
+        background: colors.text,
+        color: colors.white,
+        borderRadius: 18,
+        padding: '18px 28px',
+        fontSize: '32px',
+        lineHeight: 1.28,
+        fontWeight: 900,
+        boxShadow: '0 18px 38px rgba(15, 23, 42, 0.14)',
+      }}
+    >
+      這是用 Gemini Canvas 寫出的「有 AI
+      功能的程式」：提示流程已固定，老師用點選與欄位輸入就能產出教材。
+    </div>
     <div
       style={{
         display: 'grid',
@@ -2344,11 +2551,11 @@ const Slide09_PaperTool1: Page = () => (
         gap: 28,
         zIndex: 2,
         alignItems: 'center',
-        marginTop: 72,
+        marginTop: 30,
       }}
     >
       <Unit2Card num="01" title="選程度，貼課文" delay={0.1} style={{ minHeight: 320 }}>
-        先設定學生年級程度，再貼上原始課文或上傳圖片 OCR，讓系統知道要改到哪個閱讀層級。
+        先用點選設定學生年級程度，再貼上原始課文或上傳圖片 OCR，讓系統知道要改到哪個閱讀層級。
       </Unit2Card>
       <Unit2Card
         num="02"
@@ -2360,7 +2567,7 @@ const Slide09_PaperTool1: Page = () => (
         產出簡化課文、摘要與段落配圖，先把教材從「老師可讀」改成「學生可入口」。
       </Unit2Card>
       <Unit2Card num="03" title="出題與 Word 匯出" delay={0.3} style={{ minHeight: 320 }}>
-        同步生成引導問題與讀後評量，最後下載成 Word 學習單，方便老師二次微調。
+        同步生成引導問題與讀後評量，最後匯出指定格式的 Word 學習單，方便老師二次微調。
       </Unit2Card>
     </div>
     <TextbookFooter subtitle="第三部分：紙本教材與破解" />
@@ -2371,7 +2578,26 @@ const Slide09_PaperTool1: Page = () => (
 const Slide10_PaperTool2: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="方向一：數題數題" subtitle="數題數題" unit="單元 3" />
+    <TextbookHeader title="Gem︰數題數題" subtitle="數題數題" unit="單元 3" />
+    <div
+      className="es-fadeUp"
+      style={{
+        zIndex: 2,
+        marginTop: 18,
+        marginBottom: 24,
+        background: colors.white,
+        border: '2px solid #fed7aa',
+        color: colors.text,
+        borderRadius: 18,
+        padding: '18px 28px',
+        fontSize: '32px',
+        lineHeight: 1.28,
+        fontWeight: 900,
+        boxShadow: '0 14px 30px rgba(15, 23, 42, 0.08)',
+      }}
+    >
+      這是使用 Gemini Gem 的方式生成：彈性高，但輸入要求仍以文字描述為主，需要老師把條件說清楚。
+    </div>
     <div
       style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 36, flex: 1, zIndex: 2 }}
     >
@@ -2422,47 +2648,139 @@ const Slide10_PaperTool2: Page = () => (
   </div>
 );
 
-// Slide 11: 紙本工具三：數學簡化學習單
-const Slide11_PaperTool3: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="方向一：數學簡化學習單" subtitle="簡化學習單" unit="單元 3" />
+const CompareHeader = ({ children, accent }: { children: ReactNode; accent?: string }) => (
+  <div
+    style={{
+      background: colors.text,
+      color: colors.white,
+      borderRadius: 16,
+      padding: '22px 28px',
+      fontSize: '36px',
+      fontWeight: 950,
+      lineHeight: 1.1,
+      minHeight: 92,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      borderBottom: `8px solid ${accent ?? colors.accent}`,
+    }}
+  >
+    {children}
+  </div>
+);
+
+const CompareRow = ({
+  label,
+  gem,
+  tool,
+  strong,
+}: {
+  label: string;
+  gem: ReactNode;
+  tool: ReactNode;
+  strong?: boolean;
+}) => (
+  <>
     <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: '0.8fr 1.2fr',
-        gap: 40,
-        flex: 1,
-        zIndex: 2,
+        padding: '16px 22px',
+        fontSize: '27px',
+        fontWeight: 900,
+        color: colors.text,
+        background: strong ? colors.accentMuted : 'rgba(255,255,255,0.72)',
+        borderBottom: '1px solid #dbe4ee',
       }}
     >
-      <Unit2Card num="01" title="簡化學習單調整面向" delay={0.1}>
-        <ul style={{ margin: 0, paddingLeft: 26, display: 'grid', gap: 18 }}>
-          <li>
-            <strong>降低文字量：</strong>把題意改成短句，減少不必要敘述。
-          </li>
-          <li>
-            <strong>拆解解題步驟：</strong>看題目、圈關鍵字、列算式、計算、檢查。
-          </li>
-          <li>
-            <strong>保留學習目標：</strong>題目變簡單，但概念不偏離。
-          </li>
-        </ul>
-      </Unit2Card>
-      <Unit2Card num="02" title="簡化與引導步驟對比" delay={0.25} accent={colors.orange}>
-        <img
-          src={imgMathExample}
-          alt="單元三數學範例題對比"
-          style={{
-            width: '100%',
-            height: 'auto',
-            borderRadius: 14,
-            border: '2px solid #fed7aa',
-            boxShadow: '0 18px 34px rgba(15, 23, 42, 0.1)',
-            background: colors.white,
-          }}
-        />
-      </Unit2Card>
+      {label}
+    </div>
+    <div
+      style={{
+        padding: '16px 22px',
+        fontSize: '27px',
+        fontWeight: strong ? 900 : 720,
+        color: colors.text,
+        background: strong ? '#fff7ed' : colors.white,
+        borderBottom: '1px solid #dbe4ee',
+        lineHeight: 1.22,
+      }}
+    >
+      {gem}
+    </div>
+    <div
+      style={{
+        padding: '16px 22px',
+        fontSize: '27px',
+        fontWeight: strong ? 900 : 720,
+        color: colors.text,
+        background: strong ? '#ecfdf5' : colors.white,
+        borderBottom: '1px solid #dbe4ee',
+        lineHeight: 1.22,
+      }}
+    >
+      {tool}
+    </div>
+  </>
+);
+
+const Slide10b_AIModeCompare: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader
+      title="兩種自製 AI 模式比較"
+      subtitle="Gemini Gems vs 自製 AI 工具"
+      unit="單元 3"
+    />
+    <div
+      style={{
+        zIndex: 2,
+        display: 'grid',
+        gridTemplateColumns: '0.82fr 1.08fr 1.1fr',
+        gap: 0,
+        marginTop: 34,
+        border: '2px solid #cbd5e1',
+        borderRadius: 22,
+        overflow: 'hidden',
+        boxShadow: '0 24px 58px rgba(15, 23, 42, 0.12)',
+      }}
+    >
+      <CompareHeader accent={colors.muted}>比較項目</CompareHeader>
+      <CompareHeader accent={colors.orange}>
+        Gemini Gems
+        <br />
+        半固定 AI 機器人
+      </CompareHeader>
+      <CompareHeader>
+        自製 AI 工具
+        <br />
+        固定 AI 工作流
+      </CompareHeader>
+      <CompareRow
+        label="本質"
+        gem="用 Gem 指令生成，邊對話邊調整"
+        tool="Gemini Canvas 寫出的有 AI 功能程式"
+      />
+      <CompareRow
+        label="輸入模式"
+        gem="仍以文字輸入要求為主"
+        tool="表單、欄位、選項式輸入"
+        strong
+      />
+      <CompareRow
+        label="操作方式"
+        gem="老師補充條件，依對話逐步修正"
+        tool="點選後直接生成，操作上更易用"
+        strong
+      />
+      <CompareRow
+        label="輸出模式"
+        gem="依對話內容動態生成"
+        tool="可輸出指定格式的 Word 文件"
+        strong
+      />
+      <CompareRow label="輸出穩定性" gem="每次結果可能略有不同" tool="格式與流程較一致" />
+      <CompareRow label="適合情境" gem="還在思考與調整內容" tool="想快速產出固定格式教材" />
+      <CompareRow label="教師使用狀態" gem="「我想跟 AI 討論」" tool="「我想直接產出」" strong />
     </div>
     <TextbookFooter subtitle="第三部分：紙本教材與破解" />
   </div>
@@ -2481,11 +2799,7 @@ const Slide11_Workshop1: Page = () => (
 const Slide12_WhyPrompt: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      title="工具能做第一版，但學生差異要靠老師精修"
-      subtitle="Prompt定位"
-      unit="單元 3"
-    />
+    <TextbookHeader title="提示詞加強術" subtitle="Prompt定位" unit="單元 3" />
     <div
       style={{
         display: 'grid',
@@ -2537,7 +2851,7 @@ const Slide12_WhyPrompt: Page = () => (
 const Slide13_AIRevise: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="提示詞偷吃步：先請 AI 加強" subtitle="Prompt潤飾" unit="單元 3" />
+    <TextbookHeader title="提示詞加強術" subtitle="Prompt潤飾" unit="單元 3" />
     <div
       style={{
         display: 'grid',
@@ -2604,7 +2918,7 @@ const Slide13_AIRevise: Page = () => (
 const Slide14_PromptCycle: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="反覆修正出完美提示詞" subtitle="小步迭代" unit="單元 3" />
+    <TextbookHeader title="提示詞加強術" subtitle="小步迭代" unit="單元 3" />
     <div
       style={{
         display: 'grid',
@@ -3004,13 +3318,32 @@ const Slide18b_ChineseAiTools: Page = () => (
         用在國文備課時，重點不是產出更多文字，而是把同一份教材調成學生讀得進去、練得起來的版本。
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 22, minHeight: 0 }}>
-        <SubjectToolCard num="01" title="課文簡化系統" delay={0.1} note="">
+        <SubjectToolCard
+          num="01"
+          title="課文簡化"
+          href="https://spedmix.pages.dev/simple"
+          delay={0.1}
+          note=""
+        >
           自動調整課文難度與閱讀量，提供不同程度版本，符合學生學習需求。
         </SubjectToolCard>
-        <SubjectToolCard num="02" title="詞彙教材一鍵通" delay={0.2} accent={colors.orange} note="">
+        <SubjectToolCard
+          num="02"
+          title="詞彙教材"
+          href="https://spedmix.pages.dev/vocab-maker"
+          delay={0.2}
+          accent={colors.orange}
+          note=""
+        >
           自動生成詞語教材與測驗，包含解釋、例句、練習題與測驗卷。
         </SubjectToolCard>
-        <SubjectToolCard num="03" title="文言文逐句翻譯" delay={0.3} note="">
+        <SubjectToolCard
+          num="03"
+          title="文言文"
+          href="https://spedmix.pages.dev/chinesetranslate"
+          delay={0.3}
+          note=""
+        >
           文言文白話翻譯與重點整理，支援逐句解析、語法標註與重點整理。
         </SubjectToolCard>
       </div>
@@ -3066,14 +3399,33 @@ const Slide18c_MathAiTools: Page = () => (
         數學卡住的不一定是計算，常常是題目太長、步驟太隱性、情境太陌生。
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 22, minHeight: 0 }}>
-        <SubjectToolCard num="01" title="數學簡化學習單" delay={0.1} note="">
+        <SubjectToolCard
+          num="01"
+          title="數學簡化"
+          href="https://spedmix.pages.dev/math-scaffold"
+          delay={0.1}
+          note=""
+        >
           自動簡化題目敘述與步驟說明，降低閱讀負擔，幫助學生專注於解題。
         </SubjectToolCard>
-        <SubjectToolCard num="02" title="分層題目生成" delay={0.2} accent={colors.orange} note="">
+        <SubjectToolCard
+          num="02"
+          title="數題數題"
+          href="https://spedmix.pages.dev/mathquestion"
+          delay={0.2}
+          accent={colors.orange}
+          note=""
+        >
           依需求快速生成不同難度、題型與情境的數學題目，涵蓋基礎到進階。
         </SubjectToolCard>
-        <SubjectToolCard num="03" title="互動式數學生成" delay={0.3} note="">
-          自動建立互動式數學教材，包含動態圖形、即時回饋與練習活動。
+        <SubjectToolCard
+          num="03"
+          title="數學應用題畫家"
+          href="https://spedmix.pages.dev/math-painter"
+          delay={0.3}
+          note=""
+        >
+          自動建立應用題情境圖像，幫助學生看懂題意、連結生活脈絡。
         </SubjectToolCard>
       </div>
       <div
@@ -3091,6 +3443,78 @@ const Slide18c_MathAiTools: Page = () => (
         }}
       >
         數學 AI 的核心：把題意拆小、把步驟看見、把練習變成可以反覆嘗試。
+      </div>
+    </div>
+    <TextbookFooter subtitle="第三部分：紙本教材與破解" />
+  </div>
+);
+
+const Slide18d_OtherAiTools: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="米克師工具推薦-其它" subtitle="單元三延伸應用" unit="單元 3" />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr auto',
+        gap: 28,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+      }}
+    >
+      <div
+        className="es-fadeUp"
+        style={{
+          background: colors.white,
+          border: '2px solid #e2e8f0',
+          borderRadius: 16,
+          padding: '22px 30px',
+          boxShadow: '0 14px 30px rgba(15, 23, 42, 0.06)',
+          fontSize: '32px',
+          fontWeight: 800,
+          color: colors.text,
+          lineHeight: 1.35,
+        }}
+      >
+        除了國文與數學，也可以把出題、工作步驟拆解成更適合個別學生的教材素材。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, minHeight: 0 }}>
+        <SubjectToolCard
+          num="01"
+          title="個別化出題"
+          href="https://spedmix.pages.dev/question"
+          delay={0.1}
+          note=""
+        >
+          依學生能力與教學目標快速生成題目，讓練習內容更貼近個別需求。
+        </SubjectToolCard>
+        <SubjectToolCard
+          num="02"
+          title="工作分析圖文生成"
+          href="https://spedmix.pages.dev/taskanalysis"
+          delay={0.2}
+          accent={colors.orange}
+          note=""
+        >
+          將任務拆成清楚步驟並搭配圖文提示，協助生活技能與作業流程教學。
+        </SubjectToolCard>
+      </div>
+      <div
+        className="es-fadeUp"
+        style={{
+          animationDelay: '0.3s',
+          background: colors.text,
+          color: colors.white,
+          borderRadius: 16,
+          padding: '20px 30px',
+          fontSize: '34px',
+          lineHeight: 1.25,
+          fontWeight: 900,
+          textAlign: 'center',
+        }}
+      >
+        其它工具的核心：把老師腦中的調整策略，變成學生看得懂、做得到的材料。
       </div>
     </div>
     <TextbookFooter subtitle="第三部分：紙本教材與破解" />
@@ -4547,7 +4971,7 @@ const Slide35_QA: Page = () => (
             boxShadow: '0 16px 36px rgba(15, 23, 42, 0.08)',
           }}
         >
-          課後問卷回饋與資源下載連結
+          PADLET推薦連結
         </div>
       </div>
       <div
@@ -4632,6 +5056,78 @@ const Slide24_Practice3: Page = () => (
   <PracticeHeaderPage num="5" title="（10分鐘）" desc="請嘗試利用「試用Gemini Canvas」修改" />
 );
 
+const Slide24b_InteractiveTemplates: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader title="米克師工具推薦-互動模版" subtitle="單元四延伸應用" unit="單元 4" />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr auto',
+        gap: 28,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+      }}
+    >
+      <div
+        className="es-fadeUp"
+        style={{
+          background: colors.white,
+          border: '2px solid #e2e8f0',
+          borderRadius: 16,
+          padding: '22px 30px',
+          boxShadow: '0 14px 30px rgba(15, 23, 42, 0.06)',
+          fontSize: '32px',
+          fontWeight: 800,
+          color: colors.text,
+          lineHeight: 1.35,
+        }}
+      >
+        從空白頁開始很花力氣，直接套用互動模版，可以把時間留給題目設計與學生回饋。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, minHeight: 0 }}>
+        <SubjectToolCard
+          num="01"
+          title="線上段考模版"
+          href="https://spedmix.pages.dev/examtest"
+          delay={0.1}
+          note=""
+        >
+          快速建立可線上作答的測驗頁面，分段呈現各大題分數，能有效維持學生答題動機。適合段考複習、課堂小考與自學檢核。
+        </SubjectToolCard>
+        <SubjectToolCard
+          num="02"
+          title="課堂互動遊戲模版"
+          href="https://spedmix.pages.dev/cowboy"
+          delay={0.2}
+          accent={colors.orange}
+          note=""
+        >
+          將練習題包裝成課堂互動遊戲，讓學生在即時回饋中反覆練習。
+        </SubjectToolCard>
+      </div>
+      <div
+        className="es-fadeUp"
+        style={{
+          animationDelay: '0.3s',
+          background: colors.text,
+          color: colors.white,
+          borderRadius: 16,
+          padding: '20px 30px',
+          fontSize: '34px',
+          lineHeight: 1.25,
+          fontWeight: 900,
+          textAlign: 'center',
+        }}
+      >
+        互動模版的核心：先有穩定骨架，再把教材內容換成自己的版本。
+      </div>
+    </div>
+    <TextbookFooter subtitle="第四部分：互動式網頁教材實戰" />
+  </div>
+);
+
 const Slide31c_PracticeChallenge: Page = () => (
   <PracticeHeaderPage
     num="7"
@@ -4651,6 +5147,7 @@ export const meta: SlideMeta = {
 export default [
   Slide01_Title,
   Slide02_Speaker,
+  Slide02a_WorkshopSlides,
   Slide02c_Social,
   Slide02b_Outline,
   Slide03_Needs,
@@ -4666,7 +5163,7 @@ export default [
   Slide08_Part3Header,
   Slide09_PaperTool1,
   Slide10_PaperTool2,
-  Slide11_PaperTool3,
+  Slide10b_AIModeCompare,
   Slide11_Workshop1,
   Slide12_WhyPrompt,
   Slide13_AIRevise,
@@ -4677,6 +5174,7 @@ export default [
   Slide18_Workshop2,
   Slide18b_ChineseAiTools,
   Slide18c_MathAiTools,
+  Slide18d_OtherAiTools,
   Slide19_Part3Header,
   Slide19b_WhyGeminiCanvas,
   Slide19c_PracticeLinksImage,
@@ -4688,6 +5186,7 @@ export default [
   Slide23_Practice2,
   Slide24_WebTool3,
   Slide24_Practice3,
+  Slide24b_InteractiveTemplates,
   Slide25_EmojiPain,
   Slide26_EmojiHow,
   Slide26b_SvgDraw,
