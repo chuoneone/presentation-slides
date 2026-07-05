@@ -888,27 +888,54 @@ const Slide02_Speaker: Page = () => (
     <TextbookBg />
     <TextbookHeader title="介紹" subtitle="關於我" unit="單元 1" />
     <div
-      style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 40, flex: 1, zIndex: 2 }}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '0.82fr 1.18fr',
+        gap: 36,
+        flex: 1,
+        zIndex: 2,
+        minHeight: 0,
+        alignItems: 'stretch',
+        paddingBottom: 20,
+      }}
     >
-      <Panel
-        title="朱旆誼 (米克師)"
-        delay={0.1}
+      <div
+        className="es-fadeUp"
         style={{
+          animationDelay: '0.1s',
+          background: colors.white,
+          border: '2px solid #e2e8f0',
+          borderRadius: 24,
+          padding: '30px 34px',
+          boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: 22,
+          minHeight: 0,
         }}
       >
+        <h3
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 48,
+            lineHeight: 1.08,
+            fontWeight: 900,
+            color: colors.accent,
+            margin: 0,
+          }}
+        >
+          朱旆誼 (米克師)
+        </h3>
         <div
           style={{
-            width: '500px',
-            height: '500px',
+            width: 430,
+            height: 430,
             borderRadius: '50%',
             padding: '10px',
             background: '#ffffff',
             border: '8px solid #f97316',
-            marginBottom: '24px',
             boxShadow: '0 24px 52px rgba(249, 115, 22, 0.22)',
             overflow: 'hidden',
             fontSize: 0,
@@ -928,18 +955,49 @@ const Slide02_Speaker: Page = () => (
             }}
           />
         </div>
-      </Panel>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-        <Panel title="學歷" delay={0.2}>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: '1.04fr 0.86fr',
+          gap: 20,
+          minHeight: 0,
+        }}
+      >
+        <div
+          className="es-fadeUp"
+          style={{
+            animationDelay: '0.2s',
+            background: colors.white,
+            border: '2px solid #e2e8f0',
+            borderRadius: 24,
+            padding: '24px 30px',
+            boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
+            minHeight: 0,
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 44,
+              lineHeight: 1.1,
+              fontWeight: 900,
+              color: colors.accent,
+              margin: '0 0 14px 0',
+            }}
+          >
+            學歷
+          </h3>
           <ul
             style={{
               paddingLeft: '20px',
               margin: 0,
               display: 'flex',
               flexDirection: 'column',
-              gap: '14px',
-              fontSize: '34px',
-              lineHeight: '1.5',
+              gap: '10px',
+              fontSize: '30px',
+              lineHeight: '1.42',
+              color: colors.text,
             }}
           >
             <li>
@@ -952,17 +1010,41 @@ const Slide02_Speaker: Page = () => (
               <strong>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
             </li>
           </ul>
-        </Panel>
-        <Panel title="經歷" delay={0.35}>
+        </div>
+        <div
+          className="es-fadeUp"
+          style={{
+            animationDelay: '0.35s',
+            background: colors.white,
+            border: '2px solid #e2e8f0',
+            borderRadius: 24,
+            padding: '24px 30px',
+            boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
+            minHeight: 0,
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 44,
+              lineHeight: 1.1,
+              fontWeight: 900,
+              color: colors.accent,
+              margin: '0 0 14px 0',
+            }}
+          >
+            經歷
+          </h3>
           <ul
             style={{
               paddingLeft: '20px',
               margin: 0,
               display: 'flex',
               flexDirection: 'column',
-              gap: '14px',
-              fontSize: '34px',
-              lineHeight: '1.5',
+              gap: '10px',
+              fontSize: '30px',
+              lineHeight: '1.42',
+              color: colors.text,
             }}
           >
             <li>
@@ -972,7 +1054,7 @@ const Slide02_Speaker: Page = () => (
               <strong>宜蘭縣凱旋國中</strong> 資源班教師
             </li>
           </ul>
-        </Panel>
+        </div>
       </div>
     </div>
     <TextbookFooter subtitle="第一部分：AI心法" />
