@@ -30,8 +30,10 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Add SPA fallback
-        run: cp apps/demo/dist/index.html apps/demo/dist/404.html
+      - name: Add SPA fallback and .nojekyll
+        run: |
+          cp apps/demo/dist/index.html apps/demo/dist/404.html
+          touch apps/demo/dist/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
