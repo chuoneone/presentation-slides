@@ -803,7 +803,7 @@ const PartHeaderPage = ({
       </div>
       <h2
         style={{
-          fontSize: '118px',
+          fontSize: '102px',
           fontWeight: 800,
           color: colors.text,
           margin: '0 0 20px 0',
@@ -1403,7 +1403,7 @@ const Slide02b_Outline: Page = () => (
       }}
     >
       <OutlineCard num="01" title="單元一：AI心法" delay={0.05}>
-        特教老師的 AI 焦慮、工作模式與使用倫理
+        特教老師的 AI 焦慮、工作模式與健康心態
       </OutlineCard>
       <OutlineCard num="02" title="單元二：AI應用於行政文書" accent={colors.orange} delay={0.1}>
         IEP 目標、課程計畫與教材改編快速生成
@@ -1417,8 +1417,13 @@ const Slide02b_Outline: Page = () => (
       <OutlineCard num="05" title="單元五：自製工具管理" delay={0.25}>
         一鍵自製資源傳送門，GitHub Pages 免費發佈
       </OutlineCard>
-      <OutlineCard num="06" title="單元六：總結＋補充" accent={colors.orange} delay={0.3}>
-        AI 沒有溫度，無法接住哭泣的孩子
+      <OutlineCard
+        num="06"
+        title="單元六：AI倫理和 Agent 小介紹"
+        accent={colors.orange}
+        delay={0.3}
+      >
+        特教倫理、資料隱私與 AI Agent 工具層次
       </OutlineCard>
     </div>
     <TextbookFooter subtitle="第一部分：AI心法" />
@@ -2404,7 +2409,7 @@ const Slide06_MixerIntro: Page = () => (
 const Slide07_Ethics: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="AI 使用倫理" subtitle="特教倫理" unit="單元 1" />
+    <TextbookHeader title="AI 使用倫理" subtitle="特教倫理" unit="單元 6" />
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, zIndex: 2 }}>
       <Panel title="可以做" delay={0.1}>
         <ul
@@ -2456,7 +2461,7 @@ const Slide07_Ethics: Page = () => (
         </ul>
       </Panel>
     </div>
-    <TextbookFooter subtitle="第一部分：AI心法" />
+    <TextbookFooter subtitle="第六部分：AI倫理和 Agent 小介紹" />
   </div>
 );
 
@@ -2467,7 +2472,7 @@ const Slide08_GoogleNoTraining: Page = () => (
     <TextbookHeader
       title="Google 不用來訓練模型的兩種情境"
       subtitle="使用前先確認帳號與工具"
-      unit="單元 1"
+      unit="單元 6"
     />
     <div
       style={{
@@ -2565,7 +2570,7 @@ const Slide08_GoogleNoTraining: Page = () => (
         />
       </div>
     </div>
-    <TextbookFooter subtitle="第一部分：AI心法" />
+    <TextbookFooter subtitle="第六部分：AI倫理和 Agent 小介紹" />
   </div>
 );
 
@@ -3823,7 +3828,7 @@ const Slide19b_WhyGeminiCanvas: Page = () => (
           lineHeight: 1.24,
         }}
       >
-        不用先懂技術名稱，先把「我要的功能」講清楚。AI 會幫你把功能接進網頁教材裡。
+        免費的情況下，CP值高！！
       </div>
       <div
         style={{
@@ -4711,8 +4716,8 @@ const Slide31b_GithubPages: Page = () => (
 const Slide33_Part5Header: Page = () => (
   <PartHeaderPage
     partNum="06"
-    title="單元六：總結+補充"
-    desc="我們不會被 AI 取代，AI 沒有溫度，無法接住哭泣的孩子"
+    title="單元六：AI倫理+ Agent 小介紹"
+    desc="特教倫理、資料隱私與 AI Agent 工具層次"
   />
 );
 
@@ -5455,8 +5460,6 @@ export default [
   Slide04_Anxiety,
   Slide04b_WorkStyle,
   Slide05_Mindset,
-  Slide07_Ethics,
-  Slide08_GoogleNoTraining,
   Slide08_Part2Header,
   Slide08_AdminDocs,
   Slide08_AdminPractice,
@@ -5498,6 +5501,8 @@ export default [
   Slide31b_GithubPages,
   Slide31c_PracticeChallenge,
   Slide33_Part5Header,
+  Slide07_Ethics,
+  Slide08_GoogleNoTraining,
   Slide34b_AIvsAgent,
   Slide34d_ExamSkillShare,
   Slide34e_ExamSkillFlow,
