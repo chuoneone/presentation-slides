@@ -5,12 +5,14 @@ import imgFourPanelComic from './assets/four-panel-comic.png';
 import imgGeminiGemConsistent from './assets/gemini-gem-consistent.png';
 import imgGoogleEduNoTraining from './assets/google-edu-no-training.png';
 import imgHeadshot from './assets/headshot.png';
+import imgMixerAiPrep from './assets/mixer-ai-prep.png';
+import imgMixerShare from './assets/mixer-share.png';
+import imgMixerTeaching from './assets/mixer-teaching.png';
 import imgNotebookLMNoTraining from './assets/notebooklm-no-training.png';
 import imgPracticeLinks from './assets/practice-links.png';
 import imgSkill1 from './assets/skill1.png';
 import imgSkill2 from './assets/skill2.png';
 import imgSkill3 from './assets/skill3.png';
-import imgSpedmixHome from './assets/spedmix-home.png';
 import imgUnsplashSports from './assets/unsplash-sports.png';
 import imgWorkshopHomepage from './assets/workshop-homepage.png';
 import imgWorkshopSearchResult from './assets/workshop-search-result.png';
@@ -271,6 +273,12 @@ const socialUrls = {
   threads: 'https://www.threads.com/@spedmix2025',
 } as const;
 
+const mixerSiteUrls = {
+  prep: 'https://spedmix.pages.dev/',
+  share: 'https://spedmixshare.pages.dev/',
+  teaching: 'https://spedmixteaching.pages.dev/',
+} as const;
+
 const InstagramIcon = () => (
   <svg width="92" height="92" viewBox="0 0 92 92" role="img" aria-label="Instagram">
     <rect
@@ -376,6 +384,112 @@ const SocialLinkCard = ({
       <div style={{ fontSize: '30px', color, fontWeight: 850, lineHeight: 1.18 }}>{handle}</div>
       <div style={{ fontSize: '26px', color: colors.muted, fontWeight: 650, lineHeight: 1.34 }}>
         {children}
+      </div>
+    </div>
+  </a>
+);
+
+const MixerSiteCard = ({
+  href,
+  label,
+  screenshot,
+  screenshotAlt,
+  title,
+  children,
+  delay,
+  accent = colors.accent,
+}: {
+  href: string;
+  label: string;
+  screenshot: string;
+  screenshotAlt: string;
+  title: string;
+  children: ReactNode;
+  delay: number;
+  accent?: string;
+}) => (
+  <a
+    className="es-fadeUp"
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    style={{
+      animationDelay: `${delay}s`,
+      background: colors.white,
+      border: `3px solid ${accent === colors.accent ? '#99f6e4' : '#fed7aa'}`,
+      borderRadius: 22,
+      padding: 0,
+      minHeight: 0,
+      color: colors.text,
+      textDecoration: 'none',
+      boxShadow: '0 20px 46px rgba(15, 23, 42, 0.09)',
+      display: 'grid',
+      gridTemplateRows: '250px 1fr',
+      overflow: 'hidden',
+    }}
+  >
+    <div
+      style={{
+        background: '#f8fafc',
+        borderBottom: '2px solid #e2e8f0',
+        overflow: 'hidden',
+        minHeight: 0,
+      }}
+    >
+      <img
+        src={screenshot}
+        alt={screenshotAlt}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 0%',
+          display: 'block',
+        }}
+      />
+    </div>
+    <div style={{ display: 'grid', gridTemplateRows: 'auto auto 1fr auto', gap: 12, padding: 24 }}>
+      <div
+        style={{
+          width: 'fit-content',
+          background: accent === colors.accent ? colors.accentMuted : colors.orangeLight,
+          color: accent,
+          borderRadius: 10,
+          padding: '6px 14px',
+          fontSize: '22px',
+          fontWeight: 950,
+        }}
+      >
+        {label}
+      </div>
+      <h3
+        style={{
+          margin: 0,
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: '42px',
+          lineHeight: 1.08,
+          fontWeight: 950,
+          color: colors.text,
+        }}
+      >
+        {title}
+      </h3>
+      <div style={{ fontSize: '27px', lineHeight: 1.36, color: colors.muted, fontWeight: 680 }}>
+        {children}
+      </div>
+      <div
+        style={{
+          color: accent,
+          background: accent === colors.accent ? '#f0fdfa' : '#fff7ed',
+          borderRadius: 10,
+          padding: '12px 14px',
+          fontSize: '20px',
+          lineHeight: 1.18,
+          fontWeight: 850,
+          overflowWrap: 'anywhere',
+        }}
+      >
+        {href}
       </div>
     </div>
   </a>
@@ -1755,18 +1869,22 @@ const ToolBullet = ({
   </div>
 );
 
-const CanvasReasonCard = ({
+const FeaturePromptCard = ({
   label,
   title,
+  prompt,
   children,
   delay,
   accent = colors.accent,
+  style,
 }: {
   label: string;
   title: string;
+  prompt: string;
   children: ReactNode;
   delay: number;
   accent?: string;
+  style?: CSSProperties;
 }) => (
   <div
     className="es-fadeUp"
@@ -1775,39 +1893,74 @@ const CanvasReasonCard = ({
       background: colors.white,
       border: `2px solid ${accent === colors.accent ? '#99f6e4' : '#fed7aa'}`,
       borderRadius: 16,
-      padding: '26px 30px',
-      boxShadow: '0 18px 40px rgba(15, 23, 42, 0.08)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 14,
+      padding: '14px 20px',
+      boxShadow: '0 16px 34px rgba(15, 23, 42, 0.08)',
+      display: 'grid',
+      gridTemplateColumns: '78px 270px 1fr',
+      gap: 18,
+      alignItems: 'center',
       minHeight: 0,
+      ...style,
     }}
   >
     <div
       style={{
-        width: 'fit-content',
+        width: 62,
+        height: 62,
+        borderRadius: 14,
         background: accent === colors.accent ? colors.accentMuted : colors.orangeLight,
         color: accent,
-        borderRadius: 10,
-        padding: '8px 14px',
-        fontSize: '24px',
-        fontWeight: 900,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'var(--osd-font-display)',
+        fontSize: 25,
+        fontWeight: 950,
       }}
     >
       {label}
     </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
+      <div
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 34,
+          lineHeight: 1.1,
+          fontWeight: 950,
+          color: colors.text,
+        }}
+      >
+        {title}
+      </div>
+      {children ? (
+        <div
+          style={{
+            fontSize: 20,
+            lineHeight: 1.12,
+            color: colors.muted,
+            fontWeight: 650,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {children}
+        </div>
+      ) : null}
+    </div>
     <div
       style={{
-        fontFamily: 'var(--osd-font-display)',
-        fontSize: '36px',
-        fontWeight: 900,
-        color: colors.text,
+        background: accent === colors.accent ? '#f0fdfa' : '#fff7ed',
+        color: accent,
+        borderRadius: 12,
+        padding: '13px 18px',
+        fontSize: 30,
         lineHeight: 1.16,
+        fontWeight: 900,
       }}
     >
-      {title}
+      「{prompt}」
     </div>
-    <div style={{ fontSize: '28px', color: colors.muted, lineHeight: 1.42 }}>{children}</div>
   </div>
 );
 
@@ -2195,73 +2348,53 @@ const Slide05_Mindset: Page = () => (
   </div>
 );
 
-// Slide 6: 特教備課神助手：米克師初體驗
+// Slide 6: 米克師相關網站
 const Slide06_MixerIntro: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      title={
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <span>米克師：專為特教設計的AI備課幫手</span>
-          <a
-            href="https://spedmix.pages.dev/"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              fontSize: '32px',
-              fontWeight: 800,
-              color: colors.orange,
-              background: colors.orangeLight,
-              padding: '6px 16px',
-              borderRadius: '8px',
-              letterSpacing: 0,
-              lineHeight: 1.2,
-              textDecoration: 'none',
-            }}
-          >
-            🔗 spedmix.pages.dev
-          </a>
-        </span>
-      }
-      subtitle="米克師初體驗"
-      unit="單元 1"
-    />
+    <TextbookHeader title="米克師相關網站" subtitle="三個入口" unit="單元 1" />
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 22,
-        flex: 1,
         zIndex: 2,
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 28,
+        minHeight: 0,
+        alignItems: 'stretch',
       }}
     >
-      <div
-        className="es-fadeUp"
-        style={{
-          width: '100%',
-          maxWidth: 1420,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 18,
-          alignItems: 'center',
-        }}
+      <MixerSiteCard
+        href={mixerSiteUrls.prep}
+        label="備課入口"
+        screenshot={imgMixerAiPrep}
+        screenshotAlt="AI 備課幫手網站首頁畫面"
+        title="AI備課幫手"
+        delay={0.1}
       >
-        <img
-          src={imgSpedmixHome}
-          alt="米克師 AI 備課幫手首頁畫面"
-          style={{
-            width: '100%',
-            aspectRatio: '1776 / 888',
-            objectFit: 'contain',
-            border: '2px solid #dbeafe',
-            borderRadius: '16px',
-            boxShadow: '0 22px 48px rgba(15, 23, 42, 0.16)',
-            background: '#f8fafc',
-          }}
-        />
-      </div>
+        特教老師生成教材、學習單、課程素材與備課工具的主要入口。
+      </MixerSiteCard>
+      <MixerSiteCard
+        href={mixerSiteUrls.share}
+        label="共享入口"
+        screenshot={imgMixerShare}
+        screenshotAlt="特教教材資源共享網站畫面"
+        title="特教教材共享"
+        delay={0.2}
+        accent={colors.orange}
+      >
+        整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。
+      </MixerSiteCard>
+      <MixerSiteCard
+        href={mixerSiteUrls.teaching}
+        label="學生入口"
+        screenshot={imgMixerTeaching}
+        screenshotAlt="SpedMix 學習平台網站畫面"
+        title="學生學習平台"
+        delay={0.3}
+      >
+        提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。
+      </MixerSiteCard>
     </div>
     <TextbookFooter subtitle="第一部分：AI心法" />
   </div>
@@ -3665,12 +3798,12 @@ const Slide19_Part3Header: Page = () => (
 const Slide19b_WhyGeminiCanvas: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="為什麼主工具選 Gemini Canvas？" subtitle="設計工具選擇" unit="單元 4" />
+    <TextbookHeader title="為什麼我會選擇 Gemini Canvas" subtitle="簡單提示詞" unit="單元 4" />
     <div
       style={{
         display: 'grid',
         gridTemplateRows: 'auto 1fr auto',
-        gap: 24,
+        gap: 20,
         flex: 1,
         zIndex: 2,
         minHeight: 0,
@@ -3682,43 +3815,83 @@ const Slide19b_WhyGeminiCanvas: Page = () => (
           background: '#ffffff',
           border: '2px solid #e2e8f0',
           borderRadius: 16,
-          padding: '24px 34px',
+          padding: '16px 28px',
           boxShadow: '0 14px 30px rgba(15, 23, 42, 0.06)',
-          fontSize: '34px',
+          fontSize: '30px',
           fontWeight: 850,
           color: colors.text,
-          lineHeight: 1.35,
+          lineHeight: 1.24,
         }}
       >
-        因為它不是只會「回答問題」，而是能在同一個工作區處理文件、App、投影片與程式碼。
+        不用先懂技術名稱，先把「我要的功能」講清楚。AI 會幫你把功能接進網頁教材裡。
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 22, minHeight: 0 }}>
-        <CanvasReasonCard label="01" title="多能力可以整合" delay={0.1}>
-          AI 生成與判斷、Firebase 後台資料、Unsplash 圖片、TTS 語音，都能被包進同一個教材流程。
-        </CanvasReasonCard>
-        <CanvasReasonCard label="02" title="從想法到可試用很快" delay={0.2} accent={colors.orange}>
-          文字描述、即時預覽、直接改程式，讓老師能邊試邊修。
-        </CanvasReasonCard>
-        <CanvasReasonCard label="03" title="分享後還能再進化" delay={0.3}>
-          一鍵分享、複製別人的作品再改造，讓好的點子不只被使用，還能被接力放大。
-        </CanvasReasonCard>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'repeat(5, 1fr)',
+          gap: 10,
+          minHeight: 0,
+        }}
+      >
+        <FeaturePromptCard
+          label="後台"
+          title="想紀錄成績"
+          prompt="幫我引入 Firebase SDK，紀錄學生成績。"
+          delay={0.1}
+        >
+          {''}
+        </FeaturePromptCard>
+        <FeaturePromptCard
+          label="AI"
+          title="想加入 AI 功能"
+          prompt="幫我加入 AI 生成文字或圖片功能。"
+          delay={0.18}
+          accent={colors.orange}
+        >
+          {''}
+        </FeaturePromptCard>
+        <FeaturePromptCard
+          label="圖片"
+          title="想加入圖片"
+          prompt="http://....請放進教材。"
+          delay={0.26}
+        >
+          {''}
+        </FeaturePromptCard>
+        <FeaturePromptCard
+          label="語音"
+          title="想加入報讀"
+          prompt="幫我加入 Gemini TTS 語音功能。"
+          delay={0.34}
+          accent={colors.orange}
+        >
+          {''}
+        </FeaturePromptCard>
+        <FeaturePromptCard
+          label="分享"
+          title="想分享連結"
+          prompt="右上角按共用或分享，就可以把連結給別人。"
+          delay={0.42}
+        >
+          {''}
+        </FeaturePromptCard>
       </div>
       <div
         className="es-fadeUp"
         style={{
-          animationDelay: '0.4s',
+          animationDelay: '0.5s',
           background: colors.text,
           color: colors.white,
           borderRadius: 16,
-          padding: '22px 34px',
-          fontSize: '36px',
+          padding: '16px 30px',
+          fontSize: '43px',
           lineHeight: 1.25,
           fontWeight: 900,
           textAlign: 'center',
           boxShadow: '0 18px 40px rgba(15, 23, 42, 0.14)',
         }}
       >
-        讓人類的創意有無限次被看見、被複製、被進化的機會。
+        最重要的是，按下「試用Gemini Canvas」即可站在別人的肩膀上繼續改編
       </div>
     </div>
     <TextbookFooter subtitle="第四部分：網頁教材實戰" />
@@ -5276,12 +5449,12 @@ export default [
   Slide02_Speaker,
   Slide02a_WorkshopSlides,
   Slide02c_Social,
-  Slide02b_Outline,
+  Slide06_MixerIntro,
   Slide03_Needs,
+  Slide02b_Outline,
   Slide04_Anxiety,
   Slide04b_WorkStyle,
   Slide05_Mindset,
-  Slide06_MixerIntro,
   Slide07_Ethics,
   Slide08_GoogleNoTraining,
   Slide08_Part2Header,
