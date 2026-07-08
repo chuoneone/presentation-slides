@@ -3841,7 +3841,7 @@ const Slide19b_WhyGeminiCanvas: Page = () => (
         <FeaturePromptCard
           label="後台"
           title="想紀錄成績"
-          prompt="幫我引入 Firebase SDK，紀錄學生成績。"
+          prompt="幫我引入 Firebase SDK，並給我教師後台按鈕，紀錄學生成績。"
           delay={0.1}
         >
           {''}
