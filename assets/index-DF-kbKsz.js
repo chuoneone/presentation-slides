@@ -1,4 +1,4 @@
-import{j as e}from"./index-Bz68OUt9.js";import{u}from"./index-DAAnPi1E.js";const L={palette:{bg:"#0a0e14",text:"#e6edf3",accent:"#6ee7ff"},fonts:{display:"'JetBrains Mono', 'Menlo', 'Consolas', monospace",body:"'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"},typeScale:{hero:132,body:34},radius:6},p="#121823",i="#aab5c4",r="#6b7889",l="#1c2533",o="#84ffae",a="#ffa860",d="#c598ff",b="#ff7a85",h=`
+import{j as e}from"./index-gvvegoZt.js";import{u}from"./index-DNLd8qoS.js";const L={palette:{bg:"#0a0e14",text:"#e6edf3",accent:"#6ee7ff"},fonts:{display:"'JetBrains Mono', 'Menlo', 'Consolas', monospace",body:"'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"},typeScale:{hero:132,body:34},radius:6},p="#121823",i="#aab5c4",r="#6b7889",l="#1c2533",o="#84ffae",a="#ffa860",d="#c598ff",b="#ff7a85",h=`
 @keyframes osa-fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes osa-fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes osa-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
