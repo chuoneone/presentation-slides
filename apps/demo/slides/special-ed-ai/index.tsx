@@ -702,66 +702,100 @@ const AdminDocCard = ({
   title,
   accent,
   children,
+  href,
   delay = 0,
 }: {
   num: string;
   title: string;
   accent: string;
   children: ReactNode;
+  href?: string;
   delay?: number;
-}) => (
-  <div
-    className="es-fadeUp"
-    style={{
-      background: colors.white,
-      border: '2px solid #e2e8f0',
-      borderTop: `12px solid ${accent}`,
-      borderRadius: 22,
-      padding: '34px 38px',
-      minHeight: 350,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 26,
-      boxShadow: '0 18px 42px rgba(15, 23, 42, 0.09)',
-      animationDelay: `${delay}s`,
-    }}
-  >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-      <div
-        style={{
-          width: 74,
-          height: 74,
-          borderRadius: 18,
-          background: accent,
-          color: colors.white,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 30,
-          fontWeight: 950,
-          fontFamily: 'var(--osd-font-display)',
-        }}
-      >
-        {num}
+}) => {
+  const content = (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        <div
+          style={{
+            width: 74,
+            height: 74,
+            borderRadius: 18,
+            background: accent,
+            color: colors.white,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 30,
+            fontWeight: 950,
+            fontFamily: 'var(--osd-font-display)',
+          }}
+        >
+          {num}
+        </div>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: 56,
+            lineHeight: 1.1,
+            fontWeight: 900,
+            color: colors.text,
+            fontFamily: 'var(--osd-font-display)',
+          }}
+        >
+          {title}
+        </h3>
       </div>
-      <h3
-        style={{
-          margin: 0,
-          fontSize: 56,
-          lineHeight: 1.1,
-          fontWeight: 900,
-          color: colors.text,
-          fontFamily: 'var(--osd-font-display)',
-        }}
-      >
-        {title}
-      </h3>
+      <div style={{ fontSize: 38, lineHeight: 1.45, color: colors.text, fontWeight: 650 }}>
+        {children}
+      </div>
+      {href && (
+        <div
+          style={{
+            marginTop: 'auto',
+            alignSelf: 'flex-start',
+            color: accent,
+            fontSize: '28px',
+            fontWeight: 800,
+            textDecoration: 'underline',
+          }}
+        >
+          傳送門連結 ➔
+        </div>
+      )}
+    </>
+  );
+
+  const cardStyle: CSSProperties = {
+    background: colors.white,
+    border: '2px solid #e2e8f0',
+    borderTop: `12px solid ${accent}`,
+    borderRadius: 22,
+    padding: '34px 38px',
+    minHeight: 350,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 26,
+    boxShadow: '0 18px 42px rgba(15, 23, 42, 0.09)',
+    animationDelay: `${delay}s`,
+    textDecoration: 'none',
+    color: colors.text,
+    cursor: href ? 'pointer' : 'default',
+  };
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className="es-fadeUp" style={cardStyle}>
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="es-fadeUp" style={cardStyle}>
+      {content}
     </div>
-    <div style={{ fontSize: 38, lineHeight: 1.45, color: colors.text, fontWeight: 650 }}>
-      {children}
-    </div>
-  </div>
-);
+  );
+};
 
 // 大章節過渡頁版型
 const PartHeaderPage = ({
@@ -2599,10 +2633,22 @@ const Slide08_AdminDocs: Page = () => (
         minHeight: 0,
       }}
     >
-      <AdminDocCard num="01" title="IEP目標生成" accent={colors.accent} delay={0.08}>
+      <AdminDocCard
+        num="01"
+        title="IEP目標生成"
+        accent={colors.accent}
+        delay={0.08}
+        href="https://spedmix.pages.dev/IEP"
+      >
         輸入學生現況、需求與課程重點，先產出可討論、可微調的 IEP 目標草稿。
       </AdminDocCard>
-      <AdminDocCard num="02" title="課程計畫生成" accent={colors.orange} delay={0.18}>
+      <AdminDocCard
+        num="02"
+        title="課程計畫生成"
+        accent={colors.orange}
+        delay={0.18}
+        href="https://spedmix.pages.dev/lesson-plan"
+      >
         把教學主題、學生起點、支持策略與評量方式，整理成課程計畫第一版。
       </AdminDocCard>
     </div>
