@@ -22,18 +22,12 @@ import githubStep10 from './assets/github-step10.png';
 import githubStep11 from './assets/github-step11.png';
 import githubStep12 from './assets/github-step12.png';
 import githubStep13 from './assets/github-step13.png';
-import githubStep15 from './assets/github-step15.png';
 import githubStep16 from './assets/github-step16.png';
-import githubStep21 from './assets/github-step21.png';
-import githubStep22 from './assets/github-step22.png';
 import githubStep23 from './assets/github-step23.png';
 import githubStep24 from './assets/github-step24.png';
 import githubStep25 from './assets/github-step25.png';
 import githubStep26 from './assets/github-step26.png';
 import githubStep27 from './assets/github-step27.png';
-import githubStep28 from './assets/github-step28.png';
-import githubStep29 from './assets/github-step29.png';
-import githubStep30 from './assets/github-step30.png';
 import githubStep31 from './assets/github-step31.png';
 import githubStep33 from './assets/github-step33.png';
 import githubStep34 from './assets/github-step34.png';
@@ -49,6 +43,7 @@ import githubStep43 from './assets/github-step43.png';
 import githubStep44 from './assets/github-step44.png';
 import githubStep45 from './assets/github-step45.png';
 import githubStep46 from './assets/github-step46.png';
+import indexHtmlFile from './assets/index-html-file.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
@@ -1034,6 +1029,7 @@ const ChoiceTile = ({
       placeItems: 'center',
       border: '1px solid rgba(169, 189, 201, 0.24)',
       borderRadius: 24,
+      color: '#f7f5ec',
       background: 'rgba(13, 38, 53, 0.90)',
       textAlign: 'center',
     }}
@@ -1770,73 +1766,75 @@ const GitHubStepPair = ({
 }: {
   eyebrow: string;
   title: string;
-  firstInstruction: string;
-  firstImage: string;
-  secondInstruction: string;
-  secondImage: string;
-}) => (
-  <PageShell eyebrow={eyebrow} accent={mint} mood="blue">
-    <Title size={58} margin="0 0 20px">
-      {title}
-    </Title>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+  firstInstruction?: string;
+  firstImage?: string;
+  secondInstruction?: string;
+  secondImage?: string;
+}) => {
+  const cards = [
+    {
+      instruction: firstInstruction,
+      image: firstImage,
+      color: cyan,
+      border: '1px solid rgba(120, 174, 178, 0.52)',
+    },
+    {
+      instruction: secondInstruction,
+      image: secondImage,
+      color: mint,
+      border: '1px solid rgba(169, 207, 189, 0.80)',
+    },
+  ].filter(
+    (card): card is { instruction: string; image: string; color: string; border: string } =>
+      card.instruction !== undefined && card.image !== undefined,
+  );
+
+  return (
+    <PageShell eyebrow={eyebrow} accent={mint} mood="blue">
+      <Title size={58} margin="0 0 20px">
+        {title}
+      </Title>
       <div
         style={{
           display: 'grid',
-          gridTemplateRows: 'auto minmax(0, 1fr)',
-          gap: 12,
-          minHeight: 610,
-          padding: 18,
-          border: '1px solid rgba(120, 174, 178, 0.52)',
-          borderRadius: 22,
-          background: panel,
+          gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))`,
+          gap: 32,
         }}
       >
-        <div style={{ color: cyan, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
-          {firstInstruction}
-        </div>
-        <img
-          src={firstImage}
-          alt={firstInstruction}
-          style={{
-            width: '100%',
-            height: '100%',
-            minHeight: 0,
-            objectFit: 'contain',
-            borderRadius: 12,
-          }}
-        />
+        {cards.map((card) => (
+          <div
+            key={card.instruction}
+            style={{
+              display: 'grid',
+              gridTemplateRows: 'auto minmax(0, 1fr)',
+              gap: 12,
+              minHeight: 610,
+              padding: 18,
+              border: card.border,
+              borderRadius: 22,
+              background: panel,
+            }}
+          >
+            <div style={{ color: card.color, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
+              {card.instruction}
+            </div>
+            <img
+              src={card.image}
+              alt={card.instruction}
+              style={{
+                width: '100%',
+                height: '100%',
+                minHeight: 0,
+                objectFit: 'contain',
+                borderRadius: 12,
+              }}
+            />
+          </div>
+        ))}
       </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto minmax(0, 1fr)',
-          gap: 12,
-          minHeight: 610,
-          padding: 18,
-          border: '1px solid rgba(169, 207, 189, 0.80)',
-          borderRadius: 22,
-          background: panel,
-        }}
-      >
-        <div style={{ color: mint, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
-          {secondInstruction}
-        </div>
-        <img
-          src={secondImage}
-          alt={secondInstruction}
-          style={{
-            width: '100%',
-            height: '100%',
-            minHeight: 0,
-            objectFit: 'contain',
-            borderRadius: 12,
-          }}
-        />
-      </div>
-    </div>
-  </PageShell>
-);
+    </PageShell>
+  );
+};
 
 const GitHubChapter = ({
   part,
@@ -1924,8 +1922,8 @@ const Slide22CanvasChapter: Page = () => (
 const Slide27UploadChapter: Page = () => (
   <GitHubChapter
     part="PART 03"
-    title="上傳網頁到 GitHub"
-    description="選擇 Upload files，一次上傳多個 HTML 檔，最後 Commit changes。"
+    title="先上傳一個首頁"
+    description="先把第一版網頁命名為 index.html，只上傳一個檔案也能完成公開網址。"
     accent={mint}
   />
 );
@@ -1933,17 +1931,17 @@ const Slide27UploadChapter: Page = () => (
 const Slide28PublishChapter: Page = () => (
   <GitHubChapter
     part="PART 04"
-    title="發布成公開網址"
-    description="在 GitHub Pages 選擇 main 與 /(root)，讓網頁真正上線。"
+    title="發布第一個公開網址"
+    description="在 GitHub Pages 選擇 main 與 /(root)，讓 index.html 真正上線。"
     accent={cyan}
   />
 );
 
 const Slide33IndexChapter: Page = () => (
   <GitHubChapter
-    part="BONUS"
-    title="建立作品首頁 index.html"
-    description="完成發布後，再建立入口首頁，讓根網址直接帶大家認識你的作品。"
+    part="第二種 · 多頁網站"
+    title="想做很多頁？用首頁串起來"
+    description="先完成多個主題頁面，再用 index.html 做入口，讓訪客可以在同一個網站裡瀏覽。"
     accent={yellow}
   />
 );
@@ -1995,10 +1993,10 @@ const Slide20CreateRepository: Page = () => (
 const Slide21UploadFiles: Page = () => (
   <GitHubStepPair
     eyebrow="02 · UPLOAD FILES"
-    title="進入 Repository 並準備上傳檔案"
-    firstInstruction="步驟 9｜進入剛建立的 Repository，選擇「uploading an existing file」"
+    title="進入 Repository，只準備上傳首頁"
+    firstInstruction="步驟 3｜進入剛建立的 Repository，選擇「uploading an existing file」"
     firstImage={githubStep9}
-    secondInstruction="步驟 10｜在上傳頁面按「choose your files」，下一步選取網站檔案"
+    secondInstruction="步驟 4｜在上傳頁面按「choose your files」，只選取 index.html"
     secondImage={githubStep10}
   />
 );
@@ -2007,9 +2005,9 @@ const Slide22CanvasPrompt: Page = () => (
   <GitHubStepPair
     eyebrow="03 · GEMINI CANVAS"
     title="在 Gemini Canvas 請 AI 生成網頁"
-    firstInstruction="步驟 11｜在提示框寫下主題，明確要求「用 HTML 製作互動網頁」"
+    firstInstruction="步驟 1｜在提示框寫下主題，明確要求「用 HTML 製作互動網頁」"
     firstImage={githubStep11}
-    secondInstruction="步驟 12｜確認 Canvas 預覽已生成網頁，再檢查版面內容"
+    secondInstruction="步驟 2｜確認 Canvas 預覽已生成網頁，再檢查版面內容"
     secondImage={githubStep12}
   />
 );
@@ -2031,7 +2029,7 @@ const Slide23DownloadAndUpload: Page = () => (
       }}
     >
       <div style={{ color: mint, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
-        步驟 13｜找到下載的 code_artifact HTML 檔，準備重新命名
+        步驟 3｜找到下載的 code_artifact HTML 檔，準備重新命名
       </div>
       <img
         src={githubStep13}
@@ -2051,10 +2049,8 @@ const Slide23DownloadAndUpload: Page = () => (
 const Slide24UploadToRepository: Page = () => (
   <GitHubStepPair
     eyebrow="03 · UPLOAD TO GITHUB"
-    title="一次上傳多個 HTML 網頁檔"
-    firstInstruction="步驟 15｜在 Upload files 頁面可一次選取 history.html、science.html 等多個檔案"
-    firstImage={githubStep15}
-    secondInstruction="步驟 16｜Commit 後，所有選取的檔案都會一起出現在 Repository 清單中"
+    title="上傳 index.html，完成第一版"
+    secondInstruction="步驟 6｜Commit 後，Repository 清單中會出現 index.html"
     secondImage={githubStep16}
   />
 );
@@ -2062,11 +2058,9 @@ const Slide24UploadToRepository: Page = () => (
 const Slide27ConfirmFilename: Page = () => (
   <GitHubStepPair
     eyebrow="03 · RENAME HTML"
-    title="確認檔名後回到 GitHub"
-    firstInstruction="步驟 21｜改成簡單英文檔名，例如 science.html，按 Enter 完成"
-    firstImage={githubStep21}
-    secondInstruction="步驟 22｜回到 Repository，從「Add file」開始新增或上傳檔案"
-    secondImage={githubStep22}
+    title="把首頁命名為 index.html"
+    firstInstruction="步驟 1｜把下載的 HTML 改名為 index.html，按 Enter 完成"
+    firstImage={indexHtmlFile}
   />
 );
 
@@ -2074,9 +2068,9 @@ const Slide28OpenPagesSettings: Page = () => (
   <GitHubStepPair
     eyebrow="04 · GITHUB PAGES"
     title="開啟 GitHub Pages 設定"
-    firstInstruction="步驟 23｜點選上方「Settings」分頁"
+    firstInstruction="步驟 1｜點選上方「Settings」分頁，再按左側邊欄的「Pages」"
     firstImage={githubStep23}
-    secondInstruction="步驟 24｜在 Branch 下拉選單中選擇 main"
+    secondInstruction="步驟 2｜在 Branch 下拉選單中選擇 main"
     secondImage={githubStep24}
   />
 );
@@ -2085,9 +2079,9 @@ const Slide29PublishPages: Page = () => (
   <GitHubStepPair
     eyebrow="04 · GITHUB PAGES"
     title="選擇 main 分支並發布"
-    firstInstruction="步驟 25｜其它都不用動，直接按save"
+    firstInstruction="步驟 3｜其它都不用動，直接按save"
     firstImage={githubStep25}
-    secondInstruction="步驟 26｜按 Save 後等待 GitHub Pages 完成部署"
+    secondInstruction="步驟 4｜按 Save 後等待 GitHub Pages 完成部署"
     secondImage={githubStep26}
   />
 );
@@ -2095,29 +2089,16 @@ const Slide29PublishPages: Page = () => (
 const Slide30FindSiteUrl: Page = () => (
   <GitHubStepPair
     eyebrow="04 · GITHUB PAGES"
-    title="取得網站網址，避開 404"
-    firstInstruction="步驟 27｜看到「Your site is live」後，複製或點選網站網址"
+    title="取得第一個公開網址"
+    firstInstruction="步驟 5｜看到「Your site is live」後，複製或點選網站網址"
     firstImage={githubStep27}
-    secondInstruction="步驟 28｜根網址出現 404 是正常的：要加上 HTML 檔名"
-    secondImage={githubStep28}
-  />
-);
-
-const Slide31VerifyWebsite: Page = () => (
-  <GitHubStepPair
-    eyebrow="04 · WEBSITE LIVE"
-    title="用完整網址開啟你的作品"
-    firstInstruction="步驟 29｜網址最後加上檔名，例如 /science.html"
-    firstImage={githubStep29}
-    secondInstruction="步驟 30｜確認 science.html 已能在 GitHub Pages 正常開啟"
-    secondImage={githubStep30}
   />
 );
 
 const Slide32MoreExamples: Page = () => (
   <PageShell eyebrow="04 · WEBSITE LIVE" accent={mint} mood="blue">
     <Title size={58} margin="0 0 20px">
-      一個 Repository 可以放多個作品
+      第一版網站已經公開
     </Title>
     <div
       style={{
@@ -2131,7 +2112,7 @@ const Slide32MoreExamples: Page = () => (
       }}
     >
       <div style={{ color: mint, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
-        步驟 31｜換成 /history.html，也能開啟另一個網頁作品
+        接下來想做多個頁面，再用首頁把它們串起來。
       </div>
       <img
         src={githubStep31}
@@ -2150,33 +2131,33 @@ const Slide32MoreExamples: Page = () => (
 
 const Slide33CreateIndex: Page = () => (
   <GitHubStepPair
-    eyebrow="05 · INDEX.HTML"
-    title="複製咒語，建立網站首頁 index.html"
-    firstInstruction="步驟 33｜在 Gemini Canvas 輸入：做一個我個人的教學網頁，裡面分別設五個按鈕，分別是國文、英文、數學、自然、社會，其中自然和社會分別指向 https://smallfatyellow.github.io/myhome/science.html 和 https://smallfatyellow.github.io/myhome/history.html"
+    eyebrow="05 · MULTI-PAGE"
+    title="建立多頁網站的首頁 index.html"
+    firstInstruction="步驟 1｜在 Gemini Canvas 輸入：做一個我個人的教學網頁，裡面分別設五個按鈕，分別是國文、英文、數學、自然、社會，其中自然和社會分別指向 https://smallfatyellow.github.io/myhome/science.html 和 https://smallfatyellow.github.io/myhome/history.html"
     firstImage={githubStep33}
-    secondInstruction="步驟 34｜下載後把檔案名稱改成 index.html"
+    secondInstruction="步驟 2｜下載後把檔案名稱改成 index.html"
     secondImage={githubStep34}
   />
 );
 
 const Slide34UploadIndex: Page = () => (
   <GitHubStepPair
-    eyebrow="05 · INDEX.HTML"
-    title="把 index.html 上傳到 Repository"
-    firstInstruction="步驟 35｜回到 Repository，確認原本的多個 HTML 作品都還在"
+    eyebrow="05 · MULTI-PAGE"
+    title="把首頁與多個作品整理進 Repository"
+    firstInstruction="步驟 3｜回到 Repository，確認原本的多個 HTML 作品都還在"
     firstImage={githubStep35}
-    secondInstruction="步驟 36｜用同樣方式上傳 index.html；也可一次補上多個新檔案，再 Commit 到 main"
+    secondInstruction="步驟 4｜用同樣方式上傳 index.html；也可一次補上多個新檔案，再 Commit 到 main"
     secondImage={githubStep36}
   />
 );
 
 const Slide35IndexLive: Page = () => (
   <GitHubStepPair
-    eyebrow="05 · INDEX.HTML"
-    title="首頁完成：根網址直接開啟"
-    firstInstruction="步驟 37｜確認 Repository 清單已包含 index.html"
+    eyebrow="05 · MULTI-PAGE"
+    title="首頁完成：從根網址瀏覽全部作品"
+    firstInstruction="步驟 5｜確認 Repository 清單已包含 index.html"
     firstImage={githubStep37}
-    secondInstruction="步驟 38｜再次開啟 GitHub Pages 根網址，首頁就會正常顯示"
+    secondInstruction="步驟 6｜再次開啟 GitHub Pages 根網址，首頁就會正常顯示"
     secondImage={githubStep38}
   />
 );
@@ -2194,9 +2175,9 @@ const Slide37CopyRepositoryUrl: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="先複製 GitHub 專案網址"
-    firstInstruction="步驟 39｜在 GitHub Repository 按 Code，複製 HTTPS 專案網址"
+    firstInstruction="步驟 1｜在 GitHub Repository 按 Code，複製 HTTPS 專案網址"
     firstImage={githubStep39}
-    secondInstruction="步驟 40｜開啟 Antigravity，在 Projects 區按新增專案"
+    secondInstruction="步驟 2｜開啟 Antigravity，在 Projects 區按新增專案"
     secondImage={githubStep40}
   />
 );
@@ -2205,9 +2186,9 @@ const Slide38CreateProjectFolder: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="建立自己的專案資料夾"
-    firstInstruction="步驟 41｜在 Create Project 視窗按 Add Folder，選擇或建立資料夾"
+    firstInstruction="步驟 3｜在 Create Project 視窗按 Add Folder，選擇或建立資料夾"
     firstImage={githubStep41}
-    secondInstruction="步驟 42｜建立一個新資料夾，作為這個網站的本機工作區"
+    secondInstruction="步驟 4｜建立一個新資料夾，作為這個網站的本機工作區"
     secondImage={githubStep42}
   />
 );
@@ -2216,9 +2197,9 @@ const Slide39SelectProjectFolder: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="選擇資料夾並建立專案"
-    firstInstruction="步驟 43｜將資料夾命名，例如 myhome，方便辨識自己的網站專案"
+    firstInstruction="步驟 5｜將資料夾命名，例如 myhome，方便辨識自己的網站專案"
     firstImage={githubStep43}
-    secondInstruction="步驟 44｜回到 Create Project，確認已選取 myhome 資料夾後按 Next"
+    secondInstruction="步驟 6｜回到 Create Project，確認已選取 myhome 資料夾後按 Next"
     secondImage={githubStep44}
   />
 );
@@ -2227,9 +2208,9 @@ const Slide40DownloadRepository: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="貼上網址，下載 GitHub 專案"
-    firstInstruction="步驟 45｜選擇適合的 Agent 安全設定，再完成專案建立"
+    firstInstruction="步驟 7｜選擇適合的 Agent 安全設定，再完成專案建立"
     firstImage={githubStep45}
-    secondInstruction="步驟 46｜輸入「下載」加上剛複製的 GitHub HTTPS 網址，讓 Antigravity 取得專案"
+    secondInstruction="步驟 8｜輸入「下載」加上剛複製的 GitHub HTTPS 網址，讓 Antigravity 取得專案"
     secondImage={githubStep46}
   />
 );
@@ -2933,6 +2914,7 @@ const ResourceCard = ({
       border: '1px solid rgba(169, 189, 201, 0.22)',
       borderTop: `6px solid ${color}`,
       borderRadius: 22,
+      color: '#f7f5ec',
       background: 'rgba(13, 38, 53, 0.90)',
       textAlign: 'center',
     }}
@@ -3357,7 +3339,6 @@ export default [
   Slide28OpenPagesSettings,
   Slide29PublishPages,
   Slide30FindSiteUrl,
-  Slide31VerifyWebsite,
   Slide32MoreExamples,
   Slide33IndexChapter,
   Slide33CreateIndex,
