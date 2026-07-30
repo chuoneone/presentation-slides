@@ -2900,12 +2900,17 @@ const ResourceCard = ({
   hint,
   title,
   color = mint,
+  href,
 }: {
   hint: string;
   title: string;
   color?: string;
+  href?: string;
 }) => (
-  <div
+  <a
+    href={href}
+    target={href ? '_blank' : undefined}
+    rel={href ? 'noreferrer' : undefined}
     style={{
       display: 'grid',
       minHeight: 252,
@@ -2917,11 +2922,12 @@ const ResourceCard = ({
       color: '#f7f5ec',
       background: 'rgba(13, 38, 53, 0.90)',
       textAlign: 'center',
+      textDecoration: 'none',
     }}
   >
     <ImagePlaceholder hint={hint} width={150} height={150} />
     <div style={{ color, fontSize: 24, fontWeight: 900 }}>{title}</div>
-  </div>
+  </a>
 );
 
 const _Slide26WhenAdvanced: Page = () => (
@@ -3297,11 +3303,17 @@ const Slide34Closing: Page = () => (
       </Step>
       <Step>
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginTop: 46 }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 20, marginTop: 46 }}
         >
           <ResourceCard hint="壽豐國中研習提示詞範本 QR Code" title="提示詞範本" color={mint} />
           <ResourceCard hint="GitHub Pages 圖解步驟 QR Code" title="Pages 圖解" color={cyan} />
           <ResourceCard hint="Antigravity 課後影片 QR Code" title="課後影片" color={yellow} />
+          <ResourceCard
+            hint="壽豐國中 AI 網頁製作複習影片 QR Code"
+            title="複習影片"
+            color={mint}
+            href="https://youtu.be/8Nd71kGVfj8?si=7oDbbfV6nP3PXeck"
+          />
           <ResourceCard hint="壽豐國中研習成果表單 QR Code" title="成果表單 · Q&A" color={coral} />
         </div>
       </Step>
