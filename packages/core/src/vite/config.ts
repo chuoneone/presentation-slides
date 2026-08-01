@@ -113,7 +113,18 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
     },
     server: {
       port: config.port ?? 5173,
-      fs: { allow: [APP_ROOT, userCwd, slidesAbs, themesAbs, assetsAbs] },
+      fs: {
+        allow: [
+          APP_ROOT,
+          userCwd,
+          slidesAbs,
+          themesAbs,
+          assetsAbs,
+          PKG_ROOT,
+          path.resolve(userCwd, '..'),
+          path.resolve(userCwd, '../..'),
+        ],
+      },
     },
     build: {
       outDir: path.resolve(userCwd, 'dist'),
