@@ -15,6 +15,7 @@ import volleyballWeb from './assets/排球互動網頁.png';
 import qingWeb from './assets/清朝互動網頁.png';
 import worksheetFromWeb from './assets/網頁變學習單.png';
 import coverImage from './assets/首頁.png';
+import coverIllustration from './assets/cover_illustration.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -944,15 +945,7 @@ const Slide01Cover: Page = () => (
           透過 AI 落地普特融合
         </div>
         <h1
-          style={{
-            margin: '0 0 32px',
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 78,
-            fontWeight: 950,
-            lineHeight: 1.1,
-            letterSpacing: '-0.04em',
-            color: ink,
-          }}
+          style={{ margin: '0 0 32px', fontFamily: 'var(--osd-font-display)', fontSize: '95px', fontWeight: 950, lineHeight: 1.1, letterSpacing: '-0.04em', color: ink }}
         >
           AI 工具協助課程設計
           <br />
@@ -973,96 +966,89 @@ const Slide01Cover: Page = () => (
           <Marker>讀得懂・練得到・答得出來</Marker>
         </p>
       </div>
-      <div style={{ position: 'relative', height: 680 }}>
+      <div style={{ position: 'relative', height: 680, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div
-          aria-hidden="true"
           style={{
-            position: 'absolute',
-            right: 34,
-            bottom: 0,
-            width: 520,
-            height: 630,
-            border: `16px solid ${greenDark}`,
-            borderBottom: 0,
-            borderRadius: '260px 260px 0 0',
-            background: mint,
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            right: 98,
-            bottom: 0,
-            width: 390,
-            height: 500,
-            border: `14px solid ${coral}`,
-            borderBottom: 0,
-            borderRadius: '200px 200px 0 0',
-            background: '#f7e7c4',
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            right: 164,
-            bottom: 0,
-            width: 258,
-            height: 366,
-            border: `12px solid ${blue}`,
-            borderBottom: 0,
-            borderRadius: '130px 130px 0 0',
+            position: 'relative',
+            width: 580,
+            height: 580,
+            borderRadius: 36,
+            padding: 16,
             background: paperLight,
+            boxShadow: shadow,
+            border: `3px solid ${hairline}`,
+            transform: 'rotate(1deg)',
+            overflow: 'hidden',
           }}
-        />
+        >
+          <img
+            src={coverIllustration}
+            alt="NANO BANANA 風格普特融合與 AI 教學插圖"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius: 24,
+              display: 'block',
+            }}
+          />
+        </div>
+
         <div
           style={{
             position: 'absolute',
-            top: 106,
-            left: 20,
-            padding: '16px 24px',
+            top: 24,
+            left: 0,
+            padding: '14px 22px',
             background: coral,
             color: paperLight,
-            fontSize: 28,
+            fontSize: 26,
             fontWeight: 900,
+            borderRadius: 99,
+            boxShadow: '0 8px 24px rgba(232, 93, 63, 0.3)',
             transform: 'rotate(-4deg)',
+            zIndex: 2,
           }}
         >
-          同一目標
+          同一目標 🎯
         </div>
+
         <div
           style={{
             position: 'absolute',
-            top: 264,
-            right: 0,
-            padding: '16px 24px',
+            top: 240,
+            right: -20,
+            padding: '14px 22px',
             background: amber,
             color: ink,
-            fontSize: 28,
+            fontSize: 26,
             fontWeight: 900,
+            borderRadius: 99,
+            boxShadow: '0 8px 24px rgba(240, 189, 88, 0.3)',
             transform: 'rotate(3deg)',
+            zIndex: 2,
           }}
         >
-          更多入口
+          更多入口 🚀
         </div>
+
         <div
           style={{
             position: 'absolute',
-            right: 192,
-            bottom: 76,
-            width: 200,
-            textAlign: 'center',
-            color: greenDark,
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 42,
-            fontWeight: 950,
-            lineHeight: 1.35,
+            bottom: 24,
+            left: 20,
+            padding: '14px 22px',
+            background: green,
+            color: paperLight,
+            fontSize: 26,
+            fontWeight: 900,
+            borderRadius: 99,
+            boxShadow: '0 8px 24px rgba(47, 107, 95, 0.3)',
+            transform: 'rotate(-2deg)',
+            zIndex: 2,
           }}
         >
-          每個學生
-          <br />
-          都能進來
+          每個學生都能進來 🌟
         </div>
       </div>
     </div>
