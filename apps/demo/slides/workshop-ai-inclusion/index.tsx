@@ -16,6 +16,7 @@ import qingWeb from './assets/清朝互動網頁.png';
 import worksheetFromWeb from './assets/網頁變學習單.png';
 import coverImage from './assets/首頁.png';
 import coverIllustration from './assets/cover_illustration.jpg';
+import pixarCoverArt from './assets/pixar_cover_art.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -970,85 +971,27 @@ const Slide01Cover: Page = () => (
         <div
           style={{
             position: 'relative',
-            width: 580,
-            height: 580,
-            borderRadius: 36,
-            padding: 16,
+            width: 610,
+            height: 610,
+            borderRadius: 40,
+            padding: 14,
             background: paperLight,
-            boxShadow: shadow,
-            border: `3px solid ${hairline}`,
-            transform: 'rotate(1deg)',
+            boxShadow: '0 32px 80px rgba(24, 59, 56, 0.18)',
+            border: `2px solid ${hairline}`,
             overflow: 'hidden',
           }}
         >
           <img
-            src={coverIllustration}
-            alt="NANO BANANA 風格普特融合與 AI 教學插圖"
+            src={pixarCoverArt}
+            alt="皮克斯 3D 動畫風格特教與 AI 融合課堂"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              borderRadius: 24,
+              borderRadius: 28,
               display: 'block',
             }}
           />
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            top: 24,
-            left: 0,
-            padding: '14px 22px',
-            background: coral,
-            color: paperLight,
-            fontSize: 26,
-            fontWeight: 900,
-            borderRadius: 99,
-            boxShadow: '0 8px 24px rgba(232, 93, 63, 0.3)',
-            transform: 'rotate(-4deg)',
-            zIndex: 2,
-          }}
-        >
-          同一目標 🎯
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            top: 240,
-            right: -20,
-            padding: '14px 22px',
-            background: amber,
-            color: ink,
-            fontSize: 26,
-            fontWeight: 900,
-            borderRadius: 99,
-            boxShadow: '0 8px 24px rgba(240, 189, 88, 0.3)',
-            transform: 'rotate(3deg)',
-            zIndex: 2,
-          }}
-        >
-          更多入口 🚀
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 24,
-            left: 20,
-            padding: '14px 22px',
-            background: green,
-            color: paperLight,
-            fontSize: 26,
-            fontWeight: 900,
-            borderRadius: 99,
-            boxShadow: '0 8px 24px rgba(47, 107, 95, 0.3)',
-            transform: 'rotate(-2deg)',
-            zIndex: 2,
-          }}
-        >
-          每個學生都能進來 🌟
         </div>
       </div>
     </div>
