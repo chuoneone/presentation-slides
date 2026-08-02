@@ -150,7 +150,7 @@ const PageShell = ({
           fontVariantNumeric: 'tabular-nums',
         }}
       >
-        <span>平和國中・AI 與普特融合</span>
+        <span>研習簡報・AI 與普特融合</span>
         <span>
           {String(current).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
@@ -930,18 +930,142 @@ const ActionCard = ({
 );
 
 const Slide01Cover: Page = () => (
-  <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-    <img
-      src={coverImage}
-      alt="透過 AI 談普特融合｜平和國中"
+  <PageShell eyebrow="PINGHE JUNIOR HIGH SCHOOL · 120 MIN">
+    <div
       style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        display: 'block',
+        display: 'grid',
+        gridTemplateColumns: '1.08fr 0.92fr',
+        alignItems: 'center',
+        gap: 80,
       }}
-    />
-  </div>
+    >
+      <div>
+        <div style={{ color: coral, fontSize: 26, fontWeight: 900, letterSpacing: '0.18em' }}>
+          AI × 差異化教材 × 普特融合
+        </div>
+        <h1
+          style={{
+            margin: '30px 0 36px',
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 'var(--osd-size-hero)',
+            fontWeight: 950,
+            lineHeight: 0.98,
+            letterSpacing: '-0.055em',
+          }}
+        >
+          透過 AI
+          <br />
+          談普特融合
+        </h1>
+        <p
+          style={{
+            maxWidth: 900,
+            margin: 0,
+            color: muted,
+            fontSize: 38,
+            fontWeight: 650,
+            lineHeight: 1.52,
+          }}
+        >
+          讓特教學生在普通班
+          <br />
+          <Marker>讀得懂、練得到、答得出來</Marker>
+        </p>
+      </div>
+      <div style={{ position: 'relative', height: 680 }}>
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: 34,
+            bottom: 0,
+            width: 520,
+            height: 630,
+            border: `16px solid ${greenDark}`,
+            borderBottom: 0,
+            borderRadius: '260px 260px 0 0',
+            background: mint,
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: 98,
+            bottom: 0,
+            width: 390,
+            height: 500,
+            border: `14px solid ${coral}`,
+            borderBottom: 0,
+            borderRadius: '200px 200px 0 0',
+            background: '#f7e7c4',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: 164,
+            bottom: 0,
+            width: 258,
+            height: 366,
+            border: `12px solid ${blue}`,
+            borderBottom: 0,
+            borderRadius: '130px 130px 0 0',
+            background: paperLight,
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            top: 106,
+            left: 20,
+            padding: '16px 24px',
+            background: coral,
+            color: paperLight,
+            fontSize: 28,
+            fontWeight: 900,
+            transform: 'rotate(-4deg)',
+          }}
+        >
+          同一目標
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            top: 264,
+            right: 0,
+            padding: '16px 24px',
+            background: amber,
+            color: ink,
+            fontSize: 28,
+            fontWeight: 900,
+            transform: 'rotate(3deg)',
+          }}
+        >
+          更多入口
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            right: 192,
+            bottom: 76,
+            width: 200,
+            textAlign: 'center',
+            color: greenDark,
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 42,
+            fontWeight: 950,
+            lineHeight: 1.35,
+          }}
+        >
+          每個學生
+          <br />
+          都能進來
+        </div>
+      </div>
+    </div>
+  </PageShell>
 );
 
 Slide01Cover.transition = {
@@ -3074,7 +3198,7 @@ const Slide24Closing: Page = () => (
 );
 
 export const meta: SlideMeta = {
-  title: '透過 AI 談普特融合｜平和國中',
+  title: '透過 AI 談普特融合｜研習簡報',
   createdAt: '2026-07-15T14:57:41.200Z',
 };
 
