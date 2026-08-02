@@ -932,70 +932,137 @@ const ActionCard = ({
 );
 
 const Slide01Cover: Page = () => (
-  <PageShell eyebrow="PINGHE JUNIOR HIGH SCHOOL · 120 MIN">
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.08fr 0.92fr',
-        alignItems: 'center',
-        gap: 80,
-      }}
-    >
-      <div>
-        <div style={{ color: coral, fontSize: 28, fontWeight: 900, letterSpacing: '0.14em', marginBottom: 18 }}>
-          透過 AI 落地普特融合
-        </div>
-        <h1
-          style={{ margin: '0 0 32px', fontFamily: 'var(--osd-font-display)', fontSize: '95px', fontWeight: 950, lineHeight: 1.1, letterSpacing: '-0.04em', color: ink }}
-        >
-          AI 工具協助課程設計
-          <br />
-          與差異化教材實務
-        </h1>
-        <p
-          style={{
-            maxWidth: 900,
-            margin: 0,
-            color: muted,
-            fontSize: 34,
-            fontWeight: 650,
-            lineHeight: 1.5,
-          }}
-        >
-          特教學生在普通班使用 AI 教材
-          <br />
-          <Marker>讀得懂・練得到・答得出來</Marker>
-        </p>
+  <div
+    style={{
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      background: '#0a0d0e',
+      color: '#fffdf8',
+      display: 'grid',
+      gridTemplateColumns: '1.05fr 0.95fr',
+      alignItems: 'center',
+      padding: '0 96px',
+      overflow: 'hidden',
+    }}
+  >
+    {/* Left content block */}
+    <div style={{ zIndex: 2 }}>
+      {/* Eyebrow Tag */}
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '8px 22px',
+          borderRadius: 99,
+          background: 'rgba(232, 93, 63, 0.22)',
+          border: '1px solid rgba(232, 93, 63, 0.45)',
+          color: '#ff7a5c',
+          fontSize: 23,
+          fontWeight: 900,
+          letterSpacing: '0.14em',
+          marginBottom: 32,
+        }}
+      >
+        透過 AI 落地普特融合
       </div>
-      <div style={{ position: 'relative', height: 680, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div
-          style={{
-            position: 'relative',
-            width: 610,
-            height: 610,
-            borderRadius: 40,
-            padding: 14,
-            background: paperLight,
-            boxShadow: '0 32px 80px rgba(24, 59, 56, 0.18)',
-            border: `2px solid ${hairline}`,
-            overflow: 'hidden',
-          }}
-        >
-          <img
-            src={pixarCoverArt}
-            alt="皮克斯 3D 動畫風格特教與 AI 融合課堂"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: 28,
-              display: 'block',
-            }}
-          />
-        </div>
+
+      {/* Heavy Impact Headline */}
+      <h1
+        style={{
+          margin: '0 0 36px',
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 88,
+          fontWeight: 950,
+          lineHeight: 1.08,
+          letterSpacing: '-0.035em',
+          color: '#ffffff',
+          textShadow: '0 4px 24px rgba(0,0,0,0.6)',
+        }}
+      >
+        AI 工具協助課程設計
+        <br />
+        <span style={{ color: '#f0bd58' }}>與差異化教材實務</span>
+      </h1>
+
+      {/* Subtitle / Slogan */}
+      <div
+        style={{
+          padding: '20px 28px',
+          background: 'rgba(255, 255, 255, 0.06)',
+          borderLeft: '8px solid #2f6b5f',
+          borderRadius: '0 16px 16px 0',
+          color: 'rgba(255, 253, 248, 0.90)',
+          fontSize: 29,
+          fontWeight: 750,
+          lineHeight: 1.48,
+          maxWidth: 820,
+          boxShadow: '0 12px 32px rgba(0,0,0,0.3)',
+        }}
+      >
+        特教學生在普通班使用 AI 教材：
+        <br />
+        <span style={{ color: '#ff7a5c', fontWeight: 900 }}>讀得懂・練得到・答得出來</span>
       </div>
     </div>
-  </PageShell>
+
+    {/* Right Geometric Triangle Grid Image Mask (Ref Template Style) */}
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}
+    >
+      <div
+        style={{
+          position: 'relative',
+          width: 760,
+          height: 760,
+          transform: 'translateX(60px)',
+        }}
+      >
+        <svg viewBox="0 0 600 600" style={{ width: '100%', height: '100%', display: 'block' }}>
+          <defs>
+            <pattern id="pixarTrianglePattern" patternUnits="userSpaceOnUse" width="600" height="600">
+              <image
+                href={pixarCoverArt}
+                x="0"
+                y="0"
+                width="600"
+                height="600"
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </pattern>
+          </defs>
+
+          {/* Triangular Geometric Mosaic Cluster */}
+          <g>
+            {/* Top Triangles */}
+            <polygon points="320,10 500,10 410,165" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="500,10 590,165 410,165" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+
+            {/* Middle Triangles */}
+            <polygon points="230,165 410,165 320,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="410,165 590,165 500,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="410,165 500,320 320,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+
+            {/* Bottom Triangles */}
+            <polygon points="140,320 320,320 230,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="320,320 500,320 410,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="320,320 410,475 230,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="500,320 590,475 410,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="230,475 410,475 320,580" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="410,475 590,580 320,580" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
 );
 
 Slide01Cover.transition = {
