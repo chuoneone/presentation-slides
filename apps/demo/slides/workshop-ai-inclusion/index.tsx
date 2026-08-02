@@ -999,7 +999,7 @@ const Slide01Cover: Page = () => (
       </div>
     </div>
 
-    {/* Right Universal Design Concept 3D Showcase Image */}
+    {/* Right User Uploaded Cover Showcase Image */}
     <div
       style={{
         position: 'relative',
@@ -1024,8 +1024,8 @@ const Slide01Cover: Page = () => (
         }}
       >
         <img
-          src={universalDesignArt}
-          alt="通用設計理念核心：多元入口與斜坡階梯通往同一終點"
+          src={coverImage}
+          alt="通用設計與 AI 備課首頁插圖"
           style={{
             width: '100%',
             height: '100%',
