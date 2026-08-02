@@ -941,11 +941,11 @@ const Slide01Cover: Page = () => (
     >
       <div>
         <div style={{ color: coral, fontSize: 26, fontWeight: 900, letterSpacing: '0.18em' }}>
-          AI × 差異化教材 × 普特融合
+          AI 備課實務 × 差異化教材 × 普特融合
         </div>
         <h1
           style={{
-            margin: '30px 0 36px',
+            margin: '24px 0 24px',
             fontFamily: 'var(--osd-font-display)',
             fontSize: 'var(--osd-size-hero)',
             fontWeight: 950,
@@ -955,21 +955,24 @@ const Slide01Cover: Page = () => (
         >
           透過 AI
           <br />
-          談普特融合
+          落地普特融合
         </h1>
+        <div style={{ color: greenDark, fontSize: 32, fontWeight: 850, marginBottom: 28, lineHeight: 1.35 }}>
+          AI 工具協助課程設計與差異化教材實務
+        </div>
         <p
           style={{
             maxWidth: 900,
             margin: 0,
             color: muted,
-            fontSize: 38,
+            fontSize: 34,
             fontWeight: 650,
-            lineHeight: 1.52,
+            lineHeight: 1.5,
           }}
         >
-          讓特教學生在普通班
+          特教學生在普通班使用 AI 教材
           <br />
-          <Marker>讀得懂、練得到、答得出來</Marker>
+          <Marker>讀得懂・練得到・答得出來</Marker>
         </p>
       </div>
       <div style={{ position: 'relative', height: 680 }}>
