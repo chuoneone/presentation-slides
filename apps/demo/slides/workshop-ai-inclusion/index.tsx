@@ -17,6 +17,7 @@ import worksheetFromWeb from './assets/網頁變學習單.png';
 import coverImage from './assets/首頁.png';
 import coverIllustration from './assets/cover_illustration.jpg';
 import pixarCoverArt from './assets/pixar_cover_art.jpg';
+import universalDesignArt from './assets/universal_design_art.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -998,7 +999,7 @@ const Slide01Cover: Page = () => (
       </div>
     </div>
 
-    {/* Right Geometric Triangle Grid Image Mask (User Palette Style) */}
+    {/* Right Universal Design Concept 3D Showcase Image */}
     <div
       style={{
         position: 'relative',
@@ -1006,51 +1007,33 @@ const Slide01Cover: Page = () => (
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
       }}
     >
       <div
         style={{
           position: 'relative',
-          width: 780,
-          height: 780,
-          transform: 'translateX(40px)',
+          width: 630,
+          height: 630,
+          borderRadius: 44,
+          padding: 14,
+          background: paperLight,
+          boxShadow: '0 32px 80px rgba(24, 59, 56, 0.16)',
+          border: `2px solid ${hairline}`,
+          overflow: 'hidden',
         }}
       >
-        <svg viewBox="0 0 600 600" style={{ width: '100%', height: '100%', display: 'block' }}>
-          <defs>
-            <pattern id="pixarTrianglePattern" patternUnits="userSpaceOnUse" width="600" height="600">
-              <image
-                href={pixarCoverArt}
-                x="0"
-                y="0"
-                width="600"
-                height="600"
-                preserveAspectRatio="xMidYMid slice"
-              />
-            </pattern>
-          </defs>
-
-          {/* Triangular Geometric Mosaic Cluster in User Palette */}
-          <g>
-            {/* Top Triangles */}
-            <polygon points="320,10 500,10 410,165" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="500,10 590,165 410,165" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-
-            {/* Middle Triangles */}
-            <polygon points="230,165 410,165 320,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="410,165 590,165 500,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="410,165 500,320 320,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-
-            {/* Bottom Triangles */}
-            <polygon points="140,320 320,320 230,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="320,320 500,320 410,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="320,320 410,475 230,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="500,320 590,475 410,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="230,475 410,475 320,580" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-            <polygon points="410,475 590,580 320,580" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
-          </g>
-        </svg>
+        <img
+          src={universalDesignArt}
+          alt="通用設計理念核心：多元入口與斜坡階梯通往同一終點"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            borderRadius: 32,
+            display: 'block',
+          }}
+        />
       </div>
     </div>
   </div>
