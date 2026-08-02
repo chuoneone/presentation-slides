@@ -940,26 +940,24 @@ const Slide01Cover: Page = () => (
       }}
     >
       <div>
-        <div style={{ color: coral, fontSize: 26, fontWeight: 900, letterSpacing: '0.18em' }}>
-          AI 備課實務 × 差異化教材 × 普特融合
+        <div style={{ color: coral, fontSize: 28, fontWeight: 900, letterSpacing: '0.14em', marginBottom: 18 }}>
+          透過 AI 落地普特融合
         </div>
         <h1
           style={{
-            margin: '24px 0 24px',
+            margin: '0 0 32px',
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 'var(--osd-size-hero)',
+            fontSize: 78,
             fontWeight: 950,
-            lineHeight: 0.98,
-            letterSpacing: '-0.055em',
+            lineHeight: 1.1,
+            letterSpacing: '-0.04em',
+            color: ink,
           }}
         >
-          透過 AI
+          AI 工具協助課程設計
           <br />
-          落地普特融合
+          與差異化教材實務
         </h1>
-        <div style={{ color: greenDark, fontSize: 32, fontWeight: 850, marginBottom: 28, lineHeight: 1.35 }}>
-          AI 工具協助課程設計與差異化教材實務
-        </div>
         <p
           style={{
             maxWidth: 900,
