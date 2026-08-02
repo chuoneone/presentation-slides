@@ -1,7 +1,7 @@
 import type { OpenSlideConfig } from '@open-slide/core';
 
 const openSlideConfig: OpenSlideConfig = {
-  base: process.env.BASE_URL || '/',
+  base: '/presentation-slides/',
 };
 
 export default openSlideConfig;
