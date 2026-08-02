@@ -937,12 +937,12 @@ const Slide01Cover: Page = () => (
       position: 'relative',
       width: '100%',
       height: '100%',
-      background: '#0a0d0e',
-      color: '#fffdf8',
+      background: paper,
+      color: ink,
       display: 'grid',
-      gridTemplateColumns: '1.05fr 0.95fr',
+      gridTemplateColumns: '1.12fr 0.88fr',
       alignItems: 'center',
-      padding: '0 96px',
+      padding: '0 88px',
       overflow: 'hidden',
     }}
   >
@@ -953,61 +953,52 @@ const Slide01Cover: Page = () => (
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 10,
-          padding: '8px 22px',
+          gap: 12,
+          padding: '10px 28px',
           borderRadius: 99,
-          background: 'rgba(232, 93, 63, 0.22)',
-          border: '1px solid rgba(232, 93, 63, 0.45)',
-          color: '#ff7a5c',
-          fontSize: 23,
+          background: 'rgba(232, 93, 63, 0.12)',
+          border: `2px solid ${coral}`,
+          color: coral,
+          fontSize: 30,
           fontWeight: 900,
           letterSpacing: '0.14em',
-          marginBottom: 32,
+          marginBottom: 34,
         }}
       >
         透過 AI 落地普特融合
       </div>
 
-      {/* Heavy Impact Headline */}
+      {/* Heavy Impact Headline - Extra Large */}
       <h1
-        style={{
-          margin: '0 0 36px',
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: 88,
-          fontWeight: 950,
-          lineHeight: 1.08,
-          letterSpacing: '-0.035em',
-          color: '#ffffff',
-          textShadow: '0 4px 24px rgba(0,0,0,0.6)',
-        }}
+        style={{ margin: '0 0 36px', fontFamily: 'var(--osd-font-display)', fontSize: '91px', fontWeight: 950, lineHeight: 1.05, letterSpacing: '-0.045em', color: greenDark }}
       >
-        AI 工具協助課程設計
-        <br />
-        <span style={{ color: '#f0bd58' }}>與差異化教材實務</span>
+        AI 工具協助教師進行<br />{''}{''}
+        
+        <span style={{ color: coral }}>差異化教材實務</span>
       </h1>
 
       {/* Subtitle / Slogan */}
       <div
         style={{
-          padding: '20px 28px',
-          background: 'rgba(255, 255, 255, 0.06)',
-          borderLeft: '8px solid #2f6b5f',
-          borderRadius: '0 16px 16px 0',
-          color: 'rgba(255, 253, 248, 0.90)',
-          fontSize: 29,
-          fontWeight: 750,
-          lineHeight: 1.48,
-          maxWidth: 820,
-          boxShadow: '0 12px 32px rgba(0,0,0,0.3)',
+          padding: '22px 32px',
+          background: paperLight,
+          borderLeft: `10px solid ${amber}`,
+          borderRadius: '0 20px 20px 0',
+          color: ink,
+          fontSize: 34,
+          fontWeight: 800,
+          lineHeight: 1.5,
+          maxWidth: 880,
+          boxShadow: shadow,
         }}
       >
         特教學生在普通班使用 AI 教材：
         <br />
-        <span style={{ color: '#ff7a5c', fontWeight: 900 }}>讀得懂・練得到・答得出來</span>
+        <span style={{ color: green, fontWeight: 900 }}>讀得懂・練得到・答得出來</span>
       </div>
     </div>
 
-    {/* Right Geometric Triangle Grid Image Mask (Ref Template Style) */}
+    {/* Right Geometric Triangle Grid Image Mask (User Palette Style) */}
     <div
       style={{
         position: 'relative',
@@ -1021,9 +1012,9 @@ const Slide01Cover: Page = () => (
       <div
         style={{
           position: 'relative',
-          width: 760,
-          height: 760,
-          transform: 'translateX(60px)',
+          width: 780,
+          height: 780,
+          transform: 'translateX(40px)',
         }}
       >
         <svg viewBox="0 0 600 600" style={{ width: '100%', height: '100%', display: 'block' }}>
@@ -1040,24 +1031,24 @@ const Slide01Cover: Page = () => (
             </pattern>
           </defs>
 
-          {/* Triangular Geometric Mosaic Cluster */}
+          {/* Triangular Geometric Mosaic Cluster in User Palette */}
           <g>
             {/* Top Triangles */}
-            <polygon points="320,10 500,10 410,165" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="500,10 590,165 410,165" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="320,10 500,10 410,165" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="500,10 590,165 410,165" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
 
             {/* Middle Triangles */}
-            <polygon points="230,165 410,165 320,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="410,165 590,165 500,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="410,165 500,320 320,320" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="230,165 410,165 320,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="410,165 590,165 500,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="410,165 500,320 320,320" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
 
             {/* Bottom Triangles */}
-            <polygon points="140,320 320,320 230,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="320,320 500,320 410,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="320,320 410,475 230,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="500,320 590,475 410,475" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="230,475 410,475 320,580" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
-            <polygon points="410,475 590,580 320,580" fill="url(#pixarTrianglePattern)" stroke="#0a0d0e" strokeWidth="12" />
+            <polygon points="140,320 320,320 230,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="320,320 500,320 410,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="320,320 410,475 230,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="500,320 590,475 410,475" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="230,475 410,475 320,580" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
+            <polygon points="410,475 590,580 320,580" fill="url(#pixarTrianglePattern)" stroke={paper} strokeWidth="14" />
           </g>
         </svg>
       </div>
