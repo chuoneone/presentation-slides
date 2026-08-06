@@ -1,6 +1,5 @@
 import {
   type DesignSystem,
-  ImagePlaceholder,
   type Page,
   type SlideMeta,
   type SlideTransition,
@@ -9,15 +8,13 @@ import {
   useSlidePageNumber,
 } from '@open-slide/core';
 import type { CSSProperties, ReactNode } from 'react';
+import finalQrCode from './assets/final-qr-code.png';
 import printStep1 from './assets/html學習單列印-步驟1全選.png';
 import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
 import volleyballWeb from './assets/排球互動網頁.png';
 import qingWeb from './assets/清朝互動網頁.png';
 import worksheetFromWeb from './assets/網頁變學習單.png';
 import coverImage from './assets/首頁.png';
-import coverIllustration from './assets/cover_illustration.jpg';
-import pixarCoverArt from './assets/pixar_cover_art.jpg';
-import universalDesignArt from './assets/universal_design_art.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -568,7 +565,7 @@ const LevelCard = ({
   </section>
 );
 
-const ToolRow = ({
+const _ToolRow = ({
   problem,
   tool,
   result,
@@ -802,6 +799,7 @@ const FlowNode = ({
         margin: '24px 0 20px',
         fontFamily: 'var(--osd-font-display)',
         fontSize: 44,
+        fontWeight: '700',
       }}
     >
       {title}
@@ -846,7 +844,7 @@ const ActivityRow = ({
   </div>
 );
 
-const ChoiceRow = ({
+const _ChoiceRow = ({
   index,
   problem,
   tool,
@@ -881,18 +879,21 @@ const ActionCard = ({
   detail,
   color,
   rotate,
+  minHeight = 270,
 }: {
   number: string;
   title: string;
   detail: string;
   color: string;
   rotate: number;
+  minHeight?: number;
 }) => (
   <div
     style={{
-      minHeight: 270,
+      minHeight,
       display: 'grid',
       gridTemplateColumns: '88px 1fr',
+      alignContent: 'center',
       gap: 22,
       padding: '38px 42px',
       background: paperLight,
@@ -921,8 +922,9 @@ const ActionCard = ({
         style={{
           margin: 0,
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 40,
+          fontSize: '52px',
           lineHeight: 1.25,
+          fontWeight: '700',
         }}
       >
         {title}
@@ -971,10 +973,20 @@ const Slide01Cover: Page = () => (
 
       {/* Heavy Impact Headline - Extra Large */}
       <h1
-        style={{ margin: '0 0 36px', fontFamily: 'var(--osd-font-display)', fontSize: '91px', fontWeight: 950, lineHeight: 1.05, letterSpacing: '-0.045em', color: greenDark }}
+        style={{
+          margin: '0 0 36px',
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: '91px',
+          fontWeight: 950,
+          lineHeight: 1.05,
+          letterSpacing: '-0.045em',
+          color: greenDark,
+        }}
       >
-        AI 工具協助教師進行<br />{''}{''}
-        
+        AI 工具協助教師進行
+        <br />
+        {''}
+        {''}
         <span style={{ color: coral }}>差異化教材實務</span>
       </h1>
 
@@ -1060,27 +1072,28 @@ Slide01Cover.transition = {
   },
 };
 
-const AgendaCard = ({
-  part,
+const AgendaStep = ({
+  number,
+  label,
   title,
-  subtitle,
-  bullets,
+  tags,
   color,
   rotate = 0,
 }: {
-  part: string;
+  number: string;
+  label: string;
   title: string;
-  subtitle: string;
-  bullets: string[];
+  tags: string;
   color: string;
   rotate?: number;
 }) => (
   <div
     style={{
-      minHeight: 500,
-      padding: '40px 38px',
+      position: 'relative',
+      minHeight: 330,
+      padding: '30px 34px',
       background: paperLight,
-      borderTop: `12px solid ${color}`,
+      borderTop: `10px solid ${color}`,
       boxShadow: shadow,
       transform: `rotate(${rotate}deg)`,
       display: 'flex',
@@ -1088,103 +1101,134 @@ const AgendaCard = ({
       justifyContent: 'space-between',
     }}
   >
-    <div>
-      <div style={{ color, fontSize: 22, fontWeight: 900, letterSpacing: '0.18em' }}>{part}</div>
+    <div
+      style={{
+        color,
+        fontSize: 98,
+        fontWeight: 950,
+        lineHeight: 0.78,
+        letterSpacing: '-0.08em',
+        opacity: 0.16,
+      }}
+    >
+      {number}
+    </div>
+    <div style={{ marginTop: -20 }}>
+      <div style={{ color, fontSize: 19, fontWeight: 950, letterSpacing: '0.2em' }}>{label}</div>
       <h3
         style={{
-          margin: '16px 0 12px',
+          margin: '16px 0 28px',
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 42,
+          fontSize: 43,
           fontWeight: 950,
-          lineHeight: 1.2,
+          lineHeight: 1.18,
         }}
       >
         {title}
       </h3>
-      <div style={{ color: muted, fontSize: 27, fontWeight: 750, marginBottom: 32, lineHeight: 1.4 }}>
-        {subtitle}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {bullets.map((item, idx) => (
-          <div
-            key={idx}
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '22px 1fr',
-              alignItems: 'baseline',
-              gap: 14,
-              fontSize: 27,
-              fontWeight: 650,
-              lineHeight: 1.42,
-            }}
-          >
-            <span style={{ color, fontSize: 22 }}>●</span>
-            <span>{item}</span>
-          </div>
-        ))}
-      </div>
     </div>
     <div
       style={{
-        marginTop: 28,
-        padding: '12px 18px',
-        borderRadius: 12,
-        background: 'rgba(24, 59, 56, 0.05)',
+        alignSelf: 'flex-start',
+        padding: '10px 15px',
+        background: 'rgba(24, 59, 56, 0.06)',
         color: ink,
-        fontSize: 22,
+        fontSize: 21,
         fontWeight: 800,
-        textAlign: 'center',
+        letterSpacing: '0.04em',
       }}
     >
-      {part === 'PART 1' && '讀得懂・拿得到・寫得出來'}
-      {part === 'PART 2' && '願意學・自主學・依速度學'}
-      {part === 'PART 3' && '對照地圖・下週立即行動'}
+      {tags}
     </div>
   </div>
 );
 
 const Slide01Agenda: Page = () => (
-  <PageShell eyebrow="AGENDA · 本日大綱" accent={coral}>
-    <Title margin="0 0 38px">
-      本日研習大綱：<Marker color={amber}>從紙本到互動的 AI 備課路徑</Marker>
-    </Title>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 38 }}>
-      <AgendaCard
-        part="PART 1"
-        title="紙本教材差異化"
-        subtitle="讓學生拿得到、讀得懂、寫得出來"
-        bullets={[
-          '描述學生困難，對話生成初稿',
-          '三層次難度與仿 A4 學習單',
-          '將紙本重新設計為學習鷹架',
-        ]}
-        color={green}
-        rotate={-0.3}
+  <PageShell eyebrow="AGENDA · 今天的路徑" accent={amber}>
+    <div
+      style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 72 }}
+    >
+      <div>
+        <div style={{ color: amber, fontSize: 21, fontWeight: 950, letterSpacing: '0.22em' }}>
+          WORKSHOP MAP
+        </div>
+        <Title size={76} margin="12px 0 0">
+          今天，完成三件事
+        </Title>
+      </div>
+      <div
+        style={{
+          maxWidth: 450,
+          paddingBottom: 10,
+          color: muted,
+          fontSize: 27,
+          fontWeight: 750,
+          lineHeight: 1.45,
+        }}
+      >
+        完成後，就能直接帶回下週的課堂。
+      </div>
+    </div>
+    <div style={{ position: 'relative', marginTop: 54 }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: 164,
+          left: 108,
+          right: 108,
+          height: 2,
+          background: `linear-gradient(90deg, ${green}, ${blue}, ${coral})`,
+          opacity: 0.48,
+        }}
       />
-      <AgendaCard
-        part="PART 2"
-        title="互動網頁教學運用"
-        subtitle="讓學生願意學、自主學、依速度學"
-        bullets={[
-          '一句話生成單元互動探索網頁',
-          '基礎版與挑戰版差異化入口',
-          '網頁與紙本互相轉換的學習流程',
-        ]}
-        color={blue}
-        rotate={0.3}
-      />
-      <AgendaCard
-        part="PART 3"
-        title="現有工具與行動"
-        subtitle="從下週的一個單元開始實作"
-        bullets={[
-          '對照課堂困難快速選擇 AI 工具',
-          '省下重複講解，走近學生身邊',
-          '挑選最容易的第一步開始改變',
-        ]}
-        color={coral}
-        rotate={-0.2}
-      />
+      <div
+        style={{
+          position: 'relative',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: 42,
+        }}
+      >
+        <AgendaStep
+          number="01"
+          label="GEMINI × PAPER"
+          title="生成差異化紙本教材"
+          tags="課文簡化 · 差異化 · 個別化"
+          color={green}
+          rotate={-0.45}
+        />
+        <AgendaStep
+          number="02"
+          label="AI × WEB"
+          title="生成互動式學習網頁"
+          tags="一句話指令 · 內容互動 · 學生自學"
+          color={blue}
+          rotate={0.25}
+        />
+        <AgendaStep
+          number="03"
+          label="TOOLS × CLASS"
+          title="現成工具快速調整教材"
+          tags="找到卡點 · 點選工具 · 立即完成"
+          color={coral}
+          rotate={-0.3}
+        />
+      </div>
+    </div>
+    <div
+      style={{
+        alignSelf: 'center',
+        marginTop: 48,
+        padding: '13px 24px',
+        color: greenDark,
+        borderTop: `2px solid ${amber}`,
+        borderBottom: `2px solid ${amber}`,
+        fontSize: 27,
+        fontWeight: 850,
+        letterSpacing: '0.08em',
+      }}
+    >
+      最後，選一項下週就能試做的任務。
     </div>
   </PageShell>
 );
@@ -1378,6 +1422,7 @@ const Slide06PaperSection: Page = () => (
             fontSize: 126,
             lineHeight: 1.02,
             letterSpacing: '-0.05em',
+            fontWeight: '700',
           }}
         >
           先從手邊
@@ -1510,7 +1555,7 @@ const Slide07DescribeDifficulty: Page = () => (
 
 const Slide08FirstPrompt: Page = () => (
   <PageShell eyebrow="06 · 第一句，先求有" accent={coral}>
-    <Title margin="0 0 42px">先做出一份可以修改的初稿</Title>
+    <Title margin="0 0 42px">Step1︰先做出一份可以修改的初稿</Title>
     <Steps>
       <div
         style={{
@@ -1539,7 +1584,7 @@ const Slide08FirstPrompt: Page = () => (
         >
           貼上教材後直接輸入
         </div>
-        <div style={{ fontSize: 46, fontWeight: 850, lineHeight: 1.52 }}>
+        <div style={{ fontSize: '86px', fontWeight: 850, lineHeight: 1.52 }}>
           「請調整難度，學生基本計算有困難，
           <br />
           識字也有困難，不專心。」
@@ -1586,7 +1631,7 @@ const Slide08FirstPrompt: Page = () => (
 const Slide09ThreeLevels: Page = () => (
   <PageShell eyebrow="07 · 同一內容，三個入口" accent={amber}>
     <Title size={66} margin="0 0 34px">
-      不必每次做三版；先從最常卡住的地方開始
+      Step2︰AI協助我們快速產出差異化教材「架構」
     </Title>
     <div
       style={{
@@ -1636,7 +1681,7 @@ const Slide09ThreeLevels: Page = () => (
 const Slide10A4Worksheet: Page = () => (
   <PageShell eyebrow="08 · 第二句，讓成果可直接使用" accent={blue}>
     <Title size={60} margin="0 0 28px">
-      內容有了，再請 AI 排成美觀的 A4 學習單
+      Step3︰請 AI 排成美觀的 A4 學習單
     </Title>
     <div
       style={{
@@ -1654,7 +1699,9 @@ const Slide10A4Worksheet: Page = () => (
       <div style={{ color: amber, fontSize: 21, fontWeight: 900, letterSpacing: '0.14em' }}>
         PROMPT · 版面升級
       </div>
-      <div style={{ fontSize: 29, fontWeight: 800, lineHeight: 1.4 }}>「依這份內容用html做一份仿 A4 學習單，列印要美觀且不能切割。」</div>
+      <div style={{ fontSize: 29, fontWeight: 800, lineHeight: 1.4 }}>
+        「依這份內容用html做一份仿 A4 學習單，列印要美觀且不能切割。」
+      </div>
     </div>
     <div
       style={{
@@ -1691,8 +1738,8 @@ const Slide10A4Worksheet: Page = () => (
   </PageShell>
 );
 
-const Slide11PaperTools: Page = () => (
-  <PageShell eyebrow="09 · 先依課堂困難選工具" accent={green}>
+const _Slide11PaperTools: Page = () => (
+  <PageShell eyebrow="10 · 先依課堂困難選工具" accent={green}>
     <Title size={60} margin="0 0 32px">
       紙本工具不是看名稱，而是看它解決哪個卡點
     </Title>
@@ -1727,7 +1774,12 @@ const Slide11PaperTools: Page = () => (
       >
         <div style={{ fontWeight: 800 }}>文章太難讀</div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <ToolButton href="https://spedmix.pages.dev/simple" label="課文簡化" color={green} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/simple"
+            label="課文簡化"
+            color={green}
+            size="small"
+          />
         </div>
         <div style={{ color: muted, lineHeight: 1.4 }}>易讀文本、圖解、重點與練習</div>
       </div>
@@ -1736,7 +1788,7 @@ const Slide11PaperTools: Page = () => (
           display: 'grid',
           gridTemplateColumns: '360px 480px 1fr',
           alignItems: 'center',
-          minHeight: 110,
+          minHeight: 184,
           padding: '0 36px',
           background: paperLight,
           borderBottom: `1px solid ${hairline}`,
@@ -1745,9 +1797,18 @@ const Slide11PaperTools: Page = () => (
       >
         <div style={{ fontWeight: 800 }}>同一份教材難度不一</div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <ToolButton href="https://spedmix.pages.dev/differentiated" label="差異化教材" color={blue} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/differentiated"
+            label="差異化教材"
+            color={blue}
+            size="small"
+          />
         </div>
-        <div style={{ color: muted, lineHeight: 1.4 }}>文本、重點、題目分層</div>
+        <div style={{ color: muted, fontSize: 22, fontWeight: 750, lineHeight: 1.5 }}>
+          條列重點／架構表格／平鋪段落
+          <br />
+          問答互動／重點＋生活故事
+        </div>
       </div>
       <div
         style={{
@@ -1763,7 +1824,12 @@ const Slide11PaperTools: Page = () => (
       >
         <div style={{ fontWeight: 800 }}>題目不符合學生能力</div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <ToolButton href="https://spedmix.pages.dev/question" label="個別化出題" color={coral} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/question"
+            label="個別化出題"
+            color={coral}
+            size="small"
+          />
         </div>
         <div style={{ color: muted, lineHeight: 1.4 }}>調整題型、難度與提示</div>
       </div>
@@ -1781,7 +1847,12 @@ const Slide11PaperTools: Page = () => (
       >
         <div style={{ fontWeight: 800 }}>同概念需要反覆練習</div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <ToolButton href="https://spedmix.pages.dev/mathquestion" label="數題數題" color="#9d6518" size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/mathquestion"
+            label="數題數題"
+            color="#9d6518"
+            size="small"
+          />
         </div>
         <div style={{ color: muted, lineHeight: 1.4 }}>一題延伸多題、循序練習</div>
       </div>
@@ -1792,10 +1863,355 @@ const Slide11PaperTools: Page = () => (
   </PageShell>
 );
 
+const Slide11Bridge: Page = () => (
+  <PageShell eyebrow="10 · 把重複工作交給工具" accent={blue}>
+    <Title size={68} margin="0 0 48px">
+      有沒有更快的方式？
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 112px 1fr',
+        gap: 30,
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          minHeight: 432,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '42px 46px',
+          background: paperLight,
+          boxShadow: shadow,
+        }}
+      >
+        <div>
+          <div style={{ color: green, fontSize: 24, fontWeight: 950, letterSpacing: '0.14em' }}>
+            第一次／想自由調整
+          </div>
+          <h3
+            style={{
+              margin: '20px 0 20px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 58,
+              fontWeight: 950,
+              lineHeight: 1.12,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            自己下 Gemini 指令
+          </h3>
+          <div style={{ color: muted, fontSize: 28, fontWeight: 750, lineHeight: 1.5 }}>
+            依這次教材的需求，修改文字、版面與呈現方式。
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <span
+            style={{
+              padding: '12px 18px',
+              background: mint,
+              color: ink,
+              fontSize: 23,
+              fontWeight: 900,
+            }}
+          >
+            改文字
+          </span>
+          <span
+            style={{
+              padding: '12px 18px',
+              background: '#e0ebef',
+              color: ink,
+              fontSize: 23,
+              fontWeight: 900,
+            }}
+          >
+            調版面
+          </span>
+          <span
+            style={{
+              padding: '12px 18px',
+              background: '#f7e7c4',
+              color: ink,
+              fontSize: 23,
+              fontWeight: 900,
+            }}
+          >
+            試風格
+          </span>
+        </div>
+      </div>
+
+      <div style={{ color: amber, textAlign: 'center' }}>
+        <div
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 78,
+            fontWeight: 950,
+            lineHeight: 1,
+          }}
+        >
+          →
+        </div>
+        <div style={{ marginTop: 14, fontSize: 20, fontWeight: 900, lineHeight: 1.35 }}>
+          省下重複步驟
+        </div>
+      </div>
+
+      <div
+        style={{
+          minHeight: 432,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '42px 46px',
+          color: paperLight,
+          background: greenDark,
+          boxShadow: shadow,
+        }}
+      >
+        <div>
+          <div style={{ color: amber, fontSize: 24, fontWeight: 950, letterSpacing: '0.14em' }}>
+            經常要調整教材
+          </div>
+          <h3
+            style={{
+              margin: '20px 0 24px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 58,
+              fontWeight: 950,
+              lineHeight: 1.12,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            選工具，直接完成
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div style={{ padding: '14px 18px', background: green, fontSize: 23, fontWeight: 900 }}>
+              課文簡化
+            </div>
+            <div style={{ padding: '14px 18px', background: blue, fontSize: 23, fontWeight: 900 }}>
+              差異化教材
+            </div>
+            <div style={{ padding: '14px 18px', background: coral, fontSize: 23, fontWeight: 900 }}>
+              個別化出題
+            </div>
+            <div
+              style={{ padding: '14px 18px', background: '#9d6518', fontSize: 23, fontWeight: 900 }}
+            >
+              數題數題
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            color: 'rgba(255, 253, 248, 0.72)',
+            fontSize: 28,
+            fontWeight: 750,
+            lineHeight: 1.45,
+          }}
+        >
+          不必從提示詞開始，先選需求，再完成調整。
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+
+const WorkshopTaskCard = ({
+  label,
+  title,
+  href,
+  color,
+}: {
+  label: ReactNode;
+  title: ReactNode;
+  href?: string;
+  color: string;
+}) => {
+  const cardStyle: CSSProperties = {
+    minHeight: 274,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 32,
+    padding: '34px 38px 36px',
+    background: `linear-gradient(135deg, ${color} 0%, ${color}de 100%)`,
+    color: paperLight,
+    boxShadow: `0 14px 32px ${color}44`,
+    border: '2px solid rgba(255, 253, 248, 0.32)',
+  };
+  const content = (
+    <>
+      <div style={{ fontSize: 30, fontWeight: 800, lineHeight: 1.35, opacity: 0.78 }}>{label}</div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          gap: 28,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 48,
+            fontWeight: 950,
+            lineHeight: 1.08,
+            letterSpacing: '-0.035em',
+          }}
+        >
+          {title}
+        </div>
+        {href ? (
+          <div
+            aria-hidden="true"
+            style={{
+              flex: '0 0 auto',
+              display: 'grid',
+              placeItems: 'center',
+              width: 58,
+              height: 58,
+              border: '2px solid rgba(255, 253, 248, 0.58)',
+              borderRadius: '50%',
+              fontSize: 30,
+              fontWeight: 900,
+              lineHeight: 1,
+            }}
+          >
+            ↗
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+
+  if (!href) {
+    return <div style={cardStyle}>{content}</div>;
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        ...cardStyle,
+        textDecoration: 'none',
+        cursor: 'pointer',
+        transition:
+          'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+    >
+      {content}
+    </a>
+  );
+};
+
+const WorkshopLayout = ({
+  eyebrow,
+  minutes,
+  accent,
+  children,
+}: {
+  eyebrow: string;
+  minutes: string;
+  accent: string;
+  children: ReactNode;
+}) => (
+  <PageShell eyebrow={eyebrow} accent={accent}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '400px 1fr',
+        gap: 36,
+        alignItems: 'stretch',
+      }}
+    >
+      <div
+        style={{
+          minHeight: 584,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '48px 42px',
+          color: paperLight,
+          background: greenDark,
+          boxShadow: shadow,
+        }}
+      >
+        <div>
+          <div
+            aria-hidden="true"
+            style={{
+              marginBottom: 18,
+              color: 'rgba(255, 253, 248, 0.2)',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 152,
+              fontWeight: 950,
+              lineHeight: 0.78,
+              letterSpacing: '-0.08em',
+            }}
+          >
+            {minutes}
+          </div>
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 74,
+              fontWeight: 950,
+              lineHeight: 1.06,
+              letterSpacing: '-0.05em',
+            }}
+          >
+            實作
+            <br />
+            {minutes} 分鐘
+          </h2>
+        </div>
+        <div style={{ width: 116, height: 10, marginTop: 42, background: coral }} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>{children}</div>
+    </div>
+  </PageShell>
+);
+
+const SlidePaperToolPractice7Min: Page = () => (
+  <WorkshopLayout eyebrow="11 · 課堂實作" minutes="7" accent={coral}>
+    <WorkshopTaskCard
+      label="文章太難讀"
+      title="課文簡化"
+      href="https://spedmix.pages.dev/simple"
+      color={green}
+    />
+    <WorkshopTaskCard
+      label="同一份教材難度不一"
+      title="差異化教材"
+      href="https://spedmix.pages.dev/differentiated"
+      color={blue}
+    />
+    <WorkshopTaskCard
+      label="題目不符合學生能力"
+      title="個別化出題"
+      href="https://spedmix.pages.dev/question"
+      color={coral}
+    />
+    <WorkshopTaskCard
+      label="同概念需要反覆練習"
+      title="數題數題"
+      href="https://spedmix.pages.dev/mathquestion"
+      color="#9d6518"
+    />
+  </WorkshopLayout>
+);
+
 const Slide12PaperScaffold: Page = () => (
-  <PageShell eyebrow="10 · 紙本是可重新設計的鷹架" accent={amber}>
+  <PageShell eyebrow="12 · 紙本是可重新設計的鷹架" accent={amber}>
     <Title size={64} margin="0 0 34px">
-      紙本不是舊方法，它能把學習路徑留在桌面上
+      紙本不會被淘汰，它能把學習路徑留下來！！
     </Title>
     <div
       style={{
@@ -1837,9 +2253,10 @@ const Slide12PaperScaffold: Page = () => (
             lineHeight: 1,
           }}
         >
-          紙本
+          但紙本
           <br />
-          不是終點
+          不是唯一
+          {''}
         </div>
         <div
           aria-hidden="true"
@@ -1863,120 +2280,53 @@ const Slide12PaperScaffold: Page = () => (
 );
 
 const SlidePracticePaper10Min: Page = () => (
-  <PageShell eyebrow="11 · 課堂實作 10 分鐘（紙本學習單）" accent={green}>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.1fr 0.9fr',
-        gap: 54,
-        alignItems: 'center',
-      }}
-    >
-      <div>
-        <div style={{ color: green, fontSize: 26, fontWeight: 950, letterSpacing: '0.16em' }}>
-          PART 1 WORKSHOP · 紙本實作
-        </div>
-        <h2
-          style={{
-            margin: '20px 0 32px',
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 84,
-            fontWeight: 950,
-            lineHeight: 1.1,
-            letterSpacing: '-0.04em',
-          }}
-        >
-          紙本實作時間 <span style={{ color: green }}>10 分鐘</span>
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${green}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >
-            1. 挑選手邊一段學生最常卡住的課文或段落
-          </div>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${blue}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >2. 輸入 Prompt 生成「基礎版易讀文本」並美化「仿 A4 學習單」</div>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${coral}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >
-            3. 複製生成結果或截圖，上傳至 Padlet 研習成果板
-          </div>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 30,
-          padding: '48px 42px',
-          background: greenDark,
-          color: paperLight,
-          boxShadow: shadow,
-          transform: 'rotate(-0.8deg)',
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 130,
-            height: 130,
-            borderRadius: '50%',
-            background: amber,
-            color: ink,
-            fontSize: 60,
-            fontWeight: 950,
-            display: 'grid',
-            placeItems: 'center',
-            boxShadow: '0 12px 30px rgba(0,0,0,0.2)',
-          }}
-        >
-          📝
-        </div>
-        <div>
-          <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 42, fontWeight: 950 }}>
-            紙本差異化成果上傳
-          </div>
-          <div style={{ marginTop: 12, color: 'rgba(255, 253, 248, 0.78)', fontSize: 25, lineHeight: 1.4 }}>
-            請點擊下方按鈕，將實作學習單截圖或文字上傳到 Padlet
-          </div>
-        </div>
-        <ToolButton
-          href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
-          label="上傳紙本成果至 Padlet ↗"
-          color={green}
-          size="large"
-        />
-      </div>
-    </div>
-  </PageShell>
+  <WorkshopLayout eyebrow="09 · 初步實作 10 分鐘（簡化 × 美化）" minutes="10" accent={green}>
+    <WorkshopTaskCard
+      label="01 · 選教材"
+      title={
+        <>
+          挑一段學生最常
+          <br />
+          卡住的課文
+        </>
+      }
+      color={green}
+    />
+    <WorkshopTaskCard
+      label="02 · 先簡化"
+      title={
+        <>
+          用 Gemini 生成
+          <br />
+          基礎版易讀文本
+        </>
+      }
+      color={blue}
+    />
+    <WorkshopTaskCard
+      label="03 · 再美化"
+      title={
+        <>
+          整理成仿 A4
+          <br />
+          學習單
+        </>
+      }
+      color={coral}
+    />
+    <WorkshopTaskCard
+      label="04 · 分享成果"
+      title={
+        <>
+          上傳成果至
+          <br />
+          Padlet
+        </>
+      }
+      href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
+      color="#9d6518"
+    />
+  </WorkshopLayout>
 );
 
 const Slide13WebSection: Page = () => (
@@ -2185,7 +2535,7 @@ const Slide16SocialStudiesCase: Page = () => (
 );
 
 const Slide17DifferentiateWeb: Page = () => (
-  <PageShell eyebrow="14 · 網頁做好後，再補一句做差異化" accent={amber}>
+  <PageShell eyebrow="15 · 網頁做好後，再補一句做差異化" accent={amber}>
     <Title size={60} margin="0 0 36px">
       基礎版先保核心；挑戰版讓學得快的學生前進
     </Title>
@@ -2203,9 +2553,7 @@ const Slide17DifferentiateWeb: Page = () => (
       <div style={{ color: amber, fontSize: 22, fontWeight: 900, letterSpacing: '0.14em' }}>
         PROMPT · 差異化網頁
       </div>
-      <div style={{ fontSize: 32, fontWeight: 850 }}>
-        「增加基礎版本和挑戰版本。」
-      </div>
+      <div style={{ fontSize: 32, fontWeight: 850 }}>「增加基礎版本和挑戰版本。」</div>
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 42 }}>
       <VersionPanel title="基礎版本" subtitle="讓卡住的學生有入口" color={green}>
@@ -2223,7 +2571,7 @@ const Slide17DifferentiateWeb: Page = () => (
 );
 
 const Slide18LearningFlow: Page = () => (
-  <PageShell eyebrow="15 · 完整學習流程" accent={coral}>
+  <PageShell eyebrow="16 · 完整學習流程" accent={coral}>
     <Title size={60} margin="0 0 38px">
       網頁、紙本與線上評量，可以串成完整學習循環
     </Title>
@@ -2267,7 +2615,7 @@ const Slide18LearningFlow: Page = () => (
 );
 
 const Slide19InteractiveTools: Page = () => (
-  <PageShell eyebrow="16 · 在操作中練習與檢核" accent={blue}>
+  <PageShell eyebrow="17 · 在操作中練習與檢核" accent={blue}>
     <Title size={60} margin="0 0 34px">
       互動式工具，替不同學習任務補上即時回饋
     </Title>
@@ -2334,7 +2682,7 @@ const Slide20ActionSection: Page = () => (
         >
           不必全學會
           <br />
-          先選一個卡點
+          選自己的需求
         </h2>
         <p style={{ margin: 0, color: 'rgba(255, 253, 248, 0.68)', fontSize: 34, lineHeight: 1.5 }}>
           從學生最常卡住的地方，選擇第一個工具。
@@ -2424,13 +2772,21 @@ const Slide21ToolMapPart1: Page = () => (
           01
         </div>
         <div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: ink, lineHeight: 1.25 }}>看不懂長篇教材</div>
-          <div style={{ marginTop: 8, color: muted, fontSize: 24, fontWeight: 650 }}>易讀文本、關鍵詞註解、圖解與重點摘要</div>
+          <div style={{ fontSize: 32, fontWeight: 900, color: ink, lineHeight: 1.25 }}>
+            看不懂長篇教材
+          </div>
+          <div style={{ marginTop: 8, color: muted, fontSize: 24, fontWeight: 650 }}>
+            易讀文本、關鍵詞註解、圖解與重點摘要
+          </div>
         </div>
         <div style={{ color: green, fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>→</div>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <ToolButton href="https://spedmix.pages.dev/simple" label="課文簡化" color={green} />
-          <ToolButton href="https://spedmix.pages.dev/differentiated" label="差異化教材" color={greenDark} />
+          <ToolButton
+            href="https://spedmix.pages.dev/differentiated"
+            label="差異化教材"
+            color={greenDark}
+          />
         </div>
       </div>
 
@@ -2462,13 +2818,21 @@ const Slide21ToolMapPart1: Page = () => (
           02
         </div>
         <div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: ink, lineHeight: 1.25 }}>題目一多就放棄</div>
-          <div style={{ marginTop: 8, color: muted, fontSize: 24, fontWeight: 650 }}>調整難度與提示，或改為線上逐題作答</div>
+          <div style={{ fontSize: 32, fontWeight: 900, color: ink, lineHeight: 1.25 }}>
+            題目一多就放棄
+          </div>
+          <div style={{ marginTop: 8, color: muted, fontSize: 24, fontWeight: 650 }}>
+            調整難度與提示，或改為線上逐題作答
+          </div>
         </div>
         <div style={{ color: blue, fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>→</div>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <ToolButton href="https://spedmix.pages.dev/question" label="個別化出題" color={blue} />
-          <ToolButton href="https://spedmix.pages.dev/examtest" label="線上段考模板" color={coral} />
+          <ToolButton
+            href="https://spedmix.pages.dev/examtest"
+            label="線上段考模板"
+            color={coral}
+          />
         </div>
       </div>
     </div>
@@ -2522,13 +2886,25 @@ const Slide21ToolMapPart2: Page = () => (
           03
         </div>
         <div>
-          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>數學概念不穩、練習不夠</div>
-          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>一題多變反覆熟練，或將步驟動態視覺化</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>
+            數學概念不穩、練習不夠
+          </div>
+          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>
+            一題多變反覆熟練，或將步驟動態視覺化
+          </div>
         </div>
         <div style={{ color: coral, fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>→</div>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-          <ToolButton href="https://spedmix.pages.dev/mathquestion" label="數題數題" color="#9d6518" />
-          <ToolButton href="https://spedmix.pages.dev/interativemath" label="互動式數學" color={green} />
+          <ToolButton
+            href="https://spedmix.pages.dev/mathquestion"
+            label="數題數題"
+            color="#9d6518"
+          />
+          <ToolButton
+            href="https://spedmix.pages.dev/interativemath"
+            label="互動式數學"
+            color={green}
+          />
         </div>
       </div>
 
@@ -2560,10 +2936,16 @@ const Slide21ToolMapPart2: Page = () => (
           04
         </div>
         <div>
-          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>想得到，但寫不出來</div>
-          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>句子結構重組，降低書寫負擔</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>
+            很會講但寫不出來的學生
+          </div>
+          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>
+            句子結構重組，降低書寫負擔
+          </div>
         </div>
-        <div style={{ color: '#9d6518', fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>→</div>
+        <div style={{ color: '#9d6518', fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>
+          →
+        </div>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <ToolButton href="https://spedmix.pages.dev/unscramble" label="重組句子" color={coral} />
         </div>
@@ -2597,10 +2979,16 @@ const Slide21ToolMapPart2: Page = () => (
           05
         </div>
         <div>
-          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>無法依課堂速度完成</div>
-          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>提供自主速度探索頁面，配合老師個別引導</div>
+          <div style={{ fontSize: 31, fontWeight: 900, color: ink, lineHeight: 1.25 }}>
+            無法依課堂速度完成
+          </div>
+          <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 650 }}>
+            提供自主速度探索頁面，配合老師個別引導
+          </div>
         </div>
-        <div style={{ color: greenDark, fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>→</div>
+        <div style={{ color: greenDark, fontSize: 36, fontWeight: 900, justifySelf: 'center' }}>
+          →
+        </div>
         <div>
           <ToolButton label="互動式網頁 ＋ 基礎版" color={greenDark} />
         </div>
@@ -2625,7 +3013,7 @@ const Slide21ToolMapPart2: Page = () => (
 const Slide21ToolHub: Page = () => (
   <PageShell eyebrow="19 · 米克師 AI 備課幫手 7 大工具" accent={amber}>
     <Title size={56} margin="0 0 28px">
-      米克師 AI 備課幫手 · 工具直連地圖
+      AI 備課幫手 · 工具連結
     </Title>
     <div
       style={{
@@ -2651,7 +3039,14 @@ const Slide21ToolHub: Page = () => (
           <span style={{ fontSize: 18, fontWeight: 900, color: green, letterSpacing: '0.12em' }}>
             01 · 閱讀支持
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
             課文簡化
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
@@ -2659,7 +3054,12 @@ const Slide21ToolHub: Page = () => (
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/simple" label="開啟工具" color={green} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/simple"
+            label="開啟工具"
+            color={green}
+            size="small"
+          />
         </div>
       </div>
 
@@ -2679,7 +3079,14 @@ const Slide21ToolHub: Page = () => (
           <span style={{ fontSize: 18, fontWeight: 900, color: blue, letterSpacing: '0.12em' }}>
             02 · 差異化設計
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
             差異化教材
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
@@ -2687,7 +3094,12 @@ const Slide21ToolHub: Page = () => (
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/differentiated" label="開啟工具" color={blue} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/differentiated"
+            label="開啟工具"
+            color={blue}
+            size="small"
+          />
         </div>
       </div>
 
@@ -2707,7 +3119,14 @@ const Slide21ToolHub: Page = () => (
           <span style={{ fontSize: 18, fontWeight: 900, color: coral, letterSpacing: '0.12em' }}>
             03 · 評量調整
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
             個別化出題
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
@@ -2715,7 +3134,12 @@ const Slide21ToolHub: Page = () => (
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/question" label="開啟工具" color={coral} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/question"
+            label="開啟工具"
+            color={coral}
+            size="small"
+          />
         </div>
       </div>
 
@@ -2723,7 +3147,7 @@ const Slide21ToolHub: Page = () => (
         style={{
           padding: '24px 26px',
           background: paperLight,
-          borderTop: `8px solid #9d6518`,
+          borderTop: `8px solid ${green}`,
           boxShadow: shadow,
           display: 'flex',
           flexDirection: 'column',
@@ -2732,18 +3156,30 @@ const Slide21ToolHub: Page = () => (
         }}
       >
         <div>
-          <span style={{ fontSize: 18, fontWeight: 900, color: '#9d6518', letterSpacing: '0.12em' }}>
-            04 · 線上評量
+          <span style={{ fontSize: 18, fontWeight: 900, color: green, letterSpacing: '0.12em' }}>
+            04 · 數學練習
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
-            線上段考模板
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
+            數題數題
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
-            逐題呈現與自動化分數檢核
+            一題多變同型題，反覆熟練概念
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/examtest" label="開啟工具" color="#9d6518" size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/mathquestion"
+            label="開啟工具"
+            color={green}
+            size="small"
+          />
         </div>
       </div>
     </div>
@@ -2759,7 +3195,7 @@ const Slide21ToolHub: Page = () => (
         style={{
           padding: '24px 26px',
           background: paperLight,
-          borderTop: `8px solid ${green}`,
+          borderTop: `8px solid #9d6518`,
           boxShadow: shadow,
           display: 'flex',
           flexDirection: 'column',
@@ -2768,18 +3204,32 @@ const Slide21ToolHub: Page = () => (
         }}
       >
         <div>
-          <span style={{ fontSize: 18, fontWeight: 900, color: green, letterSpacing: '0.12em' }}>
-            05 · 數學練習
+          <span
+            style={{ fontSize: 18, fontWeight: 900, color: '#9d6518', letterSpacing: '0.12em' }}
+          >
+            05 · 線上評量
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
-            數題數題
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
+            線上段考模板
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
-            一題多變同型題，反覆熟練概念
+            逐題呈現與自動化分數檢核
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/mathquestion" label="開啟工具" color={green} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/examtest"
+            label="開啟工具"
+            color="#9d6518"
+            size="small"
+          />
         </div>
       </div>
 
@@ -2799,7 +3249,14 @@ const Slide21ToolHub: Page = () => (
           <span style={{ fontSize: 18, fontWeight: 900, color: blue, letterSpacing: '0.12em' }}>
             06 · 概念視覺化
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
             互動式數學
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
@@ -2807,7 +3264,12 @@ const Slide21ToolHub: Page = () => (
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/interativemath" label="開啟工具" color={blue} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/interativemath"
+            label="開啟工具"
+            color={blue}
+            size="small"
+          />
         </div>
       </div>
 
@@ -2827,7 +3289,14 @@ const Slide21ToolHub: Page = () => (
           <span style={{ fontSize: 18, fontWeight: 900, color: coral, letterSpacing: '0.12em' }}>
             07 · 句型輸出
           </span>
-          <h4 style={{ margin: '8px 0 8px', fontFamily: 'var(--osd-font-display)', fontSize: 32, fontWeight: 950 }}>
+          <h4
+            style={{
+              margin: '8px 0 8px',
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 32,
+              fontWeight: 950,
+            }}
+          >
             重組句子
           </h4>
           <p style={{ margin: 0, color: muted, fontSize: 22, lineHeight: 1.4, fontWeight: 650 }}>
@@ -2835,7 +3304,12 @@ const Slide21ToolHub: Page = () => (
           </p>
         </div>
         <div style={{ marginTop: 16 }}>
-          <ToolButton href="https://spedmix.pages.dev/unscramble" label="開啟工具" color={coral} size="small" />
+          <ToolButton
+            href="https://spedmix.pages.dev/unscramble"
+            label="開啟工具"
+            color={coral}
+            size="small"
+          />
         </div>
       </div>
     </div>
@@ -2845,7 +3319,7 @@ const Slide21ToolHub: Page = () => (
 const Slide22TwentyMinutes: Page = () => (
   <PageShell eyebrow="20 · 把備課時間換回學生時間" accent={coral}>
     <Title size={60} margin="0 0 30px">
-      多備 20 分鐘，換回更多支持學生的時間
+      多備 20 分鐘，換回上課喘息時間
     </Title>
     <div
       style={{
@@ -2857,12 +3331,12 @@ const Slide22TwentyMinutes: Page = () => (
     >
       <div style={{ paddingRight: 34, borderRight: `1px solid ${hairline}` }}>
         <div style={{ color: coral, fontSize: 25, fontWeight: 950, letterSpacing: '0.14em' }}>
-          LESS · 少一點
+          LESS · 少了
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 34 }}>
           <Bullet color={coral}>重複講解同一段</Bullet>
           <Bullet color={coral}>等待全班完全同步</Bullet>
-          <Bullet color={coral}>因挫折出現的逃避</Bullet>
+          <Bullet color={coral}>因挫折出現的問題行為</Bullet>
         </div>
       </div>
       <div
@@ -2896,12 +3370,12 @@ const Slide22TwentyMinutes: Page = () => (
       </div>
       <div style={{ paddingLeft: 34, borderLeft: `1px solid ${hairline}` }}>
         <div style={{ color: green, fontSize: 25, fontWeight: 950, letterSpacing: '0.14em' }}>
-          MORE · 多一點
+          MORE · 多了
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 28, marginTop: 34 }}>
           <Bullet color={green}>走到學生身邊的觀察</Bullet>
-          <Bullet color={green}>針對真正卡點的協助</Bullet>
-          <Bullet color={green}>學生依速度完成任務</Bullet>
+          <Bullet color={green}>針對真正困難的協助</Bullet>
+          <Bullet color={green}>學生自主完成任務</Bullet>
         </div>
       </div>
     </div>
@@ -2925,156 +3399,110 @@ const Slide22TwentyMinutes: Page = () => (
 const Slide23StartNextWeek: Page = () => (
   <PageShell eyebrow="21 · 從下週的一個單元開始" accent={amber}>
     <Title size={64} margin="0 0 38px">
-      今天不用做完整系統，只要選一件最容易開始的事
+      今天結束後，只要選一件最容易開始的事
     </Title>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 96px 1fr',
+        gap: 28,
+        alignItems: 'center',
+      }}
+    >
       <ActionCard
         number="01"
         title="做一份易讀或分層紙本"
         detail="挑一段學生最常卡住的教材，先做基礎版。"
         color={green}
         rotate={-0.35}
+        minHeight={360}
       />
+      <div
+        aria-hidden="true"
+        style={{
+          color: coral,
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 42,
+          fontWeight: 950,
+          textAlign: 'center',
+        }}
+      >
+        或
+      </div>
       <ActionCard
         number="02"
         title="把一個單元做成互動網頁"
         detail="先用一句話生成，再補內容與活動。"
         color={blue}
         rotate={0.35}
+        minHeight={360}
       />
-      <ActionCard
-        number="03"
-        title="增加基礎版或挑戰版"
-        detail="讓不同速度的學生都能從核心目標出發。"
-        color={coral}
-        rotate={0.25}
-      />
-      <ActionCard
-        number="04"
-        title="把網頁轉成 A4 學習單"
-        detail="留下書寫、整理與可檢視的學習證據。"
-        color="#9d6518"
-        rotate={-0.25}
-      />
+    </div>
+    <div
+      style={{
+        alignSelf: 'center',
+        marginTop: 44,
+        padding: '16px 30px',
+        color: ink,
+        background: amber,
+        fontSize: '46px',
+        fontWeight: 900,
+        transform: 'rotate(-0.35deg)',
+      }}
+    >
+      AI可以加速我們完成70%架構，最後的調整仍以教師為主。
     </div>
   </PageShell>
 );
 
 const SlidePractice10Min: Page = () => (
-  <PageShell eyebrow="17 · 課堂實作 10 分鐘" accent={amber}>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.1fr 0.9fr',
-        gap: 54,
-        alignItems: 'center',
-      }}
-    >
-      <div>
-        <div style={{ color: coral, fontSize: 26, fontWeight: 950, letterSpacing: '0.16em' }}>
-          HANDS-ON WORKSHOP
-        </div>
-        <h2
-          style={{
-            margin: '20px 0 32px',
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 84,
-            fontWeight: 950,
-            lineHeight: 1.1,
-            letterSpacing: '-0.04em',
-          }}
-        >
-          實作時間 <span style={{ color: coral }}>10 分鐘</span>
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${green}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >
-            1. 挑選手邊一份單元內容（課文、講義或題目）
-          </div>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${blue}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >2. 使用 AI 生成互動網頁</div>
-          <div
-            style={{
-              padding: '24px 30px',
-              background: paperLight,
-              borderLeft: `10px solid ${coral}`,
-              boxShadow: shadow,
-              fontSize: 28,
-              fontWeight: 800,
-              lineHeight: 1.45,
-            }}
-          >
-            3. 將完成的成果（截圖或網頁連結）上傳至 Padlet
-          </div>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 30,
-          padding: '48px 42px',
-          background: greenDark,
-          color: paperLight,
-          boxShadow: shadow,
-          transform: 'rotate(0.8deg)',
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 130,
-            height: 130,
-            borderRadius: '50%',
-            background: amber,
-            color: ink,
-            fontSize: 60,
-            fontWeight: 950,
-            display: 'grid',
-            placeItems: 'center',
-            boxShadow: '0 12px 30px rgba(0,0,0,0.2)',
-          }}
-        >
-          ⏱️
-        </div>
-        <div>
-          <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 42, fontWeight: 950 }}>
-            實作成果上傳與分享
-          </div>
-          <div style={{ marginTop: 12, color: 'rgba(255, 253, 248, 0.78)', fontSize: 25, lineHeight: 1.4 }}>
-            請點擊下方按鈕將成果上傳到 Padlet 研習板
-          </div>
-        </div>
-        <ToolButton
-          href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
-          label="點此開啟 Padlet 上傳成果 ↗"
-          color={coral}
-          size="large"
-        />
-      </div>
-    </div>
-  </PageShell>
+  <WorkshopLayout eyebrow="14 · 課堂實作 10 分鐘" minutes="10" accent={amber}>
+    <WorkshopTaskCard
+      label="01 · 選教材"
+      title={
+        <>
+          挑選一份單元
+          <br />
+          內容
+        </>
+      }
+      color={green}
+    />
+    <WorkshopTaskCard
+      label="02 · 生成網頁"
+      title={
+        <>
+          使用 AI 生成
+          <br />
+          互動網頁
+        </>
+      }
+      color={blue}
+    />
+    <WorkshopTaskCard
+      label="03 · 檢查入口"
+      title={
+        <>
+          確認學生能
+          <br />
+          操作與練習
+        </>
+      }
+      color={coral}
+    />
+    <WorkshopTaskCard
+      label="04 · 分享成果"
+      title={
+        <>
+          上傳成果至
+          <br />
+          Padlet
+        </>
+      }
+      href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
+      color="#9d6518"
+    />
+  </WorkshopLayout>
 );
 
 const Slide24Closing: Page = () => (
@@ -3118,9 +3546,9 @@ const Slide24Closing: Page = () => (
             lineHeight: 1.5,
           }}
         >
-          教師也終於有時間，
+          或許教師也能減少一些，
           <br />
-          走到學生身邊。
+          無力感 。
         </div>
         <div style={{ marginTop: 34, color: muted, fontSize: 30, fontWeight: 850 }}>
           Q&A・一起從下一份教材開始
@@ -3139,12 +3567,28 @@ const Slide24Closing: Page = () => (
           textAlign: 'center',
         }}
       >
-        <ImagePlaceholder hint="米克師 AI 備課幫手 QR Code (https://spedmix.pages.dev/)" width={300} height={300} />
+        <img
+          src={finalQrCode}
+          alt="米克師 AI 備課幫手 QR Code"
+          style={{
+            width: 300,
+            height: 300,
+            display: 'block',
+            objectFit: 'contain',
+            borderRadius: 12,
+            background: paperLight,
+          }}
+        />
         <div>
           <div style={{ color: greenDark, fontSize: 34, fontWeight: 950, marginBottom: 14 }}>
             米克師 AI 備課幫手
           </div>
-          <ToolButton href="https://spedmix.pages.dev/" label="開啟 AI 備課幫手 ↗" color={green} size="large" />
+          <ToolButton
+            href="https://spedmix.pages.dev/"
+            label="開啟 AI 備課幫手 ↗"
+            color={green}
+            size="large"
+          />
         </div>
         <div
           style={{
@@ -3159,7 +3603,7 @@ const Slide24Closing: Page = () => (
             textAlign: 'center',
           }}
         >
-          AI 的價值，不是做出多厲害的網頁，
+          AI 的價值，不是做出多厲害的教材，
           <br />
           而是讓更多學生真正參與普通班的學習。
         </div>
@@ -3185,17 +3629,18 @@ export default [
   Slide08FirstPrompt,
   Slide09ThreeLevels,
   Slide10A4Worksheet,
-  Slide11PaperTools,
-  Slide12PaperScaffold,
   SlidePracticePaper10Min,
+  Slide11Bridge,
+  SlidePaperToolPractice7Min,
+  Slide12PaperScaffold,
   Slide13WebSection,
   Slide14WhenToUseWeb,
   Slide15OneSentenceWeb,
   Slide16SocialStudiesCase,
+  SlidePractice10Min,
   Slide17DifferentiateWeb,
   Slide18LearningFlow,
   Slide19InteractiveTools,
-  SlidePractice10Min,
   Slide20ActionSection,
   Slide21ToolMapPart1,
   Slide21ToolMapPart2,

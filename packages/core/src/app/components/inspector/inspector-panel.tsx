@@ -134,10 +134,19 @@ export function InspectorPanel() {
       if (!selected) return;
       const target = resolveSelectedTarget(selected, slideId);
       if (target !== selected) setSelected(target);
-      bufferOps(target.line, target.column, target.anchor, ops);
+      const prevText = target.anchor.isConnected
+        ? readSnapshot(target.anchor).text
+        : snapshot?.text;
+      const resolvedOps =
+        prevText === null || prevText === undefined
+          ? ops
+          : ops.map((op) =>
+              op.kind === 'set-style' && op.prevText === undefined ? { ...op, prevText } : op,
+            );
+      bufferOps(target.line, target.column, target.anchor, resolvedOps);
       if (target.anchor.isConnected) setSnapshot(readSnapshot(target.anchor));
     },
-    [selected, setSelected, slideId, bufferOps],
+    [selected, setSelected, slideId, bufferOps, snapshot],
   );
 
   // `pinned` keeps the last selection rendered through the close-out
