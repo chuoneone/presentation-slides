@@ -617,73 +617,55 @@ const Slide01Cover: Page = () => (
 );
 Slide01Cover.transition = sectionTransition;
 
-const AgendaCard = ({ step, title, color }: { step: string; title: string; color: string }) => (
-  <div
+const AgendaCard = ({
+  label,
+  title,
+  color,
+  href,
+}: {
+  label: string;
+  title: string;
+  color: string;
+  href: string;
+}) => (
+  <a
+    href={href}
+    aria-label={`前往${title}`}
     style={{
-      minHeight: 270,
+      display: 'block',
+      minHeight: 250,
       padding: '34px 36px',
       border: '1px solid rgba(39, 52, 59, 0.18)',
       borderTop: `14px solid ${color}`,
       background: panel,
       boxShadow: '0 12px 24px rgba(55, 76, 73, 0.08)',
+      color: 'inherit',
+      textDecoration: 'none',
     }}
   >
     <div
       style={{ color, fontFamily: mono, fontSize: 30, fontWeight: 900, letterSpacing: '0.08em' }}
     >
-      STEP {step}
+      {label}
     </div>
-    <div style={{ marginTop: 48, fontSize: 46, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
-  </div>
+    <div style={{ marginTop: 48, fontSize: 43, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
+  </a>
 );
 
 const Slide02WorkshopAgenda: Page = () => (
   <PageShell eyebrow="WORKSHOP MAP · 180 MINUTES" accent={coral} mood="warm">
     <Title size={76} margin="0 0 18px">
-      今天先完成三件事
+      今天會完成四個 PART
     </Title>
     <div style={{ marginBottom: 36, color: muted, fontSize: 34, fontWeight: 750 }}>
-      註冊 → 生成 → 上傳
+      PART 01 → PART 02 → PART 03 → PART 04 → 補充
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
-      <AgendaCard step="01" title="註冊 GitHub 帳號" color={cyan} />
-      <AgendaCard step="02" title="用 Gemini 生成網頁" color={mint} />
-      <AgendaCard step="03" title="上傳網頁到 GitHub" color={yellow} />
-    </div>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '260px 1fr',
-        alignItems: 'center',
-        minHeight: 150,
-        marginTop: 22,
-        border: '1px dashed rgba(39, 52, 59, 0.28)',
-        borderLeft: `14px solid ${coral}`,
-        background: 'rgba(255, 255, 255, 0.48)',
-      }}
-    >
-      <div
-        style={{
-          padding: '0 34px',
-          color: coral,
-          fontFamily: mono,
-          fontSize: 28,
-          fontWeight: 900,
-          letterSpacing: '0.08em',
-        }}
-      >
-        有時間再補充
-      </div>
-      <div
-        style={{
-          padding: '26px 38px',
-          borderLeft: '1px solid rgba(39, 52, 59, 0.12)',
-          fontSize: 42,
-          fontWeight: 950,
-        }}
-      >
-        用 Antigravity 管理與更新
-      </div>
+      <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=6" />
+      <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=12" />
+      <AgendaCard label="PART 03" title="上傳 index.html 到 GitHub" color={yellow} href="?p=17" />
+      <AgendaCard label="PART 04" title="發布 GitHub Pages 網址" color={cyan} href="?p=21" />
+      <AgendaCard label="補充" title="用 Antigravity 管理與更新" color={coral} href="?p=27" />
     </div>
   </PageShell>
 );
@@ -1792,11 +1774,15 @@ const GitHubChapter = ({
   title,
   description,
   accent,
+  actionLabel,
+  actionHref,
 }: {
   part: string;
   title: string;
   description: string;
   accent: string;
+  actionLabel?: string;
+  actionHref?: string;
 }) => (
   <PageShell eyebrow="GITHUB 網頁發布工作流" accent={accent} mood="blue">
     <div
@@ -1848,6 +1834,33 @@ const GitHubChapter = ({
       >
         {description}
       </p>
+      {actionLabel && actionHref ? (
+        <a
+          href={actionHref}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 14,
+            marginTop: 34,
+            padding: '17px 26px',
+            border: `2px solid ${accent}`,
+            borderRadius: 999,
+            color: '#183b38',
+            background: accent,
+            boxShadow: `0 12px 24px ${accent}44`,
+            fontSize: 30,
+            fontWeight: 950,
+            textDecoration: 'none',
+          }}
+        >
+          {actionLabel}
+          <span aria-hidden="true" style={{ fontSize: 34, lineHeight: 1 }}>
+            ↗
+          </span>
+        </a>
+      ) : null}
     </div>
   </PageShell>
 );
@@ -2130,7 +2143,7 @@ const Slide32MoreExamples: Page = () => (
       }}
     >
       <div style={{ color: mint, fontSize: 34, fontWeight: 900, lineHeight: 1.35 }}>
-        接下來想做多個頁面，再用首頁把它們串起來。
+        接下來可以持續更新內容，讓網站慢慢長大。
       </div>
       <img
         src={githubStep31}
@@ -2153,6 +2166,8 @@ const Slide36AntigravityChapter: Page = () => (
     title="把 GitHub 網站帶進 Antigravity"
     description="建立本機專案資料夾，貼上 Repository 網址，讓 AI 協助你繼續修改網站。"
     accent={coral}
+    actionLabel="下載 Antigravity"
+    actionHref="https://antigravity.google/download"
   />
 );
 
@@ -2838,59 +2853,18 @@ const LevelCard = ({
   </div>
 );
 
-const ActionCard = ({
-  index,
-  title,
-  color = mint,
-}: {
-  index: string;
-  title: string;
-  color?: string;
-}) => (
-  <div
-    style={{
-      display: 'grid',
-      minHeight: 250,
-      padding: '28px 24px',
-      placeItems: 'center',
-      border: '1px solid rgba(169, 189, 201, 0.22)',
-      borderRadius: 24,
-      color: '#fffdf7',
-      background: 'rgba(13, 38, 53, 0.90)',
-      textAlign: 'center',
-    }}
-  >
-    <div
-      style={{
-        display: 'grid',
-        width: 56,
-        height: 56,
-        placeItems: 'center',
-        border: `3px solid ${color}`,
-        borderRadius: '50%',
-        color,
-        fontFamily: mono,
-        fontSize: 20,
-        fontWeight: 950,
-      }}
-    >
-      {index}
-    </div>
-    <div style={{ fontSize: 36, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
-    <div style={{ color, fontFamily: mono, fontSize: 30 }}>○</div>
-  </div>
-);
-
 const ResourceCard = ({
   hint,
   title,
   color = mint,
   href,
+  imageSrc,
 }: {
   hint: string;
   title: string;
   color?: string;
   href?: string;
+  imageSrc?: string;
 }) => (
   <a
     href={href}
@@ -2899,19 +2873,29 @@ const ResourceCard = ({
     style={{
       display: 'grid',
       minHeight: 252,
-      padding: '20px 18px',
+      gap: 12,
+      padding: '22px 20px 18px',
       placeItems: 'center',
-      border: '1px solid rgba(169, 189, 201, 0.22)',
-      borderTop: `6px solid ${color}`,
+      border: '1px solid rgba(238, 117, 82, 0.24)',
+      borderTop: `8px solid ${color}`,
       borderRadius: 22,
-      color: '#f7f5ec',
-      background: 'rgba(13, 38, 53, 0.90)',
+      color: '#183b38',
+      background: 'linear-gradient(145deg, #fffaf2 0%, #ffe9dc 100%)',
       textAlign: 'center',
       textDecoration: 'none',
+      boxShadow: '0 18px 34px rgba(181, 91, 68, 0.14)',
     }}
   >
-    <ImagePlaceholder hint={hint} width={150} height={150} />
-    <div style={{ color, fontSize: 28, fontWeight: 900 }}>{title}</div>
+    {imageSrc ? (
+      <img
+        src={imageSrc}
+        alt={hint}
+        style={{ width: 150, height: 150, borderRadius: 12, objectFit: 'contain' }}
+      />
+    ) : (
+      <ImagePlaceholder hint={hint} width={150} height={150} />
+    )}
+    <div style={{ color, fontSize: 28, fontWeight: 950, lineHeight: 1.25 }}>{title}</div>
   </a>
 );
 
@@ -3220,91 +3204,216 @@ const _Slide32ExitLevels: Page = () => (
 );
 _Slide32ExitLevels.transition = sectionTransition;
 
-const Slide33SevenDayAction: Page = () => (
-  <PageShell eyebrow="04 · ONE SMALL NEXT STEP" accent={yellow}>
-    <Title size={82}>七天內，只更新一件事</Title>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 22 }}>
-      <ActionCard index="01" title="加一張作品卡" color={mint} />
-      <ActionCard index="02" title="放一個教材連結" color={cyan} />
-      <ActionCard index="03" title="補上教學理念" color={yellow} />
-      <ActionCard index="04" title="錄一分鐘介紹" color={coral} />
-      <ActionCard index="05" title="完成進階更新" color={mint} />
-    </div>
-    <div
-      style={{ marginTop: 36, color: muted, fontSize: 34, fontWeight: 750, textAlign: 'center' }}
-    >
-      網站不是今天一次做完；而是從今天開始持續長大。
-    </div>
-  </PageShell>
-);
+const Slide33SevenDayAction: Page = () => {
+  const outcomes = [
+    {
+      index: '01',
+      title: '管理自己的教材',
+      note: '把講義、練習與連結集中在自己的網址。',
+      color: mint,
+    },
+    {
+      index: '02',
+      title: '增加上課互動性',
+      note: '加入按鈕、問答與小練習，讓學生更容易開始。',
+      color: cyan,
+    },
+    {
+      index: '03',
+      title: '經營個人網誌',
+      note: '記錄生活觀察、教學想法與自己的作品。',
+      color: yellow,
+    },
+    {
+      index: '04',
+      title: '做專屬記帳工具',
+      note: '依自己的分類記錄支出，想看哪種統計自己決定。',
+      color: coral,
+    },
+    {
+      index: '05',
+      title: '規劃旅遊行程網站',
+      note: '把景點、地圖、預算與行程集中在一頁。',
+      color: mint,
+    },
+    {
+      index: '06',
+      title: '整理作品與活動頁',
+      note: '把照片、作品、活動紀錄整理成自己的展示頁。',
+      color: cyan,
+    },
+  ];
 
-const Slide34Closing: Page = () => (
-  <PageShell eyebrow="04 · SHIP THE IDEA" accent={mint} mood="blue">
-    <Steps>
-      <Step>
+  return (
+    <PageShell eyebrow="04 · WHAT CHANGES" accent={yellow} mood="green">
+      <Title size={78} margin="0 0 16px">
+        會做簡單網頁，生活和工作都多出哪些可能？
+      </Title>
+      <div style={{ marginBottom: 28, color: muted, fontSize: 34, fontWeight: 750 }}>
+        不只教師，任何人都能從自己的需要開始。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+        {outcomes.map((outcome) => (
+          <div
+            key={outcome.index}
+            style={{
+              minHeight: 210,
+              padding: '24px 26px',
+              border: '1px solid rgba(39, 52, 59, 0.16)',
+              borderTop: `10px solid ${outcome.color}`,
+              borderRadius: 18,
+              background: panel,
+              boxShadow: '0 12px 24px rgba(55, 76, 73, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                color: outcome.color,
+                fontFamily: mono,
+                fontSize: 24,
+                fontWeight: 950,
+                letterSpacing: '0.08em',
+              }}
+            >
+              {outcome.index}
+            </div>
+            <div style={{ marginTop: 18, fontSize: 38, fontWeight: 950, lineHeight: 1.2 }}>
+              {outcome.title}
+            </div>
+            <div
+              style={{
+                marginTop: 12,
+                color: muted,
+                fontSize: 25,
+                fontWeight: 700,
+                lineHeight: 1.4,
+              }}
+            >
+              {outcome.note}
+            </div>
+          </div>
+        ))}
+      </div>
+    </PageShell>
+  );
+};
+
+const Slide34Closing: Page = () => {
+  const reviewVideoUrl = 'https://youtu.be/8Nd71kGVfj8?si=2NFISOG9l3G44gX_';
+  const reviewVideoQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=12&data=${encodeURIComponent(reviewVideoUrl)}`;
+
+  return (
+    <PageShell eyebrow="05 · WRAP UP" accent={coral} mood="warm">
+      <div
+        style={{
+          position: 'relative',
+          display: 'grid',
+          gridTemplateColumns: '1.18fr 0.82fr',
+          alignItems: 'center',
+          gap: 58,
+        }}
+      >
         <div
+          aria-hidden="true"
           style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 68,
-            fontWeight: 950,
-            lineHeight: 1.2,
-            letterSpacing: '-0.035em',
-            textAlign: 'center',
+            position: 'absolute',
+            top: -44,
+            right: 10,
+            width: 176,
+            height: 176,
+            border: '2px solid rgba(238, 117, 82, 0.18)',
+            borderRadius: '50%',
+            background: 'rgba(255, 221, 190, 0.32)',
+            transform: 'rotate(-12deg)',
           }}
-        >
-          說清楚想做什麼，
+        />
+        <div>
+          <div
+            style={{
+              color: coral,
+              fontFamily: mono,
+              fontSize: 26,
+              fontWeight: 900,
+              letterSpacing: '0.12em',
+            }}
+          >
+            THANK YOU FOR BUILDING WITH US
+          </div>
+          <Title size={88} margin="28px 0 24px">
+            謝謝大家！
+            {''}
+          </Title>
+          <div
+            style={{ maxWidth: 760, color: muted, fontSize: 31, fontWeight: 750, lineHeight: 1.55 }}
+          >
+            從 GitHub、Gemini 到網址上線
+            <br />
+            你已經把一個想法變成可以分享的作品
+          </div>
+          <div
+            style={{
+              display: 'inline-block',
+              marginTop: 26,
+              padding: '12px 20px',
+              borderLeft: `8px solid ${yellow}`,
+              borderRadius: 8,
+              background: 'rgba(255, 255, 255, 0.62)',
+              color: '#315d58',
+              fontSize: 25,
+              fontWeight: 850,
+              lineHeight: 1.35,
+            }}
+          >
+            不用一次做完，先從一個真正需要的頁面開始。
+          </div>
+          <div
+            style={{
+              marginTop: 28,
+              color: coral,
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 54,
+              fontWeight: 950,
+            }}
+          >
+            {''}
+          </div>
         </div>
-      </Step>
-      <Step>
-        <div
-          style={{
-            marginTop: 12,
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 68,
-            fontWeight: 950,
-            lineHeight: 1.2,
-            letterSpacing: '-0.035em',
-            textAlign: 'center',
-          }}
-        >
-          看懂 AI 做了什麼，
-        </div>
-      </Step>
-      <Step>
-        <div
-          style={{
-            marginTop: 12,
-            color: mint,
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 74,
-            fontWeight: 950,
-            lineHeight: 1.2,
-            letterSpacing: '-0.035em',
-            textAlign: 'center',
-          }}
-        >
-          把作品交到需要的人手上。
-        </div>
-      </Step>
-      <Step>
-        <div
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 20, marginTop: 46 }}
-        >
-          <ResourceCard hint="壽豐國中研習提示詞範本 QR Code" title="提示詞範本" color={mint} />
-          <ResourceCard hint="GitHub Pages 圖解步驟 QR Code" title="Pages 圖解" color={cyan} />
-          <ResourceCard hint="Antigravity 課後影片 QR Code" title="課後影片" color={yellow} />
+        <div>
+          <div
+            style={{
+              marginBottom: 14,
+              color: coral,
+              fontSize: 27,
+              fontWeight: 900,
+              letterSpacing: '0.04em',
+            }}
+          >
+            回去後想再看一次？
+          </div>
           <ResourceCard
-            hint="壽豐國中 AI 網頁製作複習影片 QR Code"
-            title="複習影片"
-            color={mint}
-            href="https://youtu.be/8Nd71kGVfj8?si=7oDbbfV6nP3PXeck"
+            hint="壽豐國中 AI 網頁製作複習影片"
+            title="掃碼複習今天的流程"
+            color={coral}
+            href={reviewVideoUrl}
+            imageSrc={reviewVideoQrUrl}
           />
-          <ResourceCard hint="壽豐國中研習成果表單 QR Code" title="成果表單 · Q&A" color={coral} />
+          <div
+            style={{
+              marginTop: 16,
+              color: muted,
+              fontFamily: mono,
+              fontSize: 16,
+              lineHeight: 1.45,
+              overflowWrap: 'anywhere',
+            }}
+          >
+            {reviewVideoUrl}
+          </div>
         </div>
-      </Step>
-    </Steps>
-  </PageShell>
-);
+      </div>
+    </PageShell>
+  );
+};
 Slide34Closing.transition = sectionTransition;
 
 export const meta: SlideMeta = {
