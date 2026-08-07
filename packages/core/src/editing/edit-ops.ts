@@ -861,13 +861,33 @@ function componentDestructuresProp(fn: EnclosingComponent['fn'], propName: strin
   return false;
 }
 
-function collectCallSiteCandidates(ast: t.Node, componentName: string): TextCandidate[] {
+function collectCallSiteCandidates(
+  ast: t.File,
+  componentName: string,
+  seenComponents = new Set<string>(),
+): TextCandidate[] {
+  if (seenComponents.has(componentName)) return [];
+  const nextSeen = new Set(seenComponents);
+  nextSeen.add(componentName);
   const out: TextCandidate[] = [];
   walkJsx(ast, (n) => {
     if (!t.isJSXElement(n)) return;
     const elName = n.openingElement.name;
     if (t.isJSXIdentifier(elName) && elName.name === componentName) {
-      collectTextCandidates(n, out);
+      const direct: TextCandidate[] = [];
+      collectTextCandidates(n, direct);
+      if (direct.length > 0) {
+        out.push(...direct);
+        return;
+      }
+
+      const passthrough = propPassthroughName(n);
+      const enclosing = passthrough ? findEnclosingComponent(ast, n) : null;
+      if (passthrough === 'children' && enclosing) {
+        out.push(...collectCallSiteCandidates(ast, enclosing.name, nextSeen));
+      } else if (passthrough && enclosing && componentDestructuresProp(enclosing.fn, passthrough)) {
+        out.push(...collectPropCallSiteCandidates(ast, enclosing.name, passthrough));
+      }
     }
   });
   return out;
@@ -941,25 +961,38 @@ function findEnclosingMapCallback(
 type ArrayElement = t.Expression | t.SpreadElement;
 
 // `[ {...}, {...} ]` literal, either inline or via a `const x = [ ... ]`
-// declaration the receiver resolves to. Returns the ArrayExpression's
-// element list, or null if we can't resolve to a literal.
+// declaration the receiver resolves to. A simple `.filter(...)` wrapper is
+// transparent because it does not change the source objects we can edit.
 function resolveArrayLiteralElements(ast: t.Node, expr: t.Expression): ArrayElement[] | null {
   const dropHoles = (arr: t.ArrayExpression): ArrayElement[] =>
     arr.elements.filter((e): e is ArrayElement => e != null);
   if (t.isArrayExpression(expr)) return dropHoles(expr);
+  if (t.isCallExpression(expr)) {
+    const callee = expr.callee;
+    if (
+      t.isMemberExpression(callee) &&
+      !callee.computed &&
+      t.isIdentifier(callee.property) &&
+      callee.property.name === 'filter' &&
+      t.isExpression(callee.object)
+    ) {
+      return resolveArrayLiteralElements(ast, callee.object);
+    }
+    return null;
+  }
   if (!t.isIdentifier(expr)) return null;
   const name = expr.name;
   const useStart = expr.start ?? 0;
-  let init: t.ArrayExpression | null = null;
+  let elements: ArrayElement[] | null = null;
   walkAll(ast, (node) => {
     if (!t.isVariableDeclarator(node)) return;
     if (!t.isIdentifier(node.id) || node.id.name !== name) return;
-    if (!node.init || !t.isArrayExpression(node.init)) return;
+    if (!node.init || !t.isExpression(node.init)) return;
     // Must be declared before the use site; pick the most local match.
     if ((node.init.start ?? 0) > useStart) return;
-    init = node.init;
+    elements = resolveArrayLiteralElements(ast, node.init);
   });
-  return init ? dropHoles(init) : null;
+  return elements;
 }
 
 function findObjectProperty(obj: t.Node, name: string): t.ObjectProperty | null {
@@ -1025,6 +1058,11 @@ function collectArrayMapCandidates(ast: t.Node, element: t.JSXElement): TextCand
       out.push({ current: v.value, splice: (s) => spliceRange(v, jsString(s)) });
     } else if (t.isNumericLiteral(v)) {
       out.push({ current: String(v.value), splice: (s) => spliceRange(v, jsString(s)) });
+    } else if (t.isIdentifier(v)) {
+      const enclosing = findEnclosingComponent(ast, element);
+      if (enclosing && componentDestructuresProp(enclosing.fn, v.name)) {
+        out.push(...collectPropCallSiteCandidates(ast, enclosing.name, v.name));
+      }
     }
   }
   return out;

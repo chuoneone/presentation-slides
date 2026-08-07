@@ -735,6 +735,26 @@ describe('applyEdit / set-text', () => {
     expect(r.source).toContain('<div>{children}</div>');
   });
 
+  it('routes nested children and prop pass-through edits to the outer call site', () => {
+    const src = [
+      'const Title = ({ children }) => (',
+      '  <h2>{children}</h2>',
+      ');',
+      'const Card = ({ title }: { title: string }) => (',
+      '  <Title>{title}</Title>',
+      ');',
+      'export default [() => (',
+      '  <Card title="Hello" />',
+      ')];',
+      '',
+    ].join('\n');
+    const r = applyEdit(src, 2, 2, [{ kind: 'set-text', value: 'Goodbye', prevText: 'Hello' }]);
+    if (!r.ok) throw new Error(`expected ok, got ${r.error}`);
+    expect(r.source).toContain('<Card title="Goodbye" />');
+    expect(r.source).toContain('<Title>{title}</Title>');
+    expect(r.source).toContain('<h2>{children}</h2>');
+  });
+
   it('disambiguates between sibling call sites of a children-slot component', () => {
     const src = [
       'const Eyebrow = ({ children }) => (',
@@ -901,6 +921,27 @@ describe('applyEdit / set-text', () => {
     if (!r.ok) throw new Error(`expected ok, got ${r.error}`);
     expect(r.source).toContain("word: 'A!'");
     expect(r.source).toContain("word: 'b'");
+  });
+
+  it('routes mapped fields passed through component props to the call site', () => {
+    const src = [
+      'const Pair = ({ secondInstruction }: { secondInstruction: string }) => {',
+      '  const cards = [{ instruction: secondInstruction }].filter(() => true);',
+      '  return (',
+      '    <>',
+      '      {cards.map((card) => (',
+      '        <div>{card.instruction}</div>',
+      '      ))}',
+      '    </>',
+      '  );',
+      '};',
+      'export default [() => <Pair secondInstruction="Hello" />];',
+      '',
+    ].join('\n');
+    const r = applyEdit(src, 6, 8, [{ kind: 'set-text', value: 'Goodbye', prevText: 'Hello' }]);
+    if (!r.ok) throw new Error(`expected ok, got ${r.error}`);
+    expect(r.source).toContain('<Pair secondInstruction="Goodbye" />');
+    expect(r.source).toContain('{ instruction: secondInstruction }');
   });
 
   it('bails on a `.map()` child when the prop is not a literal', () => {

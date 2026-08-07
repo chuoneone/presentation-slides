@@ -29,12 +29,6 @@ import githubStep25 from './assets/github-step25.png';
 import githubStep26 from './assets/github-step26.png';
 import githubStep27 from './assets/github-step27.png';
 import githubStep31 from './assets/github-step31.png';
-import githubStep33 from './assets/github-step33.png';
-import githubStep34 from './assets/github-step34.png';
-import githubStep35 from './assets/github-step35.png';
-import githubStep36 from './assets/github-step36.png';
-import githubStep37 from './assets/github-step37.png';
-import githubStep38 from './assets/github-step38.png';
 import githubStep39 from './assets/github-step39.png';
 import githubStep40 from './assets/github-step40.png';
 import githubStep41 from './assets/github-step41.png';
@@ -48,10 +42,10 @@ import indexHtmlFile from './assets/index-html-file.png';
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
   fonts: {
-    display: '"Bahnschrift", "Microsoft JhengHei", "PingFang TC", sans-serif',
-    body: '"Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif',
+    display: '"Noto Serif TC", "Songti TC", "PMingLiU", serif',
+    body: '"Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif',
   },
-  typeScale: { hero: 150, body: 38 },
+  typeScale: { hero: 156, body: 42 },
   radius: 18,
 };
 
@@ -142,7 +136,7 @@ const PageShell = ({
         ...fill,
         position: 'relative',
         display: 'grid',
-        gridTemplateRows: '42px 1fr 34px',
+        gridTemplateRows: '46px 1fr 38px',
         padding: '58px 116px 44px',
         color: 'var(--osd-text)',
         background: moodBackground,
@@ -168,7 +162,7 @@ const PageShell = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           fontFamily: mono,
-          fontSize: 21,
+          fontSize: 24,
           fontWeight: 800,
           letterSpacing: '0.13em',
           textTransform: 'uppercase',
@@ -201,7 +195,7 @@ const PageShell = ({
           paddingTop: 13,
           color: muted,
           fontFamily: mono,
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: 700,
           letterSpacing: '0.08em',
           fontVariantNumeric: 'tabular-nums',
@@ -218,7 +212,7 @@ const PageShell = ({
 
 const Title = ({
   children,
-  size = 72,
+  size = 80,
   margin = '0 0 46px',
   maxWidth = 1660,
 }: {
@@ -248,14 +242,14 @@ const MonoTag = ({ children, color = mint }: { children: ReactNode; color?: stri
       display: 'inline-flex',
       alignItems: 'center',
       width: 'fit-content',
-      minHeight: 42,
-      padding: '0 16px',
+      minHeight: 48,
+      padding: '0 18px',
       border: '1px solid rgba(39, 52, 59, 0.22)',
       borderRadius: 999,
       color,
       background: 'rgba(255, 253, 247, 0.88)',
       fontFamily: mono,
-      fontSize: 21,
+      fontSize: 24,
       fontWeight: 800,
       letterSpacing: '0.06em',
     }}
@@ -303,7 +297,7 @@ const WindowFrame = ({
         style={{
           color: muted,
           fontFamily: mono,
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: 700,
           textAlign: 'center',
         }}
@@ -381,31 +375,6 @@ const BigCard = ({
   </div>
 );
 
-const BulletRow = ({
-  children,
-  color = mint,
-  fontSize = 34,
-}: {
-  children: ReactNode;
-  color?: string;
-  fontSize?: number;
-}) => (
-  <div
-    style={{
-      display: 'grid',
-      gridTemplateColumns: '24px 1fr',
-      alignItems: 'baseline',
-      gap: 18,
-      fontSize,
-      fontWeight: 700,
-      lineHeight: 1.38,
-    }}
-  >
-    <span style={{ color, fontFamily: mono, fontSize: 24 }}>›</span>
-    <span>{children}</span>
-  </div>
-);
-
 const RouteNode = ({
   index,
   label,
@@ -476,7 +445,7 @@ const PromptPanel = ({
       color: white,
       background: '#f8f3e7',
       fontFamily: mono,
-      fontSize: 29,
+      fontSize: 34,
       lineHeight: 1.55,
       whiteSpace: 'pre-line',
     }}
@@ -485,7 +454,7 @@ const PromptPanel = ({
       style={{
         marginBottom: 14,
         color,
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 900,
         letterSpacing: '0.12em',
       }}
@@ -513,7 +482,7 @@ const FauxSite = ({ compact = false }: { compact?: boolean }) => (
         height: compact ? 46 : 58,
         padding: compact ? '0 16px' : '0 24px',
         borderBottom: '1px solid rgba(23, 50, 40, 0.18)',
-        fontSize: compact ? 14 : 18,
+        fontSize: compact ? 16 : 20,
         fontWeight: 900,
       }}
     >
@@ -541,8 +510,8 @@ const FauxSite = ({ compact = false }: { compact?: boolean }) => (
         />
         <div
           style={{
-            fontFamily: '"Microsoft JhengHei", sans-serif',
-            fontSize: compact ? 23 : 34,
+            fontFamily: 'var(--osd-font-body)',
+            fontSize: compact ? 27 : 40,
             fontWeight: 900,
             lineHeight: 1.15,
           }}
@@ -552,7 +521,7 @@ const FauxSite = ({ compact = false }: { compact?: boolean }) => (
           做成看得見的作品。
         </div>
         <div
-          style={{ marginTop: compact ? 10 : 18, color: '#61756e', fontSize: compact ? 12 : 16 }}
+          style={{ marginTop: compact ? 10 : 18, color: '#61756e', fontSize: compact ? 15 : 20 }}
         >
           教學設計 · 數位學習 · 校園共創
         </div>
@@ -587,31 +556,6 @@ const FauxSite = ({ compact = false }: { compact?: boolean }) => (
   </div>
 );
 
-const PhoneFrame = ({ children }: { children: ReactNode }) => (
-  <div
-    style={{
-      width: 246,
-      height: 492,
-      padding: 13,
-      border: '5px solid #29485a',
-      borderRadius: 42,
-      background: '#07111a',
-      boxShadow: '0 26px 58px rgba(0, 0, 0, 0.34)',
-    }}
-  >
-    <div
-      style={{
-        width: 82,
-        height: 12,
-        margin: '0 auto 10px',
-        borderRadius: 999,
-        background: '#29485a',
-      }}
-    />
-    <div style={{ height: 446 }}>{children}</div>
-  </div>
-);
-
 const Slide01Cover: Page = () => (
   <PageShell eyebrow="壽豐國中研習 · 3 HOURS" accent={coral} mood="warm">
     <div
@@ -628,9 +572,9 @@ const Slide01Cover: Page = () => (
           style={{
             margin: '34px 0 26px',
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 136,
+            fontSize: '115px',
             fontWeight: 950,
-            lineHeight: 0.98,
+            lineHeight: '1.3',
             letterSpacing: '-0.055em',
           }}
         >
@@ -639,8 +583,8 @@ const Slide01Cover: Page = () => (
           <br />
           自製個人網頁
         </h1>
-        <p style={{ margin: 0, color: muted, fontSize: 38, fontWeight: 700, lineHeight: 1.45 }}>
-          不寫代碼，用說的做網站！
+        <p style={{ margin: 0, color: muted, fontSize: 42, fontWeight: 700, lineHeight: 1.45 }}>
+          不寫程式，用說的做網站！
         </p>
       </div>
       <WindowFrame title="idea → website" accent={mint} height={560}>
@@ -659,7 +603,7 @@ const Slide01Cover: Page = () => (
               color: '#071723',
               background: mint,
               fontFamily: mono,
-              fontSize: 28,
+              fontSize: 32,
               fontWeight: 900,
             }}
           >
@@ -673,81 +617,72 @@ const Slide01Cover: Page = () => (
 );
 Slide01Cover.transition = sectionTransition;
 
-const AgendaCard = ({
-  time,
-  title,
-  note,
-  color,
-}: {
-  time: string;
-  title: string;
-  note: string;
-  color: string;
-}) => (
+const AgendaCard = ({ step, title, color }: { step: string; title: string; color: string }) => (
   <div
     style={{
-      display: 'grid',
-      gridTemplateColumns: '168px 1fr',
-      alignItems: 'center',
-      minHeight: 104,
+      minHeight: 270,
+      padding: '34px 36px',
       border: '1px solid rgba(39, 52, 59, 0.18)',
-      borderLeft: `14px solid ${color}`,
+      borderTop: `14px solid ${color}`,
       background: panel,
       boxShadow: '0 12px 24px rgba(55, 76, 73, 0.08)',
     }}
   >
-    <div style={{ padding: '0 26px', color, fontFamily: mono, fontSize: 26, fontWeight: 900 }}>
-      {time}
+    <div
+      style={{ color, fontFamily: mono, fontSize: 30, fontWeight: 900, letterSpacing: '0.08em' }}
+    >
+      STEP {step}
     </div>
-    <div style={{ padding: '18px 30px', borderLeft: '1px solid rgba(39, 52, 59, 0.12)' }}>
-      <div style={{ fontSize: 32, fontWeight: 900 }}>{title}</div>
-      <div style={{ marginTop: 6, color: muted, fontSize: 23, fontWeight: 700 }}>{note}</div>
-    </div>
+    <div style={{ marginTop: 48, fontSize: 46, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
   </div>
 );
 
 const Slide02WorkshopAgenda: Page = () => (
   <PageShell eyebrow="WORKSHOP MAP · 180 MINUTES" accent={coral} mood="warm">
-    <Title size={76} margin="0 0 32px">
-      今天的研習路線
+    <Title size={76} margin="0 0 18px">
+      今天先完成三件事
     </Title>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
-      <AgendaCard
-        time="00:00–00:30"
-        title="體驗 AI 寫網頁"
-        note="什麼是 Vibe Coding？"
-        color={coral}
-      />
-      <AgendaCard time="00:30–01:00" title="準備網站空間" note="GitHub 註冊與設定" color={cyan} />
-      <AgendaCard
-        time="01:10–02:10"
-        title="動手做個人網頁"
-        note="撰寫 Prompt、生成與微調"
-        color={mint}
-      />
-      <AgendaCard
-        time="02:10–02:45"
-        title="發布成公開網址"
-        note="上傳檔案與 GitHub Pages"
-        color={yellow}
-      />
-      <AgendaCard
-        time="02:45–03:00"
-        title="自由微調與 Q&A"
-        note="排障、快取與後續優化"
-        color={coral}
-      />
+    <div style={{ marginBottom: 36, color: muted, fontSize: 34, fontWeight: 750 }}>
+      註冊 → 生成 → 上傳
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
+      <AgendaCard step="01" title="註冊 GitHub 帳號" color={cyan} />
+      <AgendaCard step="02" title="用 Gemini 生成網頁" color={mint} />
+      <AgendaCard step="03" title="上傳網頁到 GitHub" color={yellow} />
+    </div>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '260px 1fr',
+        alignItems: 'center',
+        minHeight: 150,
+        marginTop: 22,
+        border: '1px dashed rgba(39, 52, 59, 0.28)',
+        borderLeft: `14px solid ${coral}`,
+        background: 'rgba(255, 255, 255, 0.48)',
+      }}
+    >
       <div
         style={{
-          display: 'grid',
-          placeItems: 'center',
-          border: '1px dashed rgba(39, 52, 59, 0.28)',
-          color: muted,
+          padding: '0 34px',
+          color: coral,
+          fontFamily: mono,
           fontSize: 28,
-          fontWeight: 800,
+          fontWeight: 900,
+          letterSpacing: '0.08em',
         }}
       >
-        ☕ 01:00–01:10　休息與現場排障
+        有時間再補充
+      </div>
+      <div
+        style={{
+          padding: '26px 38px',
+          borderLeft: '1px solid rgba(39, 52, 59, 0.12)',
+          fontSize: 42,
+          fontWeight: 950,
+        }}
+      >
+        用 Antigravity 管理與更新
       </div>
     </div>
   </PageShell>
@@ -755,95 +690,158 @@ const Slide02WorkshopAgenda: Page = () => (
 Slide02WorkshopAgenda.transition = sectionTransition;
 
 const Slide02Outcome: Page = () => (
-  <PageShell eyebrow="00 · THE DESTINATION" accent={cyan}>
-    <Title>三小時後，你會帶走這三樣東西</Title>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.45fr 0.5fr',
-        alignItems: 'end',
-        gap: 34,
-      }}
-    >
-      <WindowFrame title="https://your-name.github.io/" accent={cyan} height={520}>
+  <PageShell eyebrow="00 · THE DESTINATION" accent={cyan} mood="warm">
+    <Title size={76} margin="0 0 34px">
+      三小時後，你會帶走自己的網站
+    </Title>
+    <div style={{ width: 1380, margin: '0 auto' }}>
+      <WindowFrame title="https://你的帳號.github.io/" accent={cyan} height={560}>
         <FauxSite />
       </WindowFrame>
-      <PhoneFrame>
-        <FauxSite compact />
-      </PhoneFrame>
-      <div
-        style={{
-          display: 'flex',
-          minHeight: 490,
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '30px 24px',
-          border: '1px solid rgba(169, 189, 201, 0.24)',
-          borderRadius: 26,
-          background: 'rgba(13, 38, 53, 0.90)',
-        }}
-      >
-        <ImagePlaceholder hint="講師完成版個人網站的可掃描 QR Code" width={230} height={230} />
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ color: mint, fontSize: 31, fontWeight: 900 }}>自己的網站</div>
-          <div style={{ marginTop: 12, color: muted, fontSize: 25 }}>公開網址 · 更新方法</div>
-        </div>
-        <StatusChip color={cyan}>手機也能開</StatusChip>
-      </div>
     </div>
   </PageShell>
 );
 
+const ComparePanel = ({
+  index,
+  label,
+  title,
+  color,
+  children,
+}: {
+  index: string;
+  label: string;
+  title: string;
+  color: string;
+  children: ReactNode;
+}) => (
+  <div
+    style={{
+      minHeight: 360,
+      padding: '34px 38px',
+      border: '1px solid rgba(39, 52, 59, 0.16)',
+      borderTop: `14px solid ${color}`,
+      background: panel,
+      boxShadow: '0 18px 40px rgba(55, 76, 73, 0.10)',
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <span style={{ color, fontFamily: mono, fontSize: 28, fontWeight: 900 }}>0{index}</span>
+      <span style={{ color: muted, fontSize: 28, fontWeight: 800 }}>{label}</span>
+    </div>
+    <div style={{ marginTop: 26, fontSize: 46, fontWeight: 950 }}>{title}</div>
+    <div style={{ marginTop: 34 }}>{children}</div>
+  </div>
+);
+
 const Slide03TwoRoutes: Page = () => (
-  <PageShell eyebrow="01 · TRADITIONAL VS AI" accent={coral}>
-    <Title>以前寫網頁；現在，與 AI 協作</Title>
-    <Steps>
-      <Step>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px 1fr', alignItems: 'center' }}>
-          <BigCard title="以前" icon="01" accent={yellow}>
-            HTML、CSS、JavaScript 都要自己寫
-          </BigCard>
-          <div style={{ color: mint, fontFamily: mono, fontSize: 52, textAlign: 'center' }}>↘</div>
-          <div />
+  <PageShell eyebrow="01 · FROM CODE TO CONVERSATION" accent={coral} mood="warm">
+    <Title size={74} margin="0 0 16px">
+      做網頁的方式，已經改變了
+    </Title>
+    <div style={{ color: muted, fontSize: 34, fontWeight: 750 }}>
+      從「先學程式碼」，變成「先把需求說清楚」
+    </div>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 110px 1fr',
+        alignItems: 'center',
+        gap: 24,
+        marginTop: 34,
+      }}
+    >
+      <ComparePanel index="1" label="以前" title="自己寫程式碼" color={yellow}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          <div
+            style={{
+              padding: '22px 12px',
+              color: '#071723',
+              background: yellow,
+              fontFamily: mono,
+              fontSize: 25,
+              fontWeight: 900,
+              textAlign: 'center',
+            }}
+          >
+            HTML
+          </div>
+          <div
+            style={{
+              padding: '22px 12px',
+              color: '#071723',
+              background: yellow,
+              fontFamily: mono,
+              fontSize: 25,
+              fontWeight: 900,
+              textAlign: 'center',
+            }}
+          >
+            CSS
+          </div>
+          <div
+            style={{
+              padding: '22px 12px',
+              color: '#071723',
+              background: yellow,
+              fontFamily: mono,
+              fontSize: 25,
+              fontWeight: 900,
+              textAlign: 'center',
+            }}
+          >
+            JS
+          </div>
         </div>
-      </Step>
-      <Step>
+      </ComparePanel>
+      <div
+        style={{
+          display: 'grid',
+          width: 82,
+          height: 82,
+          margin: '0 auto',
+          placeItems: 'center',
+          borderRadius: 999,
+          color: '#071723',
+          background: coral,
+          fontFamily: mono,
+          fontSize: 42,
+          fontWeight: 950,
+          boxShadow: '0 16px 32px rgba(239, 124, 100, 0.22)',
+        }}
+      >
+        →
+      </div>
+      <ComparePanel index="2" label="現在" title="把需求告訴 Gemini" color={mint}>
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 90px 1fr',
-            alignItems: 'center',
-            marginTop: 24,
+            padding: '20px 24px',
+            borderLeft: `8px solid ${mint}`,
+            color: white,
+            background: 'rgba(72, 242, 194, 0.10)',
+            fontSize: 34,
+            fontWeight: 800,
+            lineHeight: 1.45,
           }}
         >
-          <div />
-          <div style={{ color: cyan, fontFamily: mono, fontSize: 52, textAlign: 'center' }}>↗</div>
-          <BigCard title="現在 · Vibe Coding" icon="02" accent={mint}>
-            描述想法，AI 幫你完成第一版
-          </BigCard>
+          「幫我做一個清楚、好閱讀的教師個人網頁。」
         </div>
-      </Step>
-      <Step>
-        <div
-          style={{
-            width: 720,
-            margin: '28px auto 0',
-            padding: '28px 36px',
-            border: '2px solid rgba(72, 242, 194, 0.62)',
-            borderRadius: 26,
-            color: '#071723',
-            background: mint,
-            fontSize: 42,
-            fontWeight: 950,
-            textAlign: 'center',
-            boxShadow: '0 22px 60px rgba(72, 242, 194, 0.18)',
-          }}
-        >
-          你主導設計；AI 協助實作
-        </div>
-      </Step>
-    </Steps>
+      </ComparePanel>
+    </div>
+    <div
+      style={{
+        marginTop: 28,
+        padding: '24px 30px',
+        borderLeft: `12px solid ${cyan}`,
+        color: white,
+        background: 'rgba(120, 204, 216, 0.14)',
+        fontSize: 38,
+        fontWeight: 950,
+        textAlign: 'center',
+      }}
+    >
+      你主導想法與判斷，AI 協助實作
+    </div>
   </PageShell>
 );
 
@@ -912,54 +910,78 @@ const _Slide04Roadmap: Page = () => (
   </PageShell>
 );
 
+const SafetyLine = ({ children, color }: { children: ReactNode; color: string }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 18, fontSize: 36, fontWeight: 800 }}>
+    <span
+      style={{ width: 13, height: 13, flex: '0 0 auto', borderRadius: 999, background: color }}
+    />
+    <span>{children}</span>
+  </div>
+);
+
+const SafetyCard = ({
+  symbol,
+  title,
+  color,
+  children,
+}: {
+  symbol: string;
+  title: string;
+  color: string;
+  children: ReactNode;
+}) => (
+  <div
+    style={{
+      minHeight: 430,
+      padding: '38px 42px',
+      border: '1px solid rgba(39, 52, 59, 0.16)',
+      borderTop: `14px solid ${color}`,
+      background: panel,
+      boxShadow: '0 18px 40px rgba(55, 76, 73, 0.10)',
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+      <div
+        style={{
+          display: 'grid',
+          width: 72,
+          height: 72,
+          placeItems: 'center',
+          borderRadius: 999,
+          color: '#071723',
+          background: color,
+          fontSize: 38,
+          fontWeight: 950,
+        }}
+      >
+        {symbol}
+      </div>
+      <div style={{ fontSize: 48, fontWeight: 950 }}>{title}</div>
+    </div>
+    <div style={{ display: 'grid', gap: 24, marginTop: 40 }}>{children}</div>
+  </div>
+);
+
 const Slide05PublicSafety: Page = () => (
-  <PageShell eyebrow="00 · PUBLIC BY DEFAULT" accent={yellow} mood="warm">
-    <Title>公開網頁很好分享，也代表任何人都可能看見</Title>
-    <Steps>
-      <Step>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36 }}>
-          <BigCard title="適合公開" icon="✓" accent={mint}>
-            <div style={{ display: 'grid', gap: 12 }}>
-              <BulletRow color={mint} fontSize={29}>
-                教學理念與專長
-              </BulletRow>
-              <BulletRow color={mint} fontSize={29}>
-                已公開的課程與作品
-              </BulletRow>
-              <BulletRow color={mint} fontSize={29}>
-                自己有權使用的圖片
-              </BulletRow>
-            </div>
-          </BigCard>
-          <div />
-        </div>
-      </Step>
-      <Step>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 36,
-            marginTop: 28,
-          }}
-        >
-          <div />
-          <BigCard title="不要公開" icon="!" accent={coral}>
-            <div style={{ display: 'grid', gap: 12 }}>
-              <BulletRow color={coral} fontSize={29}>
-                學生個資與未授權照片
-              </BulletRow>
-              <BulletRow color={coral} fontSize={29}>
-                私人電話、住址與證件
-              </BulletRow>
-              <BulletRow color={coral} fontSize={29}>
-                密碼、API Key、登入資訊
-              </BulletRow>
-            </div>
-          </BigCard>
-        </div>
-      </Step>
-    </Steps>
+  <PageShell eyebrow="00 · BEFORE YOU PUBLISH" accent={yellow} mood="warm">
+    <Title size={74} margin="0 0 16px">
+      公開前，先分清楚什麼能放
+    </Title>
+    <div style={{ marginBottom: 34, color: muted, fontSize: 34, fontWeight: 750 }}>
+      網頁一上線，任何拿到網址的人都可能看見
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+      <SafetyCard symbol="✓" title="可以公開" color={mint}>
+        <SafetyLine color={mint}>教學理念與專長</SafetyLine>
+        <SafetyLine color={mint}>已公開的課程與作品</SafetyLine>
+        <SafetyLine color={mint}>自己有權使用的圖片</SafetyLine>
+      </SafetyCard>
+      <SafetyCard symbol="!" title="不要公開" color={coral}>
+        <SafetyLine color={coral}>學生個資與未授權照片</SafetyLine>
+        <SafetyLine color={coral}>私人電話、住址與證件</SafetyLine>
+        <SafetyLine color={coral}>密碼、API Key、登入資訊</SafetyLine>
+      </SafetyCard>
+    </div>
   </PageShell>
 );
 
@@ -1008,36 +1030,6 @@ const _Slide06AccountCheck: Page = () => (
       </Step>
     </Steps>
   </PageShell>
-);
-
-const ChoiceTile = ({
-  index,
-  icon,
-  label,
-  color = mint,
-}: {
-  index: string;
-  icon: string;
-  label: string;
-  color?: string;
-}) => (
-  <div
-    style={{
-      display: 'grid',
-      minHeight: 210,
-      padding: '28px 26px',
-      placeItems: 'center',
-      border: '1px solid rgba(169, 189, 201, 0.24)',
-      borderRadius: 24,
-      color: '#f7f5ec',
-      background: 'rgba(13, 38, 53, 0.90)',
-      textAlign: 'center',
-    }}
-  >
-    <div style={{ color, fontFamily: mono, fontSize: 20, fontWeight: 900 }}>{index}</div>
-    <div style={{ fontSize: 48 }}>{icon}</div>
-    <div style={{ fontSize: 31, fontWeight: 900 }}>{label}</div>
-  </div>
 );
 
 const PlanBox = ({
@@ -1176,67 +1168,6 @@ const FileBadge = ({ label = 'index.html' }: { label?: string }) => (
     <span style={{ fontSize: 72 }}>&lt;/&gt;</span>
     <span>{label}</span>
   </div>
-);
-
-const Slide07VibeCoding: Page = () => (
-  <PageShell eyebrow="PART 1 · GEMINI CANVAS" accent={mint} mood="green">
-    <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 60 }}>
-      <div>
-        <MonoTag>VIBE CODING</MonoTag>
-        <Title size={82} margin="30px 0 34px">
-          不是先學會寫程式，
-          <br />
-          才開始做網站。
-        </Title>
-        <Steps>
-          <Step>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              <RouteNode index="01" label="說出想法" color={mint} />
-              <Arrow color={mint} />
-              <RouteNode index="02" label="看第一版" color={mint} />
-            </div>
-          </Step>
-          <Step>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 20 }}>
-              <RouteNode index="03" label="指出問題" color={cyan} />
-              <Arrow color={cyan} />
-              <RouteNode index="04" label="再改一次" color={cyan} />
-            </div>
-          </Step>
-        </Steps>
-      </div>
-      <div style={{ display: 'grid', alignContent: 'center', gap: 26 }}>
-        <PromptPanel label="模糊" color={coral}>
-          幫我做一個漂亮網頁。
-        </PromptPanel>
-        <PromptPanel label="清楚" color={mint}>
-          幫我做繁中教師個人網頁，
-          {'\n'}介紹專長、課程與作品，
-          {'\n'}字體清楚，手機也好讀。
-        </PromptPanel>
-        <StatusChip color={yellow}>AI 加速第一版；你負責判斷</StatusChip>
-      </div>
-    </div>
-  </PageShell>
-);
-Slide07VibeCoding.transition = sectionTransition;
-
-const Slide08ChooseSite: Page = () => (
-  <PageShell eyebrow="01 · PICK ONE PROJECT" accent={cyan}>
-    <Title>今天只選一種網站，不要一次做完所有事情</Title>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 24 }}>
-      <ChoiceTile index="01" icon="▣" label="教師名片" color={mint} />
-      <ChoiceTile index="02" icon="↗" label="教材入口" color={cyan} />
-      <ChoiceTile index="03" icon="◆" label="教學作品集" color={yellow} />
-      <ChoiceTile index="04" icon="◎" label="社團活動" color={coral} />
-      <ChoiceTile index="05" icon="✦" label="興趣專長" color={mint} />
-    </div>
-    <div
-      style={{ marginTop: 40, color: muted, fontSize: 31, fontWeight: 750, textAlign: 'center' }}
-    >
-      先完成一頁；有餘裕，再繼續增加。
-    </div>
-  </PageShell>
 );
 
 const _Slide09FourQuestions: Page = () => (
@@ -1791,46 +1722,66 @@ const GitHubStepPair = ({
 
   return (
     <PageShell eyebrow={eyebrow} accent={mint} mood="blue">
-      <Title size={58} margin="0 0 20px">
-        {title}
-      </Title>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))`,
-          gap: 32,
+          gridTemplateRows: 'auto minmax(0, 1fr)',
+          flex: '1 1 auto',
+          minHeight: 0,
+          gap: 20,
+          padding: '16px 0 10px',
         }}
       >
-        {cards.map((card) => (
-          <div
-            key={card.instruction}
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto minmax(0, 1fr)',
-              gap: 12,
-              minHeight: 610,
-              padding: 18,
-              border: card.border,
-              borderRadius: 22,
-              background: panel,
-            }}
-          >
-            <div style={{ color: card.color, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
-              {card.instruction}
-            </div>
-            <img
-              src={card.image}
-              alt={card.instruction}
+        <Title size={66} margin="0">
+          {title}
+        </Title>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))`,
+            minHeight: 0,
+            gap: 32,
+          }}
+        >
+          {cards.map((card) => (
+            <div
+              key={card.instruction}
               style={{
-                width: '100%',
-                height: '100%',
+                display: 'grid',
+                gridTemplateRows: 'auto minmax(0, 1fr)',
                 minHeight: 0,
-                objectFit: 'contain',
-                borderRadius: 12,
+                gap: 12,
+                padding: 18,
+                border: card.border,
+                borderRadius: 22,
+                background: panel,
               }}
-            />
-          </div>
-        ))}
+            >
+              <div
+                style={{
+                  color: card.color,
+                  fontSize: card.instruction.length > 90 ? 31 : 34,
+                  fontWeight: 900,
+                  lineHeight: 1.35,
+                  overflowWrap: 'anywhere',
+                }}
+              >
+                {card.instruction}
+              </div>
+              <img
+                src={card.image}
+                alt={card.instruction}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  minHeight: 0,
+                  objectFit: 'contain',
+                  borderRadius: 12,
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </PageShell>
   );
@@ -1865,7 +1816,7 @@ const GitHubChapter = ({
           color: accent,
           background: panel,
           fontFamily: mono,
-          fontSize: 26,
+          fontSize: 30,
           fontWeight: 900,
           letterSpacing: '0.12em',
         }}
@@ -1877,7 +1828,7 @@ const GitHubChapter = ({
           margin: '42px 0 28px',
           color: white,
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 112,
+          fontSize: 124,
           fontWeight: 950,
           lineHeight: 1.15,
           letterSpacing: '-0.04em',
@@ -1890,7 +1841,7 @@ const GitHubChapter = ({
           maxWidth: 1040,
           margin: 0,
           color: muted,
-          fontSize: 36,
+          fontSize: '41px',
           fontWeight: 700,
           lineHeight: 1.55,
         }}
@@ -1900,6 +1851,82 @@ const GitHubChapter = ({
     </div>
   </PageShell>
 );
+
+const PracticeBreak = () => (
+  <div
+    style={{
+      ...fill,
+      position: 'relative',
+      display: 'grid',
+      placeItems: 'center',
+      color: 'var(--osd-text)',
+      background:
+        'radial-gradient(circle at 82% 18%, rgba(241, 212, 123, 0.58), transparent 24%), radial-gradient(circle at 14% 84%, rgba(169, 207, 189, 0.62), transparent 26%), linear-gradient(135deg, #fff8e7 0%, #edf4f1 100%)',
+    }}
+  >
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        top: 118,
+        right: 150,
+        width: 310,
+        height: 310,
+        border: '34px solid rgba(238, 154, 131, 0.28)',
+        borderRadius: '50%',
+      }}
+    />
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        bottom: 138,
+        left: 150,
+        width: 480,
+        height: 22,
+        borderRadius: 999,
+        background: cyan,
+        opacity: 0.62,
+      }}
+    />
+    <div style={{ position: 'relative', textAlign: 'center' }}>
+      <div
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 128,
+          fontWeight: 900,
+          lineHeight: 1,
+          letterSpacing: '0.08em',
+        }}
+      >
+        實作時間
+      </div>
+      <div
+        style={{
+          marginTop: 48,
+          color: coral,
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 260,
+          fontWeight: 950,
+          lineHeight: 0.92,
+          letterSpacing: '-0.04em',
+        }}
+      >
+        10 分鐘
+      </div>
+    </div>
+  </div>
+);
+
+const Part01Practice: Page = () => <PracticeBreak />;
+const Part02Practice: Page = () => <PracticeBreak />;
+const Part03Practice: Page = () => <PracticeBreak />;
+const Part04Practice: Page = () => <PracticeBreak />;
+
+Part01Practice.transition = sectionTransition;
+Part02Practice.transition = sectionTransition;
+Part03Practice.transition = sectionTransition;
+Part04Practice.transition = sectionTransition;
 
 const Slide17AccountChapter: Page = () => (
   <GitHubChapter
@@ -1922,7 +1949,7 @@ const Slide22CanvasChapter: Page = () => (
 const Slide27UploadChapter: Page = () => (
   <GitHubChapter
     part="PART 03"
-    title="先上傳一個首頁"
+    title="上傳到Github"
     description="先把第一版網頁命名為 index.html，只上傳一個檔案也能完成公開網址。"
     accent={mint}
   />
@@ -1934,15 +1961,6 @@ const Slide28PublishChapter: Page = () => (
     title="發布第一個公開網址"
     description="在 GitHub Pages 選擇 main 與 /(root)，讓 index.html 真正上線。"
     accent={cyan}
-  />
-);
-
-const Slide33IndexChapter: Page = () => (
-  <GitHubChapter
-    part="第二種 · 多頁網站"
-    title="想做很多頁？用首頁串起來"
-    description="先完成多個主題頁面，再用 index.html 做入口，讓訪客可以在同一個網站裡瀏覽。"
-    accent={yellow}
   />
 );
 
@@ -1993,10 +2011,10 @@ const Slide20CreateRepository: Page = () => (
 const Slide21UploadFiles: Page = () => (
   <GitHubStepPair
     eyebrow="02 · UPLOAD FILES"
-    title="進入 Repository，只準備上傳首頁"
+    title="進入 Repository，準備上傳"
     firstInstruction="步驟 3｜進入剛建立的 Repository，選擇「uploading an existing file」"
     firstImage={githubStep9}
-    secondInstruction="步驟 4｜在上傳頁面按「choose your files」，只選取 index.html"
+    secondInstruction="步驟 4｜在上傳頁面按「choose your files」，選取 index.html"
     secondImage={githubStep10}
   />
 );
@@ -2014,13 +2032,13 @@ const Slide22CanvasPrompt: Page = () => (
 
 const Slide23DownloadAndUpload: Page = () => (
   <PageShell eyebrow="03 · DOWNLOAD HTML" accent={mint} mood="blue">
-    <Title size={58} margin="0 0 20px">
+    <Title size={66} margin="0 0 20px">
       找到下載的 HTML 檔
     </Title>
     <div
       style={{
         display: 'grid',
-        gridTemplateRows: '64px 1fr',
+        gridTemplateRows: '74px 1fr',
         minHeight: 610,
         padding: 18,
         border: '1px solid rgba(169, 207, 189, 0.80)',
@@ -2028,7 +2046,7 @@ const Slide23DownloadAndUpload: Page = () => (
         background: panel,
       }}
     >
-      <div style={{ color: mint, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
+      <div style={{ color: mint, fontSize: 34, fontWeight: 900, lineHeight: 1.35 }}>
         步驟 3｜找到下載的 code_artifact HTML 檔，準備重新命名
       </div>
       <img
@@ -2058,7 +2076,7 @@ const Slide24UploadToRepository: Page = () => (
 const Slide27ConfirmFilename: Page = () => (
   <GitHubStepPair
     eyebrow="03 · RENAME HTML"
-    title="把首頁命名為 index.html"
+    title="把檔案命名為 index.html"
     firstInstruction="步驟 1｜把下載的 HTML 改名為 index.html，按 Enter 完成"
     firstImage={indexHtmlFile}
   />
@@ -2097,13 +2115,13 @@ const Slide30FindSiteUrl: Page = () => (
 
 const Slide32MoreExamples: Page = () => (
   <PageShell eyebrow="04 · WEBSITE LIVE" accent={mint} mood="blue">
-    <Title size={58} margin="0 0 20px">
+    <Title size={66} margin="0 0 20px">
       第一版網站已經公開
     </Title>
     <div
       style={{
         display: 'grid',
-        gridTemplateRows: '64px 1fr',
+        gridTemplateRows: '74px 1fr',
         minHeight: 610,
         padding: 18,
         border: '1px solid rgba(169, 207, 189, 0.80)',
@@ -2111,7 +2129,7 @@ const Slide32MoreExamples: Page = () => (
         background: panel,
       }}
     >
-      <div style={{ color: mint, fontSize: 28, fontWeight: 900, lineHeight: 1.35 }}>
+      <div style={{ color: mint, fontSize: 34, fontWeight: 900, lineHeight: 1.35 }}>
         接下來想做多個頁面，再用首頁把它們串起來。
       </div>
       <img
@@ -2127,39 +2145,6 @@ const Slide32MoreExamples: Page = () => (
       />
     </div>
   </PageShell>
-);
-
-const Slide33CreateIndex: Page = () => (
-  <GitHubStepPair
-    eyebrow="05 · MULTI-PAGE"
-    title="建立多頁網站的首頁 index.html"
-    firstInstruction="步驟 1｜在 Gemini Canvas 輸入：做一個我個人的教學網頁，裡面分別設五個按鈕，分別是國文、英文、數學、自然、社會，其中自然和社會分別指向 https://smallfatyellow.github.io/myhome/science.html 和 https://smallfatyellow.github.io/myhome/history.html"
-    firstImage={githubStep33}
-    secondInstruction="步驟 2｜下載後把檔案名稱改成 index.html"
-    secondImage={githubStep34}
-  />
-);
-
-const Slide34UploadIndex: Page = () => (
-  <GitHubStepPair
-    eyebrow="05 · MULTI-PAGE"
-    title="把首頁與多個作品整理進 Repository"
-    firstInstruction="步驟 3｜回到 Repository，確認原本的多個 HTML 作品都還在"
-    firstImage={githubStep35}
-    secondInstruction="步驟 4｜用同樣方式上傳 index.html；也可一次補上多個新檔案，再 Commit 到 main"
-    secondImage={githubStep36}
-  />
-);
-
-const Slide35IndexLive: Page = () => (
-  <GitHubStepPair
-    eyebrow="05 · MULTI-PAGE"
-    title="首頁完成：從根網址瀏覽全部作品"
-    firstInstruction="步驟 5｜確認 Repository 清單已包含 index.html"
-    firstImage={githubStep37}
-    secondInstruction="步驟 6｜再次開啟 GitHub Pages 根網址，首頁就會正常顯示"
-    secondImage={githubStep38}
-  />
 );
 
 const Slide36AntigravityChapter: Page = () => (
@@ -2891,7 +2876,7 @@ const ActionCard = ({
     >
       {index}
     </div>
-    <div style={{ fontSize: 31, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
+    <div style={{ fontSize: 36, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
     <div style={{ color, fontFamily: mono, fontSize: 30 }}>○</div>
   </div>
 );
@@ -2926,7 +2911,7 @@ const ResourceCard = ({
     }}
   >
     <ImagePlaceholder hint={hint} width={150} height={150} />
-    <div style={{ color, fontSize: 24, fontWeight: 900 }}>{title}</div>
+    <div style={{ color, fontSize: 28, fontWeight: 900 }}>{title}</div>
   </a>
 );
 
@@ -3246,7 +3231,7 @@ const Slide33SevenDayAction: Page = () => (
       <ActionCard index="05" title="完成進階更新" color={mint} />
     </div>
     <div
-      style={{ marginTop: 36, color: muted, fontSize: 30, fontWeight: 750, textAlign: 'center' }}
+      style={{ marginTop: 36, color: muted, fontSize: 34, fontWeight: 750, textAlign: 'center' }}
     >
       網站不是今天一次做完；而是從今天開始持續長大。
     </div>
@@ -3333,29 +3318,27 @@ export default [
   Slide02Outcome,
   Slide03TwoRoutes,
   Slide05PublicSafety,
-  Slide07VibeCoding,
-  Slide08ChooseSite,
   Slide17AccountChapter,
   Slide17GithubSignup,
   Slide18GoogleLogin,
   Slide19AccountSetup,
   Slide20CreateRepository,
+  Part01Practice,
   Slide22CanvasChapter,
   Slide22CanvasPrompt,
   Slide23DownloadAndUpload,
-  Slide27UploadChapter,
   Slide27ConfirmFilename,
+  Part02Practice,
+  Slide27UploadChapter,
   Slide21UploadFiles,
   Slide24UploadToRepository,
+  Part03Practice,
   Slide28PublishChapter,
   Slide28OpenPagesSettings,
   Slide29PublishPages,
   Slide30FindSiteUrl,
   Slide32MoreExamples,
-  Slide33IndexChapter,
-  Slide33CreateIndex,
-  Slide34UploadIndex,
-  Slide35IndexLive,
+  Part04Practice,
   Slide36AntigravityChapter,
   Slide37CopyRepositoryUrl,
   Slide38CreateProjectFolder,
