@@ -14,7 +14,6 @@ import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
 import volleyballWeb from './assets/排球互動網頁.png';
 import qingWeb from './assets/清朝互動網頁.png';
 import worksheetFromWeb from './assets/網頁變學習單.png';
-import coverImage from './assets/首頁.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -937,116 +936,172 @@ const ActionCard = ({
 const Slide01Cover: Page = () => (
   <div
     style={{
+      ...fill,
       position: 'relative',
-      width: '100%',
-      height: '100%',
-      background: paper,
-      color: ink,
-      display: 'grid',
-      gridTemplateColumns: '1.12fr 0.88fr',
+      display: 'flex',
       alignItems: 'center',
-      padding: '0 88px',
+      justifyContent: 'center',
+      padding: '136px 152px 168px',
+      background:
+        'radial-gradient(circle at 13% 24%, rgba(220, 233, 220, 0.92), transparent 30%), radial-gradient(circle at 88% 78%, rgba(232, 93, 63, 0.10), transparent 29%), linear-gradient(135deg, rgba(255, 253, 248, 0.62), transparent 54%), var(--osd-bg)',
+      color: ink,
       overflow: 'hidden',
     }}
   >
-    {/* Left content block */}
-    <div style={{ zIndex: 2 }}>
-      {/* Eyebrow Tag */}
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '10px 28px',
-          borderRadius: 99,
-          background: 'rgba(232, 93, 63, 0.12)',
-          border: `2px solid ${coral}`,
-          color: coral,
-          fontSize: 30,
-          fontWeight: 900,
-          letterSpacing: '0.14em',
-          marginBottom: 34,
-        }}
-      >
-        透過 AI 落地普特融合
-      </div>
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        top: -310,
+        left: -285,
+        width: 720,
+        height: 720,
+        border: `2px solid ${hairline}`,
+        borderRadius: '50%',
+      }}
+    />
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        right: -260,
+        bottom: -390,
+        width: 760,
+        height: 760,
+        borderRadius: '50%',
+        background: 'rgba(240, 189, 88, 0.18)',
+      }}
+    />
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        top: 72,
+        left: 72,
+        width: 156,
+        height: 156,
+        borderTop: `3px solid ${coral}`,
+        borderLeft: `3px solid ${coral}`,
+      }}
+    />
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        right: 72,
+        bottom: 72,
+        width: 156,
+        height: 156,
+        borderRight: `3px solid ${green}`,
+        borderBottom: `3px solid ${green}`,
+      }}
+    />
 
-      {/* Heavy Impact Headline - Extra Large */}
-      <h1
-        style={{
-          margin: '0 0 36px',
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '91px',
-          fontWeight: 950,
-          lineHeight: 1.05,
-          letterSpacing: '-0.045em',
-          color: greenDark,
-        }}
-      >
-        AI 工具協助教師進行
-        <br />
-        {''}
-        {''}
-        <span style={{ color: coral }}>差異化教材實務</span>
-      </h1>
-
-      {/* Subtitle / Slogan */}
-      <div
-        style={{
-          padding: '22px 32px',
-          background: paperLight,
-          borderLeft: `10px solid ${amber}`,
-          borderRadius: '0 20px 20px 0',
-          color: ink,
-          fontSize: 34,
-          fontWeight: 800,
-          lineHeight: 1.5,
-          maxWidth: 880,
-          boxShadow: shadow,
-        }}
-      >
-        特教學生在普通班使用 AI 教材：
-        <br />
-        <span style={{ color: green, fontWeight: 900 }}>讀得懂・練得到・答得出來</span>
-      </div>
+    <div
+      style={{
+        position: 'absolute',
+        top: 86,
+        left: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 24,
+        transform: 'translateX(-50%)',
+        color: coral,
+        fontSize: 24,
+        fontWeight: 900,
+        letterSpacing: '0.18em',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <span style={{ width: 116, borderTop: `2px solid ${coral}`, opacity: 0.58 }} />
+      <span>透過 AI 落地普特融合</span>
+      <span style={{ color: muted }}>研習簡報</span>
+      <span style={{ width: 116, borderTop: `2px solid ${coral}`, opacity: 0.58 }} />
     </div>
 
-    {/* Right User Uploaded Cover Showcase Image */}
     <div
       style={{
         position: 'relative',
-        width: '100%',
-        height: '100%',
+        zIndex: 1,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        textAlign: 'center',
       }}
     >
       <div
         style={{
-          position: 'relative',
-          width: 630,
-          height: 630,
-          borderRadius: 44,
-          padding: 14,
-          background: paperLight,
-          boxShadow: '0 32px 80px rgba(24, 59, 56, 0.16)',
-          border: `2px solid ${hairline}`,
-          overflow: 'hidden',
+          marginBottom: 26,
+          color: blue,
+          fontSize: 22,
+          fontWeight: 850,
+          letterSpacing: '0.24em',
         }}
       >
-        <img
-          src={coverImage}
-          alt="通用設計與 AI 備課首頁插圖"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            borderRadius: 32,
-            display: 'block',
-          }}
-        />
+        INCLUSIVE EDUCATION × AI
       </div>
+      <h1
+        style={{
+          margin: 0,
+          fontFamily: 'var(--osd-font-display)',
+          fontWeight: 950,
+          lineHeight: 1.02,
+          letterSpacing: '-0.055em',
+          color: greenDark,
+        }}
+      >
+        <span style={{ display: 'block', fontSize: 112 }}>
+          <span style={{ color: coral }}>AI</span> 工具協助教師進行
+        </span>
+        <span
+          style={{
+            display: 'inline-block',
+            marginTop: 20,
+            padding: '0 34px 12px',
+            background:
+              'linear-gradient(transparent 65%, rgba(240, 189, 88, 0.52) 65%, rgba(240, 189, 88, 0.52) 89%, transparent 89%)',
+            fontSize: 154,
+          }}
+        >
+          <span style={{ color: coral }}>差異化</span>教材實務
+        </span>
+      </h1>
+      <div
+        style={{
+          marginTop: 46,
+          paddingTop: 28,
+          borderTop: `1px solid ${hairline}`,
+          color: green,
+          fontSize: 31,
+          fontWeight: 750,
+          lineHeight: 1.4,
+          letterSpacing: '0.06em',
+        }}
+      >
+        特教學生在普通班使用 AI 教材：
+        <span style={{ color: coral, fontWeight: 900 }}>讀得懂・練得到・答得出來</span>
+      </div>
+    </div>
+
+    <div
+      style={{
+        position: 'absolute',
+        bottom: 54,
+        left: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 22,
+        transform: 'translateX(-50%)',
+        color: ink,
+        fontSize: 30,
+        fontWeight: 900,
+        letterSpacing: '0.28em',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <span style={{ width: 86, borderTop: `1px solid ${hairline}` }} />
+      <span>朱旆誼</span>
+      <span style={{ width: 86, borderTop: `1px solid ${hairline}` }} />
     </div>
   </div>
 );
@@ -2038,7 +2093,8 @@ const WorkshopTaskCard = ({
     justifyContent: 'space-between',
     gap: 32,
     padding: '34px 38px 36px',
-    background: `linear-gradient(135deg, ${color} 0%, ${color}de 100%)`,
+    backgroundColor: color,
+    backgroundImage: `linear-gradient(135deg, ${color} 0%, ${color}de 100%)`,
     color: paperLight,
     boxShadow: `0 14px 32px ${color}44`,
     border: '2px solid rgba(255, 253, 248, 0.32)',
@@ -3613,7 +3669,7 @@ const Slide24Closing: Page = () => (
 );
 
 export const meta: SlideMeta = {
-  title: '透過 AI 談普特融合｜研習簡報',
+  title: 'AI 工具協助教師進行 差異化教材實務',
   createdAt: '2026-07-15T14:57:41.200Z',
 };
 
