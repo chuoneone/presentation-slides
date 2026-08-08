@@ -130,6 +130,14 @@ const PageShell = ({
         : mood === 'warm'
           ? 'radial-gradient(circle at 84% 16%, rgba(241, 212, 123, 0.45), transparent 25%), linear-gradient(135deg, #fff8e7 0%, #f6efd9 72%)'
           : 'radial-gradient(circle at 88% 12%, rgba(169, 207, 189, 0.28), transparent 24%), radial-gradient(circle at 10% 90%, rgba(238, 154, 131, 0.18), transparent 28%), var(--osd-bg)';
+  const moodBackgroundColor =
+    mood === 'green'
+      ? '#dcece6'
+      : mood === 'blue'
+        ? '#e6f0ef'
+        : mood === 'warm'
+          ? '#f6efd9'
+          : 'var(--osd-bg)';
   return (
     <div
       style={{
@@ -140,6 +148,7 @@ const PageShell = ({
         padding: '58px 116px 44px',
         color: 'var(--osd-text)',
         background: moodBackground,
+        backgroundColor: moodBackgroundColor,
       }}
     >
       <div
@@ -663,7 +672,7 @@ const Slide02WorkshopAgenda: Page = () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
       <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=6" />
       <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=12" />
-      <AgendaCard label="PART 03" title="上傳 index.html 到 GitHub" color={yellow} href="?p=17" />
+      <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=17" />
       <AgendaCard label="PART 04" title="發布 GitHub Pages 網址" color={cyan} href="?p=21" />
       <AgendaCard label="補充" title="用 Antigravity 管理與更新" color={coral} href="?p=27" />
     </div>
@@ -2171,6 +2180,128 @@ const Slide36AntigravityChapter: Page = () => (
   />
 );
 
+const BeginnerTag = ({ children, color }: { children: ReactNode; color: string }) => (
+  <span
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      width: 'fit-content',
+      minHeight: 54,
+      padding: '0 20px',
+      border: '1px solid rgba(39, 52, 59, 0.22)',
+      borderRadius: 999,
+      color,
+      background: 'rgba(255, 253, 247, 0.92)',
+      fontFamily: mono,
+      fontSize: 28,
+      fontWeight: 900,
+      letterSpacing: '0.04em',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const Slide36AgentVsChat: Page = () => (
+  <PageShell eyebrow="BONUS · AI AGENT" accent={coral} mood="warm">
+    <Title size={74} margin="0 0 24px">
+      AI Agent 不只回答，還會動手做
+    </Title>
+    <div style={{ marginBottom: 24, color: muted, fontSize: 33, fontWeight: 800 }}>
+      一樣用對話交代事情，但它們能幫忙的範圍不一樣。
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 30 }}>
+      <div
+        style={{
+          minHeight: 520,
+          padding: '34px 36px',
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${cyan}`,
+          borderRadius: 26,
+          background: panel,
+          boxShadow: '0 18px 38px rgba(55, 76, 73, 0.12)',
+        }}
+      >
+        <BeginnerTag color={cyan}>對話框 AI</BeginnerTag>
+        <h3 style={{ margin: '24px 0 10px', fontSize: 44, fontWeight: 900, lineHeight: 1.2 }}>
+          像提供建議的顧問
+        </h3>
+        <p style={{ margin: 0, color: muted, fontSize: 31, lineHeight: 1.45 }}>
+          你提問，它在對話框裡回答文字。
+        </p>
+        <div
+          style={{
+            margin: '28px 0',
+            padding: '18px 22px',
+            borderRadius: 16,
+            color: '#27343b',
+            background: 'rgba(120, 174, 178, 0.18)',
+            fontSize: 34,
+            fontWeight: 900,
+          }}
+        >
+          你提問 → 它回答
+        </div>
+        <div style={{ display: 'grid', gap: 12, color: muted, fontSize: 30, lineHeight: 1.4 }}>
+          <span>• 整理想法與資料</span>
+          <span>• 產生文字內容</span>
+          <span>• 回答問題、提供做法</span>
+        </div>
+      </div>
+      <div
+        style={{
+          minHeight: 520,
+          padding: '34px 36px',
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${coral}`,
+          borderRadius: 26,
+          background: panel,
+          boxShadow: '0 18px 38px rgba(55, 76, 73, 0.12)',
+        }}
+      >
+        <BeginnerTag color={coral}>AI AGENT · ANTIGRAVITY</BeginnerTag>
+        <h3 style={{ margin: '24px 0 10px', fontSize: 44, fontWeight: 900, lineHeight: 1.2 }}>
+          像坐在電腦前的協作助理
+        </h3>
+        <p style={{ margin: 0, color: muted, fontSize: 31, lineHeight: 1.45 }}>
+          你交代任務，它會讀檔案、修改、預覽與檢查。
+        </p>
+        <div
+          style={{
+            margin: '28px 0',
+            padding: '18px 22px',
+            borderRadius: 16,
+            color: '#27343b',
+            background: 'rgba(238, 154, 131, 0.22)',
+            fontSize: 34,
+            fontWeight: 900,
+          }}
+        >
+          你交代任務 → 它直接操作
+        </div>
+        <div style={{ display: 'grid', gap: 12, color: muted, fontSize: 30, lineHeight: 1.4 }}>
+          <span>• 直接修改網站檔案</span>
+          <span>• 一次處理多個頁面</span>
+          <span>• 持續完成一連串步驟</span>
+        </div>
+      </div>
+    </div>
+    <div
+      style={{
+        marginTop: 20,
+        padding: '16px 22px',
+        borderLeft: `7px solid ${yellow}`,
+        color: '#27343b',
+        background: 'rgba(255, 253, 247, 0.78)',
+        fontSize: 30,
+        fontWeight: 850,
+      }}
+    >
+      Agent 真的會動到檔案，所以請說清楚：要改哪一頁、改什麼、哪些不要動。
+    </div>
+  </PageShell>
+);
+
 const Slide37CopyRepositoryUrl: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
@@ -2214,6 +2345,235 @@ const Slide40DownloadRepository: Page = () => (
     secondImage={githubStep46}
   />
 );
+
+const Slide41AntigravityPossibilities: Page = () => {
+  const possibilities = [
+    ['01', '多頁網站', '加入首頁、課程、作品與聯絡頁。', coral],
+    ['02', '教材集中管理', '圖片、講義與影片放在同一個專案。', mint],
+    ['03', '持續更新', '直接說要改哪裡，Agent 幫你修改與檢查。', cyan],
+  ] as const;
+
+  return (
+    <PageShell eyebrow="BONUS · KEEP BUILDING" accent={mint} mood="green">
+      <Title size={72} margin="0 0 20px">
+        專案進入 Antigravity，網站就能繼續長大
+      </Title>
+      <div style={{ marginBottom: 28, color: muted, fontSize: 33, fontWeight: 800 }}>
+        不用重做，只要在原本的網站上，一次增加一個需要的功能。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+        {possibilities.map(([index, title, description, accent]) => (
+          <div
+            key={title}
+            style={{
+              display: 'flex',
+              minHeight: 420,
+              padding: '42px 44px',
+              flexDirection: 'column',
+              border: '1px solid rgba(39, 52, 59, 0.18)',
+              borderTop: `9px solid ${accent}`,
+              borderRadius: 28,
+              background: panel,
+              boxShadow: '0 20px 42px rgba(55, 76, 73, 0.13)',
+            }}
+          >
+            <span
+              style={{
+                display: 'grid',
+                width: 68,
+                height: 68,
+                placeItems: 'center',
+                borderRadius: 18,
+                color: '#27343b',
+                background: accent,
+                fontFamily: mono,
+                fontSize: 27,
+                fontWeight: 950,
+              }}
+            >
+              {index}
+            </span>
+            <h3 style={{ margin: '34px 0 20px', fontSize: 48, fontWeight: 900, lineHeight: 1.15 }}>
+              {title}
+            </h3>
+            <p style={{ margin: 0, color: muted, fontSize: 34, lineHeight: 1.5 }}>{description}</p>
+          </div>
+        ))}
+      </div>
+    </PageShell>
+  );
+};
+
+const Slide42GitBasics: Page = () => (
+  <PageShell eyebrow="BONUS · GIT BASICS" accent={cyan} mood="blue">
+    <Title size={74} margin="0 0 22px">
+      Git 是網站的「版本紀錄本」
+    </Title>
+    <div style={{ marginBottom: 28, color: muted, fontSize: 33, fontWeight: 800 }}>
+      它會記住每次修改，也負責讓電腦裡的專案和 GitHub 保持連線。
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 86px 1fr', alignItems: 'stretch' }}>
+      <div
+        style={{
+          minHeight: 410,
+          padding: '38px 42px',
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${yellow}`,
+          borderRadius: 26,
+          background: panel,
+          boxShadow: '0 16px 34px rgba(55, 76, 73, 0.11)',
+        }}
+      >
+        <BeginnerTag color="#a36a00">電腦裡 · GIT</BeginnerTag>
+        <h3 style={{ margin: '25px 0 18px', fontSize: 45, fontWeight: 900 }}>記住每一次修改</h3>
+        <div style={{ display: 'grid', gap: 20, color: muted, fontSize: 32, lineHeight: 1.45 }}>
+          <span>• 留下這次改了什麼</span>
+          <span>• 改壞了，還能找回舊版本</span>
+          <span>• 不必複製一堆「最終版」檔案</span>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          placeItems: 'center',
+          color: cyan,
+          fontSize: 52,
+          fontWeight: 950,
+        }}
+      >
+        ⇄
+      </div>
+      <div
+        style={{
+          minHeight: 410,
+          padding: '38px 42px',
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${cyan}`,
+          borderRadius: 26,
+          background: panel,
+          boxShadow: '0 16px 34px rgba(55, 76, 73, 0.11)',
+        }}
+      >
+        <BeginnerTag color={cyan}>網路上 · GITHUB</BeginnerTag>
+        <h3 style={{ margin: '25px 0 18px', fontSize: 45, fontWeight: 900 }}>
+          保存、發布與分享專案
+        </h3>
+        <div style={{ display: 'grid', gap: 20, color: muted, fontSize: 32, lineHeight: 1.45 }}>
+          <span>• 保存網站的線上版本</span>
+          <span>• 發布成大家能開啟的網址</span>
+          <span>• 換電腦也能找回專案</span>
+        </div>
+      </div>
+    </div>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 28,
+        marginTop: 28,
+        padding: '20px 24px 20px 30px',
+        borderRadius: 22,
+        background: '#27343b',
+      }}
+    >
+      <div style={{ color: panel, fontSize: 32, fontWeight: 850, lineHeight: 1.4 }}>
+        建議先安裝 Git。設定完成後，就不用一直到 GitHub 網頁重複上傳檔案。
+      </div>
+      <a
+        href="https://git-scm.com/downloads/"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          flex: '0 0 auto',
+          padding: '16px 30px',
+          borderRadius: 999,
+          color: '#27343b',
+          background: yellow,
+          fontSize: 30,
+          fontWeight: 950,
+          textDecoration: 'none',
+        }}
+      >
+        下載 Git ↗
+      </a>
+    </div>
+  </PageShell>
+);
+
+const Slide43GitPlainLanguage: Page = () => {
+  const actions = [
+    ['CLONE', '第一次下載', '幫我把 GitHub 上的專案下載到電腦。', mint],
+    ['PULL', '開始前更新', '幫我抓回 GitHub 上最新的版本。', cyan],
+    ['COMMIT', '完成後留紀錄', '幫我把這次修改存成一個版本。', yellow],
+    ['PUSH', '上傳到 GitHub', '幫我把剛才的修改上傳。', coral],
+  ] as const;
+
+  return (
+    <PageShell eyebrow="BONUS · SAY IT NATURALLY" accent={coral} mood="warm">
+      <Title size={74} margin="0 0 20px">
+        Git 指令不用背，直接說人話
+      </Title>
+      <div style={{ marginBottom: 26, color: muted, fontSize: 33, fontWeight: 800 }}>
+        完成設定後，把想做的事告訴 Agent，它會幫你使用正確的 Git 動作。
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
+        {actions.map(([command, title, phrase, accent]) => (
+          <div
+            key={command}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '164px 1fr',
+              minHeight: 205,
+              overflow: 'hidden',
+              border: '1px solid rgba(39, 52, 59, 0.18)',
+              borderRadius: 24,
+              background: panel,
+              boxShadow: '0 14px 30px rgba(55, 76, 73, 0.10)',
+            }}
+          >
+            <div
+              style={{
+                display: 'grid',
+                placeItems: 'center',
+                color: '#27343b',
+                background: accent,
+                fontFamily: mono,
+                fontSize: 30,
+                fontWeight: 950,
+              }}
+            >
+              {command}
+            </div>
+            <div style={{ padding: '28px 30px' }}>
+              <h3 style={{ margin: '0 0 12px', fontSize: 38, fontWeight: 900, lineHeight: 1.15 }}>
+                {title}
+              </h3>
+              <p style={{ margin: 0, color: muted, fontSize: 30, lineHeight: 1.42 }}>
+                「{phrase}」
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          marginTop: 24,
+          padding: '21px 28px',
+          borderRadius: 20,
+          color: panel,
+          background: '#27343b',
+          fontSize: 32,
+          fontWeight: 850,
+          lineHeight: 1.4,
+          textAlign: 'center',
+        }}
+      >
+        最常用的一句：「幫我把這次修改 commit，然後 push 到 GitHub。」
+      </div>
+    </PageShell>
+  );
+};
 
 const _Slide17NewRepository: Page = () => (
   <PageShell eyebrow="02 · NEW REPOSITORY" accent={mint}>
@@ -3417,7 +3777,7 @@ const Slide34Closing: Page = () => {
 Slide34Closing.transition = sectionTransition;
 
 export const meta: SlideMeta = {
-  title: 'AI 協作開發｜壽豐國中',
+  title: 'AI 協作開發： 用 Vibe Coding 自製個人網頁',
   createdAt: '2026-07-15T15:46:25.071Z',
 };
 
@@ -3449,10 +3809,14 @@ export default [
   Slide32MoreExamples,
   Part04Practice,
   Slide36AntigravityChapter,
+  Slide36AgentVsChat,
   Slide37CopyRepositoryUrl,
   Slide38CreateProjectFolder,
   Slide39SelectProjectFolder,
   Slide40DownloadRepository,
+  Slide41AntigravityPossibilities,
+  Slide42GitBasics,
+  Slide43GitPlainLanguage,
   Slide33SevenDayAction,
   Slide34Closing,
 ] satisfies Page[];
