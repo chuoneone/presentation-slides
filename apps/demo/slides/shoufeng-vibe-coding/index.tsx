@@ -62,43 +62,43 @@ const EASE_OUT = 'cubic-bezier(0, 0, 0.2, 1)';
 const EASE_IN = 'cubic-bezier(0.4, 0, 1, 1)';
 
 export const transition: SlideTransition = {
-  duration: 220,
+  duration: 380,
   exit: {
-    duration: 150,
+    duration: 180,
     easing: EASE_IN,
     keyframes: [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-4px)' },
+      { opacity: 1, transform: 'translateY(0) scale(1)' },
+      { opacity: 0, transform: 'translateY(-10px) scale(0.995)' },
     ],
   },
   enter: {
-    duration: 220,
-    delay: 80,
+    duration: 380,
+    delay: 60,
     easing: EASE_OUT,
     keyframes: [
-      { opacity: 0, transform: 'translateY(7px)' },
-      { opacity: 1, transform: 'translateY(0)' },
+      { opacity: 0, transform: 'translateY(20px) scale(0.992)', filter: 'blur(2px)' },
+      { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' },
     ],
   },
 };
 
 const sectionTransition: SlideTransition = {
-  duration: 280,
+  duration: 460,
   exit: {
-    duration: 160,
+    duration: 200,
     easing: EASE_IN,
     keyframes: [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-6px)' },
+      { opacity: 1, transform: 'translateY(0) scale(1)' },
+      { opacity: 0, transform: 'translateY(-14px) scale(0.99)' },
     ],
   },
   enter: {
-    duration: 280,
-    delay: 100,
+    duration: 460,
+    delay: 80,
     easing: EASE_OUT,
     keyframes: [
-      { opacity: 0, transform: 'translateY(10px)', filter: 'blur(3px)' },
-      { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' },
+      { opacity: 0, transform: 'translateY(30px) scale(0.985)', filter: 'blur(5px)' },
+      { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' },
     ],
   },
 };
@@ -109,6 +109,54 @@ const fill: CSSProperties = {
   boxSizing: 'border-box',
   fontFamily: 'var(--osd-font-body)',
 };
+
+const pageMotionStyles = `
+@keyframes shoufeng-rise {
+  from { opacity: 0; transform: translateY(24px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes shoufeng-card-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes shoufeng-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.shoufeng-page-shell .shoufeng-grid-texture {
+  animation: shoufeng-fade 900ms ease-out both;
+}
+.shoufeng-page-shell .shoufeng-eyebrow {
+  animation: shoufeng-rise 480ms ${EASE_OUT} 60ms both;
+}
+.shoufeng-page-shell .shoufeng-content > :not([data-osd-step]) {
+  animation: shoufeng-rise 620ms ${EASE_OUT} both;
+}
+.shoufeng-page-shell .shoufeng-content > :not([data-osd-step]):nth-child(1) { animation-delay: 120ms; }
+.shoufeng-page-shell .shoufeng-content > :not([data-osd-step]):nth-child(2) { animation-delay: 220ms; }
+.shoufeng-page-shell .shoufeng-content > :not([data-osd-step]):nth-child(3) { animation-delay: 320ms; }
+.shoufeng-page-shell .shoufeng-content > :not([data-osd-step]):nth-child(4) { animation-delay: 420ms; }
+.shoufeng-page-shell .shoufeng-stagger > * {
+  animation: shoufeng-card-in 620ms ${EASE_OUT} both;
+}
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(1) { animation-delay: 300ms; }
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(2) { animation-delay: 400ms; }
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(3) { animation-delay: 500ms; }
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(4) { animation-delay: 600ms; }
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(5) { animation-delay: 700ms; }
+.shoufeng-page-shell .shoufeng-stagger > *:nth-child(n + 6) { animation-delay: 800ms; }
+.shoufeng-page-shell .shoufeng-footer {
+  animation: shoufeng-fade 520ms ease-out 520ms both;
+}
+@media print, (prefers-reduced-motion: reduce) {
+  .shoufeng-page-shell *,
+  .shoufeng-page-shell *::before,
+  .shoufeng-page-shell *::after {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+}
+`;
 
 const PageShell = ({
   children,
@@ -140,6 +188,7 @@ const PageShell = ({
           : 'var(--osd-bg)';
   return (
     <div
+      className="shoufeng-page-shell"
       style={{
         ...fill,
         position: 'relative',
@@ -151,8 +200,10 @@ const PageShell = ({
         backgroundColor: moodBackgroundColor,
       }}
     >
+      <style>{pageMotionStyles}</style>
       <div
         aria-hidden="true"
+        className="shoufeng-grid-texture"
         style={{
           position: 'absolute',
           inset: '0',
@@ -164,6 +215,7 @@ const PageShell = ({
         }}
       />
       <header
+        className="shoufeng-eyebrow"
         style={{
           position: 'relative',
           zIndex: 1,
@@ -182,6 +234,7 @@ const PageShell = ({
         <span style={{ color: muted, letterSpacing: '0.06em' }}>SHOUFENG · VIBE CODING</span>
       </header>
       <main
+        className="shoufeng-content"
         style={{
           position: 'relative',
           zIndex: 1,
@@ -194,6 +247,7 @@ const PageShell = ({
         {children}
       </main>
       <footer
+        className="shoufeng-footer"
         style={{
           position: 'relative',
           zIndex: 1,
@@ -669,7 +723,10 @@ const Slide02WorkshopAgenda: Page = () => (
     <div style={{ marginBottom: 36, color: muted, fontSize: 34, fontWeight: 750 }}>
       PART 01 → PART 02 → PART 03 → PART 04 → 補充
     </div>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
+    <div
+      className="shoufeng-stagger"
+      style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}
+    >
       <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=6" />
       <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=12" />
       <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=17" />
@@ -961,7 +1018,10 @@ const Slide05PublicSafety: Page = () => (
     <div style={{ marginBottom: 34, color: muted, fontSize: 34, fontWeight: 750 }}>
       網頁一上線，任何拿到網址的人都可能看見
     </div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+    <div
+      className="shoufeng-stagger"
+      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}
+    >
       <SafetyCard symbol="✓" title="可以公開" color={mint}>
         <SafetyLine color={mint}>教學理念與專長</SafetyLine>
         <SafetyLine color={mint}>已公開的課程與作品</SafetyLine>
@@ -1727,6 +1787,7 @@ const GitHubStepPair = ({
           {title}
         </Title>
         <div
+          className="shoufeng-stagger"
           style={{
             display: 'grid',
             gridTemplateColumns: `repeat(${cards.length}, minmax(0, 1fr))`,
@@ -1795,6 +1856,7 @@ const GitHubChapter = ({
 }) => (
   <PageShell eyebrow="GITHUB 網頁發布工作流" accent={accent} mood="blue">
     <div
+      className="shoufeng-stagger"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -2210,7 +2272,10 @@ const Slide36AgentVsChat: Page = () => (
     <div style={{ marginBottom: 24, color: muted, fontSize: 33, fontWeight: 800 }}>
       一樣用對話交代事情，但它們能幫忙的範圍不一樣。
     </div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 30 }}>
+    <div
+      className="shoufeng-stagger"
+      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 30 }}
+    >
       <div
         style={{
           minHeight: 520,
@@ -2361,7 +2426,10 @@ const Slide41AntigravityPossibilities: Page = () => {
       <div style={{ marginBottom: 28, color: muted, fontSize: 33, fontWeight: 800 }}>
         不用重做，只要在原本的網站上，一次增加一個需要的功能。
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+      <div
+        className="shoufeng-stagger"
+        style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}
+      >
         {possibilities.map(([index, title, description, accent]) => (
           <div
             key={title}
@@ -2412,7 +2480,10 @@ const Slide42GitBasics: Page = () => (
     <div style={{ marginBottom: 28, color: muted, fontSize: 33, fontWeight: 800 }}>
       它會記住每次修改，也負責讓電腦裡的專案和 GitHub 保持連線。
     </div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 86px 1fr', alignItems: 'stretch' }}>
+    <div
+      className="shoufeng-stagger"
+      style={{ display: 'grid', gridTemplateColumns: '1fr 86px 1fr', alignItems: 'stretch' }}
+    >
       <div
         style={{
           minHeight: 410,
@@ -2517,7 +2588,10 @@ const Slide43GitPlainLanguage: Page = () => {
       <div style={{ marginBottom: 26, color: muted, fontSize: 33, fontWeight: 800 }}>
         完成設定後，把想做的事告訴 Agent，它會幫你使用正確的 Git 動作。
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
+      <div
+        className="shoufeng-stagger"
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}
+      >
         {actions.map(([command, title, phrase, accent]) => (
           <div
             key={command}
