@@ -8,6 +8,9 @@ import {
   useSlidePageNumber,
 } from '@open-slide/core';
 import type { CSSProperties, ReactNode } from 'react';
+import exampleEnglish from './assets/example-english.png';
+import exampleLibai from './assets/example-libai.png';
+import exampleMath from './assets/example-math.png';
 import finalQrCode from './assets/final-qr-code.png';
 import printStep1 from './assets/html學習單列印-步驟1全選.png';
 import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
@@ -1207,32 +1210,32 @@ const Slide01Agenda: Page = () => (
         <div style={{ color: amber, fontSize: 21, fontWeight: 950, letterSpacing: '0.22em' }}>
           WORKSHOP MAP
         </div>
-        <Title size={76} margin="12px 0 0">
-          今天，完成三件事
+        <Title size={74} margin="12px 0 0">
+          今天，完成四件事
         </Title>
       </div>
       <div
         style={{
-          maxWidth: 450,
+          maxWidth: 460,
           paddingBottom: 10,
           color: muted,
-          fontSize: 27,
+          fontSize: 26,
           fontWeight: 750,
           lineHeight: 1.45,
         }}
       >
-        完成後，就能直接帶回下週的課堂。
+        從紙本、網頁、課堂搭配到現成工具，下週就能用。
       </div>
     </div>
-    <div style={{ position: 'relative', marginTop: 54 }}>
+    <div style={{ position: 'relative', marginTop: 44 }}>
       <div
         style={{
           position: 'absolute',
-          top: 164,
-          left: 108,
-          right: 108,
+          top: 154,
+          left: 80,
+          right: 80,
           height: 2,
-          background: `linear-gradient(90deg, ${green}, ${blue}, ${coral})`,
+          background: `linear-gradient(90deg, ${green}, ${blue}, ${coral}, #9d6518)`,
           opacity: 0.48,
         }}
       />
@@ -1240,50 +1243,58 @@ const Slide01Agenda: Page = () => (
         style={{
           position: 'relative',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 42,
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 26,
         }}
       >
         <AgendaStep
           number="01"
           label="GEMINI × PAPER"
-          title="生成差異化紙本教材"
-          tags="課文簡化 · 差異化 · 個別化"
+          title="差異化紙本教材"
+          tags="課文簡化 · 分層學習單"
           color={green}
-          rotate={-0.45}
+          rotate={-0.4}
         />
         <AgendaStep
           number="02"
           label="AI × WEB"
-          title="生成互動式學習網頁"
-          tags="一句話指令 · 內容互動 · 學生自學"
+          title="互動式學習網頁"
+          tags="一句話指令 · 內容互動"
           color={blue}
-          rotate={0.25}
+          rotate={0.3}
         />
         <AgendaStep
           number="03"
-          label="TOOLS × CLASS"
-          title="現成工具快速調整教材"
-          tags="找到卡點 · 點選工具 · 立即完成"
+          label="HYBRID × PRACTICE"
+          title="網頁紙本搭配實例"
+          tags="跨科探索 · 英文 · 數學"
           color={coral}
           rotate={-0.3}
+        />
+        <AgendaStep
+          number="04"
+          label="TOOLS × ACTION"
+          title="現成工具與最小行動"
+          tags="工具地圖 · 立即上手"
+          color="#9d6518"
+          rotate={0.35}
         />
       </div>
     </div>
     <div
       style={{
         alignSelf: 'center',
-        marginTop: 48,
-        padding: '13px 24px',
+        marginTop: 38,
+        padding: '12px 24px',
         color: greenDark,
         borderTop: `2px solid ${amber}`,
         borderBottom: `2px solid ${amber}`,
-        fontSize: 27,
+        fontSize: 26,
         fontWeight: 850,
-        letterSpacing: '0.08em',
+        letterSpacing: '0.04em',
       }}
     >
-      最後，選一項下週就能試做的任務。
+      每段都有可帶走的操作步驟・不只聽概念，更能實作
     </div>
   </PageShell>
 );
@@ -1377,7 +1388,7 @@ const Slide03SameGoal: Page = () => (
 );
 
 const Slide04TeacherAndAi: Page = () => (
-  <PageShell eyebrow="03 · 專業判斷 × 生成加速">
+  <PageShell eyebrow="02 · 專業判斷 × 生成加速">
     <Title margin="0 0 54px">AI 讓調整變快；教師決定什麼值得學</Title>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 58 }}>
       <DecisionSide label="TEACHER · 把關" headline="教師保留最重要的判斷" color={green}>
@@ -1467,8 +1478,16 @@ const Slide06PaperSection: Page = () => (
   <PageShell eyebrow="PART 1 · PAPER FIRST" dark accent={amber}>
     <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', alignItems: 'center' }}>
       <div>
-        <div style={{ color: amber, fontSize: 30, fontWeight: 900, letterSpacing: '0.16em' }}>
-          紙本教材的差異化設計
+        <div
+          style={{
+            color: amber,
+            fontSize: 46,
+            fontWeight: 950,
+            letterSpacing: '0.14em',
+            marginBottom: 16,
+          }}
+        >
+          PART 01 · 差異化紙本教材
         </div>
         <h2
           style={{
@@ -1551,7 +1570,7 @@ const Slide06PaperSection: Page = () => (
 );
 
 const Slide07DescribeDifficulty: Page = () => (
-  <PageShell eyebrow="05 · 不用背完整咒語" accent={green}>
+  <PageShell eyebrow="03 · 先把學生的困難說出來" accent={green}>
     <Title size={66} margin="0 0 48px">
       先把學生的<Marker>困難說出來</Marker>
     </Title>
@@ -1609,7 +1628,7 @@ const Slide07DescribeDifficulty: Page = () => (
 );
 
 const Slide08FirstPrompt: Page = () => (
-  <PageShell eyebrow="06 · 第一句，先求有" accent={coral}>
+  <PageShell eyebrow="04 · 第一句，先求有" accent={coral}>
     <Title margin="0 0 42px">Step1︰先做出一份可以修改的初稿</Title>
     <Steps>
       <div
@@ -1684,7 +1703,7 @@ const Slide08FirstPrompt: Page = () => (
 );
 
 const Slide09ThreeLevels: Page = () => (
-  <PageShell eyebrow="07 · 同一內容，三個入口" accent={amber}>
+  <PageShell eyebrow="05 · 一次長出三種版本" accent={amber}>
     <Title size={66} margin="0 0 34px">
       Step2︰AI協助我們快速產出差異化教材「架構」
     </Title>
@@ -1734,7 +1753,7 @@ const Slide09ThreeLevels: Page = () => (
 );
 
 const Slide10A4Worksheet: Page = () => (
-  <PageShell eyebrow="08 · 第二句，讓成果可直接使用" accent={blue}>
+  <PageShell eyebrow="06 · 把它排成學生好寫的 A4 學習單" accent={blue}>
     <Title size={60} margin="0 0 28px">
       Step3︰請 AI 排成美觀的 A4 學習單
     </Title>
@@ -1919,7 +1938,7 @@ const _Slide11PaperTools: Page = () => (
 );
 
 const Slide11Bridge: Page = () => (
-  <PageShell eyebrow="10 · 把重複工作交給工具" accent={blue}>
+  <PageShell eyebrow="08 · 有沒有更快的方式？" accent={blue}>
     <Title size={68} margin="0 0 48px">
       有沒有更快的方式？
     </Title>
@@ -2236,7 +2255,7 @@ const WorkshopLayout = ({
 );
 
 const SlidePaperToolPractice7Min: Page = () => (
-  <WorkshopLayout eyebrow="11 · 課堂實作" minutes="7" accent={coral}>
+  <WorkshopLayout eyebrow="09 · 課堂實作 7 分鐘" minutes="7" accent={coral}>
     <WorkshopTaskCard
       label="文章太難讀"
       title="課文簡化"
@@ -2265,7 +2284,7 @@ const SlidePaperToolPractice7Min: Page = () => (
 );
 
 const Slide12PaperScaffold: Page = () => (
-  <PageShell eyebrow="12 · 紙本是可重新設計的鷹架" accent={amber}>
+  <PageShell eyebrow="10 · 紙本是可重新設計的鷹架" accent={amber}>
     <Title size={64} margin="0 0 34px">
       紙本不會被淘汰，它能把學習路徑留下來！！
     </Title>
@@ -2336,7 +2355,7 @@ const Slide12PaperScaffold: Page = () => (
 );
 
 const SlidePracticePaper10Min: Page = () => (
-  <WorkshopLayout eyebrow="09 · 初步實作 10 分鐘（簡化 × 美化）" minutes="10" accent={green}>
+  <WorkshopLayout eyebrow="07 · 課堂實作 10 分鐘（簡化 × 美化）" minutes="10" accent={green}>
     <WorkshopTaskCard
       label="01 · 選教材"
       title={
@@ -2396,7 +2415,15 @@ const Slide13WebSection: Page = () => (
       }}
     >
       <div>
-        <div style={{ color: amber, fontSize: 28, fontWeight: 900, letterSpacing: '0.16em' }}>
+        <div
+          style={{
+            color: amber,
+            fontSize: 46,
+            fontWeight: 950,
+            letterSpacing: '0.14em',
+            marginBottom: 16,
+          }}
+        >
           PART 02 · 互動式網頁
         </div>
         <h2
@@ -2590,88 +2617,8 @@ const Slide16SocialStudiesCase: Page = () => (
   </PageShell>
 );
 
-const Slide17DifferentiateWeb: Page = () => (
-  <PageShell eyebrow="15 · 網頁做好後，再補一句做差異化" accent={amber}>
-    <Title size={60} margin="0 0 36px">
-      基礎版先保核心；挑戰版讓學得快的學生前進
-    </Title>
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 30,
-        marginBottom: 36,
-        padding: '20px 36px',
-        color: paperLight,
-        background: greenDark,
-      }}
-    >
-      <div style={{ color: amber, fontSize: 22, fontWeight: 900, letterSpacing: '0.14em' }}>
-        PROMPT · 差異化網頁
-      </div>
-      <div style={{ fontSize: 32, fontWeight: 850 }}>「增加基礎版本和挑戰版本。」</div>
-    </div>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 42 }}>
-      <VersionPanel title="基礎版本" subtitle="讓卡住的學生有入口" color={green}>
-        <Bullet color={green}>增加關鍵詞圖解與易讀說明</Bullet>
-        <Bullet color={green}>保留核心概念，減少多餘資訊</Bullet>
-        <Bullet color={green}>搭配分步驟互動操作</Bullet>
-      </VersionPanel>
-      <VersionPanel title="挑戰版本" subtitle="讓學習快的學生深入" color={coral}>
-        <Bullet color={coral}>加入比較、推論與探究提問</Bullet>
-        <Bullet color={coral}>提供延伸補充資料與應用題</Bullet>
-        <Bullet color={coral}>保持高動機主動探索</Bullet>
-      </VersionPanel>
-    </div>
-  </PageShell>
-);
-
-const Slide18LearningFlow: Page = () => (
-  <PageShell eyebrow="16 · 完整學習流程" accent={coral}>
-    <Title size={60} margin="0 0 38px">
-      網頁、紙本與線上評量，可以串成完整學習循環
-    </Title>
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 32 }}>
-      <FlowNode
-        number="01"
-        title="互動式網頁"
-        subtitle="預習、探索、操作，獲得即時回饋"
-        color={green}
-      />
-      <div style={{ color: coral, fontSize: 60, fontWeight: 950 }}>→</div>
-      <FlowNode
-        number="02"
-        title="A4 學習單"
-        subtitle="整理、書寫，留下看得見的學習證據"
-        color={blue}
-      />
-      <div style={{ color: coral, fontSize: 60, fontWeight: 950 }}>→</div>
-      <FlowNode
-        number="03"
-        title="線上評量"
-        subtitle="檢核、補救，看見真正還不懂的地方"
-        color={coral}
-      />
-    </div>
-    <div
-      style={{
-        alignSelf: 'center',
-        marginTop: 46,
-        padding: '16px 32px',
-        background: amber,
-        color: ink,
-        fontSize: 30,
-        fontWeight: 950,
-        transform: 'rotate(-0.5deg)',
-      }}
-    >
-      網頁不是取代紙本，而是接力。
-    </div>
-  </PageShell>
-);
-
 const Slide19InteractiveTools: Page = () => (
-  <PageShell eyebrow="17 · 在操作中練習與檢核" accent={blue}>
+  <PageShell eyebrow="15 · 在操作中練習與檢核" accent={blue}>
     <Title size={60} margin="0 0 34px">
       互動式工具，替不同學習任務補上即時回饋
     </Title>
@@ -2717,14 +2664,610 @@ const Slide19InteractiveTools: Page = () => (
   </PageShell>
 );
 
+const Slide17WebPaperSection: Page = () => (
+  <PageShell eyebrow="PART 03 · HYBRID PRACTICE" dark accent={coral}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.08fr 0.92fr',
+        alignItems: 'center',
+        gap: 80,
+      }}
+    >
+      <div>
+        <div
+          style={{
+            color: amber,
+            fontSize: 48,
+            fontWeight: 950,
+            letterSpacing: '0.14em',
+            marginBottom: 16,
+          }}
+        >
+          {'PART 03 '}<br />{''}
+        </div>
+        <h2
+          style={{
+            margin: '28px 0 34px',
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 120,
+            fontWeight: 950,
+            lineHeight: 1.02,
+            letterSpacing: '-0.055em',
+          }}
+        >
+          網頁與紙本<br />搭配實例
+          
+          {''}
+        </h2>
+        <p style={{ margin: 0, color: 'rgba(255, 253, 248, 0.68)', fontSize: 36, lineHeight: 1.5 }}>
+          網頁負責探索與即時檢核，紙本負責整理與遷移固化。
+        </p>
+      </div>
+
+      <div style={{ position: 'relative', height: 600 }}>
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 40,
+            left: 20,
+            width: 380,
+            height: 480,
+            background: paperLight,
+            padding: '36px 32px',
+            boxSizing: 'border-box',
+            color: ink,
+            boxShadow: '0 20px 48px rgba(0,0,0,0.3)',
+            transform: 'rotate(-6deg)',
+            borderRadius: 16,
+          }}
+        >
+          <div style={{ width: 80, height: 10, background: coral, borderRadius: 99 }} />
+          <div style={{ marginTop: 24, fontSize: 34, fontWeight: 950 }}>紙本學習單</div>
+          <div style={{ marginTop: 20, height: 8, background: hairline, borderRadius: 99 }} />
+          <div
+            style={{
+              marginTop: 14,
+              height: 8,
+              width: '75%',
+              background: hairline,
+              borderRadius: 99,
+            }}
+          />
+          <div
+            style={{
+              marginTop: 14,
+              height: 8,
+              width: '88%',
+              background: hairline,
+              borderRadius: 99,
+            }}
+          />
+          <div
+            style={{
+              marginTop: 36,
+              padding: '16px 20px',
+              background: 'rgba(24, 59, 56, 0.08)',
+              fontSize: 24,
+              fontWeight: 900,
+              color: greenDark,
+            }}
+          >
+            ✍️ 整理・書寫・學習留痕
+          </div>
+        </div>
+
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 100,
+            right: 20,
+            width: 400,
+            height: 460,
+            background: paperLight,
+            border: `3px solid ${blue}`,
+            borderRadius: 20,
+            padding: '24px 28px',
+            boxSizing: 'border-box',
+            color: ink,
+            boxShadow: '0 30px 60px rgba(0,0,0,0.4)',
+            transform: 'rotate(4deg)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 8, marginBottom: 18 }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: coral }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: amber }} />
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: green }} />
+          </div>
+          <div style={{ fontSize: 34, fontWeight: 950, color: blue }}>互動式網頁</div>
+          <div
+            style={{
+              marginTop: 16,
+              fontSize: 24,
+              color: muted,
+              fontWeight: 700,
+              lineHeight: 1.4,
+            }}
+          >
+            即時對錯檢核・降低書寫挫折
+          </div>
+          <div
+            style={{
+              marginTop: 28,
+              padding: '16px 20px',
+              background: greenDark,
+              color: paperLight,
+              fontSize: 24,
+              fontWeight: 900,
+              textAlign: 'center',
+            }}
+          >
+            ⚡ 探索・操作・即時回饋
+          </div>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+
+const Slide18WebPaperGeneral: Page = () => (
+  <PageShell eyebrow="16 · 網頁與紙本搭配（一）· 跨學科探索模式" accent={coral}>
+    <Title size={60} margin="0 0 28px">
+      跨學科：先網頁探索，後紙本統整
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.05fr 0.95fr',
+        gap: 36,
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div
+          style={{
+            padding: '22px 26px',
+            background: paperLight,
+            borderLeft: `12px solid ${green}`,
+            boxShadow: shadow,
+            display: 'grid',
+            gridTemplateColumns: '56px 1fr',
+            gap: 20,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: '50%',
+              background: green,
+              color: paperLight,
+              fontSize: 24,
+              fontWeight: 950,
+              display: 'grid',
+              placeItems: 'center',
+            }}
+          >
+            01
+          </div>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 950, color: greenDark }}>
+              說明示範 5 分鐘
+            </div>
+            <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
+              教師簡要示範操作與任務，不急著在台上長篇講述。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: '22px 26px',
+            background: paperLight,
+            borderLeft: `12px solid ${blue}`,
+            boxShadow: shadow,
+            display: 'grid',
+            gridTemplateColumns: '56px 1fr',
+            gap: 20,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: '50%',
+              background: blue,
+              color: paperLight,
+              fontSize: 24,
+              fontWeight: 950,
+              display: 'grid',
+              placeItems: 'center',
+            }}
+          >
+            02
+          </div>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 950, color: blue }}>
+              網頁探索 ＋ 紙本留痕
+            </div>
+            <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
+              學生進入網頁自主探索（如李白社群），邊找答案邊抄寫紙本。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: '22px 26px',
+            background: paperLight,
+            borderLeft: `12px solid ${coral}`,
+            boxShadow: shadow,
+            display: 'grid',
+            gridTemplateColumns: '56px 1fr',
+            gap: 20,
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: '50%',
+              background: coral,
+              color: paperLight,
+              fontSize: 24,
+              fontWeight: 950,
+              display: 'grid',
+              placeItems: 'center',
+            }}
+          >
+            03
+          </div>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 950, color: coral }}>
+              帶著線索聽講統整
+            </div>
+            <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
+              腦中已有具體線索，教師再講課統整，大幅降低抽離感。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 4,
+            padding: '14px 24px',
+            background: amber,
+            color: ink,
+            fontSize: 26,
+            fontWeight: 950,
+            transform: 'rotate(-0.4deg)',
+            textAlign: 'center',
+          }}
+        >
+          💡 讓學生帶著探索的答案走進課堂，而不是帶著一片空白聽講。
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+        <ScreenshotFrame
+          src={exampleLibai}
+          alt="李白互動社群探索網頁"
+          caption="跨學科範例 · 李白互動探索頁面"
+          height={440}
+          rotate={0.35}
+        />
+        <ToolButton
+          href="https://spedmixteaching.pages.dev/ancientsocial"
+          label="查看古代社會範例 ↗"
+          color={blue}
+          size="normal"
+        />
+      </div>
+    </div>
+  </PageShell>
+);
+
+const Slide18WebPaperEnglish: Page = () => (
+  <PageShell eyebrow="17 · 網頁與紙本搭配（二）· 英文科實務" accent={blue}>
+    <Title size={58} margin="0 0 24px">
+      英文科：電腦負責即時檢核，紙本負責遷移固化
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.05fr 0.95fr',
+        gap: 36,
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div
+          style={{
+            padding: '16px 22px',
+            background: paperLight,
+            border: `2px solid ${hairline}`,
+            borderRadius: 16,
+            display: 'grid',
+            gridTemplateColumns: '1fr 1.2fr',
+            gap: 16,
+          }}
+        >
+          <div style={{ borderRight: `2px solid ${hairline}`, paddingRight: 12 }}>
+            <div style={{ color: coral, fontSize: 22, fontWeight: 950, marginBottom: 4 }}>
+              ❌ 傳統痛點
+            </div>
+            <div style={{ color: muted, fontSize: 22, lineHeight: 1.35, fontWeight: 700 }}>
+              書寫弱＋注意力短 ➔ 長篇書寫過載挫折、睡覺。
+            </div>
+          </div>
+          <div>
+            <div style={{ color: green, fontSize: 22, fontWeight: 950, marginBottom: 4 }}>
+              ⭕ 課堂解方
+            </div>
+            <div style={{ color: ink, fontSize: 22, lineHeight: 1.35, fontWeight: 800 }}>
+              5分鐘概念 ➔ 電腦組句即時檢核 ➔ 教師巡堂。
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div
+            style={{
+              padding: '14px 22px',
+              background: paperLight,
+              borderLeft: `10px solid ${green}`,
+              boxShadow: shadow,
+            }}
+          >
+            <div style={{ fontSize: 26, fontWeight: 950, color: greenDark }}>
+              模式 A【熟練後遷移】
+            </div>
+            <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
+              在電腦反覆練習熟悉 ➔ 直接抄寫至紙本，固化句型。
+            </div>
+          </div>
+
+          <div
+            style={{
+              padding: '14px 22px',
+              background: paperLight,
+              borderLeft: `10px solid ${blue}`,
+              boxShadow: shadow,
+            }}
+          >
+            <div style={{ fontSize: 26, fontWeight: 950, color: blue }}>
+              模式 B【逐題對照組】
+            </div>
+            <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
+              電腦練一題 ➔ 紙本寫一題（題目相同），即時自我挑戰。
+            </div>
+          </div>
+
+          <div
+            style={{
+              padding: '14px 22px',
+              background: paperLight,
+              borderLeft: `10px solid ${coral}`,
+              boxShadow: shadow,
+            }}
+          >
+            <div style={{ fontSize: 26, fontWeight: 950, color: coral }}>
+              模式 C【全通關挑戰】
+            </div>
+            <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
+              網頁全部題目通關 ➔ 主動關機獨立完成紙本學習單。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: '14px 22px',
+            background: greenDark,
+            color: paperLight,
+            fontSize: 24,
+            fontWeight: 900,
+            textAlign: 'center',
+            borderRadius: 8,
+          }}
+        >
+          不把書寫當唯一門檻，掌握文法核心（如 <span style={{ color: amber }}>be + V-ing</span>）！
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+        <ScreenshotFrame
+          src={exampleEnglish}
+          alt="英文句型重組即時檢核"
+          caption="英文實務範例 · 點選組句與即時檢核"
+          height={440}
+          rotate={-0.35}
+        />
+        <ToolButton
+          href="https://spedmix.pages.dev/unscramble"
+          label="開啟「重組句子」工具 ↗"
+          color={coral}
+          size="normal"
+        />
+      </div>
+    </div>
+  </PageShell>
+);
+
+const Slide18WebPaperMath: Page = () => (
+  <PageShell eyebrow="18 · 網頁與紙本搭配（三）· 數學科實務" accent={green}>
+    <Title size={58} margin="0 0 24px">
+      數學科：課堂黃金時間分配 ＆ 差異化練習
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.05fr 0.95fr',
+        gap: 36,
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div
+          style={{
+            padding: '18px 22px',
+            background: paperLight,
+            boxShadow: shadow,
+            borderRadius: 16,
+          }}
+        >
+          <div
+            style={{
+              color: greenDark,
+              fontSize: 24,
+              fontWeight: 950,
+              letterSpacing: '0.08em',
+              marginBottom: 12,
+            }}
+          >
+            ⏱️ 課堂 40-45 分鐘黃金節奏（螺旋複習）
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '120px 1fr',
+                gap: 14,
+                alignItems: 'center',
+                padding: '8px 14px',
+                background: 'rgba(47, 107, 95, 0.08)',
+                borderLeft: `8px solid ${green}`,
+              }}
+            >
+              <div style={{ fontSize: 22, fontWeight: 950, color: green }}>前 10 分鐘</div>
+              <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
+                網頁小測驗上次內容，喚醒先備知識。
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '120px 1fr',
+                gap: 14,
+                alignItems: 'center',
+                padding: '8px 14px',
+                background: 'rgba(79, 116, 128, 0.08)',
+                borderLeft: `8px solid ${blue}`,
+              }}
+            >
+              <div style={{ fontSize: 22, fontWeight: 950, color: blue }}>中 20 分鐘</div>
+              <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
+                教師精講新觀念，解題步驟互動示範。
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '120px 1fr',
+                gap: 14,
+                alignItems: 'center',
+                padding: '8px 14px',
+                background: 'rgba(232, 93, 63, 0.08)',
+                borderLeft: `8px solid ${coral}`,
+              }}
+            >
+              <div style={{ fontSize: 22, fontWeight: 950, color: coral }}>後 10-15 分</div>
+              <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
+                網頁即時複習本日學習，當堂驗收成效。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: '18px 22px',
+            background: paperLight,
+            borderTop: `10px solid #9d6518`,
+            boxShadow: shadow,
+            borderRadius: 16,
+          }}
+        >
+          <div style={{ color: '#9d6518', fontSize: 24, fontWeight: 950, marginBottom: 10 }}>
+            🎯 弱勢學生差異化策略
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ fontSize: 22, color: ink, fontWeight: 700 }}>
+              <span style={{ color: '#9d6518', fontWeight: 950 }}>1. 精準聚焦 2 個概念</span>
+              ：一堂課學 2 個重點，不貪多、降負荷。
+            </div>
+            <div style={{ fontSize: 22, color: ink, fontWeight: 700 }}>
+              <span style={{ color: '#9d6518', fontWeight: 950 }}>2.「數題數題」重複鞏固</span>
+              ：結構化同型題反覆練習，建立算感。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            padding: '12px 20px',
+            background: amber,
+            color: ink,
+            fontSize: 23,
+            fontWeight: 950,
+            transform: 'rotate(-0.3deg)',
+            textAlign: 'center',
+          }}
+        >
+          控制概念數量＋結構化工具，課堂結束前必有所獲！
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center' }}>
+        <ScreenshotFrame
+          src={exampleMath}
+          alt="數學概念視覺化與分步驟練習"
+          caption="數學實務範例 · 步驟化截角性質練習"
+          height={430}
+          rotate={0.35}
+        />
+        <div style={{ display: 'flex', gap: 14 }}>
+          <ToolButton
+            href="https://spedmix.pages.dev/mathquestion"
+            label="數題數題 ↗"
+            color="#9d6518"
+            size="small"
+          />
+          <ToolButton
+            href="https://spedmix.pages.dev/interativemath"
+            label="互動式數學 ↗"
+            color={green}
+            size="small"
+          />
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+
 const Slide20ActionSection: Page = () => (
-  <PageShell eyebrow="PART 3 · START SMALL" dark accent={amber}>
+  <PageShell eyebrow="PART 04 · START SMALL" dark accent={amber}>
     <div
       style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', alignItems: 'center', gap: 80 }}
     >
       <div>
-        <div style={{ color: amber, fontSize: 29, fontWeight: 900, letterSpacing: '0.16em' }}>
-          現有工具推薦與開始行動
+        <div
+          style={{
+            color: amber,
+            fontSize: 48,
+            fontWeight: 950,
+            letterSpacing: '0.14em',
+            marginBottom: 16,
+          }}
+        >
+          PART 04 · 現有工具推薦與開始行動
         </div>
         <h2
           style={{
@@ -2795,7 +3338,7 @@ const Slide20ActionSection: Page = () => (
 );
 
 const Slide21ToolMapPart1: Page = () => (
-  <PageShell eyebrow="17 · 工具選擇地圖（一）· 閱讀與測驗" accent={green}>
+  <PageShell eyebrow="19 · 工具選擇地圖（一）· 閱讀與測驗" accent={green}>
     <Title size={58} margin="0 0 30px">
       如果學生常常這樣卡住：閱讀與測驗題卡點
     </Title>
@@ -2909,7 +3452,7 @@ const Slide21ToolMapPart1: Page = () => (
 );
 
 const Slide21ToolMapPart2: Page = () => (
-  <PageShell eyebrow="18 · 工具選擇地圖（二）· 數學與表達" accent={coral}>
+  <PageShell eyebrow="20 · 工具選擇地圖（二）· 數學與表達" accent={coral}>
     <Title size={58} margin="0 0 28px">
       如果學生常常這樣卡住：數學與句型輸出卡點
     </Title>
@@ -3067,7 +3610,7 @@ const Slide21ToolMapPart2: Page = () => (
 );
 
 const Slide21ToolHub: Page = () => (
-  <PageShell eyebrow="19 · 米克師 AI 備課幫手 7 大工具" accent={amber}>
+  <PageShell eyebrow="21 · 米克師 AI 備課幫手 7 大工具" accent={amber}>
     <Title size={56} margin="0 0 28px">
       AI 備課幫手 · 工具連結
     </Title>
@@ -3373,7 +3916,7 @@ const Slide21ToolHub: Page = () => (
 );
 
 const Slide22TwentyMinutes: Page = () => (
-  <PageShell eyebrow="20 · 把備課時間換回學生時間" accent={coral}>
+  <PageShell eyebrow="22 · 把備課時間換回學生時間" accent={coral}>
     <Title size={60} margin="0 0 30px">
       多備 20 分鐘，換回上課喘息時間
     </Title>
@@ -3453,7 +3996,7 @@ const Slide22TwentyMinutes: Page = () => (
 );
 
 const Slide23StartNextWeek: Page = () => (
-  <PageShell eyebrow="21 · 從下週的一個單元開始" accent={amber}>
+  <PageShell eyebrow="23 · 從下週的一個單元開始" accent={amber}>
     <Title size={64} margin="0 0 38px">
       今天結束後，只要選一件最容易開始的事
     </Title>
@@ -3562,7 +4105,7 @@ const SlidePractice10Min: Page = () => (
 );
 
 const Slide24Closing: Page = () => (
-  <PageShell eyebrow="23 · 同一目標，更多入口" accent={coral}>
+  <PageShell eyebrow="25 · 同一目標，更多入口" accent={coral}>
     <div
       style={{
         display: 'grid',
@@ -3677,9 +4220,7 @@ export default [
   Slide01Cover,
   Slide01Agenda,
   Slide02NotAttitude,
-  Slide03SameGoal,
   Slide04TeacherAndAi,
-  Slide05TwoPaths,
   Slide06PaperSection,
   Slide07DescribeDifficulty,
   Slide08FirstPrompt,
@@ -3694,9 +4235,11 @@ export default [
   Slide15OneSentenceWeb,
   Slide16SocialStudiesCase,
   SlidePractice10Min,
-  Slide17DifferentiateWeb,
-  Slide18LearningFlow,
   Slide19InteractiveTools,
+  Slide17WebPaperSection,
+  Slide18WebPaperGeneral,
+  Slide18WebPaperEnglish,
+  Slide18WebPaperMath,
   Slide20ActionSection,
   Slide21ToolMapPart1,
   Slide21ToolMapPart2,
