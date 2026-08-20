@@ -2382,10 +2382,10 @@ const Slide38CreateProjectFolder: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="建立自己的專案資料夾"
-    firstInstruction="步驟 3｜在 Create Project 視窗按 Add Folder，選擇或建立資料夾"
+    firstInstruction="步驟 3｜選擇 New Project"
     firstImage={githubStep41}
-    secondInstruction="步驟 4｜建立一個新資料夾，作為這個網站的本機工作區"
-    secondImage={githubStep42}
+    secondInstruction="步驟 4｜建立新資料夾並命名，例如 myhome，作為網站本機工作區"
+    secondImage={githubStep43}
   />
 );
 
@@ -2393,10 +2393,10 @@ const Slide39SelectProjectFolder: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="選擇資料夾並建立專案"
-    firstInstruction="步驟 5｜將資料夾命名，例如 myhome，方便辨識自己的網站專案"
-    firstImage={githubStep43}
-    secondInstruction="步驟 6｜回到 Create Project，確認已選取 myhome 資料夾後按 Next"
-    secondImage={githubStep44}
+    firstInstruction="步驟 5｜回到 Create Project，確認已選取 myhome 資料夾後按 Next"
+    firstImage={githubStep44}
+    secondInstruction="步驟 6｜選擇適合的 Agent 安全設定，再完成專案建立"
+    secondImage={githubStep45}
   />
 );
 
@@ -2404,10 +2404,8 @@ const Slide40DownloadRepository: Page = () => (
   <GitHubStepPair
     eyebrow="BONUS · ANTIGRAVITY"
     title="貼上網址，下載 GitHub 專案"
-    firstInstruction="步驟 7｜選擇適合的 Agent 安全設定，再完成專案建立"
-    firstImage={githubStep45}
-    secondInstruction="步驟 8｜輸入「下載」加上剛複製的 GitHub HTTPS 網址，讓 Antigravity 取得專案"
-    secondImage={githubStep46}
+    firstInstruction="步驟 7｜輸入「下載」加上剛複製的 GitHub HTTPS 網址，讓 Antigravity 取得專案"
+    firstImage={githubStep46}
   />
 );
 
