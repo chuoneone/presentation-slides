@@ -12,6 +12,7 @@ import exampleEnglish from './assets/example-english.png';
 import exampleLibai from './assets/example-libai.png';
 import exampleMath from './assets/example-math.png';
 import finalQrCode from './assets/final-qr-code.png';
+import headshot from './assets/headshot.png';
 import printStep1 from './assets/html學習單列印-步驟1全選.png';
 import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
 import volleyballWeb from './assets/排球互動網頁.png';
@@ -1129,6 +1130,176 @@ Slide01Cover.transition = {
     ],
   },
 };
+
+const Slide01Speaker: Page = () => (
+  <PageShell eyebrow="單元 1 · 關於我" accent={green}>
+    <Title size={68} margin="0 0 28px">
+      介紹
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '0.82fr 1.18fr',
+        gap: 36,
+        alignItems: 'stretch',
+      }}
+    >
+      <div
+        style={{
+          background: paperLight,
+          border: '2px solid rgba(24, 59, 56, 0.12)',
+          borderRadius: 24,
+          padding: '30px 34px',
+          boxShadow: shadow,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 22,
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 48,
+            lineHeight: 1.1,
+            fontWeight: 950,
+            color: green,
+            margin: 0,
+          }}
+        >
+          朱旆誼 (米克師)
+        </h3>
+        <div
+          style={{
+            width: 410,
+            height: 410,
+            borderRadius: '50%',
+            padding: 10,
+            background: '#ffffff',
+            border: `8px solid ${coral}`,
+            boxShadow: '0 24px 52px rgba(232, 93, 63, 0.22)',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={headshot}
+            alt="朱旆誼（米克師）"
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              objectPosition: '50% 42%',
+              display: 'block',
+            }}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: '1.08fr 0.92fr',
+          gap: 22,
+        }}
+      >
+        <div
+          style={{
+            background: paperLight,
+            border: '2px solid rgba(24, 59, 56, 0.12)',
+            borderLeft: `10px solid ${green}`,
+            borderRadius: 24,
+            padding: '26px 34px',
+            boxShadow: shadow,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 40,
+              lineHeight: 1.1,
+              fontWeight: 950,
+              color: green,
+              margin: '0 0 14px 0',
+            }}
+          >
+            學歷
+          </h3>
+          <ul
+            style={{
+              paddingLeft: 24,
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              fontSize: 29,
+              lineHeight: 1.42,
+              color: ink,
+            }}
+          >
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
+            </li>
+          </ul>
+        </div>
+        <div
+          style={{
+            background: paperLight,
+            border: '2px solid rgba(24, 59, 56, 0.12)',
+            borderLeft: `10px solid ${coral}`,
+            borderRadius: 24,
+            padding: '26px 34px',
+            boxShadow: shadow,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 40,
+              lineHeight: 1.1,
+              fontWeight: 950,
+              color: coral,
+              margin: '0 0 14px 0',
+            }}
+          >
+            經歷
+          </h3>
+          <ul
+            style={{
+              paddingLeft: 24,
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              fontSize: 29,
+              lineHeight: 1.42,
+              color: ink,
+            }}
+          >
+            <li>
+              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>{' 資源班教師（兼巡迴輔導）'}
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
 
 const AgendaStep = ({
   number,
@@ -4218,6 +4389,7 @@ export const meta: SlideMeta = {
 
 export default [
   Slide01Cover,
+  Slide01Speaker,
   Slide01Agenda,
   Slide02NotAttitude,
   Slide04TeacherAndAi,
