@@ -8,7 +8,7 @@ import {
   Steps,
   useSlidePageNumber,
 } from '@open-slide/core';
-import type { CSSProperties, ReactNode } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import githubStep1 from './assets/github-step1.png';
 import githubStep2 from './assets/github-step2.png';
 import githubStep3 from './assets/github-step3.png';
@@ -38,6 +38,7 @@ import githubStep44 from './assets/github-step44.png';
 import githubStep45 from './assets/github-step45.png';
 import githubStep46 from './assets/github-step46.png';
 import indexHtmlFile from './assets/index-html-file.png';
+import spedmixQr from './assets/spedmix-qr.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
@@ -158,6 +159,270 @@ const pageMotionStyles = `
 }
 `;
 
+// ==========================================
+// 實作計時器 Persistent State & Audio Utility
+// ==========================================
+
+const TIMER_STORAGE_KEY = '__SHOUFENG_PRACTICE_TIMER__';
+const TIMER_UPDATE_EVENT = 'shoufeng_timer_update';
+
+function getStoredTimer(): {
+  totalSeconds: number;
+  remainingSeconds: number;
+  isRunning: boolean;
+  endTimestamp: number | null;
+  practiceNumber: string;
+} {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem(TIMER_STORAGE_KEY) : null;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.isRunning && parsed.endTimestamp) {
+        const remaining = Math.max(0, Math.ceil((parsed.endTimestamp - Date.now()) / 1000));
+        return {
+          ...parsed,
+          remainingSeconds: remaining,
+          isRunning: remaining > 0,
+        };
+      }
+      return parsed;
+    }
+  } catch (e) {}
+  return {
+    totalSeconds: 600,
+    remainingSeconds: 600,
+    isRunning: false,
+    endTimestamp: null,
+    practiceNumber: '實作時間',
+  };
+}
+
+function saveStoredTimer(state: any) {
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(TIMER_STORAGE_KEY, JSON.stringify(state));
+      window.dispatchEvent(new Event(TIMER_UPDATE_EVENT));
+    }
+  } catch (e) {}
+}
+
+function formatTimerClock(totalSeconds: number): string {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function playTimerChimeSound() {
+  try {
+    if (typeof window === 'undefined') return;
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now + i * 0.12);
+      gain.gain.setValueAtTime(0.25, now + i * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.85);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.12);
+      osc.stop(now + i * 0.12 + 0.85);
+    });
+  } catch (e) {}
+}
+
+function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: string = '實作時間') {
+  const [state, setState] = useState(() => getStoredTimer());
+
+  useEffect(() => {
+    const onUpdate = () => {
+      setState(getStoredTimer());
+    };
+    window.addEventListener(TIMER_UPDATE_EVENT, onUpdate);
+    window.addEventListener('storage', onUpdate);
+
+    const interval = setInterval(() => {
+      const current = getStoredTimer();
+      if (current.isRunning && current.endTimestamp) {
+        const rem = Math.max(0, Math.ceil((current.endTimestamp - Date.now()) / 1000));
+        if (rem <= 0) {
+          playTimerChimeSound();
+          const next = { ...current, isRunning: false, remainingSeconds: 0, endTimestamp: null };
+          saveStoredTimer(next);
+          setState(next);
+        } else {
+          setState({ ...current, remainingSeconds: rem });
+        }
+      }
+    }, 400);
+
+    return () => {
+      window.removeEventListener(TIMER_UPDATE_EVENT, onUpdate);
+      window.removeEventListener('storage', onUpdate);
+      clearInterval(interval);
+    };
+  }, []);
+
+  const start = useCallback(
+    (practiceName?: string, minutes?: number) => {
+      const current = getStoredTimer();
+      const targetPractice = practiceName || defaultPracticeName;
+      const samePractice = current.practiceNumber === targetPractice;
+      const totalSec =
+        (minutes || (current.totalSeconds > 0 ? current.totalSeconds / 60 : initialMinutes)) * 60;
+      const remaining = samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
+      const end = Date.now() + remaining * 1000;
+      const next = {
+        totalSeconds: totalSec,
+        remainingSeconds: remaining,
+        isRunning: true,
+        endTimestamp: end,
+        practiceNumber: targetPractice,
+      };
+      saveStoredTimer(next);
+      setState(next);
+    },
+    [initialMinutes, defaultPracticeName],
+  );
+
+  const pause = useCallback(() => {
+    const current = getStoredTimer();
+    const remaining = current.endTimestamp
+      ? Math.max(0, Math.ceil((current.endTimestamp - Date.now()) / 1000))
+      : current.remainingSeconds;
+    const next = {
+      ...current,
+      isRunning: false,
+      remainingSeconds: remaining,
+      endTimestamp: null,
+    };
+    saveStoredTimer(next);
+    setState(next);
+  }, []);
+
+  const reset = useCallback(
+    (minutes?: number, practiceName?: string) => {
+      const totalSec = (minutes || initialMinutes) * 60;
+      const next = {
+        totalSeconds: totalSec,
+        remainingSeconds: totalSec,
+        isRunning: false,
+        endTimestamp: null,
+        practiceNumber: practiceName || defaultPracticeName,
+      };
+      saveStoredTimer(next);
+      setState(next);
+    },
+    [initialMinutes, defaultPracticeName],
+  );
+
+  const addSeconds = useCallback((sec: number) => {
+    const current = getStoredTimer();
+    const newRemaining = Math.max(10, current.remainingSeconds + sec);
+    const newTotal = Math.max(newRemaining, current.totalSeconds);
+    const next = {
+      ...current,
+      totalSeconds: newTotal,
+      remainingSeconds: newRemaining,
+      endTimestamp: current.isRunning ? Date.now() + newRemaining * 1000 : null,
+    };
+    saveStoredTimer(next);
+    setState(next);
+  }, []);
+
+  return {
+    state,
+    start,
+    pause,
+    reset,
+    addSeconds,
+  };
+}
+
+const GlobalTimerFloatingBar = () => {
+  const { state, start, pause, reset } = useWorkshopTimer();
+
+  const isMidway = state.remainingSeconds > 0 && state.remainingSeconds < state.totalSeconds;
+  if (!state.isRunning && !isMidway && state.remainingSeconds !== 0) {
+    return null;
+  }
+
+  const isFinished = state.remainingSeconds === 0;
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 20,
+        right: 48,
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: '8px 18px',
+        borderRadius: 999,
+        background: isFinished ? coral : '#183833',
+        color: '#ffffff',
+        boxShadow: '0 14px 34px rgba(0,0,0,0.32)',
+        border: `2px solid ${isFinished ? yellow : cyan}`,
+        fontFamily: mono,
+        backdropFilter: 'blur(8px)',
+      }}
+    >
+      <span style={{ fontSize: 20 }}>⏱️</span>
+      <span style={{ color: yellow, fontSize: 16, fontWeight: 950 }}>
+        {state.practiceNumber || '實作'}
+      </span>
+      <span style={{ fontSize: 24, fontWeight: 950, letterSpacing: '0.06em' }}>
+        {formatTimerClock(state.remainingSeconds)}
+      </span>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (state.isRunning) pause();
+          else start(state.practiceNumber, Math.ceil(state.remainingSeconds / 60));
+        }}
+        style={{
+          border: 'none',
+          borderRadius: 999,
+          padding: '4px 12px',
+          background: state.isRunning ? yellow : coral,
+          color: '#1a2b27',
+          fontWeight: 950,
+          cursor: 'pointer',
+          fontSize: 14,
+        }}
+      >
+        {state.isRunning ? '⏸ 暫停' : '▶ 繼續'}
+      </button>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          reset(10, state.practiceNumber);
+        }}
+        title="重設"
+        style={{
+          border: '1px solid rgba(255,255,255,0.3)',
+          borderRadius: 999,
+          padding: '4px 9px',
+          background: 'rgba(255,255,255,0.1)',
+          color: '#ffffff',
+          fontWeight: 800,
+          cursor: 'pointer',
+          fontSize: 13,
+        }}
+      >
+        ↺
+      </button>
+    </div>
+  );
+};
+
 const PageShell = ({
   children,
   eyebrow,
@@ -200,6 +465,7 @@ const PageShell = ({
         backgroundColor: moodBackgroundColor,
       }}
     >
+      <GlobalTimerFloatingBar />
       <style>{pageMotionStyles}</style>
       <div
         aria-hidden="true"
@@ -1936,7 +2202,191 @@ const GitHubChapter = ({
   </PageShell>
 );
 
-const PracticeBreak = () => (
+const PracticeCountdownWidget = ({
+  practiceNumber = '實作時間',
+  initialMinutes = 10,
+}: {
+  practiceNumber?: string;
+  initialMinutes?: number;
+}) => {
+  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(initialMinutes, practiceNumber);
+
+  const isCurrentPractice = state.practiceNumber === practiceNumber;
+  const displayRemaining = isCurrentPractice ? state.remainingSeconds : initialMinutes * 60;
+  const isRunning = isCurrentPractice && state.isRunning;
+  const isFinished = isCurrentPractice && state.remainingSeconds === 0;
+  const total = isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
+  const progressPercent = Math.min(100, Math.max(0, ((total - displayRemaining) / total) * 100));
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: 620,
+        margin: '0 auto',
+      }}
+    >
+      {/* Digital Clock */}
+      <div
+        style={{
+          fontFamily: mono,
+          fontSize: 100,
+          fontWeight: 950,
+          lineHeight: 1,
+          letterSpacing: '-0.04em',
+          color: isFinished ? coral : isRunning ? yellow : '#ffffff',
+          textShadow: isRunning ? '0 0 28px rgba(241, 212, 123, 0.45)' : 'none',
+          transition: 'color 0.3s ease',
+        }}
+      >
+        {formatTimerClock(displayRemaining)}
+      </div>
+
+      {/* Progress Bar */}
+      <div
+        style={{
+          width: '100%',
+          height: 10,
+          background: 'rgba(255, 255, 255, 0.16)',
+          borderRadius: 99,
+          margin: '20px 0 22px',
+          overflow: 'hidden',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${progressPercent}%`,
+            background: isFinished ? coral : `linear-gradient(90deg, ${yellow}, ${coral})`,
+            borderRadius: 99,
+            transition: 'width 0.4s linear',
+          }}
+        />
+      </div>
+
+      {/* Primary Action Button */}
+      <div style={{ display: 'flex', gap: 12, width: '100%', marginBottom: 14 }}>
+        <button
+          type="button"
+          onClick={() => {
+            if (isRunning) {
+              pause();
+            } else {
+              start(practiceNumber, initialMinutes);
+            }
+          }}
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '16px 20px',
+            background: isRunning ? yellow : coral,
+            color: isRunning ? '#183833' : '#ffffff',
+            border: 'none',
+            borderRadius: 16,
+            fontSize: 24,
+            fontWeight: 950,
+            cursor: 'pointer',
+            boxShadow: '0 10px 24px rgba(0,0,0,0.22)',
+            transition: 'transform 0.15s ease, background 0.2s ease',
+          }}
+        >
+          {isRunning ? '⏸ 暫停計時' : isFinished ? '↺ 重新計時' : '▶ 開始計時'}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => reset(initialMinutes, practiceNumber)}
+          title="重設計時"
+          style={{
+            padding: '16px 20px',
+            background: 'rgba(255, 255, 255, 0.14)',
+            color: '#ffffff',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            borderRadius: 16,
+            fontSize: 22,
+            fontWeight: 900,
+            cursor: 'pointer',
+          }}
+        >
+          ↺
+        </button>
+      </div>
+
+      {/* Quick Adjust Buttons */}
+      <div style={{ display: 'flex', gap: 10, width: '100%', justifyContent: 'center' }}>
+        <button
+          type="button"
+          onClick={() => addSeconds(60)}
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            background: 'rgba(255, 255, 255, 0.08)',
+            color: 'rgba(255, 255, 255, 0.88)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            borderRadius: 10,
+            fontSize: 16,
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          +1 分鐘
+        </button>
+        <button
+          type="button"
+          onClick={() => addSeconds(-60)}
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            background: 'rgba(255, 255, 255, 0.08)',
+            color: 'rgba(255, 255, 255, 0.88)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            borderRadius: 10,
+            fontSize: 16,
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          -1 分鐘
+        </button>
+      </div>
+
+      {/* Status Tip */}
+      <div
+        style={{
+          marginTop: 14,
+          fontSize: 15,
+          fontWeight: 800,
+          color: isFinished ? yellow : isRunning ? mint : 'rgba(255, 255, 255, 0.72)',
+          textAlign: 'center',
+          lineHeight: 1.4,
+        }}
+      >
+        {isFinished
+          ? '🔔 時間到！請準備進入下一個步驟'
+          : isRunning
+            ? '🟢 計時中 · 換頁/縮小視窗仍持續進行'
+            : '💡 按開始後，切換上下頁或縮小皆會持續計時'}
+      </div>
+    </div>
+  );
+};
+
+const PracticeBreak = ({
+  partNumber = 'PART 01',
+  title = '實作時間 10 分鐘',
+  minutes = 10,
+}: {
+  partNumber?: string;
+  title?: string;
+  minutes?: number;
+}) => (
   <div
     style={{
       ...fill,
@@ -1948,6 +2398,7 @@ const PracticeBreak = () => (
         'radial-gradient(circle at 82% 18%, rgba(241, 212, 123, 0.58), transparent 24%), radial-gradient(circle at 14% 84%, rgba(169, 207, 189, 0.62), transparent 26%), linear-gradient(135deg, #fff8e7 0%, #edf4f1 100%)',
     }}
   >
+    <GlobalTimerFloatingBar />
     <div
       aria-hidden="true"
       style={{
@@ -1973,39 +2424,72 @@ const PracticeBreak = () => (
         opacity: 0.62,
       }}
     />
-    <div style={{ position: 'relative', textAlign: 'center' }}>
+    <div
+      style={{
+        position: 'relative',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 20,
+      }}
+    >
       <div
         style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: 128,
-          fontWeight: 900,
-          lineHeight: 1,
+          display: 'inline-block',
+          padding: '6px 20px',
+          background: coral,
+          color: '#ffffff',
+          fontFamily: mono,
+          fontSize: 22,
+          fontWeight: 950,
+          borderRadius: 999,
           letterSpacing: '0.08em',
         }}
       >
-        實作時間
+        {partNumber} · HANDS ON
       </div>
-      <div
+
+      <h2
         style={{
-          marginTop: 48,
-          color: coral,
+          margin: 0,
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 260,
+          fontSize: 78,
           fontWeight: 950,
-          lineHeight: 0.92,
-          letterSpacing: '-0.04em',
+          lineHeight: 1.1,
+          letterSpacing: '0.04em',
         }}
       >
-        10 分鐘
+        {title}
+      </h2>
+
+      <div
+        style={{
+          background: '#183833',
+          padding: '36px 44px 28px',
+          borderRadius: 28,
+          boxShadow: '0 24px 60px rgba(24, 56, 51, 0.28)',
+          width: 580,
+        }}
+      >
+        <PracticeCountdownWidget practiceNumber={`${partNumber} · ${title}`} initialMinutes={minutes} />
       </div>
     </div>
   </div>
 );
 
-const Part01Practice: Page = () => <PracticeBreak />;
-const Part02Practice: Page = () => <PracticeBreak />;
-const Part03Practice: Page = () => <PracticeBreak />;
-const Part04Practice: Page = () => <PracticeBreak />;
+const Part01Practice: Page = () => (
+  <PracticeBreak partNumber="PART 01" title="實作時間 10 分鐘" minutes={10} />
+);
+const Part02Practice: Page = () => (
+  <PracticeBreak partNumber="PART 02" title="實作時間 10 分鐘" minutes={10} />
+);
+const Part03Practice: Page = () => (
+  <PracticeBreak partNumber="PART 03" title="實作時間 10 分鐘" minutes={10} />
+);
+const Part04Practice: Page = () => (
+  <PracticeBreak partNumber="PART 04" title="實作時間 10 分鐘" minutes={10} />
+);
 
 Part01Practice.transition = sectionTransition;
 Part02Practice.transition = sectionTransition;
@@ -3848,6 +4332,189 @@ const Slide34Closing: Page = () => {
 };
 Slide34Closing.transition = sectionTransition;
 
+const Slide35SpedmixRecommendation: Page = () => {
+  const spedmixUrl = 'https://spedmix.pages.dev/';
+
+  return (
+    <PageShell eyebrow="TOOL · 備課工具推薦" accent={cyan} mood="blue">
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1.18fr 0.82fr',
+          alignItems: 'center',
+          gap: 58,
+        }}
+      >
+        <div>
+          <div
+            style={{
+              color: cyan,
+              fontFamily: mono,
+              fontSize: 26,
+              fontWeight: 900,
+              letterSpacing: '0.12em',
+            }}
+          >
+            RECOMMENDED TOOLS FOR TEACHERS
+          </div>
+          <Title size={80} margin="20px 0 16px">
+            米克師 AI 備課幫手
+          </Title>
+          <div
+            style={{
+              maxWidth: 780,
+              color: muted,
+              fontSize: 28,
+              fontWeight: 750,
+              lineHeight: 1.5,
+              marginBottom: 28,
+            }}
+          >
+            專為教師設計的免提示詞備課工具箱，一鍵產出多層次教材與互動網頁
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div
+              style={{
+                padding: '18px 24px',
+                background: panel,
+                borderLeft: `8px solid ${mint}`,
+                borderRadius: 16,
+                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
+              }}
+            >
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#1f4e41' }}>
+                📄 課文簡化 ＆ 差異化教材生成
+              </div>
+              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
+                貼上課文即自動產出基礎/進階易讀版與仿 A4 學習單。
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: '18px 24px',
+                background: panel,
+                borderLeft: `8px solid ${cyan}`,
+                borderRadius: 16,
+                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
+              }}
+            >
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#275258' }}>
+                💻 課堂互動教學工具
+              </div>
+              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
+                重組句子、段考有聲題庫、四格漫畫、步驟化數學等教學網頁。
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: '18px 24px',
+                background: panel,
+                borderLeft: `8px solid ${yellow}`,
+                borderRadius: 16,
+                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
+              }}
+            >
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#7a5a12' }}>
+                🎯 個別化出題 ＆ 數題數題
+              </div>
+              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
+                同概念多變結構化同型題，幫助學生反覆熟練算感。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 20,
+            padding: '36px 32px',
+            background: panel,
+            border: '2px solid rgba(120, 174, 178, 0.35)',
+            borderRadius: 24,
+            boxShadow: '0 20px 48px rgba(55, 76, 73, 0.12)',
+            textAlign: 'center',
+          }}
+        >
+          <div
+            style={{
+              color: cyan,
+              fontSize: 24,
+              fontWeight: 950,
+              letterSpacing: '0.06em',
+            }}
+          >
+            📱 掃描或點擊直接開啟
+          </div>
+          <div
+            style={{
+              width: 280,
+              height: 280,
+              borderRadius: 16,
+              background: '#ffffff',
+              padding: 12,
+              boxShadow: '0 10px 24px rgba(0,0,0,0.08)',
+              border: '2px solid rgba(39, 52, 59, 0.12)',
+            }}
+          >
+            <img
+              src={spedmixQr}
+              alt="米克師 AI 備課幫手 QR Code"
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+
+          <a
+            href={spedmixUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              width: '100%',
+              padding: '16px 24px',
+              background: cyan,
+              color: '#ffffff',
+              borderRadius: 14,
+              fontSize: 24,
+              fontWeight: 950,
+              textDecoration: 'none',
+              boxShadow: '0 10px 24px rgba(120, 174, 178, 0.35)',
+            }}
+          >
+            開啟「米克師 AI 備課幫手」 ↗
+          </a>
+
+          <div
+            style={{
+              color: muted,
+              fontFamily: mono,
+              fontSize: 18,
+              fontWeight: 800,
+              wordBreak: 'break-all',
+            }}
+          >
+            {spedmixUrl}
+          </div>
+        </div>
+      </div>
+    </PageShell>
+  );
+};
+Slide35SpedmixRecommendation.transition = sectionTransition;
+
 export const meta: SlideMeta = {
   title: 'AI 協作開發： 用 Vibe Coding 自製個人網頁',
   createdAt: '2026-07-15T15:46:25.071Z',
@@ -3891,4 +4558,5 @@ export default [
   Slide43GitPlainLanguage,
   Slide33SevenDayAction,
   Slide34Closing,
+  Slide35SpedmixRecommendation,
 ] satisfies Page[];
