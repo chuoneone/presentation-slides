@@ -7,7 +7,7 @@ import {
   Steps,
   useSlidePageNumber,
 } from '@open-slide/core';
-import type { CSSProperties, ReactNode } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import exampleEnglish from './assets/example-english.png';
 import exampleLibai from './assets/example-libai.png';
 import exampleMath from './assets/example-math.png';
@@ -72,6 +72,270 @@ const fill: CSSProperties = {
   fontFamily: 'var(--osd-font-body)',
 };
 
+// ==========================================
+// 實作計時器 Persistent State & Audio Utility
+// ==========================================
+
+const TIMER_STORAGE_KEY = '__WORKSHOP_PRACTICE_TIMER__';
+const TIMER_UPDATE_EVENT = 'workshop_timer_update';
+
+function getStoredTimer(): {
+  totalSeconds: number;
+  remainingSeconds: number;
+  isRunning: boolean;
+  endTimestamp: number | null;
+  practiceNumber: string;
+} {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem(TIMER_STORAGE_KEY) : null;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.isRunning && parsed.endTimestamp) {
+        const remaining = Math.max(0, Math.ceil((parsed.endTimestamp - Date.now()) / 1000));
+        return {
+          ...parsed,
+          remainingSeconds: remaining,
+          isRunning: remaining > 0,
+        };
+      }
+      return parsed;
+    }
+  } catch (e) {}
+  return {
+    totalSeconds: 600,
+    remainingSeconds: 600,
+    isRunning: false,
+    endTimestamp: null,
+    practiceNumber: '實作 1',
+  };
+}
+
+function saveStoredTimer(state: any) {
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(TIMER_STORAGE_KEY, JSON.stringify(state));
+      window.dispatchEvent(new Event(TIMER_UPDATE_EVENT));
+    }
+  } catch (e) {}
+}
+
+function formatTimerClock(totalSeconds: number): string {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function playTimerChimeSound() {
+  try {
+    if (typeof window === 'undefined') return;
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now + i * 0.12);
+      gain.gain.setValueAtTime(0.25, now + i * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.85);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.12);
+      osc.stop(now + i * 0.12 + 0.85);
+    });
+  } catch (e) {}
+}
+
+function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: string = '實作 1') {
+  const [state, setState] = useState(() => getStoredTimer());
+
+  useEffect(() => {
+    const onUpdate = () => {
+      setState(getStoredTimer());
+    };
+    window.addEventListener(TIMER_UPDATE_EVENT, onUpdate);
+    window.addEventListener('storage', onUpdate);
+
+    const interval = setInterval(() => {
+      const current = getStoredTimer();
+      if (current.isRunning && current.endTimestamp) {
+        const rem = Math.max(0, Math.ceil((current.endTimestamp - Date.now()) / 1000));
+        if (rem <= 0) {
+          playTimerChimeSound();
+          const next = { ...current, isRunning: false, remainingSeconds: 0, endTimestamp: null };
+          saveStoredTimer(next);
+          setState(next);
+        } else {
+          setState({ ...current, remainingSeconds: rem });
+        }
+      }
+    }, 400);
+
+    return () => {
+      window.removeEventListener(TIMER_UPDATE_EVENT, onUpdate);
+      window.removeEventListener('storage', onUpdate);
+      clearInterval(interval);
+    };
+  }, []);
+
+  const start = useCallback(
+    (practiceName?: string, minutes?: number) => {
+      const current = getStoredTimer();
+      const targetPractice = practiceName || defaultPracticeName;
+      const samePractice = current.practiceNumber === targetPractice;
+      const totalSec =
+        (minutes || (current.totalSeconds > 0 ? current.totalSeconds / 60 : initialMinutes)) * 60;
+      const remaining = samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
+      const end = Date.now() + remaining * 1000;
+      const next = {
+        totalSeconds: totalSec,
+        remainingSeconds: remaining,
+        isRunning: true,
+        endTimestamp: end,
+        practiceNumber: targetPractice,
+      };
+      saveStoredTimer(next);
+      setState(next);
+    },
+    [initialMinutes, defaultPracticeName],
+  );
+
+  const pause = useCallback(() => {
+    const current = getStoredTimer();
+    const remaining = current.endTimestamp
+      ? Math.max(0, Math.ceil((current.endTimestamp - Date.now()) / 1000))
+      : current.remainingSeconds;
+    const next = {
+      ...current,
+      isRunning: false,
+      remainingSeconds: remaining,
+      endTimestamp: null,
+    };
+    saveStoredTimer(next);
+    setState(next);
+  }, []);
+
+  const reset = useCallback(
+    (minutes?: number, practiceName?: string) => {
+      const totalSec = (minutes || initialMinutes) * 60;
+      const next = {
+        totalSeconds: totalSec,
+        remainingSeconds: totalSec,
+        isRunning: false,
+        endTimestamp: null,
+        practiceNumber: practiceName || defaultPracticeName,
+      };
+      saveStoredTimer(next);
+      setState(next);
+    },
+    [initialMinutes, defaultPracticeName],
+  );
+
+  const addSeconds = useCallback((sec: number) => {
+    const current = getStoredTimer();
+    const newRemaining = Math.max(10, current.remainingSeconds + sec);
+    const newTotal = Math.max(newRemaining, current.totalSeconds);
+    const next = {
+      ...current,
+      totalSeconds: newTotal,
+      remainingSeconds: newRemaining,
+      endTimestamp: current.isRunning ? Date.now() + newRemaining * 1000 : null,
+    };
+    saveStoredTimer(next);
+    setState(next);
+  }, []);
+
+  return {
+    state,
+    start,
+    pause,
+    reset,
+    addSeconds,
+  };
+}
+
+const GlobalTimerFloatingBar = () => {
+  const { state, start, pause, reset } = useWorkshopTimer();
+
+  const isMidway = state.remainingSeconds > 0 && state.remainingSeconds < state.totalSeconds;
+  if (!state.isRunning && !isMidway && state.remainingSeconds !== 0) {
+    return null;
+  }
+
+  const isFinished = state.remainingSeconds === 0;
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 22,
+        right: 48,
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: '8px 18px',
+        borderRadius: 999,
+        background: isFinished ? coral : greenDark,
+        color: paperLight,
+        boxShadow: '0 14px 34px rgba(0,0,0,0.32)',
+        border: `2px solid ${isFinished ? amber : 'rgba(240, 189, 88, 0.65)'}`,
+        fontFamily: 'monospace',
+        backdropFilter: 'blur(8px)',
+      }}
+    >
+      <span style={{ fontSize: 20 }}>⏱️</span>
+      <span style={{ color: amber, fontSize: 16, fontWeight: 950 }}>
+        {state.practiceNumber || '實作'}
+      </span>
+      <span style={{ fontSize: 24, fontWeight: 950, letterSpacing: '0.06em' }}>
+        {formatTimerClock(state.remainingSeconds)}
+      </span>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (state.isRunning) pause();
+          else start(state.practiceNumber, Math.ceil(state.remainingSeconds / 60));
+        }}
+        style={{
+          border: 'none',
+          borderRadius: 999,
+          padding: '4px 12px',
+          background: state.isRunning ? amber : coral,
+          color: state.isRunning ? ink : paperLight,
+          fontWeight: 950,
+          cursor: 'pointer',
+          fontSize: 14,
+        }}
+      >
+        {state.isRunning ? '⏸ 暫停' : '▶ 繼續'}
+      </button>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          reset(10, state.practiceNumber);
+        }}
+        title="重設"
+        style={{
+          border: '1px solid rgba(255,255,255,0.3)',
+          borderRadius: 999,
+          padding: '4px 9px',
+          background: 'rgba(255,255,255,0.1)',
+          color: paperLight,
+          fontWeight: 800,
+          cursor: 'pointer',
+          fontSize: 13,
+        }}
+      >
+        ↺
+      </button>
+    </div>
+  );
+};
+
 const PageShell = ({
   children,
   eyebrow,
@@ -100,6 +364,7 @@ const PageShell = ({
           : 'radial-gradient(circle at 82% 12%, rgba(240, 189, 88, 0.16), transparent 26%), radial-gradient(circle at 12% 88%, rgba(47, 107, 95, 0.10), transparent 28%), var(--osd-bg)',
       }}
     >
+      <GlobalTimerFloatingBar />
       <div
         aria-hidden="true"
         style={{
@@ -2356,6 +2621,180 @@ const WorkshopTaskCard = ({
   );
 };
 
+const WorkshopPracticeTimer = ({
+  practiceNumber = '實作',
+  initialMinutes = 10,
+}: {
+  practiceNumber?: string;
+  initialMinutes?: number;
+}) => {
+  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(initialMinutes, practiceNumber);
+
+  const isCurrentPractice = state.practiceNumber === practiceNumber;
+  const displayRemaining = isCurrentPractice ? state.remainingSeconds : initialMinutes * 60;
+  const isRunning = isCurrentPractice && state.isRunning;
+  const isFinished = isCurrentPractice && state.remainingSeconds === 0;
+  const total = isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
+  const progressPercent = Math.min(100, Math.max(0, ((total - displayRemaining) / total) * 100));
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        marginTop: 10,
+      }}
+    >
+      {/* Digital Clock */}
+      <div
+        style={{
+          fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace',
+          fontSize: 82,
+          fontWeight: 950,
+          lineHeight: 1,
+          letterSpacing: '-0.04em',
+          color: isFinished ? coral : isRunning ? amber : paperLight,
+          textShadow: isRunning ? '0 0 24px rgba(240, 189, 88, 0.45)' : 'none',
+          transition: 'color 0.3s ease',
+        }}
+      >
+        {formatTimerClock(displayRemaining)}
+      </div>
+
+      {/* Progress Bar */}
+      <div
+        style={{
+          width: '100%',
+          height: 8,
+          background: 'rgba(255, 253, 248, 0.16)',
+          borderRadius: 99,
+          margin: '16px 0 20px',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${progressPercent}%`,
+            background: isFinished ? coral : `linear-gradient(90deg, ${amber}, ${coral})`,
+            borderRadius: 99,
+            transition: 'width 0.4s linear',
+          }}
+        />
+      </div>
+
+      {/* Primary Action Button */}
+      <div style={{ display: 'flex', gap: 10, width: '100%', marginBottom: 12 }}>
+        <button
+          type="button"
+          onClick={() => {
+            if (isRunning) {
+              pause();
+            } else {
+              start(practiceNumber, initialMinutes);
+            }
+          }}
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '14px 18px',
+            background: isRunning ? amber : coral,
+            color: isRunning ? ink : paperLight,
+            border: 'none',
+            borderRadius: 14,
+            fontSize: 22,
+            fontWeight: 950,
+            cursor: 'pointer',
+            boxShadow: '0 8px 20px rgba(0,0,0,0.22)',
+            transition: 'transform 0.15s ease, background 0.2s ease',
+          }}
+        >
+          {isRunning ? '⏸ 暫停計時' : isFinished ? '↺ 重新計時' : '▶ 開始計時'}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => reset(initialMinutes, practiceNumber)}
+          title="重設計時"
+          style={{
+            padding: '14px 18px',
+            background: 'rgba(255, 253, 248, 0.14)',
+            color: paperLight,
+            border: '1px solid rgba(255, 253, 248, 0.28)',
+            borderRadius: 14,
+            fontSize: 20,
+            fontWeight: 900,
+            cursor: 'pointer',
+          }}
+        >
+          ↺
+        </button>
+      </div>
+
+      {/* Quick Adjust Buttons */}
+      <div style={{ display: 'flex', gap: 8, width: '100%', justifyContent: 'center' }}>
+        <button
+          type="button"
+          onClick={() => addSeconds(60)}
+          style={{
+            flex: 1,
+            padding: '6px 10px',
+            background: 'rgba(255, 253, 248, 0.08)',
+            color: 'rgba(255, 253, 248, 0.85)',
+            border: '1px solid rgba(255, 253, 248, 0.18)',
+            borderRadius: 8,
+            fontSize: 15,
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          +1 分鐘
+        </button>
+        <button
+          type="button"
+          onClick={() => addSeconds(-60)}
+          style={{
+            flex: 1,
+            padding: '6px 10px',
+            background: 'rgba(255, 253, 248, 0.08)',
+            color: 'rgba(255, 253, 248, 0.85)',
+            border: '1px solid rgba(255, 253, 248, 0.18)',
+            borderRadius: 8,
+            fontSize: 15,
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          -1 分鐘
+        </button>
+      </div>
+
+      {/* Status Tip */}
+      <div
+        style={{
+          marginTop: 14,
+          fontSize: 14,
+          fontWeight: 800,
+          color: isFinished ? amber : isRunning ? mint : 'rgba(255, 253, 248, 0.65)',
+          textAlign: 'center',
+          lineHeight: 1.35,
+        }}
+      >
+        {isFinished
+          ? '🔔 時間到！請上傳成果至 Padlet'
+          : isRunning
+            ? '🟢 計時中 · 換頁/切視窗仍持續進行'
+            : '💡 按開始後，切換上下頁或縮小皆會持續計時'}
+      </div>
+    </div>
+  );
+};
+
 const WorkshopLayout = ({
   eyebrow,
   practiceNumber,
@@ -2368,75 +2807,70 @@ const WorkshopLayout = ({
   minutes: string;
   accent: string;
   children: ReactNode;
-}) => (
-  <PageShell eyebrow={eyebrow} accent={accent}>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '400px 1fr',
-        gap: 36,
-        alignItems: 'stretch',
-      }}
-    >
+}) => {
+  const minNum = Number.parseInt(minutes, 10) || 10;
+  return (
+    <PageShell eyebrow={eyebrow} accent={accent}>
       <div
         style={{
-          minHeight: 584,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '48px 42px',
-          color: paperLight,
-          background: greenDark,
-          boxShadow: shadow,
+          display: 'grid',
+          gridTemplateColumns: '410px 1fr',
+          gap: 36,
+          alignItems: 'stretch',
         }}
       >
-        <div>
-          <div
-            aria-hidden="true"
-            style={{
-              marginBottom: 18,
-              color: 'rgba(255, 253, 248, 0.2)',
-              fontFamily: 'var(--osd-font-display)',
-              fontSize: 152,
-              fontWeight: 950,
-              lineHeight: 0.78,
-              letterSpacing: '-0.08em',
-            }}
-          >
-            {minutes}
+        <div
+          style={{
+            minHeight: 584,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: '38px 36px 30px',
+            color: paperLight,
+            background: greenDark,
+            boxShadow: shadow,
+            borderRadius: 24,
+          }}
+        >
+          <div>
+            <div
+              style={{
+                display: 'inline-block',
+                padding: '6px 14px',
+                background: amber,
+                color: ink,
+                fontSize: 22,
+                fontWeight: 950,
+                borderRadius: 8,
+                marginBottom: 12,
+              }}
+            >
+              {practiceNumber || '實作'}
+            </div>
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 54,
+                fontWeight: 950,
+                lineHeight: 1.12,
+                letterSpacing: '-0.04em',
+              }}
+            >
+              課堂實作 {minutes} 分鐘
+            </h2>
           </div>
-          <h2
-            style={{
-              margin: 0,
-              fontFamily: 'var(--osd-font-display)',
-              fontSize: 70,
-              fontWeight: 950,
-              lineHeight: 1.08,
-              letterSpacing: '-0.05em',
-            }}
-          >
-            {practiceNumber ? (
-              <>
-                <span style={{ color: amber, fontSize: 36, display: 'block', marginBottom: 6 }}>
-                  {practiceNumber}
-                </span>
-                實作 {minutes} 分鐘
-              </>
-            ) : (
-              <>
-                實作
-                <br />
-                {minutes} 分鐘
-              </>
-            )}
-          </h2>
+
+          <WorkshopPracticeTimer
+            practiceNumber={practiceNumber || '實作'}
+            initialMinutes={minNum}
+          />
         </div>
-        <div style={{ width: 116, height: 10, marginTop: 42, background: coral }} />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>{children}</div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>{children}</div>
-    </div>
-  </PageShell>
-);
+    </PageShell>
+  );
+};
 
 const SlidePaperToolPractice10Min: Page = () => (
   <WorkshopLayout
