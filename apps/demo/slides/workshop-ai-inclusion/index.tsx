@@ -2358,11 +2358,13 @@ const WorkshopTaskCard = ({
 
 const WorkshopLayout = ({
   eyebrow,
+  practiceNumber,
   minutes,
   accent,
   children,
 }: {
   eyebrow: string;
+  practiceNumber?: string;
   minutes: string;
   accent: string;
   children: ReactNode;
@@ -2407,15 +2409,26 @@ const WorkshopLayout = ({
             style={{
               margin: 0,
               fontFamily: 'var(--osd-font-display)',
-              fontSize: 74,
+              fontSize: 70,
               fontWeight: 950,
-              lineHeight: 1.06,
+              lineHeight: 1.08,
               letterSpacing: '-0.05em',
             }}
           >
-            實作
-            <br />
-            {minutes} 分鐘
+            {practiceNumber ? (
+              <>
+                <span style={{ color: amber, fontSize: 36, display: 'block', marginBottom: 6 }}>
+                  {practiceNumber}
+                </span>
+                實作 {minutes} 分鐘
+              </>
+            ) : (
+              <>
+                實作
+                <br />
+                {minutes} 分鐘
+              </>
+            )}
           </h2>
         </div>
         <div style={{ width: 116, height: 10, marginTop: 42, background: coral }} />
@@ -2425,8 +2438,13 @@ const WorkshopLayout = ({
   </PageShell>
 );
 
-const SlidePaperToolPractice7Min: Page = () => (
-  <WorkshopLayout eyebrow="09 · 課堂實作 7 分鐘" minutes="7" accent={coral}>
+const SlidePaperToolPractice10Min: Page = () => (
+  <WorkshopLayout
+    eyebrow="09 · 實作 2（現成工具 10 分鐘 · 免提示詞）"
+    practiceNumber="實作 2"
+    minutes="10"
+    accent={coral}
+  >
     <WorkshopTaskCard
       label="文章太難讀"
       title="課文簡化"
@@ -2526,7 +2544,12 @@ const Slide12PaperScaffold: Page = () => (
 );
 
 const SlidePracticePaper10Min: Page = () => (
-  <WorkshopLayout eyebrow="07 · 課堂實作 10 分鐘（簡化 × 美化）" minutes="10" accent={green}>
+  <WorkshopLayout
+    eyebrow="07 · 實作 1（紙本 10 分鐘 · 簡化 × 美化）"
+    practiceNumber="實作 1"
+    minutes="10"
+    accent={green}
+  >
     <WorkshopTaskCard
       label="01 · 選教材"
       title={
@@ -2569,7 +2592,7 @@ const SlidePracticePaper10Min: Page = () => (
           Padlet
         </>
       }
-      href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
+      href="https://padlet.com/pppchin7_1/1150826-s8spzqp2zkyopn35"
       color="#9d6518"
     />
   </WorkshopLayout>
@@ -4226,7 +4249,12 @@ const Slide23StartNextWeek: Page = () => (
 );
 
 const SlidePractice10Min: Page = () => (
-  <WorkshopLayout eyebrow="14 · 課堂實作 10 分鐘" minutes="10" accent={amber}>
+  <WorkshopLayout
+    eyebrow="14 · 實作 3（互動網頁 10 分鐘 · 課堂實作）"
+    practiceNumber="實作 3"
+    minutes="10"
+    accent={amber}
+  >
     <WorkshopTaskCard
       label="01 · 選教材"
       title={
@@ -4269,7 +4297,7 @@ const SlidePractice10Min: Page = () => (
           Padlet
         </>
       }
-      href="https://padlet.com/pppchin7_1/1150828-j3bvi3ulp7iy2rwk"
+      href="https://padlet.com/pppchin7_1/1150826-s8spzqp2zkyopn35"
       color="#9d6518"
     />
   </WorkshopLayout>
@@ -4400,7 +4428,7 @@ export default [
   Slide10A4Worksheet,
   SlidePracticePaper10Min,
   Slide11Bridge,
-  SlidePaperToolPractice7Min,
+  SlidePaperToolPractice10Min,
   Slide12PaperScaffold,
   Slide13WebSection,
   Slide14WhenToUseWeb,
