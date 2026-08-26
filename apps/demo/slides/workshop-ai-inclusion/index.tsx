@@ -1824,9 +1824,7 @@ const ThreadsIcon = () => (
 
 const Slide01Social: Page = () => (
   <PageShell eyebrow="單元 1 · 社群入口" accent={coral}>
-    <Title size={68} margin="0 0 20px">
-      追蹤米克師社群
-    </Title>
+    <Title size={68} margin="0 0 20px">社群</Title>
     <p
       style={{
         margin: '0 0 44px',
@@ -5686,107 +5684,74 @@ const SlidePractice10Min: Page = () => (
 );
 
 const Slide24Closing: Page = () => (
-  <PageShell eyebrow="25 · 同一目標，更多入口" accent={coral}>
+  <PageShell eyebrow="25 · 結語" accent={coral}>
     <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.85fr',
-        gap: 74,
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        minHeight: '620px',
+        padding: '10px 20px',
       }}
     >
-      <div>
-        <div style={{ color: coral, fontSize: 25, fontWeight: 950, letterSpacing: '0.16em' }}>
-          TAKEAWAY
-        </div>
-        <h2
-          style={{
-            margin: '28px 0 40px',
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 70,
-            fontWeight: 950,
-            lineHeight: 1.34,
-            letterSpacing: '-0.035em',
-          }}
-        >
-          多備的 20 分鐘，
-          <br />
-          不只是多做一份教材；
-          <br />
-          <span style={{ color: green }}>它讓學生能自己走進學習。</span>
-        </h2>
-        <div
-          style={{
-            padding: '26px 32px',
-            borderLeft: `8px solid ${amber}`,
-            background: paperLight,
-            boxShadow: '0 14px 38px rgba(35, 57, 47, 0.09)',
-            fontSize: 33,
-            fontWeight: 800,
-            lineHeight: 1.5,
-          }}
-        >
-          或許教師也能減少一些，
-          <br />
-          無力感 。
-        </div>
-        <div style={{ marginTop: 34, color: muted, fontSize: 30, fontWeight: 850 }}>
-          Q&A・一起從下一份教材開始
-        </div>
-      </div>
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 24,
-          padding: '44px 42px',
-          background: paperLight,
-          boxShadow: shadow,
-          transform: 'rotate(0.5deg)',
-          textAlign: 'center',
+          display: 'inline-block',
+          padding: '6px 20px',
+          background: 'rgba(232, 93, 63, 0.14)',
+          border: `2px solid ${coral}`,
+          borderRadius: 999,
+          color: coral,
+          fontSize: 22,
+          fontWeight: 950,
+          letterSpacing: '0.14em',
+          marginBottom: 16,
         }}
       >
-        <img
-          src={finalQrCode}
-          alt="米克師 AI 備課幫手 QR Code"
-          style={{
-            width: 300,
-            height: 300,
-            display: 'block',
-            objectFit: 'contain',
-            borderRadius: 12,
-            background: paperLight,
-          }}
-        />
-        <div>
-          <div style={{ color: greenDark, fontSize: 34, fontWeight: 950, marginBottom: 14 }}>
-            米克師 AI 備課幫手
-          </div>
-          <ToolButton
-            href="https://spedmix.pages.dev/"
-            label="開啟 AI 備課幫手 ↗"
-            color={green}
-            size="large"
-          />
+        TAKEAWAY · 今日核心思維
+      </div>
+
+      <h2
+        style={{ margin: '0 0 34px', fontFamily: 'var(--osd-font-display)', fontSize: '70px', fontWeight: 950, lineHeight: 1.34, letterSpacing: '-0.035em', color: ink, maxWidth: 1200 }}
+      >
+        多備的 20 分鐘，不只是多做一份教材；
+        <br />
+        <span style={{ color: green }}>它讓學生能自己走進學習。</span>
+      </h2>
+
+      <div
+        style={{
+          padding: '30px 48px',
+          borderLeft: `12px solid ${amber}`,
+          background: paperLight,
+          borderRadius: 20,
+          boxShadow: '0 16px 42px rgba(35, 57, 47, 0.09)',
+          fontSize: 36,
+          fontWeight: 900,
+          lineHeight: 1.55,
+          color: greenDark,
+          maxWidth: 1040,
+          textAlign: 'left',
+        }}
+      >
+        或許教師也能減少一些無力感。
+        <div style={{ marginTop: 14, fontSize: 26, color: muted, fontWeight: 750, lineHeight: 1.45 }}>
+          AI 的價值，不是做出多厲害的教材，而是讓更多學生真正參與普通班的學習。
         </div>
-        <div
-          style={{
-            width: '100%',
-            marginTop: 10,
-            padding: '16px 20px',
-            color: paperLight,
-            background: greenDark,
-            fontSize: 24,
-            fontWeight: 900,
-            lineHeight: 1.4,
-            textAlign: 'center',
-          }}
-        >
-          AI 的價值，不是做出多厲害的教材，
-          <br />
-          而是讓更多學生真正參與普通班的學習。
-        </div>
+      </div>
+
+      <div
+        style={{
+          marginTop: 36,
+          color: muted,
+          fontSize: 30,
+          fontWeight: 900,
+          letterSpacing: '0.04em',
+        }}
+      >
+        💬 Q&A 時間 · 一起從下一份教材開始
       </div>
     </div>
   </PageShell>
@@ -5802,7 +5767,6 @@ export default [
   Slide01Speaker,
   Slide01WorkshopSlides,
   Slide01Social,
-  Slide01MixerSites,
   Slide01SlidoIntro,
   Slide01Agenda,
   Slide02NotAttitude,
@@ -5834,4 +5798,5 @@ export default [
   Slide22TwentyMinutes,
   Slide23StartNextWeek,
   Slide24Closing,
+  Slide01MixerSites,
 ] satisfies Page[];
