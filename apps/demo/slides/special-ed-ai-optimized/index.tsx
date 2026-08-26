@@ -2481,8 +2481,8 @@ const Slide06_MixerIntro: Page = () => (
         href={mixerSiteUrls.teaching}
         label="學生入口"
         screenshot={imgMixerTeaching}
-        screenshotAlt="SpedMix 學習平台網站畫面"
-        title="學生學習平台"
+        screenshotAlt="步步練 網站畫面"
+        title="步步練"
         delay={0.3}
       >
         提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。

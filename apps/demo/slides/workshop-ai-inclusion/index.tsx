@@ -13,11 +13,32 @@ import exampleLibai from './assets/example-libai.png';
 import exampleMath from './assets/example-math.png';
 import finalQrCode from './assets/final-qr-code.png';
 import headshot from './assets/headshot.png';
+import imgMixerAiPrep from './assets/mixer-ai-prep.png';
+import imgMixerShare from './assets/mixer-share.png';
+import imgMixerTeaching from './assets/mixer-teaching.png';
+import imgWorkshopHomepage from './assets/workshop-homepage.png';
+import imgWorkshopSearchResult from './assets/workshop-search-result.png';
 import printStep1 from './assets/html學習單列印-步驟1全選.png';
 import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
+import slidoQr from './assets/slido-qr.png';
 import volleyballWeb from './assets/排球互動網頁.png';
 import qingWeb from './assets/清朝互動網頁.png';
 import worksheetFromWeb from './assets/網頁變學習單.png';
+
+const slidoUrl =
+  'https://wall.sli.do/event/hY36NWS19736vBVumrGRLr?section=d9a2ae21-918c-42be-b65f-af4fe685491f&integration=shared-present-mode&utm_source=slidoadmin';
+
+const socialUrls = {
+  instagram: 'https://www.instagram.com/spedmix2025/',
+  facebook: 'https://www.facebook.com/p/%E7%B1%B3%E5%85%8B%E5%B8%AB-61583357100870/',
+  threads: 'https://www.threads.com/@spedmix2025',
+} as const;
+
+const mixerSiteUrls = {
+  prep: 'https://spedmix.pages.dev/',
+  share: 'https://spedmixshare.pages.dev/',
+  teaching: 'https://spedmixteaching.pages.dev/',
+} as const;
 
 export const design: DesignSystem = {
   palette: { bg: '#f4efe4', text: '#183b38', accent: '#e85d3f' },
@@ -1398,15 +1419,16 @@ Slide01Cover.transition = {
 
 const Slide01Speaker: Page = () => (
   <PageShell eyebrow="單元 1 · 關於我" accent={green}>
-    <Title size={68} margin="0 0 28px">
+    <Title size={68} margin="0 0 20px">
       介紹
     </Title>
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '0.82fr 1.18fr',
-        gap: 36,
+        gridTemplateColumns: '330px 1fr',
+        gap: 28,
         alignItems: 'stretch',
+        minHeight: 0,
       }}
     >
       <div
@@ -1414,13 +1436,14 @@ const Slide01Speaker: Page = () => (
           background: paperLight,
           border: '2px solid rgba(24, 59, 56, 0.12)',
           borderRadius: 24,
-          padding: '30px 34px',
+          padding: '24px 20px',
           boxShadow: shadow,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 22,
+          gap: 18,
+          textAlign: 'center',
         }}
       >
         <h3
@@ -1433,23 +1456,23 @@ const Slide01Speaker: Page = () => (
             margin: 0,
           }}
         >
-          朱旆誼 (米克師)
+          朱旆誼
         </h3>
         <div
           style={{
-            width: 410,
-            height: 410,
+            width: 240,
+            height: 240,
             borderRadius: '50%',
-            padding: 10,
+            padding: 7,
             background: '#ffffff',
-            border: `8px solid ${coral}`,
-            boxShadow: '0 24px 52px rgba(232, 93, 63, 0.22)',
+            border: `7px solid ${coral}`,
+            boxShadow: '0 18px 40px rgba(232, 93, 63, 0.22)',
             overflow: 'hidden',
           }}
         >
           <img
             src={headshot}
-            alt="朱旆誼（米克師）"
+            alt="朱旆誼"
             style={{
               width: '100%',
               height: '100%',
@@ -1464,8 +1487,9 @@ const Slide01Speaker: Page = () => (
       <div
         style={{
           display: 'grid',
-          gridTemplateRows: '1.08fr 0.92fr',
-          gap: 22,
+          gridTemplateRows: '0.72fr 1.28fr',
+          gap: 16,
+          minHeight: 0,
         }}
       >
         <div
@@ -1473,8 +1497,8 @@ const Slide01Speaker: Page = () => (
             background: paperLight,
             border: '2px solid rgba(24, 59, 56, 0.12)',
             borderLeft: `10px solid ${green}`,
-            borderRadius: 24,
-            padding: '26px 34px',
+            borderRadius: 22,
+            padding: '18px 32px',
             boxShadow: shadow,
             display: 'flex',
             flexDirection: 'column',
@@ -1484,24 +1508,24 @@ const Slide01Speaker: Page = () => (
           <h3
             style={{
               fontFamily: 'var(--osd-font-display)',
-              fontSize: 40,
+              fontSize: 36,
               lineHeight: 1.1,
               fontWeight: 950,
               color: green,
-              margin: '0 0 14px 0',
+              margin: '0 0 8px 0',
             }}
           >
-            學歷
+            🎓 學歷
           </h3>
           <ul
             style={{
-              paddingLeft: 24,
+              paddingLeft: 26,
               margin: 0,
               display: 'flex',
               flexDirection: 'column',
-              gap: 10,
-              fontSize: 29,
-              lineHeight: 1.42,
+              gap: 4,
+              fontSize: 32,
+              lineHeight: 1.32,
               color: ink,
             }}
           >
@@ -1509,7 +1533,7 @@ const Slide01Speaker: Page = () => (
               <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所
+              <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
             </li>
             <li>
               <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
@@ -1521,8 +1545,8 @@ const Slide01Speaker: Page = () => (
             background: paperLight,
             border: '2px solid rgba(24, 59, 56, 0.12)',
             borderLeft: `10px solid ${coral}`,
-            borderRadius: 24,
-            padding: '26px 34px',
+            borderRadius: 22,
+            padding: '18px 32px',
             boxShadow: shadow,
             display: 'flex',
             flexDirection: 'column',
@@ -1532,34 +1556,837 @@ const Slide01Speaker: Page = () => (
           <h3
             style={{
               fontFamily: 'var(--osd-font-display)',
-              fontSize: 40,
+              fontSize: 36,
               lineHeight: 1.1,
               fontWeight: 950,
               color: coral,
-              margin: '0 0 14px 0',
+              margin: '0 0 8px 0',
             }}
           >
-            經歷
+            🏫 經歷
           </h3>
           <ul
             style={{
-              paddingLeft: 24,
+              paddingLeft: 26,
               margin: 0,
               display: 'flex',
               flexDirection: 'column',
-              gap: 10,
-              fontSize: 29,
-              lineHeight: 1.42,
+              gap: 4,
+              fontSize: 32,
+              lineHeight: 1.32,
               color: ink,
             }}
           >
             <li>
+              <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
+            </li>
+            <li>
               <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>{' 資源班教師（兼巡迴輔導）'}
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
+              <strong style={{ color: greenDark, fontWeight: 900 }}>米克師 AI 備課幫手 創辦人</strong>：自製多種 AI 教材工具
+            </li>
+            <li>
+              <strong style={{ color: greenDark, fontWeight: 900 }}>特教教材共享平台 發起人</strong>：建立特師教材共享生態
+            </li>
+            <li>
+              <strong style={{ color: greenDark, fontWeight: 900 }}>特教 AI 研習講師</strong>：受邀於各縣市特教輔導團與學校分享
             </li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+
+const Slide01WorkshopSlides: Page = () => (
+  <PageShell eyebrow="單元 1 · 研習簡報" accent={green}>
+    <Title size={68} margin="0 0 24px">
+      本日研習簡報
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '0.86fr 1.14fr',
+        gap: 34,
+        alignItems: 'stretch',
+        minHeight: 0,
+      }}
+    >
+      <div style={{ display: 'grid', gap: 18, alignContent: 'center' }}>
+        <div
+          style={{
+            background: paperLight,
+            border: `2px solid ${hairline}`,
+            borderLeft: `10px solid ${green}`,
+            borderRadius: 20,
+            padding: '24px 28px',
+            boxShadow: shadow,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 20,
+          }}
+        >
+          <div
+            style={{
+              width: 58,
+              height: 58,
+              borderRadius: 16,
+              background: mint,
+              color: green,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 28,
+              fontWeight: 950,
+              flexShrink: 0,
+            }}
+          >
+            01
+          </div>
+          <div>
+            <div style={{ fontSize: 34, fontWeight: 950, color: greenDark, marginBottom: 4 }}>
+              搜尋「米克師」
+            </div>
+            <div style={{ fontSize: 24, color: muted, fontWeight: 700, lineHeight: 1.4 }}>
+              點擊搜尋結果中的「米克師｜AI備課幫手」，進入備課平台。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: paperLight,
+            border: `2px solid ${hairline}`,
+            borderLeft: `10px solid ${coral}`,
+            borderRadius: 20,
+            padding: '24px 28px',
+            boxShadow: shadow,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 20,
+          }}
+        >
+          <div
+            style={{
+              width: 58,
+              height: 58,
+              borderRadius: 16,
+              background: 'rgba(232, 93, 63, 0.16)',
+              color: coral,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 28,
+              fontWeight: 950,
+              flexShrink: 0,
+            }}
+          >
+            02
+          </div>
+          <div>
+            <div style={{ fontSize: 34, fontWeight: 950, color: greenDark, marginBottom: 4 }}>
+              點選右上角「研習簡報」
+            </div>
+            <div style={{ fontSize: 24, color: muted, fontWeight: 700, lineHeight: 1.4 }}>
+              進入首頁後，看右上方導覽列，按下「研習簡報」。
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: paperLight,
+            border: `2px solid ${hairline}`,
+            borderLeft: `10px solid ${amber}`,
+            borderRadius: 20,
+            padding: '24px 28px',
+            boxShadow: shadow,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 20,
+          }}
+        >
+          <div
+            style={{
+              width: 58,
+              height: 58,
+              borderRadius: 16,
+              background: 'rgba(240, 189, 88, 0.25)',
+              color: '#a36d10',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 28,
+              fontWeight: 950,
+              flexShrink: 0,
+            }}
+          >
+            03
+          </div>
+          <div>
+            <div style={{ fontSize: 34, fontWeight: 950, color: greenDark, marginBottom: 4 }}>
+              輸入今日密碼
+            </div>
+            <div style={{ fontSize: 24, color: muted, fontWeight: 700, lineHeight: 1.4 }}>
+              輸入 <strong style={{ color: coral, fontSize: 32 }}>1150826</strong>，即可看到今日研習簡報。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: '0.74fr 1.26fr',
+          gap: 18,
+          minHeight: 0,
+        }}
+      >
+        <div
+          style={{
+            background: '#ffffff',
+            border: `2px solid ${hairline}`,
+            borderRadius: 20,
+            padding: 14,
+            boxShadow: shadow,
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={imgWorkshopSearchResult}
+            alt="搜尋米克師並點擊 AI 備課幫手"
+            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+          />
+        </div>
+        <div
+          style={{
+            background: '#ffffff',
+            border: `2px solid ${hairline}`,
+            borderRadius: 20,
+            padding: 14,
+            boxShadow: shadow,
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={imgWorkshopHomepage}
+            alt="米克師 AI 備課幫手首頁右上角研習簡報"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              objectPosition: '50% 50%',
+              objectViewBox: 'inset(0% 0% 46.21% 34.55%)',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+
+const InstagramIcon = () => (
+  <svg width="76" height="76" viewBox="0 0 92 92" role="img" aria-label="Instagram">
+    <rect
+      x="16"
+      y="16"
+      width="60"
+      height="60"
+      rx="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="7"
+    />
+    <circle cx="46" cy="46" r="15" fill="none" stroke="currentColor" strokeWidth="7" />
+    <circle cx="62" cy="30" r="5" fill="currentColor" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg width="76" height="76" viewBox="0 0 92 92" role="img" aria-label="Facebook">
+    <path
+      d="M54 31h11V17H52c-15 0-23 9-23 24v8H18v15h11v24h17V64h14l3-15H46v-7c0-7 3-11 8-11Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg width="76" height="76" viewBox="0 0 92 92" role="img" aria-label="Threads">
+    <path
+      d="M47 14c19 0 31 12 31 32 0 21-13 32-32 32-18 0-32-12-32-32 0-19 12-32 33-32Zm-1 16c-10 0-16 6-16 16 0 11 6 17 16 17 8 0 14-4 14-10 0-5-4-8-11-8h-9v10h8c3 0 5 1 5 3s-3 4-7 4c-8 0-13-6-13-16 0-9 5-15 13-15 6 0 10 2 13 7l8-5c-5-7-11-10-21-10Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const Slide01Social: Page = () => (
+  <PageShell eyebrow="單元 1 · 社群入口" accent={coral}>
+    <Title size={68} margin="0 0 20px">
+      追蹤米克師社群
+    </Title>
+    <p
+      style={{
+        margin: '0 0 44px',
+        fontSize: 32,
+        color: muted,
+        fontWeight: 750,
+        lineHeight: 1.4,
+      }}
+    >
+      歡迎追蹤社群，第一時間獲取最新特教 AI 工具、教學模板與備課資源
+    </p>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 32,
+        alignItems: 'stretch',
+      }}
+    >
+      <a
+        href={socialUrls.instagram}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 20,
+          background: paperLight,
+          border: '2px solid rgba(214, 41, 118, 0.25)',
+          borderTop: '10px solid #d62976',
+          borderRadius: 24,
+          padding: '44px 32px 36px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+          transition: 'transform 0.2s ease',
+        }}
+      >
+        <div
+          style={{
+            width: 110,
+            height: 110,
+            borderRadius: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            background: 'linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)',
+            boxShadow: '0 16px 36px rgba(214, 41, 118, 0.3)',
+          }}
+        >
+          <InstagramIcon />
+        </div>
+        <div>
+          <h3 style={{ margin: '0 0 8px', fontSize: 44, fontWeight: 950 }}>Instagram</h3>
+          <div style={{ fontSize: 28, color: '#d62976', fontWeight: 900 }}>@spedmix2025</div>
+        </div>
+        <div
+          style={{
+            marginTop: 'auto',
+            padding: '12px 28px',
+            background: '#d62976',
+            color: '#ffffff',
+            borderRadius: 12,
+            fontSize: 22,
+            fontWeight: 900,
+          }}
+        >
+          前往追蹤 ↗
+        </div>
+      </a>
+
+      <a
+        href={socialUrls.facebook}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 20,
+          background: paperLight,
+          border: '2px solid rgba(24, 119, 242, 0.25)',
+          borderTop: '10px solid #1877f2',
+          borderRadius: 24,
+          padding: '44px 32px 36px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+          transition: 'transform 0.2s ease',
+        }}
+      >
+        <div
+          style={{
+            width: 110,
+            height: 110,
+            borderRadius: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            background: '#1877f2',
+            boxShadow: '0 16px 36px rgba(24, 119, 242, 0.3)',
+          }}
+        >
+          <FacebookIcon />
+        </div>
+        <div>
+          <h3 style={{ margin: '0 0 8px', fontSize: 44, fontWeight: 950 }}>Facebook</h3>
+          <div style={{ fontSize: 28, color: '#1877f2', fontWeight: 900 }}>米克師</div>
+        </div>
+        <div
+          style={{
+            marginTop: 'auto',
+            padding: '12px 28px',
+            background: '#1877f2',
+            color: '#ffffff',
+            borderRadius: 12,
+            fontSize: 22,
+            fontWeight: 900,
+          }}
+        >
+          前往追蹤 ↗
+        </div>
+      </a>
+
+      <a
+        href={socialUrls.threads}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 20,
+          background: paperLight,
+          border: '2px solid rgba(17, 24, 39, 0.25)',
+          borderTop: '10px solid #111827',
+          borderRadius: 24,
+          padding: '44px 32px 36px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+          transition: 'transform 0.2s ease',
+        }}
+      >
+        <div
+          style={{
+            width: 110,
+            height: 110,
+            borderRadius: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            background: '#111827',
+            boxShadow: '0 16px 36px rgba(17, 24, 39, 0.3)',
+          }}
+        >
+          <ThreadsIcon />
+        </div>
+        <div>
+          <h3 style={{ margin: '0 0 8px', fontSize: 44, fontWeight: 950 }}>Threads</h3>
+          <div style={{ fontSize: 28, color: '#111827', fontWeight: 900 }}>@spedmix2025</div>
+        </div>
+        <div
+          style={{
+            marginTop: 'auto',
+            padding: '12px 28px',
+            background: '#111827',
+            color: '#ffffff',
+            borderRadius: 12,
+            fontSize: 22,
+            fontWeight: 900,
+          }}
+        >
+          前往追蹤 ↗
+        </div>
+      </a>
+    </div>
+  </PageShell>
+);
+
+const Slide01MixerSites: Page = () => (
+  <PageShell eyebrow="單元 1 · 資源入口" accent={green}>
+    <Title size={68} margin="0 0 20px">
+      米克師相關網站
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 28,
+        alignItems: 'stretch',
+        minHeight: 0,
+      }}
+    >
+      <a
+        href={mixerSiteUrls.prep}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          background: paperLight,
+          border: `2px solid ${hairline}`,
+          borderTop: `10px solid ${green}`,
+          borderRadius: 22,
+          padding: '24px 26px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '4px 14px',
+            background: mint,
+            color: green,
+            fontSize: 20,
+            fontWeight: 950,
+            borderRadius: 8,
+            marginBottom: 12,
+            width: 'fit-content',
+          }}
+        >
+          備課入口
+        </div>
+        <h3 style={{ margin: '0 0 12px', fontSize: 38, fontWeight: 950, color: greenDark }}>
+          AI 備課幫手
+        </h3>
+        <div
+          style={{
+            height: 200,
+            borderRadius: 14,
+            overflow: 'hidden',
+            border: `1px solid ${hairline}`,
+            marginBottom: 14,
+          }}
+        >
+          <img
+            src={imgMixerAiPrep}
+            alt="AI 備課幫手網站首頁畫面"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+          特教老師生成教材、學習單、課程素材與備課工具的主要入口。
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            color: green,
+            fontSize: 22,
+            fontWeight: 900,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
+          開啟網站 ↗
+        </div>
+      </a>
+
+      <a
+        href={mixerSiteUrls.share}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          background: paperLight,
+          border: `2px solid ${hairline}`,
+          borderTop: `10px solid ${coral}`,
+          borderRadius: 22,
+          padding: '24px 26px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '4px 14px',
+            background: 'rgba(232, 93, 63, 0.16)',
+            color: coral,
+            fontSize: 20,
+            fontWeight: 950,
+            borderRadius: 8,
+            marginBottom: 12,
+            width: 'fit-content',
+          }}
+        >
+          共享入口
+        </div>
+        <h3 style={{ margin: '0 0 12px', fontSize: 38, fontWeight: 950, color: greenDark }}>
+          特教教材共享
+        </h3>
+        <div
+          style={{
+            height: 200,
+            borderRadius: 14,
+            overflow: 'hidden',
+            border: `1px solid ${hairline}`,
+            marginBottom: 14,
+          }}
+        >
+          <img
+            src={imgMixerShare}
+            alt="特教教材資源共享網站畫面"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+          整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            color: coral,
+            fontSize: 22,
+            fontWeight: 900,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
+          開啟網站 ↗
+        </div>
+      </a>
+
+      <a
+        href={mixerSiteUrls.teaching}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          background: paperLight,
+          border: `2px solid ${hairline}`,
+          borderTop: `10px solid ${amber}`,
+          borderRadius: 22,
+          padding: '24px 26px',
+          boxShadow: shadow,
+          textDecoration: 'none',
+          color: ink,
+        }}
+      >
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '4px 14px',
+            background: 'rgba(240, 189, 88, 0.25)',
+            color: '#a36d10',
+            fontSize: 20,
+            fontWeight: 950,
+            borderRadius: 8,
+            marginBottom: 12,
+            width: 'fit-content',
+          }}
+        >
+          學生入口
+        </div>
+        <h3 style={{ margin: '0 0 12px', fontSize: 38, fontWeight: 950, color: greenDark }}>
+          步步練
+        </h3>
+        <div
+          style={{
+            height: 200,
+            borderRadius: 14,
+            overflow: 'hidden',
+            border: `1px solid ${hairline}`,
+            marginBottom: 14,
+          }}
+        >
+          <img
+            src={imgMixerTeaching}
+            alt="步步練 網站畫面"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+          提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            color: '#a36d10',
+            fontSize: 22,
+            fontWeight: 900,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
+          開啟網站 ↗
+        </div>
+      </a>
+    </div>
+  </PageShell>
+);
+
+const Slide01SlidoIntro: Page = () => (
+  <PageShell eyebrow="單元 1 · 課堂互動" accent={coral}>
+    <Title size={68} margin="0 0 24px">
+      現在換我來認識大家！
+    </Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.08fr 0.92fr',
+        gap: 48,
+        alignItems: 'center',
+        minHeight: 0,
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
+        <div
+          style={{
+            padding: '38px 42px',
+            background: paperLight,
+            border: `2px solid ${hairline}`,
+            borderLeft: `12px solid ${coral}`,
+            borderRadius: 24,
+            boxShadow: shadow,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-block',
+              padding: '6px 18px',
+              background: 'rgba(232, 93, 63, 0.16)',
+              color: coral,
+              borderRadius: 999,
+              fontSize: 22,
+              fontWeight: 950,
+              width: 'fit-content',
+            }}
+          >
+            SLIDO 即時互動
+          </div>
+          <div
+            style={{
+              fontSize: 42,
+              fontWeight: 950,
+              lineHeight: 1.3,
+              color: greenDark,
+            }}
+          >
+            歡迎拿起手機掃描 QR Code，
+            <br />
+            或點擊下方按鈕直接進入！
+          </div>
+          <div
+            style={{
+              fontSize: 26,
+              lineHeight: 1.5,
+              color: muted,
+              fontWeight: 750,
+            }}
+          >
+            免下載 App · 匿名填寫 · 即時統計
+            <br />
+            講師將根據大家的起點與期待，即時聚焦今日重點！
+          </div>
+        </div>
+
+        <a
+          href={slidoUrl}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 12,
+            width: '100%',
+            padding: '20px 32px',
+            background: coral,
+            color: '#ffffff',
+            borderRadius: 18,
+            fontSize: 28,
+            fontWeight: 950,
+            textDecoration: 'none',
+            boxShadow: '0 14px 34px rgba(232, 93, 63, 0.38)',
+          }}
+        >
+          點擊開啟 Slido 互動問卷 ↗
+        </a>
+      </div>
+
+      {/* Right Column: QR Code */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 20,
+          background: paperLight,
+          border: `3px solid rgba(232, 93, 63, 0.35)`,
+          borderTop: `12px solid ${coral}`,
+          borderRadius: 28,
+          padding: '38px 40px 32px',
+          boxShadow: shadow,
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            color: coral,
+            fontSize: 28,
+            fontWeight: 950,
+            letterSpacing: '0.06em',
+          }}
+        >
+          📱 手機掃描立即作答
+        </div>
+
+        <div
+          style={{
+            width: 360,
+            height: 360,
+            borderRadius: 20,
+            background: '#ffffff',
+            padding: 16,
+            boxShadow: '0 14px 32px rgba(0,0,0,0.08)',
+            border: `2px solid ${hairline}`,
+          }}
+        >
+          <img
+            src={slidoQr}
+            alt="Slido 互動問卷 QR Code"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'block',
+              objectFit: 'contain',
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            color: muted,
+            fontSize: 22,
+            fontWeight: 850,
+            lineHeight: 1.4,
+          }}
+        >
+          支援手機相機或任何掃碼 App
         </div>
       </div>
     </div>
@@ -4973,6 +5800,10 @@ export const meta: SlideMeta = {
 export default [
   Slide01Cover,
   Slide01Speaker,
+  Slide01WorkshopSlides,
+  Slide01Social,
+  Slide01MixerSites,
+  Slide01SlidoIntro,
   Slide01Agenda,
   Slide02NotAttitude,
   Slide04TeacherAndAi,
