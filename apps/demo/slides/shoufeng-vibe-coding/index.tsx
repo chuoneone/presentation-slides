@@ -1091,11 +1091,11 @@ const Slide02WorkshopAgenda: Page = () => (
       style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}
     >
       <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=7" />
-      <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=13" />
-      <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=19" />
-      <AgendaCard label="PART 04" title="發布 GitHub Pages" color={cyan} href="?p=23" />
-      <AgendaCard label="PART 05" title="用 Antigravity 協作" color={coral} href="?p=29" />
-      <AgendaCard label="PART 06" title="用 Git 留下版本紀錄" color={mint} href="?p=36" />
+      <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=14" />
+      <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=20" />
+      <AgendaCard label="PART 04" title="發布 GitHub Pages" color={cyan} href="?p=24" />
+      <AgendaCard label="PART 05" title="用 Antigravity 協作" color={coral} href="?p=30" />
+      <AgendaCard label="PART 06" title="用 Git 留下版本紀錄" color={mint} href="?p=37" />
     </div>
   </PageShell>
 );
@@ -3031,6 +3031,202 @@ const Slide17AccountChapter: Page = () => (
     accent={mint}
   />
 );
+
+const Slide17WhatIsGithub: Page = () => (
+  <PageShell eyebrow="PART 01 · GITHUB 到底是什麼？" accent={cyan} mood="blue">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={72} margin="0 0 10px">
+        GitHub 是什麼？跟老師有什麼關係？
+      </Title>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
+        把它想像成「能把教材檔案直接變成公開網址」的免費雲端發布機
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 22,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* 1. Free website host */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${cyan}`,
+          borderRadius: 24,
+          padding: '26px 26px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 14,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#245257' }}>
+              🌐 免費個人教學網站
+            </span>
+            <span
+              style={{
+                fontSize: 17,
+                fontWeight: 900,
+                padding: '4px 12px',
+                borderRadius: 6,
+                background: 'rgba(120, 174, 178, 0.25)',
+                color: '#1a4b43',
+              }}
+            >
+              終生免費
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '16px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            不用花錢買主機或租網域！把做好的網頁丟上去，GitHub <strong>直接送你專屬公開網址</strong>。
+          </div>
+        </div>
+        <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
+          ✨ 教師個人頁、課程導航輕鬆上線
+        </div>
+      </div>
+
+      {/* 2. Instant student access */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${mint}`,
+          borderRadius: 24,
+          padding: '26px 26px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 14,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#1f4e41' }}>
+              📱 學生家長掃碼即用
+            </span>
+            <span
+              style={{
+                fontSize: 17,
+                fontWeight: 900,
+                padding: '4px 12px',
+                borderRadius: 6,
+                background: 'rgba(169, 207, 189, 0.35)',
+                color: '#1d4834',
+              }}
+            >
+              跨平台
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '16px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            <strong>免安裝 App、免登入帳號</strong>，手機平板直接掃 QR Code 就能玩互動測驗與點讀學習單！
+          </div>
+        </div>
+        <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
+          ✨ 特教點讀、生生用平板教學超方便
+        </div>
+      </div>
+
+      {/* 3. Cloud safe */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${yellow}`,
+          borderRadius: 24,
+          padding: '26px 26px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 14,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#7a5a12' }}>
+              🔒 教材雲端永久保存
+            </span>
+            <span
+              style={{
+                fontSize: 17,
+                fontWeight: 900,
+                padding: '4px 12px',
+                borderRadius: 6,
+                background: 'rgba(241, 212, 123, 0.35)',
+                color: '#654807',
+              }}
+            >
+              永不遺失
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '16px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            不怕隨身碟壞掉或換電腦檔案不見！所有版本修改都有紀錄，更是 <strong>AI Agent 協作的雲端基地</strong>。
+          </div>
+        </div>
+        <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
+          ✨ 連接 Antigravity 一鍵推播更新
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom summary bar */}
+    <div
+      style={{
+        marginTop: 18,
+        padding: '14px 22px',
+        background: '#27343b',
+        borderRadius: 14,
+        color: '#fdf4c8',
+        fontSize: 23,
+        fontWeight: 900,
+        textAlign: 'center',
+      }}
+    >
+      💡 <strong>一句話搞懂 GitHub：</strong>它是你的「教材雲端硬碟 ＋ 免費網站發布機」，讓你的作品隨時能分享給全世界！
+    </div>
+  </PageShell>
+);
+Slide17WhatIsGithub.transition = sectionTransition;
 
 const Slide22CanvasChapter: Page = () => (
   <GitHubChapter
@@ -5854,6 +6050,7 @@ export default [
   Slide03TwoRoutes,
   Slide05PublicSafety,
   Slide17AccountChapter,
+  Slide17WhatIsGithub,
   Slide17GithubSignup,
   Slide18GoogleLogin,
   Slide19AccountSetup,
