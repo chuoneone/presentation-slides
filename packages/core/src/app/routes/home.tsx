@@ -86,6 +86,10 @@ export function Home() {
   } = useOutletContext<HomeOutletContext>();
   const t = useLocale();
 
+  useEffect(() => {
+    document.title = '研習簡報';
+  }, []);
+
   const isAll = selectedId === ALL_SLIDES_ID;
   const isDraft = selectedId === DRAFT_ID;
   const selectedFolder =

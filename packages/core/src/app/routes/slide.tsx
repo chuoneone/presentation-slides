@@ -106,6 +106,10 @@ export function Slide() {
   const view = searchParams.get('view') === 'assets' ? 'assets' : 'slides';
 
   useEffect(() => {
+    document.title = slide?.meta?.title ? `${slide.meta.title} · 研習簡報` : '研習簡報';
+  }, [slide, slideId]);
+
+  useEffect(() => {
     if (!import.meta.hot) return;
     if (!slideId || !slide || pageCount === 0) return;
     import.meta.hot.send('open-slide:current', {
