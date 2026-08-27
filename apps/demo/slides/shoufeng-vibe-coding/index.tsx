@@ -4738,6 +4738,414 @@ const Slide33SevenDayAction: Page = () => {
     </PageShell>
   );
 };
+Slide33SevenDayAction.transition = sectionTransition;
+
+const Slide33ToolSelection: Page = () => (
+  <PageShell eyebrow="GUIDE · 工具選擇指南" accent={cyan} mood="blue">
+    <div style={{ marginBottom: 16 }}>
+      <Title size={62} margin="0 0 8px">
+        什麼情境用什麼工具？一眼看懂最佳選擇
+      </Title>
+      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+        依任務規模選擇最省力的方式，讓 AI 成為最得力的備課夥伴
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 22,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* 1. Chat AI */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${cyan}`,
+          borderRadius: 22,
+          padding: '24px 24px',
+          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 28, fontWeight: 950, color: '#245257' }}>
+              💬 對話式 AI
+            </span>
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: 900,
+                padding: '3px 10px',
+                borderRadius: 6,
+                background: 'rgba(120, 174, 178, 0.22)',
+                color: '#1a4b43',
+              }}
+            >
+              單次問答
+            </span>
+          </div>
+          <div style={{ fontSize: 18, color: muted, fontFamily: mono, fontWeight: 800, marginBottom: 12 }}>
+            ChatGPT / Gemini 網頁版
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 12,
+              padding: '12px 14px',
+              fontSize: 20,
+              color: '#27343b',
+              fontWeight: 800,
+              lineHeight: 1.5,
+            }}
+          >
+            🎯 <strong>最適合情境：</strong>
+            <ul style={{ margin: '6px 0 0', paddingLeft: 22, fontSize: 19 }}>
+              <li>靈感腦力激盪、寫教學文案</li>
+              <li>快速翻譯、潤飾句子與文章</li>
+              <li>批改作文範例與單次問答</li>
+            </ul>
+          </div>
+        </div>
+        <div style={{ fontSize: 16, color: muted, fontWeight: 750, lineHeight: 1.4 }}>
+          ⚡ <strong>特點：</strong>瀏覽器即開即用，不具備本地檔案讀寫能力。
+        </div>
+      </div>
+
+      {/* 2. Canvas */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${mint}`,
+          borderRadius: 22,
+          padding: '24px 24px',
+          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 28, fontWeight: 950, color: '#27523f' }}>
+              🎨 畫布預覽工具
+            </span>
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: 900,
+                padding: '3px 10px',
+                borderRadius: 6,
+                background: 'rgba(169, 207, 189, 0.35)',
+                color: '#1d4834',
+              }}
+            >
+              單檔視覺化
+            </span>
+          </div>
+          <div style={{ fontSize: 18, color: muted, fontFamily: mono, fontWeight: 800, marginBottom: 12 }}>
+            Gemini Canvas / Claude Artifacts
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 12,
+              padding: '12px 14px',
+              fontSize: 20,
+              color: '#27343b',
+              fontWeight: 800,
+              lineHeight: 1.5,
+            }}
+          >
+            🎯 <strong>最適合情境：</strong>
+            <ul style={{ margin: '6px 0 0', paddingLeft: 22, fontSize: 19 }}>
+              <li>快速生成單一互動網頁</li>
+              <li>單張 A4 差異化學習單</li>
+              <li>即時微調視覺排版與按鈕</li>
+            </ul>
+          </div>
+        </div>
+        <div style={{ fontSize: 16, color: muted, fontWeight: 750, lineHeight: 1.4 }}>
+          ⚡ <strong>特點：</strong>右側畫布即時預覽，適合單一檔案輕量生成。
+        </div>
+      </div>
+
+      {/* 3. AI Agent */}
+      <div
+        style={{
+          background: panel,
+          border: '2px solid rgba(238, 154, 131, 0.45)',
+          borderTop: `8px solid ${coral}`,
+          borderRadius: 22,
+          padding: '24px 24px',
+          boxShadow: '0 16px 32px rgba(238, 154, 131, 0.15)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+            <span style={{ fontSize: 28, fontWeight: 950, color: '#96392b' }}>
+              🤖 AI Agent
+            </span>
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: 900,
+                padding: '3px 10px',
+                borderRadius: 6,
+                background: 'rgba(238, 154, 131, 0.35)',
+                color: '#82271a',
+              }}
+            >
+              大量資料與專案
+            </span>
+          </div>
+          <div style={{ fontSize: 18, color: coral, fontFamily: mono, fontWeight: 800, marginBottom: 12 }}>
+            Google Antigravity
+          </div>
+          <div
+            style={{
+              background: '#fdf3f0',
+              borderRadius: 12,
+              padding: '12px 14px',
+              fontSize: 20,
+              color: '#27343b',
+              fontWeight: 800,
+              lineHeight: 1.5,
+              border: '1px solid rgba(238, 154, 131, 0.25)',
+            }}
+          >
+            🎯 <strong>最適合情境：</strong>
+            <ul style={{ margin: '6px 0 0', paddingLeft: 22, fontSize: 19 }}>
+              <li><strong>大量檔案與題庫批次整理管理</strong></li>
+              <li>多頁面個人網站與教材庫管理</li>
+              <li>本地端自動修改程式、測試與發布</li>
+            </ul>
+          </div>
+        </div>
+        <div style={{ fontSize: 16, color: '#82271a', fontWeight: 800, lineHeight: 1.4 }}>
+          ⚡ <strong>特點：</strong>自主執行、讀寫本地端多檔案、完整專案脈絡。
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+Slide33ToolSelection.transition = sectionTransition;
+
+const Slide33LifeTransformation: Page = () => (
+  <PageShell eyebrow="VALUE · 價值比較" accent={yellow} mood="warm">
+    <div style={{ marginBottom: 16 }}>
+      <Title size={62} margin="0 0 8px">
+        學會使用 Antigravity，對教學與生活帶來什麼改變？
+      </Title>
+      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+        從重複勞動的「檔案排版工」，升級為掌控全域的「教學總指揮」
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 28,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* Before Column */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(238, 154, 131, 0.35)',
+          borderTop: `8px solid ${coral}`,
+          borderRadius: 24,
+          padding: '24px 28px',
+          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 30 }}>❌</span>
+          <h3 style={{ margin: 0, fontSize: 30, fontWeight: 950, color: '#96392b' }}>
+            過去：手動搬移與重複勞動
+          </h3>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div
+            style={{
+              background: '#fdf5f3',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(238, 154, 131, 0.20)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#96392b', marginBottom: 3 }}>
+              📄 複製貼上繁瑣
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              在對話框取得文字或程式碼後，需手動逐一建檔、複製貼上與搬移資料夾。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#fdf5f3',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(238, 154, 131, 0.20)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#96392b', marginBottom: 3 }}>
+              📦 大量資料整理無從下手
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              遇到數十份學習單、百題題庫或多班級名冊，只能一份一份手動修改排版。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#fdf5f3',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(238, 154, 131, 0.20)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#96392b', marginBottom: 3 }}>
+              ⏳ 每次開新對話就要重教
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              對話式 AI 無法讀取電腦本地檔案，每次都要重新上傳提示詞與背景說明。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#fdf5f3',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(238, 154, 131, 0.20)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#96392b', marginBottom: 3 }}>
+              😫 排版耗盡備課時間
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              花了 80% 時間在瑣碎排版與格式微調，真正陪伴學生的時間被壓縮。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* After Column */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(120, 174, 178, 0.35)',
+          borderTop: `8px solid ${mint}`,
+          borderRadius: 24,
+          padding: '24px 28px',
+          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 30 }}>✨</span>
+          <h3 style={{ margin: 0, fontSize: 30, fontWeight: 950, color: '#1a4b43' }}>
+            現在：說一句話，Agent 自主搞定
+          </h3>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div
+            style={{
+              background: '#eef6f2',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(169, 207, 189, 0.35)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#1a4b43', marginBottom: 3 }}>
+              🚀 一句話直接改本地檔案
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              Agent 直接在本地端建立檔案、修改程式、即時編譯與測試，完全免手動複製。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#eef6f2',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(169, 207, 189, 0.35)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#1a4b43', marginBottom: 3 }}>
+              📦 海量資料一鍵批次處理
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              數十份教材、百題題庫與學生名冊，下達指令即可批次分類、改寫與統整。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#eef6f2',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(169, 207, 189, 0.35)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#1a4b43', marginBottom: 3 }}>
+              🧠 擁有完整專案長期記憶
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              深度理解你的整個教材架構與網站結構，每次指令都在既有基礎上延伸。
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#eef6f2',
+              borderRadius: 14,
+              padding: '12px 18px',
+              border: '1px solid rgba(169, 207, 189, 0.35)',
+            }}
+          >
+            <div style={{ fontSize: 21, fontWeight: 950, color: '#1a4b43', marginBottom: 3 }}>
+              ☕ 找回從容的高品質生活
+            </div>
+            <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, lineHeight: 1.4 }}>
+              省下 80% 瑣碎重複勞力，把寶貴時間留給課堂互動、個別輔導與準時下班。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+Slide33LifeTransformation.transition = sectionTransition;
 
 const Slide34Closing: Page = () => {
   const reviewVideoUrl = 'https://youtu.be/8Nd71kGVfj8?si=2NFISOG9l3G44gX_';
@@ -5032,6 +5440,8 @@ export default [
   Slide42GitBasics,
   Slide43GitPlainLanguage,
   Slide33SevenDayAction,
+  Slide33ToolSelection,
+  Slide33LifeTransformation,
   Slide34Closing,
   Slide35SpedmixRecommendation,
 ] satisfies Page[];
