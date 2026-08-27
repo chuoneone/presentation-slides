@@ -299,7 +299,7 @@ export function Slide() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-8 py-16 text-muted-foreground">
-        {showSlideBrowser && (
+        {showSlideBrowser && import.meta.env.DEV && (
           <Link to="/" className="text-[12px] font-medium text-foreground/70 hover:text-foreground">
             ← {t.common.home}
           </Link>
@@ -337,7 +337,7 @@ export function Slide() {
   if (pageCount === 0) {
     return (
       <div className="mx-auto max-w-3xl px-8 py-16 text-muted-foreground">
-        {showSlideBrowser && (
+        {showSlideBrowser && import.meta.env.DEV && (
           <Link to="/" className="text-[12px] font-medium text-foreground/70 hover:text-foreground">
             ← {t.common.home}
           </Link>
@@ -551,17 +551,19 @@ export function Slide() {
           {/* Editorial toolbar — three zones, hairline separators, mono-folio center */}
           <header className="relative flex h-12 shrink-0 items-center gap-2 border-b border-hairline bg-sidebar/85 px-2 backdrop-blur-md md:px-3">
             <div className="flex flex-1 items-center gap-1.5 md:flex-none md:gap-2">
-              {showSlideBrowser && (
-                <Link
-                  to="/"
-                  aria-label={t.slide.backToHome}
-                  title={t.slide.home}
-                  className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
-                >
-                  <ChevronLeft className="size-4" />
-                </Link>
+              {showSlideBrowser && import.meta.env.DEV && (
+                <>
+                  <Link
+                    to="/"
+                    aria-label={t.slide.backToHome}
+                    title={t.slide.home}
+                    className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
+                  >
+                    <ChevronLeft className="size-4" />
+                  </Link>
+                  <span aria-hidden className="mx-0.5 hidden h-5 w-px bg-hairline md:block" />
+                </>
               )}
-              <span aria-hidden className="mx-0.5 hidden h-5 w-px bg-hairline md:block" />
               {import.meta.env.DEV && (
                 <Tabs
                   value={view}

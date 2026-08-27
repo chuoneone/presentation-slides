@@ -2538,7 +2538,7 @@ const Slide01Agenda: Page = () => (
         <AgendaStep
           number="04"
           label="TOOLS × ACTION"
-          title="現成工具與最小行動"
+          title="現成工具整理"
           tags="工具地圖 · 立即上手"
           color="#9d6518"
           rotate={0.35}
