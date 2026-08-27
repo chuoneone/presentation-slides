@@ -39,6 +39,8 @@ import githubStep45 from './assets/github-step45.png';
 import githubStep46 from './assets/github-step46.png';
 import indexHtmlFile from './assets/index-html-file.png';
 import spedmixQr from './assets/spedmix-qr.png';
+import headshot from './assets/headshot.png';
+import imgMixerTeaching from './assets/mixer-teaching.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
@@ -182,7 +184,7 @@ function getStoredTimer(): {
         return {
           ...parsed,
           remainingSeconds: remaining,
-          isRunning: remaining > 0,
+          isRunning: parsed.isRunning,
         };
       }
       return parsed;
@@ -218,6 +220,9 @@ function playTimerChimeSound() {
     const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioCtx) return;
     const ctx = new AudioCtx();
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
     const now = ctx.currentTime;
     [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
       const osc = ctx.createOscillator();
@@ -257,7 +262,7 @@ function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: stri
           setState({ ...current, remainingSeconds: rem });
         }
       }
-    }, 400);
+    }, 250);
 
     return () => {
       window.removeEventListener(TIMER_UPDATE_EVENT, onUpdate);
@@ -794,97 +799,6 @@ const PromptPanel = ({
   </div>
 );
 
-const FauxSite = ({ compact = false }: { compact?: boolean }) => (
-  <div
-    style={{
-      height: '100%',
-      borderRadius: compact ? 16 : 22,
-      color: '#173228',
-      background: '#f3f1e8',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: compact ? 46 : 58,
-        padding: compact ? '0 16px' : '0 24px',
-        borderBottom: '1px solid rgba(23, 50, 40, 0.18)',
-        fontSize: compact ? 16 : 20,
-        fontWeight: 900,
-      }}
-    >
-      <span>林老師的教學小站</span>
-      <span style={{ color: '#2f6d59' }}>關於我　課程　作品</span>
-    </div>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.85fr',
-        alignItems: 'center',
-        gap: compact ? 12 : 22,
-        padding: compact ? '18px 18px 12px' : '30px 32px 22px',
-      }}
-    >
-      <div>
-        <div
-          style={{
-            width: compact ? 56 : 74,
-            height: 7,
-            marginBottom: compact ? 12 : 18,
-            borderRadius: 999,
-            background: '#e6a756',
-          }}
-        />
-        <div
-          style={{
-            fontFamily: 'var(--osd-font-body)',
-            fontSize: compact ? 27 : 40,
-            fontWeight: 900,
-            lineHeight: 1.15,
-          }}
-        >
-          把好奇心，
-          <br />
-          做成看得見的作品。
-        </div>
-        <div
-          style={{ marginTop: compact ? 10 : 18, color: '#61756e', fontSize: compact ? 15 : 20 }}
-        >
-          教學設計 · 數位學習 · 校園共創
-        </div>
-      </div>
-      <div
-        style={{
-          display: 'grid',
-          minHeight: compact ? 112 : 164,
-          placeItems: 'center',
-          borderRadius: compact ? 16 : 22,
-          color: '#f3f1e8',
-          background: 'linear-gradient(145deg, #2f6d59, #16382f)',
-          fontSize: compact ? 34 : 48,
-          fontWeight: 900,
-        }}
-      >
-        SH
-      </div>
-    </div>
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: compact ? 8 : 12,
-        padding: compact ? '0 18px 16px' : '0 32px 26px',
-      }}
-    >
-      <div style={{ height: compact ? 44 : 60, borderRadius: 10, background: '#d9e7df' }} />
-      <div style={{ height: compact ? 44 : 60, borderRadius: 10, background: '#ecd9bd' }} />
-      <div style={{ height: compact ? 44 : 60, borderRadius: 10, background: '#d8e1e8' }} />
-    </div>
-  </div>
-);
-
 const Slide01Cover: Page = () => (
   <PageShell eyebrow="壽豐國中研習 · 3 HOURS" accent={coral} mood="warm">
     <div
@@ -946,6 +860,188 @@ const Slide01Cover: Page = () => (
 );
 Slide01Cover.transition = sectionTransition;
 
+const Slide01Speaker: Page = () => (
+  <PageShell eyebrow="00 · 講師介紹" accent={cyan} mood="warm">
+    <Title size={68} margin="0 0 20px">介紹</Title>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '340px 1fr',
+        gap: 28,
+        alignItems: 'stretch',
+        minHeight: 0,
+      }}
+    >
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderRadius: 24,
+          padding: '24px 20px',
+          boxShadow: '0 16px 34px rgba(55, 76, 73, 0.12)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 18,
+          textAlign: 'center',
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 46,
+            lineHeight: 1.1,
+            fontWeight: 950,
+            color: '#27343b',
+            margin: 0,
+          }}
+        >朱旆誼</h3>
+        <div
+          style={{
+            width: 220,
+            height: 220,
+            borderRadius: '50%',
+            padding: 6,
+            background: '#ffffff',
+            border: `6px solid ${coral}`,
+            boxShadow: '0 14px 32px rgba(238, 154, 131, 0.35)',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={headshot}
+            alt="朱旆誼 老師"
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              objectPosition: '50% 42%',
+              display: 'block',
+            }}
+          />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+          <MonoTag color={cyan}>Chu pei yi</MonoTag>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: '0.78fr 1.22fr',
+          gap: 18,
+          minHeight: 0,
+        }}
+      >
+        <div
+          style={{
+            background: panel,
+            border: '1px solid rgba(39, 52, 59, 0.18)',
+            borderLeft: `10px solid ${cyan}`,
+            borderRadius: 22,
+            padding: '20px 32px',
+            boxShadow: '0 14px 30px rgba(55, 76, 73, 0.08)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 34,
+              lineHeight: 1.1,
+              fontWeight: 950,
+              color: '#245257',
+              margin: '0 0 10px 0',
+            }}
+          >
+            🎓 學歷
+          </h3>
+          <ul
+            style={{
+              paddingLeft: 26,
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 6,
+              fontSize: 30,
+              lineHeight: 1.35,
+              color: '#27343b',
+            }}
+          >
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
+            </li>
+          </ul>
+        </div>
+        <div
+          style={{
+            background: panel,
+            border: '1px solid rgba(39, 52, 59, 0.18)',
+            borderLeft: `10px solid ${coral}`,
+            borderRadius: 22,
+            padding: '20px 32px',
+            boxShadow: '0 14px 30px rgba(55, 76, 73, 0.08)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 34,
+              lineHeight: 1.1,
+              fontWeight: 950,
+              color: coral,
+              margin: '0 0 10px 0',
+            }}
+          >
+            🏫 經歷
+          </h3>
+          <ul
+            style={{
+              paddingLeft: 26,
+              margin: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 6,
+              fontSize: 30,
+              lineHeight: 1.35,
+              color: '#27343b',
+            }}
+          >
+            <li>
+              <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
+            </li>
+            <li>
+              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>{' 資源班教師（兼巡迴輔導）'}
+            </li>
+            <li>
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>米克師 AI 備課幫手 創辦人</strong>：自製多種 AI 教材工具
+            </li>
+            <li>
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教教材共享平台 發起人</strong>：建立特師教材共享生態
+            </li>
+            <li>
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教 AI 研習講師</strong>：受邀於各縣市特教輔導團與學校分享
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+Slide01Speaker.transition = sectionTransition;
+
 const AgendaCard = ({
   label,
   title,
@@ -993,24 +1089,97 @@ const Slide02WorkshopAgenda: Page = () => (
       className="shoufeng-stagger"
       style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}
     >
-      <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=6" />
-      <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=12" />
-      <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=17" />
-      <AgendaCard label="PART 04" title="發布 GitHub Pages 網址" color={cyan} href="?p=21" />
-      <AgendaCard label="補充" title="用 Antigravity 管理與更新" color={coral} href="?p=27" />
+      <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=7" />
+      <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=13" />
+      <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=19" />
+      <AgendaCard label="PART 04" title="發布 GitHub Pages 網址" color={cyan} href="?p=23" />
+      <AgendaCard label="補充" title="用 Antigravity 管理與更新" color={coral} href="?p=29" />
     </div>
   </PageShell>
 );
 Slide02WorkshopAgenda.transition = sectionTransition;
 
 const Slide02Outcome: Page = () => (
-  <PageShell eyebrow="00 · THE DESTINATION" accent={cyan} mood="warm">
-    <Title size={76} margin="0 0 34px">
-      三小時後，你會帶走自己的網站
-    </Title>
+  <PageShell eyebrow="00 · 成果範例" accent={cyan} mood="warm">
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'baseline',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+      }}
+    >
+      <Title size={72} margin="0">
+        範例展示：步步練
+      </Title>
+      <a
+        href="https://spedmixteaching.pages.dev/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '10px 22px',
+          background: cyan,
+          color: '#ffffff',
+          borderRadius: 999,
+          fontFamily: mono,
+          fontSize: 22,
+          fontWeight: 900,
+          textDecoration: 'none',
+          boxShadow: '0 8px 20px rgba(120, 174, 178, 0.32)',
+        }}
+      >
+        <span>開啟網站 ↗</span>
+      </a>
+    </div>
     <div style={{ width: 1380, margin: '0 auto' }}>
-      <WindowFrame title="https://你的帳號.github.io/" accent={cyan} height={560}>
-        <FauxSite />
+      <WindowFrame title="https://spedmixteaching.pages.dev/" accent={cyan} height={560}>
+        <a
+          href="https://spedmixteaching.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            borderRadius: 16,
+            overflow: 'hidden',
+            border: '1px solid rgba(39, 52, 59, 0.12)',
+            position: 'relative',
+            cursor: 'pointer',
+          }}
+        >
+          <img
+            src={imgMixerTeaching}
+            alt="步步練 網站畫面截圖"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'top center',
+              display: 'block',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 16,
+              right: 16,
+              padding: '8px 18px',
+              background: 'rgba(24, 56, 51, 0.88)',
+              color: '#ffffff',
+              borderRadius: 10,
+              fontFamily: mono,
+              fontSize: 18,
+              fontWeight: 800,
+              backdropFilter: 'blur(6px)',
+            }}
+          >
+            點擊可直接前往真實網站 ↗
+          </div>
+        </a>
       </WindowFrame>
     </div>
   </PageShell>
@@ -2356,24 +2525,6 @@ const PracticeCountdownWidget = ({
           -1 分鐘
         </button>
       </div>
-
-      {/* Status Tip */}
-      <div
-        style={{
-          marginTop: 14,
-          fontSize: 15,
-          fontWeight: 800,
-          color: isFinished ? yellow : isRunning ? mint : 'rgba(255, 255, 255, 0.72)',
-          textAlign: 'center',
-          lineHeight: 1.4,
-        }}
-      >
-        {isFinished
-          ? '🔔 時間到！請準備進入下一個步驟'
-          : isRunning
-            ? '🟢 計時中 · 換頁/縮小視窗仍持續進行'
-            : '💡 按開始後，切換上下頁或縮小皆會持續計時'}
-      </div>
     </div>
   );
 };
@@ -2481,8 +2632,382 @@ const PracticeBreak = ({
 const Part01Practice: Page = () => (
   <PracticeBreak partNumber="PART 01" title="實作時間 10 分鐘" minutes={10} />
 );
+
+const Slide22InspirationIdeas: Page = () => (
+  <PageShell eyebrow="PART 02 · 網站主題靈感" accent={yellow} mood="warm">
+    <div style={{ marginBottom: 16 }}>
+      <Title size={66} margin="0 0 8px">
+        不知道做什麼？挑一個主題開始！
+      </Title>
+      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+        不用從零思考！挑選下方 6 大主題，直接告訴 Gemini 你的需求：
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateRows: 'repeat(2, 1fr)',
+        gap: 18,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* 1 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${cyan}`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#245257' }}>
+            🏫 教師個人小站
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(120, 174, 178, 0.22)',
+              color: '#1a4b43',
+            }}
+          >
+            新手推薦
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          自我介紹、任教科目、教育理念、推薦好書、聯絡與社群方式。
+        </div>
+      </div>
+
+      {/* 2 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${mint}`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#27523f' }}>
+            📚 課程學習導航
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(169, 207, 189, 0.35)',
+              color: '#1d4834',
+            }}
+          >
+            教學實用
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          單元重點摘要卡片、核心概念、延伸影音連結、課堂小叮嚀。
+        </div>
+      </div>
+
+      {/* 3 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${yellow}`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#7a5a12' }}>
+            🎯 學生專題成果展
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(241, 212, 123, 0.35)',
+              color: '#654807',
+            }}
+          >
+            成果展覽
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          各組專題作品、圖片預覽框、作品簡介、評語與回饋區。
+        </div>
+      </div>
+
+      {/* 4 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${coral}`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#96392b' }}>
+            🧩 課堂趣味問答測驗
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(238, 154, 131, 0.35)',
+              color: '#82271a',
+            }}
+          >
+            互動首選
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          3~5 題單選問答、點選即時正誤回饋、計分器與通關彩帶。
+        </div>
+      </div>
+
+      {/* 5 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid #4f7480`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#2c4b57' }}>
+            🏡 班級生活日誌
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(79, 116, 128, 0.22)',
+              color: '#1d353f',
+            }}
+          >
+            導師必備
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          班級公約、每週值日生、重要行事曆、活動照片牆、家長小叮嚀。
+        </div>
+      </div>
+
+      {/* 6 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid #8e629c`,
+          borderRadius: 20,
+          padding: '22px 24px',
+          boxShadow: '0 10px 24px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#593863' }}>
+            🧘 心情充電解憂角
+          </span>
+          <span
+            style={{
+              fontSize: 15,
+              fontWeight: 900,
+              padding: '3px 10px',
+              borderRadius: 6,
+              background: 'rgba(142, 98, 156, 0.22)',
+              color: '#46274e',
+            }}
+          >
+            多元支持
+          </span>
+        </div>
+        <div style={{ fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.45 }}>
+          心情溫度計、深呼吸放鬆指引、暖心正能量小語、預約諮商信箱。
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+Slide22InspirationIdeas.transition = sectionTransition;
+
 const Part02Practice: Page = () => (
-  <PracticeBreak partNumber="PART 02" title="實作時間 10 分鐘" minutes={10} />
+  <PageShell eyebrow="PART 02 · 現場實作 15 分鐘" accent={yellow} mood="warm">
+    <div style={{ marginBottom: 20 }}>
+      <Title size={68} margin="0 0 10px">
+        用 Gemini Canvas 生成你的第一個網頁
+      </Title>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 850 }}>
+        請在 Gemini 說出剛才挑選的主題需求，並在右側 Canvas 即時預覽與調整
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 32,
+        alignItems: 'stretch',
+        minHeight: 0,
+      }}
+    >
+      {/* 1. Left Column: 4 Steps */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `8px solid ${cyan}`,
+          borderRadius: 24,
+          padding: '28px 30px',
+          boxShadow: '0 12px 30px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 14,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 2 }}>
+          <span style={{ fontSize: 32 }}>🎯</span>
+          <h3 style={{ margin: 0, fontSize: 34, fontWeight: 950, color: '#245257' }}>
+            實作 4 個步驟
+          </h3>
+        </div>
+
+        <div
+          style={{
+            background: '#f6f3eb',
+            border: '1px solid rgba(39, 52, 59, 0.12)',
+            borderRadius: 16,
+            padding: '14px 20px',
+          }}
+        >
+          <div style={{ fontSize: 24, fontWeight: 950, color: '#245257', marginBottom: 4 }}>
+            01｜說出網站需求
+          </div>
+          <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
+            在 Gemini 對話框描述你想製作的主題、單元或個人簡介。
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: '#f6f3eb',
+            border: '1px solid rgba(39, 52, 59, 0.12)',
+            borderRadius: 16,
+            padding: '14px 20px',
+          }}
+        >
+          <div style={{ fontSize: 24, fontWeight: 950, color: '#245257', marginBottom: 4 }}>
+            02｜查看 Canvas 預覽
+          </div>
+          <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
+            點選右側 Canvas 畫布，即時查看 AI 生成的網頁視覺畫面。
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: '#f6f3eb',
+            border: '1px solid rgba(39, 52, 59, 0.12)',
+            borderRadius: 16,
+            padding: '14px 20px',
+          }}
+        >
+          <div style={{ fontSize: 24, fontWeight: 950, color: '#245257', marginBottom: 4 }}>
+            03｜對話微調 1~2 次
+          </div>
+          <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
+            針對顏色、文字或版面區塊，直接告訴 AI 想要調整之處。
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: '#f6f3eb',
+            border: '1px solid rgba(39, 52, 59, 0.12)',
+            borderRadius: 16,
+            padding: '14px 20px',
+          }}
+        >
+          <div style={{ fontSize: 24, fontWeight: 950, color: '#245257', marginBottom: 4 }}>
+            04｜下載或複製 HTML
+          </div>
+          <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
+            取得程式碼並確認檔名為 <code style={{ fontFamily: mono, color: coral, fontWeight: 900 }}>index.html</code>。
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Right Column: 15-Min Timer */}
+      <div
+        style={{
+          background: '#183833',
+          border: '1px solid rgba(120, 174, 178, 0.35)',
+          borderRadius: 24,
+          padding: '36px 32px',
+          boxShadow: '0 20px 48px rgba(24, 56, 51, 0.28)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <PracticeCountdownWidget
+          practiceNumber="PART 02 · 實作 15 分鐘"
+          initialMinutes={15}
+        />
+      </div>
+    </div>
+  </PageShell>
 );
 const Part03Practice: Page = () => (
   <PracticeBreak partNumber="PART 03" title="實作時間 10 分鐘" minutes={10} />
@@ -4308,7 +4833,7 @@ const Slide34Closing: Page = () => {
           </div>
           <ResourceCard
             hint="壽豐國中 AI 網頁製作複習影片"
-            title="掃碼複習今天的流程"
+            title="掃描回去複習"
             color={coral}
             href={reviewVideoUrl}
             imageSrc={reviewVideoQrUrl}
@@ -4363,67 +4888,15 @@ const Slide35SpedmixRecommendation: Page = () => {
           <div
             style={{
               maxWidth: 780,
-              color: muted,
-              fontSize: 28,
-              fontWeight: 750,
-              lineHeight: 1.5,
-              marginBottom: 28,
+              color: '#27343b',
+              fontSize: 34,
+              fontWeight: 800,
+              lineHeight: 1.6,
             }}
           >
-            專為教師設計的免提示詞備課工具箱，一鍵產出多層次教材與互動網頁
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div
-              style={{
-                padding: '18px 24px',
-                background: panel,
-                borderLeft: `8px solid ${mint}`,
-                borderRadius: 16,
-                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
-              }}
-            >
-              <div style={{ fontSize: 26, fontWeight: 950, color: '#1f4e41' }}>
-                📄 課文簡化 ＆ 差異化教材生成
-              </div>
-              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
-                貼上課文即自動產出基礎/進階易讀版與仿 A4 學習單。
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: '18px 24px',
-                background: panel,
-                borderLeft: `8px solid ${cyan}`,
-                borderRadius: 16,
-                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
-              }}
-            >
-              <div style={{ fontSize: 26, fontWeight: 950, color: '#275258' }}>
-                💻 課堂互動教學工具
-              </div>
-              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
-                重組句子、段考有聲題庫、四格漫畫、步驟化數學等教學網頁。
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: '18px 24px',
-                background: panel,
-                borderLeft: `8px solid ${yellow}`,
-                borderRadius: 16,
-                boxShadow: '0 12px 28px rgba(0,0,0,0.06)',
-              }}
-            >
-              <div style={{ fontSize: 26, fontWeight: 950, color: '#7a5a12' }}>
-                🎯 個別化出題 ＆ 數題數題
-              </div>
-              <div style={{ fontSize: 21, color: muted, fontWeight: 700, marginTop: 4 }}>
-                同概念多變結構化同型題，幫助學生反覆熟練算感。
-              </div>
-            </div>
+            專為教師設計的備課工具箱，
+            <br />
+            一鍵產出多層次教材與互動教學網頁。
           </div>
         </div>
 
@@ -4522,6 +4995,7 @@ export const meta: SlideMeta = {
 
 export default [
   Slide01Cover,
+  Slide01Speaker,
   Slide02WorkshopAgenda,
   Slide02Outcome,
   Slide03TwoRoutes,
@@ -4536,6 +5010,7 @@ export default [
   Slide22CanvasPrompt,
   Slide23DownloadAndUpload,
   Slide27ConfirmFilename,
+  Slide22InspirationIdeas,
   Part02Practice,
   Slide27UploadChapter,
   Slide21UploadFiles,

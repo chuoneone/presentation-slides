@@ -116,7 +116,7 @@ function getStoredTimer(): {
         return {
           ...parsed,
           remainingSeconds: remaining,
-          isRunning: remaining > 0,
+          isRunning: parsed.isRunning,
         };
       }
       return parsed;
@@ -152,6 +152,9 @@ function playTimerChimeSound() {
     const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioCtx) return;
     const ctx = new AudioCtx();
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
     const now = ctx.currentTime;
     [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
       const osc = ctx.createOscillator();
@@ -191,7 +194,7 @@ function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: stri
           setState({ ...current, remainingSeconds: rem });
         }
       }
-    }, 400);
+    }, 250);
 
     return () => {
       window.removeEventListener(TIMER_UPDATE_EVENT, onUpdate);
@@ -3597,24 +3600,6 @@ const WorkshopPracticeTimer = ({
         >
           -1 分鐘
         </button>
-      </div>
-
-      {/* Status Tip */}
-      <div
-        style={{
-          marginTop: 14,
-          fontSize: 14,
-          fontWeight: 800,
-          color: isFinished ? amber : isRunning ? mint : 'rgba(255, 253, 248, 0.65)',
-          textAlign: 'center',
-          lineHeight: 1.35,
-        }}
-      >
-        {isFinished
-          ? '🔔 時間到！請上傳成果至 Padlet'
-          : isRunning
-            ? '🟢 計時中 · 換頁/切視窗仍持續進行'
-            : '💡 按開始後，切換上下頁或縮小皆會持續計時'}
       </div>
     </div>
   );
