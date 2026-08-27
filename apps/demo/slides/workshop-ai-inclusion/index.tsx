@@ -1539,7 +1539,7 @@ const Slide01Speaker: Page = () => (
               <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>{' 資訊教育學所博士班（就讀中）'}
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>{' 資訊教育所博士班（就讀中）'}
             </li>
           </ul>
         </div>
@@ -5646,9 +5646,9 @@ const SlidePractice10Min: Page = () => (
       label="03 · 檢查入口"
       title={
         <>
-          確認學生能
+          確認細節
           <br />
-          操作與練習
+          和AI溝通
         </>
       }
       color={coral}
