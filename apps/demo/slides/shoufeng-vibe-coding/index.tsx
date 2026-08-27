@@ -2933,10 +2933,10 @@ const Part02Practice: Page = () => (
           }}
         >
           <div style={{ fontSize: 24, fontWeight: 950, color: '#245257', marginBottom: 4 }}>
-            01｜說出網站需求
+            01｜說出網站需求（記得按 Canvas）
           </div>
           <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
-            在 Gemini 對話框描述你想製作的主題、單元或個人簡介。
+            在 Gemini 對話框描述你想製作的主題，並記得點選 Canvas 開啟畫布預覽。
           </div>
         </div>
 
@@ -3314,7 +3314,7 @@ const Slide22CanvasPrompt: Page = () => (
   <GitHubStepPair
     eyebrow="03 · GEMINI CANVAS"
     title="在 Gemini Canvas 請 AI 生成網頁"
-    firstInstruction="步驟 1｜在提示框寫下主題，明確要求「用 HTML 製作互動網頁」"
+    firstInstruction="步驟 1｜在提示框寫下主題，明確要求「用 HTML 製作互動網頁」（記得按 Canvas）"
     firstImage={githubStep11}
     secondInstruction="步驟 2｜確認 Canvas 預覽已生成網頁，再檢查版面內容"
     secondImage={githubStep12}
