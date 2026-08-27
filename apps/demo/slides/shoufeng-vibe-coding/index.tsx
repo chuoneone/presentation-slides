@@ -1094,8 +1094,8 @@ const Slide02WorkshopAgenda: Page = () => (
       <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=14" />
       <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=20" />
       <AgendaCard label="PART 04" title="發布 GitHub Pages" color={cyan} href="?p=24" />
-      <AgendaCard label="PART 05" title="用 Antigravity 協作" color={coral} href="?p=30" />
-      <AgendaCard label="PART 06" title="用 Git 留下版本紀錄" color={mint} href="?p=37" />
+      <AgendaCard label="PART 05" title="用 Antigravity 協作" color={coral} href="?p=31" />
+      <AgendaCard label="PART 06" title="用 Git 留下版本紀錄" color={mint} href="?p=38" />
     </div>
   </PageShell>
 );
@@ -3437,6 +3437,183 @@ const Slide32MoreExamples: Page = () => (
     </div>
   </PageShell>
 );
+
+const Slide32WebsiteBenefits: Page = () => (
+  <PageShell eyebrow="PART 04 · 擁有專屬網址的好處" accent={cyan} mood="warm">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={72} margin="0 0 10px">
+        擁有自己的專屬網址，有什麼好處？
+      </Title>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
+        從散落各處的零碎檔案，升級為隨時可分享的個人教學數位基地
+      </div>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: 24,
+        minHeight: 0,
+        alignItems: 'stretch',
+      }}
+    >
+      {/* 1 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${cyan}`,
+          borderRadius: 24,
+          padding: '26px 28px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ fontSize: 36 }}>📚</span>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#245257' }}>
+              累積個人教學數位資產
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '14px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            互動教材、點讀學習單通通放在同一個地方，不再散落各個隨身碟，更是公開課與教學評鑑的代表作！
+          </div>
+        </div>
+      </div>
+
+      {/* 2 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${mint}`,
+          borderRadius: 24,
+          padding: '26px 28px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ fontSize: 36 }}>📱</span>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#1f4e41' }}>
+              學生家長掃碼即開即用
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '14px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            免裝 App、免登入！把網址印成 QR Code 貼在聯絡簿或投在大螢幕，手機平板一點就開，回家也能自學。
+          </div>
+        </div>
+      </div>
+
+      {/* 3 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${yellow}`,
+          borderRadius: 24,
+          padding: '26px 28px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ fontSize: 36 }}>🔄</span>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#7a5a12' }}>
+              隨時修改更新，網址永遠不變
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#f6f3eb',
+              borderRadius: 14,
+              padding: '14px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
+            題目改版或增加內容後，網址依然同一串！不必每次重新印發講義，學生按重新整理就能看到最新版。
+          </div>
+        </div>
+      </div>
+
+      {/* 4 */}
+      <div
+        style={{
+          background: panel,
+          border: '1px solid rgba(39, 52, 59, 0.18)',
+          borderTop: `10px solid ${coral}`,
+          borderRadius: 24,
+          padding: '26px 28px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ fontSize: 36 }}>🛡️</span>
+            <span style={{ fontSize: 32, fontWeight: 950, color: '#82271a' }}>
+              永久免費、不受平台限制
+            </span>
+          </div>
+          <div
+            style={{
+              background: '#fdf3f0',
+              borderRadius: 14,
+              padding: '14px 18px',
+              fontSize: 23,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+              border: '1px solid rgba(238, 154, 131, 0.25)',
+            }}
+          >
+            完全零主機費、零年費！不用擔心第三方線上測驗平台突然改版收費或關閉服務，內容 100% 由你掌控。
+          </div>
+        </div>
+      </div>
+    </div>
+  </PageShell>
+);
+Slide32WebsiteBenefits.transition = sectionTransition;
 
 const Slide36AntigravityChapter: Page = () => (
   <GitHubChapter
@@ -6072,6 +6249,7 @@ export default [
   Slide30FindSiteUrl,
   Slide32MoreExamples,
   Part04Practice,
+  Slide32WebsiteBenefits,
   Slide36AntigravityChapter,
   Slide36AgentVsChat,
   Slide37CopyRepositoryUrl,
