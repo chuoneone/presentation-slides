@@ -13,7 +13,7 @@ export function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
-        {config.build.showSlideBrowser && import.meta.env.DEV ? (
+        {config.build.showSlideBrowser ? (
           <Route element={<HomeShell />}>
             <Route path="/" element={<Home />} />
             <Route path="/themes" element={<ThemesGalleryPage />} />
