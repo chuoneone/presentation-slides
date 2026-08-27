@@ -1058,42 +1058,44 @@ const AgendaCard = ({
     aria-label={`前往${title}`}
     style={{
       display: 'block',
-      minHeight: 250,
-      padding: '34px 36px',
+      minHeight: 180,
+      padding: '24px 28px',
       border: '1px solid rgba(39, 52, 59, 0.18)',
-      borderTop: `14px solid ${color}`,
+      borderTop: `12px solid ${color}`,
       background: panel,
       boxShadow: '0 12px 24px rgba(55, 76, 73, 0.08)',
       color: 'inherit',
       textDecoration: 'none',
+      borderRadius: 18,
     }}
   >
     <div
-      style={{ color, fontFamily: mono, fontSize: 30, fontWeight: 900, letterSpacing: '0.08em' }}
+      style={{ color, fontFamily: mono, fontSize: 26, fontWeight: 900, letterSpacing: '0.08em' }}
     >
       {label}
     </div>
-    <div style={{ marginTop: 48, fontSize: 43, fontWeight: 950, lineHeight: 1.3 }}>{title}</div>
+    <div style={{ marginTop: 24, fontSize: 36, fontWeight: 950, lineHeight: 1.25 }}>{title}</div>
   </a>
 );
 
 const Slide02WorkshopAgenda: Page = () => (
   <PageShell eyebrow="WORKSHOP MAP · 180 MINUTES" accent={coral} mood="warm">
-    <Title size={76} margin="0 0 18px">
-      今天會完成四個 PART
+    <Title size={76} margin="0 0 16px">
+      今天會完成六個 PART
     </Title>
-    <div style={{ marginBottom: 36, color: muted, fontSize: 34, fontWeight: 750 }}>
-      PART 01 → PART 02 → PART 03 → PART 04 → 補充
+    <div style={{ marginBottom: 28, color: muted, fontSize: 30, fontWeight: 750 }}>
+      PART 01 → PART 02 → PART 03 → PART 04 → PART 05 → PART 06
     </div>
     <div
       className="shoufeng-stagger"
-      style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}
+      style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}
     >
       <AgendaCard label="PART 01" title="註冊 GitHub 帳戶" color={cyan} href="?p=7" />
       <AgendaCard label="PART 02" title="用 Gemini 生成網頁" color={mint} href="?p=13" />
       <AgendaCard label="PART 03" title="上傳到 GitHub" color={yellow} href="?p=19" />
-      <AgendaCard label="PART 04" title="發布 GitHub Pages 網址" color={cyan} href="?p=23" />
-      <AgendaCard label="補充" title="用 Antigravity 管理與更新" color={coral} href="?p=29" />
+      <AgendaCard label="PART 04" title="發布 GitHub Pages" color={cyan} href="?p=23" />
+      <AgendaCard label="PART 05" title="用 Antigravity 協作" color={coral} href="?p=29" />
+      <AgendaCard label="PART 06" title="用 Git 留下版本紀錄" color={mint} href="?p=36" />
     </div>
   </PageShell>
 );
@@ -3242,7 +3244,7 @@ const Slide32MoreExamples: Page = () => (
 
 const Slide36AntigravityChapter: Page = () => (
   <GitHubChapter
-    part="BONUS · ANTIGRAVITY"
+    part="PART 05 · ANTIGRAVITY"
     title="把 GitHub 網站帶進 Antigravity"
     description="建立本機專案資料夾，貼上 Repository 網址，讓 AI 協助你繼續修改網站。"
     accent={coral}
@@ -3274,7 +3276,7 @@ const BeginnerTag = ({ children, color }: { children: ReactNode; color: string }
 );
 
 const Slide36AgentVsChat: Page = () => (
-  <PageShell eyebrow="BONUS · AI AGENT" accent={coral} mood="warm">
+  <PageShell eyebrow="PART 05 · AI AGENT" accent={coral} mood="warm">
     <Title size={74} margin="0 0 24px">
       AI Agent 不只回答，還會動手做
     </Title>
@@ -3378,7 +3380,7 @@ const Slide36AgentVsChat: Page = () => (
 
 const Slide37CopyRepositoryUrl: Page = () => (
   <GitHubStepPair
-    eyebrow="BONUS · ANTIGRAVITY"
+    eyebrow="PART 05 · ANTIGRAVITY"
     title="先複製 GitHub 專案網址"
     firstInstruction="步驟 1｜在 GitHub Repository 按 Code，複製 HTTPS 專案網址"
     firstImage={githubStep39}
@@ -3389,7 +3391,7 @@ const Slide37CopyRepositoryUrl: Page = () => (
 
 const Slide38CreateProjectFolder: Page = () => (
   <GitHubStepPair
-    eyebrow="BONUS · ANTIGRAVITY"
+    eyebrow="PART 05 · ANTIGRAVITY"
     title="建立自己的專案資料夾"
     firstInstruction="步驟 3｜選擇 New Project"
     firstImage={githubStep41}
@@ -3400,7 +3402,7 @@ const Slide38CreateProjectFolder: Page = () => (
 
 const Slide39SelectProjectFolder: Page = () => (
   <GitHubStepPair
-    eyebrow="BONUS · ANTIGRAVITY"
+    eyebrow="PART 05 · ANTIGRAVITY"
     title="選擇資料夾並建立專案"
     firstInstruction="步驟 5｜回到 Create Project，確認已選取 myhome 資料夾後按 Next"
     firstImage={githubStep44}
@@ -3411,7 +3413,7 @@ const Slide39SelectProjectFolder: Page = () => (
 
 const Slide40DownloadRepository: Page = () => (
   <GitHubStepPair
-    eyebrow="BONUS · ANTIGRAVITY"
+    eyebrow="PART 05 · ANTIGRAVITY"
     title="貼上網址，下載 GitHub 專案"
     firstInstruction="步驟 7｜輸入「下載」加上剛複製的 GitHub HTTPS 網址，讓 Antigravity 取得專案"
     firstImage={githubStep46}
@@ -3426,7 +3428,7 @@ const Slide41AntigravityPossibilities: Page = () => {
   ] as const;
 
   return (
-    <PageShell eyebrow="BONUS · KEEP BUILDING" accent={mint} mood="green">
+    <PageShell eyebrow="PART 05 · KEEP BUILDING" accent={mint} mood="green">
       <Title size={72} margin="0 0 20px">
         專案進入 Antigravity，網站就能繼續長大
       </Title>
@@ -3479,8 +3481,19 @@ const Slide41AntigravityPossibilities: Page = () => {
   );
 };
 
+const Slide42GitChapter: Page = () => (
+  <GitHubChapter
+    part="PART 06 · GIT"
+    title="用 Git 留下版本紀錄"
+    description="Git 是網站的版本紀錄本，記住每次修改，並與 GitHub 保持連線。"
+    accent={cyan}
+    actionLabel="下載 Git"
+    actionHref="https://git-scm.com/downloads/"
+  />
+);
+
 const Slide42GitBasics: Page = () => (
-  <PageShell eyebrow="BONUS · GIT BASICS" accent={cyan} mood="blue">
+  <PageShell eyebrow="PART 06 · GIT BASICS" accent={cyan} mood="blue">
     <Title size={74} margin="0 0 22px">
       Git 是網站的「版本紀錄本」
     </Title>
@@ -3588,7 +3601,7 @@ const Slide43GitPlainLanguage: Page = () => {
   ] as const;
 
   return (
-    <PageShell eyebrow="BONUS · SAY IT NATURALLY" accent={coral} mood="warm">
+    <PageShell eyebrow="PART 06 · SAY IT NATURALLY" accent={coral} mood="warm">
       <Title size={74} margin="0 0 20px">
         Git 指令不用背，直接說人話
       </Title>
@@ -5437,6 +5450,7 @@ export default [
   Slide39SelectProjectFolder,
   Slide40DownloadRepository,
   Slide41AntigravityPossibilities,
+  Slide42GitChapter,
   Slide42GitBasics,
   Slide43GitPlainLanguage,
   Slide33SevenDayAction,
