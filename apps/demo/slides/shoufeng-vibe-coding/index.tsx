@@ -41,6 +41,10 @@ import indexHtmlFile from './assets/index-html-file.png';
 import spedmixQr from './assets/spedmix-qr.png';
 import headshot from './assets/headshot.png';
 import imgMixerTeaching from './assets/mixer-teaching.png';
+import imgThreeMethodsSummary from './assets/three-methods-summary.jpg';
+import imgMethod1CanvasShare from './assets/method1-canvas-share.jpg';
+import imgMethod2GithubPages from './assets/method2-github-pages.jpg';
+import imgMethod3AiAgent from './assets/method3-ai-agent.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
@@ -5963,609 +5967,121 @@ const Slide33LifeTransformation: Page = () => (
     </div>
   </PageShell>
 );
-Slide33LifeTransformation.transition = sectionTransition;
+const Slide44SummaryChapter: Page = () => (
+  <GitHubChapter
+    part="PART 07 · WRAP UP"
+    title="總結"
+    description="三種發布與管理網站的方法對照，挑選最適合你備課與教學的工作流。"
+    accent={mint}
+  />
+);
+Slide44SummaryChapter.transition = sectionTransition;
 
 const Slide44ThreeMethodsSummary: Page = () => (
-  <PageShell eyebrow="SUMMARY · 三種發布方式對比" accent={cyan} mood="warm">
-    <div style={{ marginBottom: 20 }}>
-      <Title size={68} margin="0 0 10px">
-        三種方法，你想做到哪一步？
-      </Title>
-      <div style={{ color: muted, fontSize: 28, fontWeight: 800 }}>
-        不是哪種技術比較好，而是挑選最適合你現在需求的程度！
-      </div>
-    </div>
-
-    <div
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      background: '#edf4f1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <img
+      src={imgThreeMethodsSummary}
+      alt="三種方法，你想做到哪一步？"
       style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 22,
-        minHeight: 0,
-        alignItems: 'stretch',
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        display: 'block',
       }}
-    >
-      {/* Method 1 */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid #8e629c`,
-          borderRadius: 22,
-          padding: '24px 22px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 14,
-        }}
-      >
-        <div>
-          <div style={{ color: '#8e629c', fontFamily: mono, fontSize: 20, fontWeight: 950, letterSpacing: '0.08em' }}>
-            METHOD 01
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 950, color: '#46274e', margin: '6px 0 12px' }}>
-            🟣 做好就分享
-          </div>
-          <div
-            style={{
-              background: '#f8f2fa',
-              borderRadius: 14,
-              padding: '14px 16px',
-              fontSize: 21,
-              color: '#27343b',
-              fontWeight: 850,
-              lineHeight: 1.4,
-              marginBottom: 12,
-            }}
-          >
-            Gemini 幫你做好 ➔ 直接按分享拿網址
-          </div>
-          <div style={{ fontSize: 20, color: muted, fontWeight: 800, lineHeight: 1.4 }}>
-            🎯 <strong>適合：</strong>做一個、分享一次或臨時課堂任務（住在 Gemini 家）。
-          </div>
-        </div>
-        <div
-          style={{
-            padding: '10px 14px',
-            background: 'rgba(142, 98, 156, 0.15)',
-            borderRadius: 10,
-            color: '#46274e',
-            fontSize: 19,
-            fontWeight: 900,
-            textAlign: 'center',
-          }}
-        >
-          ⚡ 最快看見成果 · 免下載安裝
-        </div>
-      </div>
-
-      {/* Method 2 */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid ${cyan}`,
-          borderRadius: 22,
-          padding: '24px 22px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 14,
-        }}
-      >
-        <div>
-          <div style={{ color: '#1a4b43', fontFamily: mono, fontSize: 20, fontWeight: 950, letterSpacing: '0.08em' }}>
-            METHOD 02
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 950, color: '#245257', margin: '6px 0 12px' }}>
-            🔵 搬到自己的網站
-          </div>
-          <div
-            style={{
-              background: '#eef6f6',
-              borderRadius: 14,
-              padding: '14px 16px',
-              fontSize: 21,
-              color: '#27343b',
-              fontWeight: 850,
-              lineHeight: 1.4,
-              marginBottom: 12,
-            }}
-          >
-            Gemini 做好 ➔ 下載 ➔ 放到 GitHub Pages
-          </div>
-          <div style={{ fontSize: 20, color: muted, fontWeight: 800, lineHeight: 1.4 }}>
-            🎯 <strong>適合：</strong>正式專案、希望有固定專屬網址（搬進自己的家）。
-          </div>
-        </div>
-        <div
-          style={{
-            padding: '10px 14px',
-            background: 'rgba(120, 174, 178, 0.22)',
-            borderRadius: 10,
-            color: '#1a4b43',
-            fontSize: 19,
-            fontWeight: 900,
-            textAlign: 'center',
-          }}
-        >
-          🌐 擁有固定網址 · 畫面獨立乾淨
-        </div>
-      </div>
-
-      {/* Method 3 */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid ${mint}`,
-          borderRadius: 22,
-          padding: '24px 22px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 14,
-        }}
-      >
-        <div>
-          <div style={{ color: '#1d4834', fontFamily: mono, fontSize: 20, fontWeight: 950, letterSpacing: '0.08em' }}>
-            METHOD 03
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 950, color: '#1f4e41', margin: '6px 0 12px' }}>
-            🟢 讓 AI 幫你一直改
-          </div>
-          <div
-            style={{
-              background: '#edf7f2',
-              borderRadius: 14,
-              padding: '14px 16px',
-              fontSize: 21,
-              color: '#27343b',
-              fontWeight: 850,
-              lineHeight: 1.4,
-              marginBottom: 12,
-            }}
-          >
-            GitHub 放網站 ➔ Antigravity 改 ➔ Git 同步
-          </div>
-          <div style={{ fontSize: 20, color: muted, fontWeight: 800, lineHeight: 1.4 }}>
-            🎯 <strong>適合：</strong>長期持續更新、找回準時下班生活（請 AI 智慧管家）。
-          </div>
-        </div>
-        <div
-          style={{
-            padding: '10px 14px',
-            background: 'rgba(169, 207, 189, 0.35)',
-            borderRadius: 10,
-            color: '#1d4834',
-            fontSize: 19,
-            fontWeight: 900,
-            textAlign: 'center',
-          }}
-        >
-          🚀 一句話自動修改 · 最省力維護
-        </div>
-      </div>
-    </div>
-  </PageShell>
+    />
+  </div>
 );
 Slide44ThreeMethodsSummary.transition = sectionTransition;
 
 const Slide45Method1CanvasShare: Page = () => (
-  <PageShell eyebrow="METHOD 01 · 做好就分享" accent="#8e629c" mood="warm">
-    <div style={{ marginBottom: 18 }}>
-      <Title size={68} margin="0 0 8px">
-        方法一｜做好就分享：最快看見成果
-      </Title>
-      <div style={{ color: muted, fontSize: 28, fontWeight: 800 }}>
-        「我做好一份東西，直接把觀看連結丟給別人」—— 幾乎不用學技術
-      </div>
-    </div>
-
-    <div
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      background: '#edf4f1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <img
+      src={imgMethod1CanvasShare}
+      alt="方法一｜做好就分享：最快看見成果"
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.85fr',
-        gap: 28,
-        minHeight: 0,
-        alignItems: 'stretch',
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        display: 'block',
       }}
-    >
-      {/* Flow Column */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid #8e629c`,
-          borderRadius: 22,
-          padding: '26px 28px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 12,
-        }}
-      >
-        <div style={{ fontSize: 28, fontWeight: 950, color: '#46274e', marginBottom: 2 }}>
-          📋 操作 4 個步驟
-        </div>
-
-        {[
-          ['01', 'Gemini Canvas 做網站', '在對話框說出你的教學需求，並點選右側 Canvas 預覽'],
-          ['02', '點選「共用並分享」', '點擊右上角分享按鈕，將作品權限設定為公開分享'],
-          ['03', '複製公開分享網址', '直接複製生成的預覽連結，貼給學生或家長'],
-          ['04', '別人直接點開觀看', '不用下載任何檔案，在手機或電腦瀏覽器直接打開使用'],
-        ].map(([step, title, desc]) => (
-          <div
-            key={step}
-            style={{
-              background: '#f8f2fa',
-              borderRadius: 14,
-              padding: '12px 18px',
-              display: 'grid',
-              gridTemplateColumns: '46px 1fr',
-              alignItems: 'center',
-              gap: 14,
-            }}
-          >
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 12,
-                background: '#8e629c',
-                color: '#ffffff',
-                fontFamily: mono,
-                fontSize: 22,
-                fontWeight: 950,
-                display: 'grid',
-                placeItems: 'center',
-              }}
-            >
-              {step}
-            </div>
-            <div>
-              <div style={{ fontSize: 22, fontWeight: 950, color: '#46274e' }}>{title}</div>
-              <div style={{ fontSize: 18, color: '#27343b', fontWeight: 750, marginTop: 2 }}>{desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pros & Core Focus Column */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            background: panel,
-            border: '1px solid rgba(169, 207, 189, 0.45)',
-            borderTop: `8px solid ${mint}`,
-            borderRadius: 20,
-            padding: '24px 26px',
-            boxShadow: '0 10px 24px rgba(55, 76, 73, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ fontSize: 26, fontWeight: 950, color: '#1d4834', marginBottom: 8 }}>
-            ✅ 最大優點
-          </div>
-          <div style={{ fontSize: 21, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
-            • 最快看見成果<br />
-            • 不用下載任何檔案<br />
-            • 不用 GitHub、不用安裝軟體<br />
-            • 非常適合第一次做網站的老師！
-          </div>
-        </div>
-
-        <div
-          style={{
-            flex: 1,
-            background: '#fcf6ec',
-            border: '1px solid rgba(240, 189, 88, 0.45)',
-            borderTop: `8px solid ${yellow}`,
-            borderRadius: 20,
-            padding: '24px 26px',
-            boxShadow: '0 10px 24px rgba(55, 76, 73, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ fontSize: 26, fontWeight: 950, color: '#7a5a12', marginBottom: 8 }}>
-            ⚠️ 核心重點認知
-          </div>
-          <div style={{ fontSize: 21, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
-            這個網站<strong>住在 Gemini 的環境裡</strong>。<br />
-            每次修改內容後都需要重新產生分享網址，適合「做一個、分享一次」或臨時課堂任務。
-          </div>
-        </div>
-      </div>
-    </div>
-  </PageShell>
+    />
+  </div>
 );
 Slide45Method1CanvasShare.transition = sectionTransition;
 
 const Slide46Method2GithubPages: Page = () => (
-  <PageShell eyebrow="METHOD 02 · 搬到自己的網站" accent={cyan} mood="warm">
-    <div style={{ marginBottom: 18 }}>
-      <Title size={68} margin="0 0 8px">
-        方法二｜搬到自己的網站：擁有固定專屬網址
-      </Title>
-      <div style={{ color: muted, fontSize: 28, fontWeight: 800 }}>
-        「先請 Gemini 把網站做好，再把檔案搬到自己的網路空間（GitHub）」
-      </div>
-    </div>
-
-    <div
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      background: '#edf4f1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <img
+      src={imgMethod2GithubPages}
+      alt="方法二｜搬到自己的網站：擁有固定專屬網址"
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.85fr',
-        gap: 28,
-        minHeight: 0,
-        alignItems: 'stretch',
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        display: 'block',
       }}
-    >
-      {/* Flow Column */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid ${cyan}`,
-          borderRadius: 22,
-          padding: '24px 28px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 10,
-        }}
-      >
-        <div style={{ fontSize: 28, fontWeight: 950, color: '#245257', marginBottom: 2 }}>
-          📋 操作 5 個步驟
-        </div>
-
-        {[
-          ['01', 'Gemini Canvas 做網站', '在對話框讓 AI 生成滿意的互動網頁'],
-          ['02', '下載 index.html 到電腦', '把生成的 HTML 程式碼下載並確認檔名'],
-          ['03', '檔案上傳到 GitHub', '放到專屬的線上資料夾（Repository）中'],
-          ['04', '開啟 GitHub Pages', '在 Settings 選擇 main 分支一鍵發布'],
-          ['05', '得到自己的專屬網址', '獲得永久固定的教學小站公開網址！'],
-        ].map(([step, title, desc]) => (
-          <div
-            key={step}
-            style={{
-              background: '#f6f3eb',
-              borderRadius: 12,
-              padding: '10px 16px',
-              display: 'grid',
-              gridTemplateColumns: '44px 1fr',
-              alignItems: 'center',
-              gap: 14,
-            }}
-          >
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 10,
-                background: cyan,
-                color: '#071723',
-                fontFamily: mono,
-                fontSize: 20,
-                fontWeight: 950,
-                display: 'grid',
-                placeItems: 'center',
-              }}
-            >
-              {step}
-            </div>
-            <div>
-              <div style={{ fontSize: 21, fontWeight: 950, color: '#245257' }}>{title}</div>
-              <div style={{ fontSize: 17, color: '#27343b', fontWeight: 750, marginTop: 1 }}>{desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pros & Maintenance Column */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            background: panel,
-            border: '1px solid rgba(120, 174, 178, 0.45)',
-            borderTop: `8px solid ${cyan}`,
-            borderRadius: 20,
-            padding: '24px 26px',
-            boxShadow: '0 10px 24px rgba(55, 76, 73, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ fontSize: 26, fontWeight: 950, color: '#245257', marginBottom: 8 }}>
-            ✅ 最大差別
-          </div>
-          <div style={{ fontSize: 21, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
-            • 網站從 Gemini 搬到<strong>自己的網路空間</strong><br />
-            • 學生看到的是<strong>乾淨、獨立的專屬網站</strong><br />
-            • 獲得固定網址，印在學習單上永久有效！
-          </div>
-        </div>
-
-        <div
-          style={{
-            flex: 1,
-            background: '#fbf5f2',
-            border: '1px solid rgba(238, 154, 131, 0.45)',
-            borderTop: `8px solid ${coral}`,
-            borderRadius: 20,
-            padding: '24px 26px',
-            boxShadow: '0 10px 24px rgba(55, 76, 73, 0.06)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ fontSize: 26, fontWeight: 950, color: '#82271a', marginBottom: 8 }}>
-            🔄 未來修改與維護方式
-          </div>
-          <div style={{ fontSize: 21, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
-            若需要改內容：<strong>改網站 ➔ 下載新版 ➔ 重新拖曳上傳覆蓋</strong>。<br />
-            學生拿到的網址不用改，手動更新即可完成！
-          </div>
-        </div>
-      </div>
-    </div>
-  </PageShell>
+    />
+  </div>
 );
 Slide46Method2GithubPages.transition = sectionTransition;
 
 const Slide47Method3AiAgent: Page = () => (
-  <PageShell eyebrow="METHOD 03 · 讓 AI 幫你一直改" accent={mint} mood="warm">
-    <div style={{ marginBottom: 18 }}>
-      <Title size={68} margin="0 0 8px">
-        方法三｜讓 AI 幫你長期管理網站：最省力工作流
-      </Title>
-      <div style={{ color: muted, fontSize: 28, fontWeight: 800 }}>
-        「網站放在網路上，但我可以直接在電腦跟 AI 說話修改並一鍵同步」
-      </div>
-    </div>
-
-    <div
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+      background: '#edf4f1',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+    }}
+  >
+    <img
+      src={imgMethod3AiAgent}
+      alt="方法三｜讓 AI 幫你長期管理網站：最省力工作流"
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1.15fr 0.85fr',
-        gap: 28,
-        minHeight: 0,
-        alignItems: 'stretch',
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        display: 'block',
       }}
-    >
-      {/* Flow Column */}
-      <div
-        style={{
-          background: panel,
-          border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `10px solid ${mint}`,
-          borderRadius: 22,
-          padding: '24px 28px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 10,
-        }}
-      >
-        <div style={{ fontSize: 28, fontWeight: 950, color: '#1f4e41', marginBottom: 2 }}>
-          ⚡ 智慧管家 4 步自動化
-        </div>
-
-        {[
-          ['01', 'GitHub 裡已經有網站', '網站檔案安全保存在 GitHub 雲端空間'],
-          ['02', '把網站帶到自己的電腦', '透過 Antigravity 複製專案資料夾到本機'],
-          ['03', '跟 AI 說：「幫我改這裡」', '直接用中文交代需求，AI 自動修改電腦內檔案'],
-          ['04', '用 Git 一鍵同步更新', '一聲指令完成 Push，網路上的網站立刻更新！'],
-        ].map(([step, title, desc]) => (
-          <div
-            key={step}
-            style={{
-              background: '#edf7f2',
-              borderRadius: 12,
-              padding: '10px 16px',
-              display: 'grid',
-              gridTemplateColumns: '44px 1fr',
-              alignItems: 'center',
-              gap: 14,
-            }}
-          >
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 10,
-                background: mint,
-                color: '#071723',
-                fontFamily: mono,
-                fontSize: 20,
-                fontWeight: 950,
-                display: 'grid',
-                placeItems: 'center',
-              }}
-            >
-              {step}
-            </div>
-            <div>
-              <div style={{ fontSize: 21, fontWeight: 950, color: '#1f4e41' }}>{title}</div>
-              <div style={{ fontSize: 17, color: '#27343b', fontWeight: 750, marginTop: 1 }}>{desc}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Tools in Plain Language Column */}
-      <div
-        style={{
-          background: '#183833',
-          border: '1px solid rgba(120, 174, 178, 0.35)',
-          borderRadius: 22,
-          padding: '24px 26px',
-          boxShadow: '0 14px 32px rgba(24, 56, 51, 0.28)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 12,
-        }}
-      >
-        <div style={{ fontSize: 26, fontWeight: 950, color: mint, marginBottom: 2 }}>
-          💡 三個工具「說人話」對照
-        </div>
-
-        <div style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: '12px 16px' }}>
-          <div style={{ color: cyan, fontSize: 22, fontWeight: 950, marginBottom: 2 }}>
-            🌐 GitHub ＝ 線上基地
-          </div>
-          <div style={{ color: 'rgba(255, 253, 248, 0.88)', fontSize: 18, fontWeight: 750, lineHeight: 1.4 }}>
-            網站放在網路上的空間與免費發布機
-          </div>
-        </div>
-
-        <div style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: '12px 16px' }}>
-          <div style={{ color: coral, fontSize: 22, fontWeight: 950, marginBottom: 2 }}>
-            🤖 Antigravity ＝ 智慧管家
-          </div>
-          <div style={{ color: 'rgba(255, 253, 248, 0.88)', fontSize: 18, fontWeight: 750, lineHeight: 1.4 }}>
-            可以直接動手幫你修改電腦本機檔案的 AI 助理
-          </div>
-        </div>
-
-        <div style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: '12px 16px' }}>
-          <div style={{ color: yellow, fontSize: 22, fontWeight: 950, marginBottom: 2 }}>
-            🚚 Git ＝ 搬運司機
-          </div>
-          <div style={{ color: 'rgba(255, 253, 248, 0.88)', fontSize: 18, fontWeight: 750, lineHeight: 1.4 }}>
-            把電腦上的所有修改一鍵同步到網路上的工具
-          </div>
-        </div>
-      </div>
-    </div>
-  </PageShell>
+    />
+  </div>
 );
 Slide47Method3AiAgent.transition = sectionTransition;
 
@@ -6866,14 +6382,69 @@ export default [
   Slide42GitStep1Install,
   Slide42GitStep2Auth,
   Slide42GitStep3Push,
-  Slide42GitStep4UpdateWorkflow,
   Slide43GitPlainLanguage,
-  Slide33SevenDayAction,
-  Slide33LifeTransformation,
+  Slide44SummaryChapter,
   Slide44ThreeMethodsSummary,
   Slide45Method1CanvasShare,
   Slide46Method2GithubPages,
   Slide47Method3AiAgent,
+  Slide33LifeTransformation,
+  Slide33SevenDayAction,
   Slide34Closing,
   Slide35SpedmixRecommendation,
 ] satisfies Page[];
+
+export const notes: (string | undefined)[] = [
+  undefined, // 1 Cover
+  undefined, // 2 Speaker
+  undefined, // 3 Agenda
+  undefined, // 4 Outcome
+  undefined, // 5 Routes
+  undefined, // 6 Safety
+  undefined, // 7 Account Chapter
+  undefined, // 8 What is GitHub
+  undefined, // 9 Signup
+  undefined, // 10 Google Login
+  undefined, // 11 Account Setup
+  undefined, // 12 Create Repo
+  undefined, // 13 Practice 1
+  undefined, // 14 Canvas Chapter
+  undefined, // 15 Canvas Prompt
+  undefined, // 16 Download & Upload
+  undefined, // 17 Confirm Filename
+  undefined, // 18 Inspiration
+  undefined, // 19 Practice 2
+  undefined, // 20 Upload Chapter
+  undefined, // 21 Upload Files
+  undefined, // 22 Upload to Repo
+  undefined, // 23 Practice 3
+  undefined, // 24 Publish Chapter
+  undefined, // 25 Open Pages
+  undefined, // 26 Publish Pages
+  undefined, // 27 Find Site Url
+  undefined, // 28 More Examples
+  undefined, // 29 Practice 4
+  undefined, // 30 Website Benefits
+  undefined, // 31 Antigravity Chapter
+  undefined, // 32 Agent vs Chat
+  undefined, // 33 Copy Repo Url
+  undefined, // 34 Create Folder
+  undefined, // 35 Select Folder
+  undefined, // 36 Download Repo
+  undefined, // 37 Possibilities
+  undefined, // 38 Git Chapter
+  undefined, // 39 Git Basics
+  undefined, // 40 Step 1 Install
+  undefined, // 41 Step 2 Auth
+  undefined, // 42 Step 3 Push
+  undefined, // 43 Git Plain Language
+  '【PART 07 總結】三種發布與管理網站的方法對照，挑選最適合你備課與教學的工作流。', // 44 Summary Chapter
+  '【三種方法，你想做到哪一步？】\n不是哪種技術比較好，而是挑選最適合你現在需求的程度！\n\n🟣 方法一｜做好就分享：Gemini 幫你做好 ➔ 直接按分享拿網址（最快看見成果，免下載安裝，適合臨時課堂任務）。\n🔵 方法二｜搬到自己的網站：Gemini 做好 ➔ 下載 ➔ 放到 GitHub Pages（獲得固定專屬網址，乾淨獨立，學生拿到的網址不用改）。\n🟢 方法三｜讓 AI 幫你一直改：GitHub 放網站 ➔ Antigravity 改 ➔ Git 一鍵同步（一句話自動修改本機檔案，最省力長久維護）。', // 45 Three Methods Summary
+  '【方法一｜做好就分享：最快看見成果】\n「我做好一份東西，直接把觀看連結丟給別人」—— 幾乎不用學技術\n\n📋 流程步驟：\n1. Gemini Canvas 做網站（說出教學需求，右側 Canvas 預覽）\n2. 點選「共用並分享」（設定公開權限）\n3. 複製公開分享網址（複製預覽連結）\n4. 別人直接點開觀看（手機電腦隨點即開）\n\n✅ 最大優點：最快看見成果、不用下載檔案、不用 GitHub、新手 1 分鐘上手！\n⚠️ 核心重點認知：這個網站住在 Gemini 家。修改內容需重新產生分享網址，適合「做一個、分享一次」或臨時課堂任務。', // 46 Method 1
+  '【方法二｜搬到自己的網站：擁有固定專屬網址】\n「先請 Gemini 把網站做好，再把檔案搬到自己的網路空間（GitHub）」\n\n📋 流程步驟：\n1. Gemini Canvas 做網站（對話生成滿意網頁）\n2. 下載 index.html 到電腦（確認檔案名稱）\n3. 檔案上傳到 GitHub（放入線上儲存庫 Repository）\n4. 開啟 GitHub Pages（Settings 選擇 main 分支一鍵發布）\n5. 得到自己的專屬網址（永久固定的公開網址）\n\n✅ 最大差別：網站從 Gemini 搬到自己的網路空間、學生看到乾淨獨立的專屬網站、獲得固定網址印在學習單上永久有效！\n🔄 未來修改與維護方式：改網站 ➔ 下載新版 ➔ 重新拖曳上傳覆蓋。學生拿到的網址不用改，手動更新完成！', // 47 Method 2
+  '【方法三｜讓 AI 幫你長期管理網站：最省力工作流】\n「網站放在網路上，但我可以直接在電腦跟 AI 說話修改並一鍵同步」\n\n⚡ 智慧管家 4 步自動化：\n1. GitHub 裡已經有網站（網站安全存放在線上基地）\n2. 把網站帶到自己的電腦（透過 Antigravity 複製到本機）\n3. 跟 AI 說：「幫我改這裡」（直接用中文交代需求，AI 自動改檔）\n4. 用 Git 一鍵同步更新（一聲指令 Push，網站立刻更新！）\n\n💡 三個工具「說人話」對照：\n• 🌐 GitHub ＝ 線上基地（網站放在網路上的空間與免費發布機）\n• 🤖 Antigravity ＝ 智慧管家（可以直接動手幫你修改電腦本機檔案的 AI 助理）\n• 🚚 Git ＝ 搬運司機（把電腦上的所有修改一鍵同步到網路上的工具）', // 48 Method 3
+  undefined, // 49 Life Transformation
+  undefined, // 50 7-Day Action
+  undefined, // 51 Closing
+  undefined, // 52 Spedmix
+];
