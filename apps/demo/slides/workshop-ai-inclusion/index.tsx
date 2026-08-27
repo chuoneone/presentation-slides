@@ -2530,7 +2530,7 @@ const Slide01Agenda: Page = () => (
         <AgendaStep
           number="03"
           label="HYBRID × PRACTICE"
-          title="網頁紙本搭配實例"
+          title="搭配實例"
           tags="跨科探索 · 英文 · 數學"
           color={coral}
           rotate={-0.3}
