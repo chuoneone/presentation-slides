@@ -1539,7 +1539,7 @@ const Slide01Speaker: Page = () => (
               <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>{' 資訊教育學所博士班（就讀中）'}
             </li>
           </ul>
         </div>
@@ -5678,65 +5678,55 @@ const Slide24Closing: Page = () => (
         justifyContent: 'center',
         textAlign: 'center',
         minHeight: '620px',
-        padding: '10px 20px',
+        padding: '20px',
       }}
     >
       <div
         style={{
           display: 'inline-block',
-          padding: '6px 20px',
+          padding: '8px 26px',
           background: 'rgba(232, 93, 63, 0.14)',
           border: `2px solid ${coral}`,
           borderRadius: 999,
           color: coral,
-          fontSize: 22,
+          fontSize: 24,
           fontWeight: 950,
           letterSpacing: '0.14em',
-          marginBottom: 16,
+          marginBottom: 28,
         }}
       >
-        TAKEAWAY · 今日核心思維
+        THANK YOU
       </div>
 
       <h2
-        style={{ margin: '0 0 34px', fontFamily: 'var(--osd-font-display)', fontSize: '70px', fontWeight: 950, lineHeight: 1.34, letterSpacing: '-0.035em', color: ink, maxWidth: 1200 }}
+        style={{
+          margin: '0 0 28px',
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: '136px',
+          fontWeight: 950,
+          lineHeight: 1.1,
+          letterSpacing: '-0.035em',
+          color: ink,
+        }}
       >
-        多備的 20 分鐘，不只是多做一份教材；
-        <br />
-        <span style={{ color: green }}>它讓學生能自己走進學習。</span>
+        謝謝大家！
       </h2>
 
       <div
         style={{
-          padding: '30px 48px',
-          borderLeft: `12px solid ${amber}`,
-          background: paperLight,
-          borderRadius: 20,
-          boxShadow: '0 16px 42px rgba(35, 57, 47, 0.09)',
-          fontSize: 36,
-          fontWeight: 900,
-          lineHeight: 1.55,
+          marginTop: 16,
           color: greenDark,
-          maxWidth: 1040,
-          textAlign: 'left',
+          fontSize: 48,
+          fontWeight: 950,
+          letterSpacing: '0.06em',
+          background: paperLight,
+          padding: '16px 42px',
+          borderRadius: 999,
+          border: `2px solid rgba(35, 57, 47, 0.18)`,
+          boxShadow: '0 12px 30px rgba(35, 57, 47, 0.08)',
         }}
       >
-        或許教師也能減少一些無力感。
-        <div style={{ marginTop: 14, fontSize: 26, color: muted, fontWeight: 750, lineHeight: 1.45 }}>
-          AI 的價值，不是做出多厲害的教材，而是讓更多學生真正參與普通班的學習。
-        </div>
-      </div>
-
-      <div
-        style={{
-          marginTop: 36,
-          color: muted,
-          fontSize: 30,
-          fontWeight: 900,
-          letterSpacing: '0.04em',
-        }}
-      >
-        💬 Q&A 時間 · 一起從下一份教材開始
+        💬 Q&A 時間
       </div>
     </div>
   </PageShell>
@@ -5750,9 +5740,6 @@ export const meta: SlideMeta = {
 export default [
   Slide01Cover,
   Slide01Speaker,
-  Slide01WorkshopSlides,
-  Slide01Social,
-  Slide01SlidoIntro,
   Slide01Agenda,
   Slide02NotAttitude,
   Slide04TeacherAndAi,
@@ -5780,8 +5767,9 @@ export default [
   Slide21ToolMapPart1,
   Slide21ToolMapPart2,
   Slide21ToolHub,
-  Slide22TwentyMinutes,
   Slide23StartNextWeek,
+  Slide22TwentyMinutes,
   Slide24Closing,
   Slide01MixerSites,
+  Slide01Social,
 ] satisfies Page[];
