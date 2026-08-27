@@ -3594,11 +3594,11 @@ const Slide42GitBasics: Page = () => (
 
 const Slide42GitStep1Install: Page = () => (
   <PageShell eyebrow="PART 06 · STEP 1 / 4" accent={cyan} mood="blue">
-    <div style={{ marginBottom: 16 }}>
-      <Title size={64} margin="0 0 8px">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={72} margin="0 0 10px">
         步驟 1｜在對話框請 AI 安裝 Git
       </Title>
-      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
         不用手動搜尋下載安裝檔，直接讓 Antigravity 自動配置完成
       </div>
     </div>
@@ -3606,7 +3606,7 @@ const Slide42GitStep1Install: Page = () => (
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '1.1fr 0.9fr',
+        gridTemplateColumns: '1.15fr 0.85fr',
         gap: 28,
         minHeight: 0,
         alignItems: 'stretch',
@@ -3617,10 +3617,10 @@ const Slide42GitStep1Install: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${cyan}`,
+          borderTop: `10px solid ${cyan}`,
           borderRadius: 24,
-          padding: '28px 30px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -3630,10 +3630,10 @@ const Slide42GitStep1Install: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(120, 174, 178, 0.25)',
               color: '#1a4b43',
             }}
@@ -3642,47 +3642,48 @@ const Slide42GitStep1Install: Page = () => (
           </span>
           <div
             style={{
-              marginTop: 14,
-              padding: '20px 24px',
+              marginTop: 16,
+              padding: '22px 26px',
               background: '#1d353f',
-              borderRadius: 16,
+              borderRadius: 18,
               color: '#fdf4c8',
               fontFamily: mono,
-              fontSize: 32,
+              fontSize: 42,
               fontWeight: 950,
               boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+              textAlign: 'center',
             }}
           >
             「請你幫我安裝 Git」
           </div>
           <div
             style={{
-              marginTop: 20,
+              marginTop: 22,
               display: 'flex',
               flexDirection: 'column',
-              gap: 10,
-              fontSize: 22,
+              gap: 12,
+              fontSize: 28,
               color: '#27343b',
-              fontWeight: 800,
+              fontWeight: 850,
               lineHeight: 1.45,
             }}
           >
             <div>1️⃣ 打開 Antigravity 專案對話框</div>
             <div>2️⃣ 直接輸入「請你幫我安裝 Git」</div>
-            <div>3️⃣ AI 會自動檢查電腦環境並執行安裝流程</div>
+            <div>3️⃣ AI 自動檢查電腦環境並執行安裝</div>
           </div>
         </div>
         <div
           style={{
-            fontSize: 18,
+            fontSize: 22,
             color: '#1a4b43',
-            fontWeight: 800,
+            fontWeight: 850,
             background: '#eef6f2',
-            padding: '10px 16px',
-            borderRadius: 10,
+            padding: '12px 18px',
+            borderRadius: 12,
           }}
         >
-          💡 <strong>貼心提醒：</strong>AI 如果詢問是否同意執行安裝，點擊「同意 / Approve」即可。
+          💡 <strong>貼心提醒：</strong>AI 若詢問是否同意安裝，點擊「同意 / Approve」即可。
         </div>
       </div>
 
@@ -3691,10 +3692,10 @@ const Slide42GitStep1Install: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${mint}`,
+          borderTop: `10px solid ${mint}`,
           borderRadius: 24,
-          padding: '28px 30px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -3704,10 +3705,10 @@ const Slide42GitStep1Install: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(169, 207, 189, 0.35)',
               color: '#1d4834',
             }}
@@ -3718,49 +3719,43 @@ const Slide42GitStep1Install: Page = () => (
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🚀 <strong>免去網頁重複上傳</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
+                🚀 免去網頁重複上傳
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
                 之後修改網站，不用再手動把 HTML 檔案拖到 GitHub 網頁。
               </div>
             </div>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🔄 <strong>完整版本存檔紀錄</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
-                每一次修改都有備份，就算改壞了也能隨時一鍵還原。
+              <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
+                🔄 完整版本存檔紀錄
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+                每一次修改都有備份，改壞了也能隨時一鍵還原。
               </div>
             </div>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🤖 <strong>AI Agent 必備連線工具</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
-                讓 Antigravity 可以直接在電腦上幫你把網站推播到 GitHub。
+              <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
+                🤖 Agent 必備連線工具
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+                讓 Antigravity 可以直接幫你把本機專案推播到 GitHub。
               </div>
             </div>
           </div>
@@ -3773,11 +3768,11 @@ Slide42GitStep1Install.transition = sectionTransition;
 
 const Slide42GitStep2Auth: Page = () => (
   <PageShell eyebrow="PART 06 · STEP 2 / 4" accent={yellow} mood="warm">
-    <div style={{ marginBottom: 16 }}>
-      <Title size={62} margin="0 0 8px">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={70} margin="0 0 10px">
         步驟 2｜首次權限認證（只需做一次！）
       </Title>
-      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
         綁定你的 GitHub 帳號權限，終生只需在電腦上認證這一次
       </div>
     </div>
@@ -3796,9 +3791,9 @@ const Slide42GitStep2Auth: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${cyan}`,
+          borderTop: `10px solid ${cyan}`,
           borderRadius: 22,
-          padding: '24px 26px',
+          padding: '26px 26px',
           boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
@@ -3808,14 +3803,14 @@ const Slide42GitStep2Auth: Page = () => (
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 26, fontWeight: 950, color: '#245257' }}>
+            <span style={{ fontSize: 30, fontWeight: 950, color: '#245257' }}>
               01 · 開啟命令列
             </span>
             <span
               style={{
-                fontSize: 15,
+                fontSize: 17,
                 fontWeight: 900,
-                padding: '3px 10px',
+                padding: '4px 10px',
                 borderRadius: 6,
                 background: 'rgba(120, 174, 178, 0.25)',
                 color: '#1a4b43',
@@ -3824,28 +3819,28 @@ const Slide42GitStep2Auth: Page = () => (
               快捷鍵
             </span>
           </div>
-          <div style={{ marginTop: 16, fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.5 }}>
+          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
             按下鍵盤快捷鍵：
             <div
               style={{
-                margin: '12px 0',
-                padding: '12px 16px',
+                margin: '14px 0',
+                padding: '14px 16px',
                 background: '#27343b',
-                borderRadius: 12,
+                borderRadius: 14,
                 color: '#fdf4c8',
                 fontFamily: mono,
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: 950,
                 textAlign: 'center',
               }}
             >
               Windows 鍵 ＋ R
             </div>
-            輸入 <strong style={{ color: '#245257', fontFamily: mono }}>CMD</strong> 並按 Enter，開啟「命令提示字元」視窗。
+            輸入 <strong style={{ color: '#245257', fontFamily: mono, fontSize: 28 }}>CMD</strong> 並按 Enter，開啟「命令提示字元」。
           </div>
         </div>
-        <div style={{ fontSize: 16, color: muted, fontWeight: 750 }}>
-          💡 也可以在 Antigravity 內建 Terminal 執行。
+        <div style={{ fontSize: 18, color: muted, fontWeight: 750 }}>
+          💡 也可在 Antigravity 內建 Terminal 執行。
         </div>
       </div>
 
@@ -3854,9 +3849,9 @@ const Slide42GitStep2Auth: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${yellow}`,
+          borderTop: `10px solid ${yellow}`,
           borderRadius: 22,
-          padding: '24px 26px',
+          padding: '26px 26px',
           boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
@@ -3866,14 +3861,14 @@ const Slide42GitStep2Auth: Page = () => (
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 26, fontWeight: 950, color: '#7a5a12' }}>
+            <span style={{ fontSize: 30, fontWeight: 950, color: '#7a5a12' }}>
               02 · 貼上認證指令
             </span>
             <span
               style={{
-                fontSize: 15,
+                fontSize: 17,
                 fontWeight: 900,
-                padding: '3px 10px',
+                padding: '4px 10px',
                 borderRadius: 6,
                 background: 'rgba(241, 212, 123, 0.35)',
                 color: '#654807',
@@ -3882,28 +3877,29 @@ const Slide42GitStep2Auth: Page = () => (
               執行指令
             </span>
           </div>
-          <div style={{ marginTop: 16, fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.5 }}>
+          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
             AI 安裝好 Git 後，會在對話框提供一段認證指令。
             <div
               style={{
-                margin: '12px 0',
-                padding: '12px 14px',
+                margin: '14px 0',
+                padding: '14px 16px',
                 background: '#f6f3eb',
-                borderRadius: 12,
+                borderRadius: 14,
                 color: '#654807',
                 fontFamily: mono,
-                fontSize: 19,
+                fontSize: 22,
                 fontWeight: 900,
                 border: '1px solid rgba(241, 212, 123, 0.5)',
+                textAlign: 'center',
               }}
             >
               複製 AI 給的指令
             </div>
-            在剛打開的 CMD 視窗中<strong>按右鍵貼上並按 Enter 執行</strong>。
+            在 CMD 視窗中<strong>右鍵貼上並按 Enter 執行</strong>。
           </div>
         </div>
-        <div style={{ fontSize: 16, color: muted, fontWeight: 750 }}>
-          💡 指令執行後會自動開啟瀏覽器認證網頁。
+        <div style={{ fontSize: 18, color: muted, fontWeight: 750 }}>
+          💡 指令執行後會自動彈出瀏覽器認證網頁。
         </div>
       </div>
 
@@ -3912,9 +3908,9 @@ const Slide42GitStep2Auth: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${mint}`,
+          borderTop: `10px solid ${mint}`,
           borderRadius: 22,
-          padding: '24px 26px',
+          padding: '26px 26px',
           boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
@@ -3924,14 +3920,14 @@ const Slide42GitStep2Auth: Page = () => (
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 26, fontWeight: 950, color: '#1f4e41' }}>
+            <span style={{ fontSize: 30, fontWeight: 950, color: '#1f4e41' }}>
               03 · 點擊授權按鈕
             </span>
             <span
               style={{
-                fontSize: 15,
+                fontSize: 17,
                 fontWeight: 900,
-                padding: '3px 10px',
+                padding: '4px 10px',
                 borderRadius: 6,
                 background: 'rgba(169, 207, 189, 0.35)',
                 color: '#1d4834',
@@ -3940,16 +3936,16 @@ const Slide42GitStep2Auth: Page = () => (
               綠色按鈕
             </span>
           </div>
-          <div style={{ marginTop: 16, fontSize: 22, color: '#27343b', fontWeight: 800, lineHeight: 1.5 }}>
+          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
             瀏覽器會跳出 GitHub 授權視窗：
             <div
               style={{
-                margin: '12px 0',
-                padding: '12px 16px',
+                margin: '14px 0',
+                padding: '14px 18px',
                 background: '#2ea44f',
-                borderRadius: 12,
+                borderRadius: 14,
                 color: '#ffffff',
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: 950,
                 textAlign: 'center',
                 boxShadow: '0 6px 16px rgba(46, 164, 79, 0.3)',
@@ -3957,10 +3953,10 @@ const Slide42GitStep2Auth: Page = () => (
             >
               Authorize github ✓
             </div>
-            點擊「<strong>認證</strong>」與「<strong>綠色按鈕</strong>」，即完成權限綁定！
+            點擊「<strong>認證</strong>」及「<strong>綠色按鈕</strong>」，即完成權限綁定！
           </div>
         </div>
-        <div style={{ fontSize: 16, color: '#1d4834', fontWeight: 800 }}>
+        <div style={{ fontSize: 18, color: '#1d4834', fontWeight: 850 }}>
           🎉 成功綁定！此動作終生只需做一次。
         </div>
       </div>
@@ -3971,11 +3967,11 @@ Slide42GitStep2Auth.transition = sectionTransition;
 
 const Slide42GitStep3Push: Page = () => (
   <PageShell eyebrow="PART 06 · STEP 3 / 4" accent={coral} mood="warm">
-    <div style={{ marginBottom: 16 }}>
-      <Title size={64} margin="0 0 8px">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={72} margin="0 0 10px">
         步驟 3｜首次上傳（Push 至 GitHub）
       </Title>
-      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
         權限認證完畢後，一句話讓 AI 把電腦裡的網站推上雲端
       </div>
     </div>
@@ -3983,7 +3979,7 @@ const Slide42GitStep3Push: Page = () => (
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '1.1fr 0.9fr',
+        gridTemplateColumns: '1.15fr 0.85fr',
         gap: 28,
         minHeight: 0,
         alignItems: 'stretch',
@@ -3994,10 +3990,10 @@ const Slide42GitStep3Push: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${coral}`,
+          borderTop: `10px solid ${coral}`,
           borderRadius: 24,
-          padding: '28px 30px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -4007,10 +4003,10 @@ const Slide42GitStep3Push: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(238, 154, 131, 0.35)',
               color: '#82271a',
             }}
@@ -4019,29 +4015,30 @@ const Slide42GitStep3Push: Page = () => (
           </span>
           <div
             style={{
-              marginTop: 14,
-              padding: '20px 24px',
+              marginTop: 16,
+              padding: '22px 26px',
               background: '#1d353f',
-              borderRadius: 16,
+              borderRadius: 18,
               color: '#fdf4c8',
               fontFamily: mono,
-              fontSize: 28,
+              fontSize: 34,
               fontWeight: 950,
               boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
-              lineHeight: 1.4,
+              lineHeight: 1.35,
+              textAlign: 'center',
             }}
           >
             「幫我將做好的網站上傳到 GitHub」
           </div>
           <div
             style={{
-              marginTop: 20,
+              marginTop: 22,
               display: 'flex',
               flexDirection: 'column',
               gap: 12,
-              fontSize: 22,
+              fontSize: 28,
               color: '#27343b',
-              fontWeight: 800,
+              fontWeight: 850,
               lineHeight: 1.45,
             }}
           >
@@ -4052,15 +4049,15 @@ const Slide42GitStep3Push: Page = () => (
         </div>
         <div
           style={{
-            fontSize: 18,
+            fontSize: 22,
             color: '#82271a',
-            fontWeight: 800,
+            fontWeight: 850,
             background: '#fdf3f0',
-            padding: '10px 16px',
-            borderRadius: 10,
+            padding: '12px 18px',
+            borderRadius: 12,
           }}
         >
-          💡 <strong>小秘訣：</strong>也可以直接說「幫我 Push」或「上傳」。
+          💡 <strong>小秘訣：</strong>也可以直接對 AI 說「幫我 Push」或「上傳」。
         </div>
       </div>
 
@@ -4069,10 +4066,10 @@ const Slide42GitStep3Push: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${yellow}`,
+          borderTop: `10px solid ${yellow}`,
           borderRadius: 24,
-          padding: '28px 30px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -4082,10 +4079,10 @@ const Slide42GitStep3Push: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(241, 212, 123, 0.35)',
               color: '#654807',
             }}
@@ -4096,48 +4093,42 @@ const Slide42GitStep3Push: Page = () => (
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 20,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              📦 <strong style={{ color: cyan, fontFamily: mono }}>git add .</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, fontWeight: 950, color: cyan, fontFamily: mono }}>
+                📦 git add .
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
                 自動打包所有新增與修改的網頁、圖片與檔案。
               </div>
             </div>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 20,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🔖 <strong style={{ color: yellow, fontFamily: mono }}>git commit</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#9a7011', fontFamily: mono }}>
+                🔖 git commit
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
                 為這次修改建立專屬存檔點與版本說明。
               </div>
             </div>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 20,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.4,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🚀 <strong style={{ color: coral, fontFamily: mono }}>git push</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, fontWeight: 950, color: coral, fontFamily: mono }}>
+                🚀 git push
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
                 正式推播同步到 GitHub 遠端儲存庫，啟動自動部署！
               </div>
             </div>
@@ -4151,11 +4142,11 @@ Slide42GitStep3Push.transition = sectionTransition;
 
 const Slide42GitStep4UpdateWorkflow: Page = () => (
   <PageShell eyebrow="PART 06 · STEP 4 / 4" accent={mint} mood="green">
-    <div style={{ marginBottom: 16 }}>
-      <Title size={62} margin="0 0 8px">
+    <div style={{ marginBottom: 18 }}>
+      <Title size={70} margin="0 0 10px">
         步驟 4｜未來的日常更新與狀態確認
       </Title>
-      <div style={{ color: muted, fontSize: 26, fontWeight: 800 }}>
+      <div style={{ color: muted, fontSize: 30, fontWeight: 800 }}>
         網站發布後的極簡工作流：對話交代修改 → 自動上傳 → 確認綠勾勾上線
       </div>
     </div>
@@ -4174,10 +4165,10 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${mint}`,
+          borderTop: `10px solid ${mint}`,
           borderRadius: 24,
-          padding: '26px 28px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -4187,53 +4178,49 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(169, 207, 189, 0.35)',
               color: '#1d4834',
             }}
           >
             🔄 日常修改超直覺
           </span>
-          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.45,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              💬 <strong>1. 對話交代修改內容</strong>
-              <div style={{ fontSize: 18, color: '#1d4834', marginTop: 4, fontWeight: 800 }}>
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#27343b' }}>
+                💬 1. 對話交代修改內容
+              </div>
+              <div style={{ fontSize: 24, color: '#1d4834', marginTop: 6, fontWeight: 900 }}>
                 例如：「幫我增加一些西方歷史的內容」
               </div>
             </div>
             <div
               style={{
                 background: '#f6f3eb',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#27343b',
-                fontWeight: 800,
-                lineHeight: 1.45,
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🚀 <strong>2. AI 自動或手動上傳</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
-                AI 改完通常會自動上傳；也可以隨時對 AI 說「<strong>上傳</strong>」或「<strong>Push</strong>」。
+              <div style={{ fontSize: 26, fontWeight: 950, color: '#27343b' }}>
+                🚀 2. AI 自動或手動上傳
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.4 }}>
+                AI 修改完通常會「自動」幫你上傳；也可以隨時對 AI 說「<strong>上傳</strong>」或「<strong>Push</strong>」。
               </div>
             </div>
           </div>
         </div>
-        <div style={{ fontSize: 16, color: '#1d4834', fontWeight: 800 }}>
-          ✨ 不需接觸任何複雜程式碼，動動嘴巴就能維護網站！
+        <div style={{ fontSize: 22, color: '#1d4834', fontWeight: 850 }}>
+          ✨ 不需接觸任何複雜指令，動動嘴巴就能維護網站！
         </div>
       </div>
 
@@ -4242,10 +4229,10 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
         style={{
           background: panel,
           border: '1px solid rgba(39, 52, 59, 0.18)',
-          borderTop: `8px solid ${yellow}`,
+          borderTop: `10px solid ${yellow}`,
           borderRadius: 24,
-          padding: '26px 28px',
-          boxShadow: '0 12px 28px rgba(55, 76, 73, 0.08)',
+          padding: '28px 32px',
+          boxShadow: '0 14px 32px rgba(55, 76, 73, 0.08)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -4255,48 +4242,44 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
         <div>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: 900,
-              padding: '4px 12px',
-              borderRadius: 6,
+              padding: '4px 14px',
+              borderRadius: 8,
               background: 'rgba(241, 212, 123, 0.35)',
               color: '#654807',
             }}
           >
             👀 如何確認更新成功？（看 GitHub 燈號）
           </span>
-          <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div
               style={{
                 background: '#fffbf0',
-                border: '1px solid rgba(241, 212, 123, 0.45)',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#7a5a12',
-                fontWeight: 850,
-                lineHeight: 1.45,
+                border: '1px solid rgba(241, 212, 123, 0.55)',
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🟡 <strong>黃色 / 咖啡色圓點（Building）</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, color: '#7a5a12', fontWeight: 950 }}>
+                🟡 黃色 / 咖啡色圓點（Building）
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.35 }}>
                 代表 GitHub Pages 正在自動編譯與部署，稍候約 1~2 分鐘。
               </div>
             </div>
             <div
               style={{
                 background: '#f0fdf4',
-                border: '1px solid rgba(74, 222, 128, 0.35)',
-                borderRadius: 14,
-                padding: '14px 18px',
-                fontSize: 21,
-                color: '#166534',
-                fontWeight: 850,
-                lineHeight: 1.45,
+                border: '1px solid rgba(74, 222, 128, 0.45)',
+                borderRadius: 16,
+                padding: '16px 20px',
               }}
             >
-              🟢 <strong>綠色勾勾（Success）</strong>
-              <div style={{ fontSize: 18, color: muted, marginTop: 4, fontWeight: 750 }}>
+              <div style={{ fontSize: 26, color: '#166534', fontWeight: 950 }}>
+                🟢 綠色勾勾（Success）
+              </div>
+              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.35 }}>
                 代表已順利部署完成！
               </div>
             </div>
@@ -4304,20 +4287,22 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
         </div>
         <div
           style={{
-            fontSize: 18,
+            fontSize: 22,
             color: '#166534',
-            fontWeight: 850,
+            fontWeight: 900,
             background: '#eefcf2',
-            padding: '10px 16px',
-            borderRadius: 10,
+            padding: '14px 18px',
+            borderRadius: 12,
+            textAlign: 'center',
           }}
         >
-          🔄 <strong>最後一步：</strong>重新整理個人網站（或按 Ctrl + F5），即可看到最新內容！
+          🔄 <strong>最後一步：</strong>重新整理個人網頁（或按 Ctrl + F5），即可看到最新內容！
         </div>
       </div>
     </div>
   </PageShell>
 );
+Slide42GitStep4UpdateWorkflow.transition = sectionTransition;
 Slide42GitStep4UpdateWorkflow.transition = sectionTransition;
 
 const Slide43GitPlainLanguage: Page = () => {
