@@ -1,4 +1,4 @@
-import{j as e}from"./index-CFXfe1AV.js";import{u as N}from"./index-DFFX2Hui.js";const D=`
+import{j as e}from"./index-BOhLRP47.js";import{u as N}from"./index-DXuqFQ0s.js";const D=`
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 @keyframes mc-pop {
