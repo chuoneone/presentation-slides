@@ -5258,7 +5258,7 @@ const Slide23_ClosingSummary: Page = () => (
           marginBottom: 28,
         }}
       >
-        今天的研習，先帶走一件事
+        今天的研習
       </div>
       <h2
         style={{
@@ -5270,19 +5270,41 @@ const Slide23_ClosingSummary: Page = () => (
           letterSpacing: '-0.03em',
         }}
       >
-        今天工具很多，不必全部都用到
+        帶走一件事，就夠了。
       </h2>
-      <p style={{ fontSize: '48px', fontWeight: 900, color: colors.accent, margin: '0 0 44px', lineHeight: 1.35 }}>
-        挑一個最上手的，先解決一件每天重複的事
-      </p>
-      <p style={{ fontSize: '38px', color: colors.muted, margin: '0 0 18px', fontWeight: 650, lineHeight: 1.6 }}>
-        AI 變化很快，我們追不上，也不需要追。從紙本、數位或自製 AI 中，選擇最適合自己的工具用熟就好。
-      </p>
-      <p style={{ fontSize: '38px', color: colors.muted, margin: 0, fontWeight: 650, lineHeight: 1.6 }}>
-        真正重要的能力，是看見每天反覆出現的困擾，讓 AI 幫你少花一點力氣。
-      </p>
-      <div style={{ marginTop: 54, fontSize: '42px', fontWeight: 950, color: colors.orange, letterSpacing: '0.03em' }}>
-        覺得困難時，就追蹤米克師吧！
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          width: '100%',
+          fontSize: '38px',
+          color: colors.muted,
+          fontWeight: 650,
+          lineHeight: 1.45,
+          textAlign: 'left',
+        }}
+      >
+        <div>
+          <strong style={{ color: colors.text, fontWeight: 950 }}>不必全用：</strong>工具很多，挑一個最上手的就好。
+        </div>
+        <div>
+          <strong style={{ color: colors.text, fontWeight: 950 }}>不用追趕：</strong>紙本、數位或自製 AI，適合你的就是好工具。
+        </div>
+        <div>
+          <strong style={{ color: colors.text, fontWeight: 950 }}>回歸痛點：</strong>看見每天重複的困擾，讓 AI 幫你少花一點力氣。
+        </div>
+      </div>
+      <div
+        style={{
+          marginTop: 46,
+          fontSize: '42px',
+          fontWeight: 950,
+          color: colors.orange,
+          letterSpacing: '0.03em',
+        }}
+      >
+        覺得困難時，就追蹤<strong>米克師</strong>吧！
       </div>
     </div>
     <TextbookFooter subtitle="總結與賦歸" />
