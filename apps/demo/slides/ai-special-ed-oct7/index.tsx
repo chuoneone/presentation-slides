@@ -1860,21 +1860,21 @@ const Slide01_Title: Page = () => (
             padding: '16px 44px',
             borderRadius: 6,
             transform: 'rotate(-2.4deg)',
-            fontSize: '110px',
+            fontSize: '76px',
             fontWeight: 950,
             letterSpacing: '0.04em',
             boxShadow: '0 12px 32px rgba(248, 179, 55, 0.36)',
             lineHeight: 1.05,
           }}
         >
-          特教教師的
+          從使用 AI 到打造 AI
         </div>
       </div>
 
       {/* 巨型粗黑大標 (模仿 AT WORK 150px 超強視覺震撼) */}
       <h1
         style={{
-          fontSize: '150px',
+          fontSize: '108px',
           fontWeight: 950,
           color: '#0f172a',
           margin: '8px 0 16px 0',
@@ -1882,7 +1882,10 @@ const Slide01_Title: Page = () => (
           letterSpacing: '-0.03em',
         }}
       >
-        AI 工作流
+        <>
+          <span style={{ display: 'block' }}>特教教師的</span>
+          <span style={{ display: 'block' }}>教學工作流革命</span>
+        </>
       </h1>
 
       {/* 副標題 */}
@@ -4638,7 +4641,7 @@ const Slide21_IterativeRefinement: Page = () => (
         flex: 1,
         zIndex: 2,
         minHeight: 0,
-        alignItems: 'stretch',
+        alignItems: 'center',
       }}
     >
       <div
@@ -4649,13 +4652,13 @@ const Slide21_IterativeRefinement: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.accent}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -4738,13 +4741,13 @@ const Slide21_IterativeRefinement: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.orange}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -4827,13 +4830,13 @@ const Slide21_IterativeRefinement: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.accent}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -4946,7 +4949,7 @@ const Slide22_QualityCheck: Page = () => (
         flex: 1,
         zIndex: 2,
         minHeight: 0,
-        alignItems: 'stretch',
+        alignItems: 'center',
       }}
     >
       <div
@@ -4957,13 +4960,13 @@ const Slide22_QualityCheck: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.accent}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -5046,13 +5049,13 @@ const Slide22_QualityCheck: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.orange}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -5135,13 +5138,13 @@ const Slide22_QualityCheck: Page = () => (
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `8px solid ${colors.accent}`,
           borderRadius: 24,
-          padding: '38px 34px',
+          padding: '34px',
           boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 24,
-          height: '100%',
+          height: 'auto',
           boxSizing: 'border-box',
         }}
       >
@@ -5243,62 +5246,43 @@ const Slide22_QualityCheck: Page = () => (
 const Slide23_ClosingSummary: Page = () => (
   <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
     <TextbookBg />
-    <div style={{ zIndex: 2, maxWidth: 1560 }}>
+    <div style={{ zIndex: 2, maxWidth: 1480, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 10,
           background: colors.accentMuted,
           color: colors.accent,
           borderRadius: 999,
           padding: '10px 28px',
           fontSize: '26px',
           fontWeight: 900,
-          marginBottom: 24,
+          marginBottom: 28,
         }}
       >
-        <span>本日研習總結</span>
+        今天的研習，先帶走一件事
       </div>
       <h2
         style={{
-          fontSize: '84px',
-          fontWeight: 900,
+          fontSize: '82px',
+          fontWeight: 950,
           color: colors.text,
-          margin: '0 0 20px 0',
-          lineHeight: 1.15,
+          margin: '0 0 32px',
+          lineHeight: 1.18,
+          letterSpacing: '-0.03em',
         }}
       >
-        特教教師的 AI 工作流
+        今天工具很多，不必全部都用到
       </h2>
-      <p style={{ fontSize: '36px', color: colors.muted, margin: '0 0 46px 0', fontWeight: 600 }}>
-        從解決一個具體痛點開始，讓 AI 永遠留在你的日常備課裡
+      <p style={{ fontSize: '48px', fontWeight: 900, color: colors.accent, margin: '0 0 44px', lineHeight: 1.35 }}>
+        挑一個最上手的，先解決一件每天重複的事
       </p>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 28,
-          textAlign: 'left',
-          marginBottom: 46,
-        }}
-      >
-        <Unit2Card num="01" title="先求快速出第一版" delay={0.1}>
-          利用 IEP 生成器、國文、數學與英文課堂學習單，快速獲得教材草稿。
-        </Unit2Card>
-        <Unit2Card num="02" title="自製特教互動網頁" delay={0.2} accent={colors.orange}>
-          將題目轉化為句型重組與步驟數學網頁，即時回饋，提升特教學生自主信心。
-        </Unit2Card>
-        <Unit2Card num="03" title="自製專屬備課工具" delay={0.3}>
-          透過 Gemini Canvas Vibe Coding 說出需求，打造真正切合自己班級的出題助手。
-        </Unit2Card>
-      </div>
-
-      <div
-        style={{ fontSize: '44px', fontWeight: 950, color: colors.accent, letterSpacing: '0.04em' }}
-      >
-        謝謝大家！
+      <p style={{ fontSize: '38px', color: colors.muted, margin: '0 0 18px', fontWeight: 650, lineHeight: 1.6 }}>
+        AI 變化很快，我們追不上，也不需要追。從紙本、數位或自製 AI 中，選擇最適合自己的工具用熟就好。
+      </p>
+      <p style={{ fontSize: '38px', color: colors.muted, margin: 0, fontWeight: 650, lineHeight: 1.6 }}>
+        真正重要的能力，是看見每天反覆出現的困擾，讓 AI 幫你少花一點力氣。
+      </p>
+      <div style={{ marginTop: 54, fontSize: '42px', fontWeight: 950, color: colors.orange, letterSpacing: '0.03em' }}>
+        覺得困難時，就追蹤米克師吧！
       </div>
     </div>
     <TextbookFooter subtitle="總結與賦歸" />
