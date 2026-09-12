@@ -19,18 +19,18 @@ import imgEnglishQuiz from './assets/english-scene-quiz.png';
 import imgEnglishStoryboard from './assets/english-storyboard-reading.png';
 import imgEnglishSummary from './assets/english-story-summary.png';
 import imgGeminiCanvasInput from './assets/gemini-canvas-input.png';
-import imgHeadshot from '@assets/headshot.png';
+import imgHeadshot from '@assets/headshot.webp';
 import imgHeroTeacher from './assets/hero-teacher.png';
 import imgInteractiveStepMath from './assets/interactive-step-math.png';
 import imgMathCatalog from './assets/math-ebook-catalog.png';
 import imgMathConcept from './assets/math-ebook-concept.png';
 import imgMathInputGemini from './assets/math-input-gemini.png';
 import imgMathPrint from './assets/math-print-preview.png';
-import imgMixerAiPrep from '@assets/mixer-ai-prep.png';
-import imgMixerShare from '@assets/mixer-share.png';
-import imgMixerTeaching from '@assets/mixer-teaching.png';
-import imgWorkshopHomepage from '@assets/workshop-homepage.png';
-import imgWorkshopSearchResult from '@assets/workshop-search-result.png';
+import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
+import imgMixerShare from '@assets/mixer-share.webp';
+import imgMixerTeaching from '@assets/mixer-teaching.webp';
+import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
+import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import imgTool1 from './assets/工具一.png';
 
 export const design: DesignSystem = {
