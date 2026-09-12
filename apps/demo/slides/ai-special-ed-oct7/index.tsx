@@ -200,7 +200,7 @@ const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
     <footer
       style={{
         position: 'absolute',
-        bottom: 34,
+        bottom: 20,
         left: 120,
         right: 120,
         display: 'flex',
@@ -1820,7 +1820,7 @@ const Slide01_Title: Page = () => (
     <div
       style={{
         position: 'absolute',
-        top: 75,
+        top: 95,
         right: 80,
         fontSize: '68px',
         fontWeight: 950,
@@ -1842,7 +1842,7 @@ const Slide01_Title: Page = () => (
         position: 'absolute',
         left: '52.5%',
         right: '40px',
-        top: 225,
+        top: 255,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
