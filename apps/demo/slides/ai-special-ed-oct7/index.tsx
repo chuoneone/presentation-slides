@@ -18,7 +18,12 @@ import imgEnglishInput from './assets/english-input-form.png';
 import imgEnglishQuiz from './assets/english-scene-quiz.png';
 import imgEnglishStoryboard from './assets/english-storyboard-reading.png';
 import imgEnglishSummary from './assets/english-story-summary.png';
-import imgGeminiCanvasInput from './assets/gemini-canvas-input.png';
+import imgExamAssistantFeedbackApi from './assets/exam-assistant-feedback-api.png';
+import imgExamAssistantFeedbackWord from './assets/exam-assistant-feedback-word.png';
+import imgExamAssistantFirstDraft from './assets/exam-assistant-first-draft.png';
+import imgExamAssistantGeminiResult from './assets/exam-assistant-gemini-result.png';
+import imgExamAssistantPrompt from './assets/exam-assistant-prompt.png';
+import imgExamAssistantWordMenu from './assets/exam-assistant-word-menu.png';
 import imgHeadshot from '@assets/headshot.webp';
 import imgHeroTeacher from './assets/hero-teacher.png';
 import imgInteractiveStepMath from './assets/interactive-step-math.png';
@@ -194,7 +199,7 @@ const TextbookBg = () => (
   </div>
 );
 
-const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
+const TextbookFooter = ({ subtitle, inverse = false }: { subtitle?: string; inverse?: boolean }) => {
   const { current, total } = useSlidePageNumber();
   return (
     <footer
@@ -206,10 +211,10 @@ const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderTop: '1px solid rgba(203, 213, 225, 0.6)',
+        borderTop: inverse ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(203, 213, 225, 0.6)',
         paddingTop: 16,
         fontSize: '24px',
-        color: colors.muted,
+        color: inverse ? '#cbd5e1' : colors.muted,
         fontWeight: 700,
         zIndex: 10,
         backdropFilter: 'blur(8px)',
@@ -226,8 +231,8 @@ const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
         >
           特教教師的AI工作流
         </span>
-        <span style={{ color: '#cbd5e1' }}>·</span>
-        <span style={{ color: colors.muted, fontWeight: 750 }}>
+        <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>·</span>
+        <span style={{ color: inverse ? '#cbd5e1' : colors.muted, fontWeight: 750 }}>
           {subtitle ?? '教學應用與自製工具實作'}
         </span>
       </div>
@@ -240,12 +245,12 @@ const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
           gap: 6,
         }}
       >
-        <span style={{ fontSize: '20px', color: '#94a3b8' }}>PAGE</span>
+        <span style={{ fontSize: '20px', color: inverse ? '#94a3b8' : '#94a3b8' }}>PAGE</span>
         <span
           style={{
             padding: '2px 10px',
-            background: 'rgba(99, 102, 241, 0.1)',
-            color: colors.accent,
+            background: inverse ? 'rgba(255, 255, 255, 0.15)' : 'rgba(99, 102, 241, 0.1)',
+            color: inverse ? '#c7d2fe' : colors.accent,
             borderRadius: 6,
             fontWeight: 950,
             fontSize: '26px',
@@ -253,8 +258,8 @@ const TextbookFooter = ({ subtitle }: { subtitle?: string }) => {
         >
           {String(current).padStart(2, '0')}
         </span>
-        <span style={{ color: '#cbd5e1' }}>/</span>
-        <span style={{ color: '#64748b' }}>{String(total).padStart(2, '0')}</span>
+        <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>/</span>
+        <span style={{ color: inverse ? '#cbd5e1' : '#64748b' }}>{String(total).padStart(2, '0')}</span>
       </div>
     </footer>
   );
@@ -311,9 +316,35 @@ const PartHeaderPage = ({
   time: string;
   title: string;
   desc: string;
-}) => (
-  <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-    <TextbookBg />
+}) => {
+  const accents: Record<string, string> = {
+    '1': '#818cf8',
+    '2': '#38bdf8',
+    '3': '#f472b6',
+  };
+  const accent = accents[partNum] ?? '#818cf8';
+
+  return (
+  <div
+    style={{
+      ...fill,
+      justifyContent: 'center',
+      alignItems: 'center',
+      textAlign: 'center',
+      color: colors.white,
+      background: 'linear-gradient(135deg, #0f172a 0%, #172554 52%, #312e81 100%)',
+    }}
+  >
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px)',
+        backgroundSize: '28px 28px',
+        opacity: 0.3,
+        pointerEvents: 'none',
+      }}
+    />
 
     {/* 微光球體 */}
     <div
@@ -323,7 +354,7 @@ const PartHeaderPage = ({
         height: 850,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(244, 63, 94, 0.06) 45%, transparent 70%)',
+          `radial-gradient(circle, ${accent}66 0%, rgba(15, 23, 42, 0) 70%)`,
         filter: 'blur(50px)',
         top: '20%',
         left: '50%',
@@ -338,8 +369,8 @@ const PartHeaderPage = ({
         position: 'absolute',
         fontSize: '340px',
         fontWeight: 950,
-        color: colors.accent,
-        opacity: 0.05,
+        color: colors.white,
+        opacity: 0.08,
         top: '42%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -368,16 +399,16 @@ const PartHeaderPage = ({
           fontSize: '28px',
           fontFamily: 'var(--osd-font-display)',
           fontWeight: 950,
-          color: colors.orange,
-          background: 'rgba(255, 255, 255, 0.85)',
+          color: '#ffffff',
+          background: 'rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(16px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          border: `1.5px solid ${accent}99`,
           padding: '10px 32px',
           borderRadius: 999,
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
           marginBottom: 32,
-          boxShadow: '0 8px 24px rgba(244, 63, 94, 0.12)',
+          boxShadow: `0 10px 28px ${accent}4d`,
         }}
       >
         <span>PART 0{partNum}</span>
@@ -389,7 +420,7 @@ const PartHeaderPage = ({
         style={{
           fontSize: '80px',
           fontWeight: 950,
-          color: colors.text,
+          color: colors.white,
           margin: '0 0 28px 0',
           lineHeight: 1.15,
           letterSpacing: '-0.025em',
@@ -402,7 +433,7 @@ const PartHeaderPage = ({
       <p
         style={{
           fontSize: '40px',
-          color: colors.muted,
+          color: '#cbd5e1',
           lineHeight: 1.4,
           margin: '0 0 64px 0',
           fontWeight: 650,
@@ -419,11 +450,11 @@ const PartHeaderPage = ({
           justifyContent: 'center',
           gap: 32,
           padding: '18px 42px',
-          background: 'rgba(255, 255, 255, 0.85)',
+          background: 'rgba(15, 23, 42, 0.35)',
           backdropFilter: 'blur(20px)',
           borderRadius: 999,
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          boxShadow: '0 18px 44px rgba(148, 163, 184, 0.18)',
+          border: '1.5px solid rgba(255, 255, 255, 0.16)',
+          boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
         }}
       >
         {[
@@ -442,7 +473,7 @@ const PartHeaderPage = ({
                 alignItems: 'center',
                 gap: 12,
                 fontWeight: isActive ? 950 : 700,
-                color: isActive ? colors.orange : isPassed ? colors.accent : colors.muted,
+                color: isActive ? '#ffffff' : isPassed ? '#c7d2fe' : '#94a3b8',
                 fontSize: '28px',
               }}
             >
@@ -452,31 +483,32 @@ const PartHeaderPage = ({
                   height: 44,
                   borderRadius: '50%',
                   background: isActive
-                    ? 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)'
+                    ? `linear-gradient(135deg, ${accent} 0%, #ffffff 180%)`
                     : isPassed
                       ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
-                      : '#cbd5e1',
-                  color: '#ffffff',
+                      : 'rgba(255, 255, 255, 0.18)',
+                  color: isActive ? colors.navy : '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '22px',
                   fontWeight: 950,
-                  boxShadow: isActive ? '0 4px 12px rgba(244, 63, 94, 0.3)' : 'none',
+                  boxShadow: isActive ? `0 4px 16px ${accent}66` : 'none',
                 }}
               >
                 {isPassed ? '✓' : item.num}
               </div>
               <span>{item.name}</span>
-              {item.num < 3 && <span style={{ color: '#cbd5e1', marginLeft: 20 }}>➔</span>}
+              {item.num < 3 && <span style={{ color: 'rgba(255, 255, 255, 0.32)', marginLeft: 20 }}>➔</span>}
             </div>
           );
         })}
       </div>
     </div>
-    <TextbookFooter subtitle={`PART 0${partNum}`} />
+    <TextbookFooter subtitle={`PART 0${partNum}`} inverse />
   </div>
-);
+  );
+};
 
 // ==========================================
 // 實作計時器 Persistent State & Audio Utility
@@ -1690,7 +1722,7 @@ const MixerSiteCard = ({
       textDecoration: 'none',
       boxShadow: '0 22px 48px rgba(148, 163, 184, 0.16)',
       display: 'grid',
-      gridTemplateRows: '250px 1fr',
+       gridTemplateRows: '320px 1fr',
       overflow: 'hidden',
     }}
   >
@@ -1714,7 +1746,7 @@ const MixerSiteCard = ({
         }}
       />
     </div>
-    <div style={{ display: 'grid', gridTemplateRows: 'auto auto 1fr auto', gap: 12, padding: 24 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 28 }}>
       <div
         style={{
           width: 'fit-content',
@@ -1733,7 +1765,7 @@ const MixerSiteCard = ({
         style={{
           margin: 0,
           fontFamily: 'var(--osd-font-display)',
-          fontSize: '42px',
+          fontSize: '46px',
           lineHeight: 1.08,
           fontWeight: 950,
           color: colors.text,
@@ -1741,7 +1773,7 @@ const MixerSiteCard = ({
       >
         {title}
       </h3>
-      <div style={{ fontSize: '27px', lineHeight: 1.36, color: colors.muted, fontWeight: 680 }}>
+      <div style={{ fontSize: '30px', lineHeight: 1.4, color: colors.muted, fontWeight: 680 }}>
         {children}
       </div>
       <div
@@ -1749,7 +1781,8 @@ const MixerSiteCard = ({
           color: accent,
           background: 'rgba(255, 255, 255, 0.7)',
           borderRadius: 10,
-          padding: '12px 14px',
+           padding: '14px 16px',
+           marginTop: 'auto',
           fontSize: '20px',
           lineHeight: 1.18,
           fontWeight: 850,
@@ -2261,7 +2294,7 @@ const Slide02a_WorkshopSlides: Page = () => (
 const Slide02c_Social: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="追蹤我，我會很開心" subtitle="社群入口" unit="單元 1" />
+    <TextbookHeader title="歡迎追蹤" subtitle="社群入口" unit="單元 1" />
     <div
       style={{
         zIndex: 2,
@@ -3066,6 +3099,7 @@ const MinimalToolSlide = ({
   imgSrc,
   imgAlt,
   frameLabel,
+  imgStyle,
 }: {
   unit: string;
   title: string;
@@ -3077,6 +3111,7 @@ const MinimalToolSlide = ({
   imgSrc: string;
   imgAlt: string;
   frameLabel: string;
+  imgStyle?: CSSProperties;
 }) => (
   <div style={fill}>
     <TextbookBg />
@@ -3290,6 +3325,7 @@ const MinimalToolSlide = ({
             border: '1px solid rgba(203, 213, 225, 0.6)',
             boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
             display: 'block',
+            ...imgStyle,
           }}
         />
       </ToolScreenshotFrame>
@@ -3864,6 +3900,7 @@ const Slide10_MathScaffold3: Page = () => (
     imgSrc={imgMathCatalog}
     imgAlt="單元章節目錄選單"
     frameLabel="浮動工具列：單元章節目錄多頁跳轉"
+    imgStyle={{ width: '72%', height: 'auto', maxHeight: '90%' }}
     points={[
       '單元目錄快速跳轉',
       '階梯式基礎到變形題',
@@ -4120,7 +4157,7 @@ const Slide19_VibePromptStructure: Page = () => (
     <TextbookHeader
       unit="單元三"
       title="Vibe Coding 咒語架構三要素"
-      subtitle="不用寫程式 · 說人話打造工具的心法"
+      subtitle="以 AI 智能考卷生成助手為例"
     />
     <div
       style={{
@@ -4192,9 +4229,9 @@ const Slide19_VibePromptStructure: Page = () => (
               textAlign: 'left',
             }}
           >
-            做一個 <strong style={{ color: colors.accent }}>AI 備課出題工具</strong>
-            <br />
-            例如：「起點行為評量助手」
+            「做一個 AI 考卷生成助手」<strong style={{ color: colors.accent }}>{''}</strong>
+            {''}
+            {''}
           </div>
         </div>
         <div
@@ -4272,8 +4309,8 @@ const Slide19_VibePromptStructure: Page = () => (
               textAlign: 'left',
             }}
           >
-            老師<strong>貼上教材</strong>、選擇<strong>年級與題型</strong>並勾選
-            <strong>評量指標</strong>
+            「使用者貼上教材、選擇題型」<strong>{''}</strong>{''}<strong>{''}</strong>{''}
+            <strong>{''}</strong>
           </div>
         </div>
         <div
@@ -4351,7 +4388,7 @@ const Slide19_VibePromptStructure: Page = () => (
               textAlign: 'left',
             }}
           >
-            生成題目，並且可以 <strong style={{ color: colors.orange }}>一鍵匯出 Word</strong>
+            「就能生成題目並匯出 Word」<strong style={{ color: colors.orange }}>{''}</strong>
           </div>
         </div>
         <div
@@ -4391,117 +4428,210 @@ const Slide19_VibePromptStructure: Page = () => (
   </div>
 );
 
-// Slide 24: 實作示範：起點行為評量助手 (截圖 ＋ 咒語 ＋ 口訣)
-const Slide20_GeminiCanvasPractice: Page = () => (
+// Slide 24-26: 實作示範：考卷生成助手的三次迭代
+const IterationShowcasePage = ({
+  step,
+  title,
+  subtitle,
+  accent,
+  prompt,
+  promptLabel,
+  result,
+  resultAlt,
+  headline,
+  body,
+  resultWidth = '100%',
+}: {
+  step: string;
+  title: string;
+  subtitle: string;
+  accent: string;
+  prompt: string;
+  promptLabel: string;
+  result: string;
+  resultAlt: string;
+  headline: string;
+  body: string;
+  resultWidth?: CSSProperties['width'];
+}) => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      unit="單元三"
-      title="實作範例︰起點行為評量助手"
-      subtitle="一句咒語啟動 Gemini Canvas"
-    />
+    <TextbookHeader unit="單元三" title={title} subtitle={subtitle} />
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '1.05fr 0.95fr',
-        gap: 36,
+        gridTemplateColumns: '0.9fr 1.1fr',
+        gap: 40,
         flex: 1,
         zIndex: 2,
         minHeight: 0,
-        alignItems: 'center',
+        alignItems: 'stretch',
       }}
     >
       <div
         className="es-fadeUp"
         style={{
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(16px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderRadius: 24,
-          padding: 18,
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
+          background: 'linear-gradient(145deg, #0f172a 0%, #1e293b 100%)',
+          borderRadius: 28,
+          color: colors.white,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          minHeight: 0,
+          padding: '34px 38px',
+          boxShadow: '0 24px 54px rgba(15, 23, 42, 0.24)',
+          borderTop: `8px solid ${accent}`,
         }}
       >
+        <div>
+          <div style={{ color: accent, fontSize: '26px', fontWeight: 950, letterSpacing: '0.08em' }}>
+            {step} · 我怎麼回饋
+          </div>
+          <h3 style={{ color: colors.white, fontSize: '48px', lineHeight: 1.2, fontWeight: 950, margin: '20px 0 16px' }}>
+            {headline}
+          </h3>
+          <p style={{ color: '#cbd5e1', fontSize: '30px', lineHeight: 1.45, fontWeight: 700, margin: 0 }}>
+            {body}
+          </p>
+        </div>
         <div
           style={{
-            fontSize: '24px',
-            fontWeight: 900,
-            color: colors.accent,
-            marginBottom: 12,
-            paddingLeft: 8,
+            background: '#f8fafc',
+            borderRadius: 18,
+            padding: 16,
+            marginTop: 22,
+            boxShadow: '0 10px 24px rgba(2, 6, 23, 0.2)',
           }}
         >
-          🖥️ Gemini Canvas 輸入截圖
+          <div style={{ color: colors.muted, fontSize: '21px', fontWeight: 900, marginBottom: 8 }}>
+            {promptLabel}
+          </div>
+          <img src={prompt} alt={`${promptLabel}文字`} style={{ width: '100%', maxHeight: 210, objectFit: 'contain', display: 'block' }} />
+        </div>
+      </div>
+
+      <div
+        className="es-fadeUp"
+        style={{
+          animationDelay: '0.18s',
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(18px)',
+          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          borderRadius: 28,
+          boxShadow: '0 24px 54px rgba(148, 163, 184, 0.18)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: 0,
+          padding: '26px 34px',
+        }}
+      >
+        <div style={{ width: '100%', color: accent, fontSize: '26px', fontWeight: 950, marginBottom: 18 }}>
+          🖥️ 修正後的成果畫面
         </div>
         <img
-          src={imgGeminiCanvasInput}
-          alt="Gemini Canvas 輸入畫面"
-          style={{
-            width: '100%',
-            height: 'auto',
-            maxHeight: 500,
-            objectFit: 'contain',
-            borderRadius: 16,
-          }}
+          src={result}
+          alt={resultAlt}
+          style={{ width: resultWidth, maxWidth: '100%', maxHeight: 520, objectFit: 'contain', borderRadius: 16, boxShadow: '0 12px 26px rgba(15, 23, 42, 0.14)' }}
         />
       </div>
+    </div>
+    <TextbookFooter subtitle={`第三部分：實作迭代 ${step}`} />
+  </div>
+);
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <div
-          className="es-fadeUp"
-          style={{
-            background:
-              'linear-gradient(145deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.94) 100%)',
-            color: '#f8fafc',
-            borderRadius: 22,
-            padding: '30px 34px',
-            boxShadow: '0 20px 48px rgba(15, 23, 42, 0.22)',
-            fontFamily: "'Cascadia Code', Consolas, monospace",
-            fontSize: '32px',
-            lineHeight: 1.55,
-            border: '1.5px solid rgba(255, 255, 255, 0.12)',
-            textAlign: 'left',
-          }}
-        >
-          <div
-            style={{ color: colors.orange, fontSize: '24px', fontWeight: 950, marginBottom: 12 }}
-          >
-            💬 貼給 Gemini 的架構咒語
-          </div>
-          做一個ai工具，叫做起點行為評量助手，老師貼上學習內容，選擇題型，就會生成出題目，題目可以匯出成word。
-        </div>
+const Slide20_Iteration1: Page = () => (
+  <IterationShowcasePage
+    step="01"
+    title="實作範例︰先做出第一版"
+    subtitle="一句咒語，先讓工具跑起來"
+    accent={colors.accent}
+    prompt={imgExamAssistantPrompt}
+    promptLabel="貼給 Gemini 的初版咒語"
+    result={imgExamAssistantFirstDraft}
+    resultAlt="考卷生成助手的第一版成果畫面"
+    headline="先把需求說清楚"
+    body="做一個考卷生成助手，讓使用者貼上教材、生成題目，最後可以直接匯出 Word。"
+  />
+);
 
-        <div
-          className="es-fadeUp"
-          style={{
-            animationDelay: '0.2s',
-            background: 'rgba(255, 255, 255, 0.88)',
-            backdropFilter: 'blur(16px)',
-            border: '1.5px solid rgba(255, 255, 255, 0.95)',
-            borderLeft: `8px solid ${colors.accent}`,
-            borderRadius: 22,
-            padding: '24px 30px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-            boxShadow: '0 16px 36px rgba(148, 163, 184, 0.14)',
-            textAlign: 'left',
-          }}
-        >
-          <div style={{ fontSize: '28px', fontWeight: 950, color: colors.accent }}>
-            ⚡ 操作 3 步驟口訣
-          </div>
-          <div style={{ fontSize: '26px', lineHeight: 1.5, color: colors.text, fontWeight: 700 }}>
-            <strong>1. 打開 Gemini：</strong>登入常用 Google 帳號。
-            <br />
-            <strong>2. 勾選 Canvas：</strong>點對話框左下角「+」，啟用 <strong>Canvas</strong>。
-            <br />
-            <strong>3. 貼上咒語送出：</strong>等待右側自動生成可點選、可出題、可載 Word 的工具！
-          </div>
-        </div>
+const Slide20_Iteration2: Page = () => (
+  <IterationShowcasePage
+    step="02"
+    title="實作範例︰指出使用上的卡點"
+    subtitle="不順的地方，直接回饋"
+    accent={colors.blue}
+    prompt={imgExamAssistantFeedbackApi}
+    promptLabel="我對第二版的回饋"
+    result={imgExamAssistantGeminiResult}
+    resultAlt="改為直接串接 Gemini 後的成果畫面"
+    headline="使用者不用自己輸入 API"
+    body="這裡不順，就直接說。請工具自己接 Gemini，讓使用者專心放教材與設定考卷。"
+  />
+);
+
+const Slide20_Iteration3: Page = () => (
+  <IterationShowcasePage
+    step="03"
+    title="實作範例︰Word 匯出不順就直說"
+    subtitle="把不好用的地方，說到它修好"
+    accent={colors.orange}
+    prompt={imgExamAssistantFeedbackWord}
+    promptLabel="我對 Word 匯出的回饋"
+    result={imgExamAssistantWordMenu}
+    resultAlt="修正後的 Word 匯出選單"
+    resultWidth={360}
+    headline="Word 匯出真的很醜"
+    body="不要客氣，哪裡不順就直接說，請它把匯出選單整理清楚，分開學生卷與教師解答。"
+  />
+);
+
+const Slide20_IterationTakeaway: Page = () => (
+  <div style={{ ...fill, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+    <TextbookBg />
+    <div style={{ zIndex: 2, maxWidth: 1420 }}>
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 12,
+          borderRadius: 999,
+          background: 'rgba(99, 102, 241, 0.12)',
+          color: colors.accent,
+          padding: '10px 28px',
+          fontSize: '26px',
+          fontWeight: 950,
+          marginBottom: 30,
+        }}
+      >
+        自製 AI 工具的心法
+      </div>
+      <h2 style={{ color: colors.text, fontSize: '82px', fontWeight: 950, lineHeight: 1.18, letterSpacing: '-0.03em', margin: 0 }}>
+        厲害的不是提示詞下得多漂亮
+        <br />
+        而是看得出問題，說得清楚
+      </h2>
+      <p style={{ color: colors.muted, fontSize: '38px', fontWeight: 700, lineHeight: 1.5, margin: '30px 0 0' }}>
+        請它修正，再看一次。保持耐心，工具會慢慢長成你要的樣子。
+      </p>
+      <div
+        style={{
+          marginTop: 44,
+          borderRadius: 24,
+          background: 'linear-gradient(135deg, #0f172a 0%, #312e81 100%)',
+          boxShadow: '0 22px 50px rgba(49, 46, 129, 0.22)',
+          color: colors.white,
+          padding: '28px 46px',
+          fontSize: '42px',
+          fontWeight: 950,
+          lineHeight: 1.35,
+        }}
+      >
+        把迭代當成遊戲破關，耐心就會變成樂趣。
       </div>
     </div>
-    <TextbookFooter subtitle="第三部分：Gemini Canvas 實戰操作" />
+    <TextbookFooter subtitle="第三部分：自製工具的迭代心法" />
   </div>
 );
 
@@ -5398,7 +5528,10 @@ export default [
   Slide15_Practice_StepMath,
   Slide17_Part3Header,
   Slide19_VibePromptStructure,
-  Slide20_GeminiCanvasPractice,
+  Slide20_Iteration1,
+  Slide20_Iteration2,
+  Slide20_Iteration3,
+  Slide20_IterationTakeaway,
   Slide20_Practice_Canvas,
   Slide21_IterativeRefinement,
   Slide22_QualityCheck,
