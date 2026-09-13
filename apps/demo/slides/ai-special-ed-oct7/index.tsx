@@ -2315,7 +2315,7 @@ const Slide02c_Social: Page = () => (
 const Slide06_MixerIntro: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="米克師相關網站" subtitle="三個入口" unit="單元 1" />
+    <TextbookHeader title="本人相關網站" subtitle="三個入口" unit="單元 1" />
     <div
       style={{
         zIndex: 2,
@@ -3584,14 +3584,14 @@ const Slide10_MathScaffold1: Page = () => (
   />
 );
 
-// Slide 14: 數學課堂學習單（概念說明 + SVG 圖解：等號魔法橋）
+// Slide 15: 數學課堂學習單（概念說明 + 分步練習）
 const Slide10_MathScaffold2: Page = () => (
   <div style={fill}>
     <TextbookBg />
     <TextbookHeader
       unit="數學備課"
-      title="等號魔法橋概念圖解"
-      subtitle="幾何圖解"
+      title="概念說明融入學習單"
+      subtitle="先懂再練"
     />
 
     <div
@@ -3641,7 +3641,7 @@ const Slide10_MathScaffold2: Page = () => (
               color: colors.indigo,
             }}
           >
-            <span>💡 幾何視覺化隱喻</span>
+            <span>💡 先理解，再作答</span>
           </div>
           <div
             style={{
@@ -3656,7 +3656,7 @@ const Slide10_MathScaffold2: Page = () => (
               fontWeight: 850,
             }}
           >
-            等號魔法橋
+            概念說明
           </div>
         </div>
 
@@ -3691,7 +3691,7 @@ const Slide10_MathScaffold2: Page = () => (
             >
               💡
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>等號是一座魔法橋</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>先說明這題在學什麼</span>
           </div>
 
           <div
@@ -3722,9 +3722,9 @@ const Slide10_MathScaffold2: Page = () => (
                 flexShrink: 0,
               }}
             >
-              ➕
+              ②
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>加號過橋變成減號</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>用例題拆解解題想法</span>
           </div>
 
           <div
@@ -3755,9 +3755,9 @@ const Slide10_MathScaffold2: Page = () => (
                 flexShrink: 0,
               }}
             >
-              ➖
+              ③
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>減號過橋變成加號</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>再用練習確認是否理解</span>
           </div>
         </div>
 
@@ -3810,128 +3810,21 @@ const Slide10_MathScaffold2: Page = () => (
             width: '100%',
             maxWidth: 620,
             height: 310,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <svg
-            viewBox="0 0 600 290"
-            style={{ width: '100%', height: '100%', overflow: 'visible' }}
-          >
-            <defs>
-              <linearGradient id="bridgeLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#cbd5e1" />
-                <stop offset="50%" stopColor="#6366f1" />
-                <stop offset="100%" stopColor="#cbd5e1" />
-              </linearGradient>
-              <linearGradient id="plusCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#eff6ff" />
-                <stop offset="100%" stopColor="#dbeafe" />
-              </linearGradient>
-              <linearGradient id="minusCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#fff1f2" />
-                <stop offset="100%" stopColor="#ffe4e6" />
-              </linearGradient>
-              <marker
-                id="arrowhead"
-                markerWidth="10"
-                markerHeight="10"
-                refX="6"
-                refY="5"
-                orient="auto"
-              >
-                <polygon points="0 1, 10 5, 0 9, 3 5" fill="#f43f5e" />
-              </marker>
-            </defs>
-
-            {/* 橋身水平軌道 */}
-            <line
-              x1="70"
-              y1="190"
-              x2="530"
-              y2="190"
-              stroke="url(#bridgeLineGrad)"
-              strokeWidth="7"
-              strokeLinecap="round"
-            />
-
-            {/* 左側節點：+ 3 */}
-            <g transform="translate(140, 190)">
-              <circle r="48" fill="url(#plusCircleGrad)" stroke="#3b82f6" strokeWidth="4.5" />
-              <text
-                textAnchor="middle"
-                dy="14"
-                fontSize="40"
-                fontWeight="950"
-                fill="#1d4ed8"
-                fontFamily="var(--osd-font-display), sans-serif"
-              >
-                + 3
-              </text>
-            </g>
-
-            {/* 中央橋樑核心：等號魔法橋 */}
-            <g transform="translate(300, 190)">
-              <rect x="-34" y="26" width="68" height="14" rx="7" fill="#cbd5e1" />
-              <circle r="40" fill="#4f46e5" stroke="#ffffff" strokeWidth="4.5" />
-              <text
-                textAnchor="middle"
-                dy="14"
-                fontSize="44"
-                fontWeight="950"
-                fill="#ffffff"
-                fontFamily="var(--osd-font-display), sans-serif"
-              >
-                =
-              </text>
-              <text
-                textAnchor="middle"
-                dy="62"
-                fontSize="20"
-                fontWeight="900"
-                fill="#4f46e5"
-              >
-                魔法橋
-              </text>
-            </g>
-
-            {/* 右側節點：− 3 */}
-            <g transform="translate(460, 190)">
-              <circle r="48" fill="url(#minusCircleGrad)" stroke="#f43f5e" strokeWidth="4.5" />
-              <text
-                textAnchor="middle"
-                dy="14"
-                fontSize="40"
-                fontWeight="950"
-                fill="#e11d48"
-                fontFamily="var(--osd-font-display), sans-serif"
-              >
-                − 3
-              </text>
-            </g>
-
-            {/* 跨越等號的拱形虛線箭頭 */}
-            <path
-              d="M 160 126 Q 300 24 440 126"
-              fill="none"
-              stroke="#f43f5e"
-              strokeWidth="4.5"
-              strokeDasharray="9 6"
-              markerEnd="url(#arrowhead)"
-            />
-
-            {/* 箭頭上方動態標籤 */}
-            <g transform="translate(300, 56)">
-              <rect x="-92" y="-22" width="184" height="42" rx="21" fill="#f43f5e" />
-              <text
-                textAnchor="middle"
-                dy="6"
-                fontSize="22"
-                fontWeight="950"
-                fill="#ffffff"
-              >
-                走過等號變號！
-              </text>
-            </g>
-          </svg>
+          <img
+            src={imgMathConcept}
+            alt="七年級數學一元一次方程式的概念說明學習單"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              borderRadius: 12,
+            }}
+          />
         </div>
 
         {/* 下方方程式示範列 */}
@@ -3951,14 +3844,14 @@ const Slide10_MathScaffold2: Page = () => (
             letterSpacing: '0.04em',
           }}
         >
-          <span>x <strong style={{ color: '#1d4ed8' }}>+ 3</strong> = 8</span>
+          <span>概念說明</span>
           <span style={{ color: '#f43f5e' }}>➔</span>
-          <span>x = 8 <strong style={{ color: '#e11d48' }}>− 3</strong></span>
+          <span>分步練習</span>
         </div>
       </div>
     </div>
 
-    <TextbookFooter subtitle="第一部分：等號魔法橋概念圖解" />
+    <TextbookFooter subtitle="第一部分：數學概念說明" />
   </div>
 );
 
@@ -4118,7 +4011,7 @@ const Slide11_Part2Header: Page = () => (
 const Slide14_WebTool1: Page = () => (
   <ToolChapterSlide
     unit="單元二：自製互動網頁"
-    title="句型排列與語法重組"
+    title="句型排列"
     subtitle="視覺拖曳 · 語音校對"
     desc="免手寫直覺拖曳操作，支援即時語音朗讀與自我校對訂正"
     btnHref={toolUrls.unscramble}
@@ -4145,9 +4038,9 @@ const Slide14_Practice_Unscramble: Page = () => (
 const Slide15_InteractiveMath: Page = () => (
   <ToolChapterSlide
     unit="單元二：自製互動網頁"
-    title="互動步驟數學學習單"
+    title="互動步驟數學"
     subtitle="步驟拆解 · 即時檢核"
-    desc="小步子拆解解題流程，提供逐步填答與點選操作雙軌模式"
+    desc="小步拆解解題流程，提供逐步填答與點選操作雙軌模式"
     buttons={
       <div style={{ display: 'flex', gap: 16 }}>
         <a
@@ -5304,10 +5197,167 @@ const Slide23_ClosingSummary: Page = () => (
           letterSpacing: '0.03em',
         }}
       >
-        覺得困難時，就追蹤<strong>米克師</strong>吧！
+        選擇自己最不排斥的<strong>{''}</strong>！
       </div>
     </div>
     <TextbookFooter subtitle="總結與賦歸" />
+  </div>
+);
+
+const toolRecommendations = [
+  {
+    painPoint: '想做詞彙教材，配圖麻煩、排版又很累',
+    name: '詞彙教材生成器',
+    href: 'https://spedmix.pages.dev/vocab-maker',
+    accent: '#6366f1',
+  },
+  {
+    painPoint: '學生學文言文理解有限，學習動機也低',
+    name: '文言文翻譯與導讀',
+    href: 'https://spedmix.pages.dev/chinesetranslate',
+    accent: '#0ea5e9',
+  },
+  {
+    painPoint: '課文太難，學生需要逐句搭配圖解',
+    name: '四格漫畫課文圖解',
+    href: 'https://spedmix.pages.dev/four-panel-comic',
+    accent: '#f59e0b',
+  },
+  {
+    painPoint: '特需課程太空洞，不知道要上什麼',
+    name: '特需課程教材',
+    href: 'https://spedmix.pages.dev/#detail/special-needs',
+    accent: '#ec4899',
+  },
+  {
+    painPoint: '書商題目太難，學生做起來不適性',
+    name: '個別化出題小幫手',
+    href: 'https://spedmix.pages.dev/question',
+    accent: '#f43f5e',
+  },
+  {
+    painPoint: '要教學生技能，還要拆步驟與配圖',
+    name: '工作分析教材',
+    href: 'https://spedmix.pages.dev/taskanalysis',
+    accent: '#14b8a6',
+  },
+] as const;
+
+const Slide24_RecommendedTools: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader unit="延伸工具" title="還有這些工具，也很好用" subtitle="從教學痛點直接挑工具" />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 22,
+        flex: 1,
+        minHeight: 0,
+        zIndex: 2,
+      }}
+    >
+      {toolRecommendations.map(({ painPoint, name, href, accent }, index) => (
+        <a
+          className="es-fadeUp"
+          href={href}
+          key={href}
+          rel="noreferrer"
+          style={{
+            animationDelay: `${index * 0.06}s`,
+            background: 'rgba(255, 255, 255, 0.94)',
+            border: '1.5px solid rgba(226, 232, 240, 0.9)',
+            borderLeft: `10px solid ${accent}`,
+            borderRadius: 22,
+            boxShadow: '0 16px 32px rgba(148, 163, 184, 0.14)',
+            color: colors.text,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            padding: '22px 30px',
+            position: 'relative',
+            textDecoration: 'none',
+          }}
+          target="_blank"
+        >
+          <span
+            style={{
+              color: accent,
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: '104px',
+              fontWeight: 950,
+              letterSpacing: '-0.08em',
+              lineHeight: 1,
+              opacity: 0.08,
+              position: 'absolute',
+              right: 26,
+              top: 10,
+            }}
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <div
+            style={{
+              alignItems: 'center',
+              color: accent,
+              display: 'flex',
+              fontSize: '22px',
+              fontWeight: 950,
+              gap: 10,
+              letterSpacing: '0.08em',
+              position: 'relative',
+            }}
+          >
+            <span
+              style={{
+                alignItems: 'center',
+                background: `${accent}18`,
+                borderRadius: 999,
+                display: 'inline-flex',
+                fontSize: '19px',
+                height: 32,
+                justifyContent: 'center',
+                letterSpacing: 0,
+                width: 32,
+              }}
+            >
+              {index + 1}
+            </span>
+            遇到這個情況
+          </div>
+          <div
+            style={{
+              color: colors.text,
+              fontSize: '29px',
+              fontWeight: 700,
+              lineHeight: 1.35,
+              marginTop: 12,
+              position: 'relative',
+            }}
+          >
+            {painPoint}
+          </div>
+          <div
+            style={{
+              alignItems: 'center',
+              color: accent,
+              display: 'flex',
+              fontSize: '42px',
+              fontWeight: 950,
+              gap: 12,
+              letterSpacing: '-0.02em',
+              marginTop: 12,
+              position: 'relative',
+            }}
+          >
+            <span>{name}</span>
+            <span style={{ fontSize: '28px' }}>↗</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <TextbookFooter subtitle="延伸工具推薦" />
   </div>
 );
 
@@ -5352,6 +5402,7 @@ export default [
   Slide20_Practice_Canvas,
   Slide21_IterativeRefinement,
   Slide22_QualityCheck,
+  Slide24_RecommendedTools,
   Slide23_ClosingSummary,
   Slide02c_Social,
   Slide06_MixerIntro,
