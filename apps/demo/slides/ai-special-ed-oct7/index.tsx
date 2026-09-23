@@ -41,7 +41,7 @@ import imgTool1 from './assets/工具一.png';
 export const design: DesignSystem = {
   palette: { bg: '#f1f5f9', text: '#0f172a', accent: '#6366f1' },
   fonts: {
-    display: "'Outfit', 'Noto Sans TC', system-ui, -apple-system, sans-serif",
+    display: "'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif",
     body: "'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif",
   },
   typeScale: { hero: 150, body: 36 },
@@ -132,6 +132,12 @@ const fill: CSSProperties = {
 };
 
 const keyframes = `
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700&display=swap');
+
+h1, h2, h3, [data-heading] {
+  font-family: var(--osd-font-display), 'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif !important;
+}
+
 @keyframes es-fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -299,7 +305,15 @@ const TextbookHeader = ({
       )}
     </div>
     <h2
-      style={{ fontSize: '80px', fontWeight: 900, margin: '8px 0 0 0', color: colors.text, letterSpacing: '-0.02em', lineHeight: 1.15 }}
+      style={{
+        fontFamily: 'var(--osd-font-display)',
+        fontSize: '80px',
+        fontWeight: 900,
+        margin: '8px 0 0 0',
+        color: colors.text,
+        letterSpacing: '-0.02em',
+        lineHeight: 1.15,
+      }}
     >
       {title}
     </h2>
@@ -418,6 +432,7 @@ const PartHeaderPage = ({
 
       <h2
         style={{
+          fontFamily: 'var(--osd-font-display)',
           fontSize: '80px',
           fontWeight: 950,
           color: colors.white,
@@ -2924,7 +2939,7 @@ const Slide04_Part1Header: Page = () => (
   <PartHeaderPage
     partNum="1"
     time="14:00~14:50"
-    title={'行政減負與教材備課\n實例分享'}
+    title={'行政減量與教材備課\n實例分享'}
     desc="IEP 行政目標生成 ＋ 國英數適性課堂學習單，AI 快速產出第一版，老師回歸個別化微調"
   />
 );
@@ -3525,18 +3540,18 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
   />
 );
 
-// 國文課堂學習單 2: 田字格與重點精要
+// 國文課堂學習單 2: 田字格與重點摘要
 const Slide08_ChineseLessonWorksheet2: Page = () => (
   <MinimalToolSlide
     unit="語文備課"
-    title="田字格與精要"
+    title="田字格與摘要"
     subtitle="手寫鷹架"
     imgSrc={imgChineseTianzi}
-    imgAlt="田字格與精要"
+    imgAlt="田字格與摘要"
     frameLabel="手寫鷹架 · 注音田字格"
     points={[
       '注音田字格生字練寫',
-      '段落核心重點精要',
+      '段落核心重點摘要',
       '降低特教生書寫挫折',
     ]}
   />
