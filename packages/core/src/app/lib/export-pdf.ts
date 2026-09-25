@@ -63,19 +63,14 @@ const PRINT_STYLES = `
     transform: scale(0.5);
     transform-origin: top left;
   }
-  /* Chromium serializes box-shadow and CSS gradients as PDF transparency
-     groups / soft masks. macOS Preview re-composites those on every page
-     turn, causing 0.5–2s per-page lag. Strip them in the print container
-     only — gradients on pseudo-elements via CSS (DOM walk can't reach them),
-     inline-style gradients via neutralizeGradientBackgrounds() below. */
+  /* Chromium serializes box-shadow and blurred CSS gradients as PDF
+     transparency groups / soft masks. macOS Preview re-composites those on
+     every page turn, causing 0.5–2s per-page lag. Keep slide gradients and
+     remove only blurred decorative gradients in neutralizeGradientBackgrounds(). */
   #${PRINT_ROOT_ID} *,
   #${PRINT_ROOT_ID} *::before,
   #${PRINT_ROOT_ID} *::after {
     box-shadow: none !important;
-  }
-  #${PRINT_ROOT_ID} *::before,
-  #${PRINT_ROOT_ID} *::after {
-    background-image: none !important;
   }
 }
 `;
@@ -197,7 +192,7 @@ function neutralizeGradientBackgrounds(root: HTMLElement): void {
   for (const el of elements) {
     const styles = getComputedStyle(el);
     const bg = styles.backgroundImage;
-    if (!bg?.includes('gradient(')) continue;
+    if (!bg?.includes('gradient(') || !styles.filter.includes('blur(')) continue;
 
     const result = removeGradientBackgroundLayers(bg);
     const size = styles.backgroundSize;

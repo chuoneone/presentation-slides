@@ -1,3 +1,9 @@
+import imgHeadshot from '@assets/headshot.webp';
+import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
+import imgMixerShare from '@assets/mixer-share.webp';
+import imgMixerTeaching from '@assets/mixer-teaching.webp';
+import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
+import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import {
   type DesignSystem,
   type Page,
@@ -7,41 +13,30 @@ import {
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
 import imgAgendaSchedule from './assets/agenda-schedule.png';
-import imgChineseWorksheet from './assets/chinese-worksheet-tool.png';
-import imgChineseReading from './assets/chinese-scaffold-reading.png';
-import imgChineseTianzi from './assets/chinese-tianzi-grid.png';
-import imgChineseQuiz from './assets/chinese-paragraph-quiz.png';
-import imgChineseTable from './assets/chinese-structure-table.png';
 import imgChineseMatch from './assets/chinese-match-quiz.png';
+import imgChineseQuiz from './assets/chinese-paragraph-quiz.png';
+import imgChineseReading from './assets/chinese-scaffold-reading.png';
+import imgChineseTable from './assets/chinese-structure-table.png';
+import imgChineseTianzi from './assets/chinese-tianzi-grid.png';
+import imgChineseWorksheet from './assets/chinese-worksheet-tool.png';
 import imgEnglishHandwriting from './assets/english-handwriting-practice.png';
 import imgEnglishInput from './assets/english-input-form.png';
 import imgEnglishQuiz from './assets/english-scene-quiz.png';
-import imgEnglishStoryboard from './assets/english-storyboard-reading.png';
 import imgEnglishSummary from './assets/english-story-summary.png';
-import imgExamAssistantFeedbackApi from './assets/exam-assistant-feedback-api.png';
-import imgExamAssistantFeedbackWord from './assets/exam-assistant-feedback-word.png';
-import imgExamAssistantFirstDraft from './assets/exam-assistant-first-draft.png';
-import imgExamAssistantGeminiResult from './assets/exam-assistant-gemini-result.png';
-import imgExamAssistantPrompt from './assets/exam-assistant-prompt.png';
-import imgExamAssistantWordMenu from './assets/exam-assistant-word-menu.png';
-import imgHeadshot from '@assets/headshot.webp';
+import imgEnglishStoryboard from './assets/english-storyboard-reading.png';
 import imgHeroTeacher from './assets/hero-teacher.png';
 import imgInteractiveStepMath from './assets/interactive-step-math.png';
 import imgMathCatalog from './assets/math-ebook-catalog.png';
 import imgMathConcept from './assets/math-ebook-concept.png';
 import imgMathInputGemini from './assets/math-input-gemini.png';
 import imgMathPrint from './assets/math-print-preview.png';
-import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
-import imgMixerShare from '@assets/mixer-share.webp';
-import imgMixerTeaching from '@assets/mixer-teaching.webp';
-import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
-import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import imgTool1 from './assets/工具一.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#f1f5f9', text: '#0f172a', accent: '#6366f1' },
   fonts: {
-    display: "'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif",
+    display:
+      "'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif",
     body: "'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif",
   },
   typeScale: { hero: 150, body: 36 },
@@ -98,10 +93,12 @@ const toolUrls = {
   englishWorksheet: 'https://spedmix.pages.dev/special-ed-english-worksheet',
   englishWorksheetGemini: 'https://share.gemini.google/ZFGGl35CNHVH',
   unscramble: 'https://spedmix.pages.dev/unscramble',
-  interactiveMathInput:
-    'https://gemini.google.com/gem/1FnYQ8WhRcj8dQQOUi6U9U44g04HMB-Mi?usp=sharing',
-  interactiveMathClick:
-    'https://gemini.google.com/gem/1-lMnqRSy2m4LGg2hXYujN3uWEPjIloiG?usp=sharing',
+  interactiveMath: 'https://spedmix.pages.dev/interativemath',
+} as const;
+
+const uploadFileUrls = {
+  language: 'https://forms.gle/wnMPK8xJXCwQ6VNh8',
+  general: 'https://forms.gle/wUPvUAkE7PoFVdEFA',
 } as const;
 
 const socialUrls = {
@@ -205,7 +202,13 @@ const TextbookBg = () => (
   </div>
 );
 
-const TextbookFooter = ({ subtitle, inverse = false }: { subtitle?: string; inverse?: boolean }) => {
+const TextbookFooter = ({
+  subtitle,
+  inverse = false,
+}: {
+  subtitle?: string;
+  inverse?: boolean;
+}) => {
   const { current, total } = useSlidePageNumber();
   return (
     <footer
@@ -217,7 +220,9 @@ const TextbookFooter = ({ subtitle, inverse = false }: { subtitle?: string; inve
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderTop: inverse ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(203, 213, 225, 0.6)',
+        borderTop: inverse
+          ? '1px solid rgba(255, 255, 255, 0.2)'
+          : '1px solid rgba(203, 213, 225, 0.6)',
         paddingTop: 16,
         fontSize: '24px',
         color: inverse ? '#cbd5e1' : colors.muted,
@@ -265,7 +270,9 @@ const TextbookFooter = ({ subtitle, inverse = false }: { subtitle?: string; inve
           {String(current).padStart(2, '0')}
         </span>
         <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>/</span>
-        <span style={{ color: inverse ? '#cbd5e1' : '#64748b' }}>{String(total).padStart(2, '0')}</span>
+        <span style={{ color: inverse ? '#cbd5e1' : '#64748b' }}>
+          {String(total).padStart(2, '0')}
+        </span>
       </div>
     </footer>
   );
@@ -339,189 +346,190 @@ const PartHeaderPage = ({
   const accent = accents[partNum] ?? '#818cf8';
 
   return (
-  <div
-    style={{
-      ...fill,
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      color: colors.white,
-      background: 'linear-gradient(135deg, #0f172a 0%, #172554 52%, #312e81 100%)',
-    }}
-  >
     <div
       style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px)',
-        backgroundSize: '28px 28px',
-        opacity: 0.3,
-        pointerEvents: 'none',
-      }}
-    />
-
-    {/* 微光球體 */}
-    <div
-      style={{
-        position: 'absolute',
-        width: 850,
-        height: 850,
-        borderRadius: '50%',
-        background:
-          `radial-gradient(circle, ${accent}66 0%, rgba(15, 23, 42, 0) 70%)`,
-        filter: 'blur(50px)',
-        top: '20%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        pointerEvents: 'none',
-      }}
-    />
-
-    {/* 背景大數字水印 */}
-    <div
-      style={{
-        position: 'absolute',
-        fontSize: '340px',
-        fontWeight: 950,
-        color: colors.white,
-        opacity: 0.08,
-        top: '42%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        fontFamily: 'var(--osd-font-display)',
-        pointerEvents: 'none',
-        lineHeight: 1,
-      }}
-    >
-      0{partNum}
-    </div>
-
-    <div
-      style={{
-        zIndex: 2,
-        maxWidth: 1560,
-        display: 'flex',
-        flexDirection: 'column',
+        ...fill,
+        justifyContent: 'center',
         alignItems: 'center',
+        textAlign: 'center',
+        color: colors.white,
+        background: 'linear-gradient(135deg, #0f172a 0%, #172554 52%, #312e81 100%)',
       }}
     >
       <div
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 14,
-          fontSize: '28px',
-          fontFamily: 'var(--osd-font-display)',
-          fontWeight: 950,
-          color: '#ffffff',
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(16px)',
-          border: `1.5px solid ${accent}99`,
-          padding: '10px 32px',
-          borderRadius: 999,
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          marginBottom: 32,
-          boxShadow: `0 10px 28px ${accent}4d`,
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px)',
+          backgroundSize: '28px 28px',
+          opacity: 0.3,
+          pointerEvents: 'none',
         }}
-      >
-        <span>PART 0{partNum}</span>
-        <span>·</span>
-        <span>{time}</span>
-      </div>
+      />
 
-      <h2
+      {/* 微光球體 */}
+      <div
         style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '80px',
+          position: 'absolute',
+          width: 850,
+          height: 850,
+          borderRadius: '50%',
+          background: `radial-gradient(circle, ${accent}66 0%, rgba(15, 23, 42, 0) 70%)`,
+          filter: 'blur(50px)',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* 背景大數字水印 */}
+      <div
+        style={{
+          position: 'absolute',
+          fontSize: '340px',
           fontWeight: 950,
           color: colors.white,
-          margin: '0 0 28px 0',
-          lineHeight: 1.15,
-          letterSpacing: '-0.025em',
-          whiteSpace: 'pre-line',
+          opacity: 0.08,
+          top: '42%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          fontFamily: 'var(--osd-font-display)',
+          pointerEvents: 'none',
+          lineHeight: 1,
         }}
       >
-        {title}
-      </h2>
+        0{partNum}
+      </div>
 
-      <p
-        style={{
-          fontSize: '40px',
-          color: '#cbd5e1',
-          lineHeight: 1.4,
-          margin: '0 0 64px 0',
-          fontWeight: 650,
-          maxWidth: 1280,
-        }}
-      >
-        {desc}
-      </p>
-
-      {/* 底部 3 階段導引節奏 */}
       <div
         style={{
+          zIndex: 2,
+          maxWidth: 1560,
           display: 'flex',
-          justifyContent: 'center',
-          gap: 32,
-          padding: '18px 42px',
-          background: 'rgba(15, 23, 42, 0.35)',
-          backdropFilter: 'blur(20px)',
-          borderRadius: 999,
-          border: '1.5px solid rgba(255, 255, 255, 0.16)',
-          boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        {[
-          { num: 1, name: '行政與教材備課' },
-          { num: 2, name: '自製互動教學網頁' },
-          { num: 3, name: '自製 AI 工具實作' },
-        ].map((item) => {
-          const currentPart = Number.parseInt(partNum, 10);
-          const isActive = item.num === currentPart;
-          const isPassed = item.num < currentPart;
-          return (
-            <div
-              key={item.num}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                fontWeight: isActive ? 950 : 700,
-                color: isActive ? '#ffffff' : isPassed ? '#c7d2fe' : '#94a3b8',
-                fontSize: '28px',
-              }}
-            >
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 14,
+            fontSize: '28px',
+            fontFamily: 'var(--osd-font-display)',
+            fontWeight: 950,
+            color: '#ffffff',
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(16px)',
+            border: `1.5px solid ${accent}99`,
+            padding: '10px 32px',
+            borderRadius: 999,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            marginBottom: 32,
+            boxShadow: `0 10px 28px ${accent}4d`,
+          }}
+        >
+          <span>PART 0{partNum}</span>
+          <span>·</span>
+          <span>{time}</span>
+        </div>
+
+        <h2
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: '80px',
+            fontWeight: 950,
+            color: colors.white,
+            margin: '0 0 28px 0',
+            lineHeight: 1.15,
+            letterSpacing: '-0.025em',
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {title}
+        </h2>
+
+        <p
+          style={{
+            fontSize: '40px',
+            color: '#cbd5e1',
+            lineHeight: 1.4,
+            margin: '0 0 64px 0',
+            fontWeight: 650,
+            maxWidth: 1280,
+          }}
+        >
+          {desc}
+        </p>
+
+        {/* 底部 3 階段導引節奏 */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 32,
+            padding: '18px 42px',
+            background: 'rgba(15, 23, 42, 0.35)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: 999,
+            border: '1.5px solid rgba(255, 255, 255, 0.16)',
+            boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
+          }}
+        >
+          {[
+            { num: 1, name: '行政與教材備課' },
+            { num: 2, name: '自製互動教學網頁' },
+            { num: 3, name: '自製 AI 工具實作' },
+          ].map((item) => {
+            const currentPart = Number.parseInt(partNum, 10);
+            const isActive = item.num === currentPart;
+            const isPassed = item.num < currentPart;
+            return (
               <div
+                key={item.num}
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: '50%',
-                  background: isActive
-                    ? `linear-gradient(135deg, ${accent} 0%, #ffffff 180%)`
-                    : isPassed
-                      ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
-                      : 'rgba(255, 255, 255, 0.18)',
-                  color: isActive ? colors.navy : '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '22px',
-                  fontWeight: 950,
-                  boxShadow: isActive ? `0 4px 16px ${accent}66` : 'none',
+                  gap: 12,
+                  fontWeight: isActive ? 950 : 700,
+                  color: isActive ? '#ffffff' : isPassed ? '#c7d2fe' : '#94a3b8',
+                  fontSize: '28px',
                 }}
               >
-                {isPassed ? '✓' : item.num}
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: '50%',
+                    background: isActive
+                      ? `linear-gradient(135deg, ${accent} 0%, #ffffff 180%)`
+                      : isPassed
+                        ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
+                        : 'rgba(255, 255, 255, 0.18)',
+                    color: isActive ? colors.navy : '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '22px',
+                    fontWeight: 950,
+                    boxShadow: isActive ? `0 4px 16px ${accent}66` : 'none',
+                  }}
+                >
+                  {isPassed ? '✓' : item.num}
+                </div>
+                <span>{item.name}</span>
+                {item.num < 3 && (
+                  <span style={{ color: 'rgba(255, 255, 255, 0.32)', marginLeft: 20 }}>➔</span>
+                )}
               </div>
-              <span>{item.name}</span>
-              {item.num < 3 && <span style={{ color: 'rgba(255, 255, 255, 0.32)', marginLeft: 20 }}>➔</span>}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
+      <TextbookFooter subtitle={`PART 0${partNum}`} inverse />
     </div>
-    <TextbookFooter subtitle={`PART 0${partNum}`} inverse />
-  </div>
   );
 };
 
@@ -838,8 +846,7 @@ const WorkshopPracticeTimer = ({
           justifyContent: 'center',
           background:
             'radial-gradient(circle, rgba(15, 23, 42, 0.97) 0%, rgba(30, 41, 59, 0.94) 100%)',
-          boxShadow:
-            '0 24px 60px rgba(15, 23, 42, 0.28), 0 0 48px rgba(244, 63, 94, 0.22)',
+          boxShadow: '0 24px 60px rgba(15, 23, 42, 0.28), 0 0 48px rgba(244, 63, 94, 0.22)',
           border: '2.5px solid rgba(255, 255, 255, 0.18)',
         }}
       >
@@ -922,7 +929,11 @@ const WorkshopPracticeTimer = ({
               marginTop: 10,
               fontSize: '20px',
               fontWeight: 850,
-              color: isRunning ? '#fed7aa' : isFinished ? colors.orange : 'rgba(255, 255, 255, 0.75)',
+              color: isRunning
+                ? '#fed7aa'
+                : isFinished
+                  ? colors.orange
+                  : 'rgba(255, 255, 255, 0.75)',
               background: 'rgba(255, 255, 255, 0.1)',
               padding: '5px 16px',
               borderRadius: 999,
@@ -976,9 +987,7 @@ const WorkshopPracticeTimer = ({
             alignItems: 'center',
             gap: 10,
             padding: '12px 38px',
-            background: isRunning
-              ? '#fed7aa'
-              : 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
+            background: isRunning ? '#fed7aa' : 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
             color: isRunning ? colors.navy : colors.white,
             border: 'none',
             borderRadius: 16,
@@ -1042,7 +1051,7 @@ const PracticePage = ({
   desc,
   task,
   href,
-  linkText = '🚀 開始實作',
+  uploadHref,
 }: {
   num: string;
   toolName: string;
@@ -1051,7 +1060,7 @@ const PracticePage = ({
   task?: string;
   steps?: string[];
   href?: string;
-  linkText?: string;
+  uploadHref: string;
 }) => {
   const minNum = Number.parseInt(time, 10) || 10;
   const practiceLabel = `實作 ${num}`;
@@ -1089,7 +1098,9 @@ const PracticePage = ({
             marginBottom: 8,
           }}
         >
-          <span>⏱️ {practiceLabel} · 課堂實作 {time}</span>
+          <span>
+            ⏱️ {practiceLabel} · 課堂實作 {time}
+          </span>
         </div>
         <h2
           style={{
@@ -1142,31 +1153,56 @@ const PracticePage = ({
           {taskText}
         </div>
 
-        {href && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 18 }}>
+          {href && (
+            <a
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 14,
+                background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
+                color: colors.white,
+                padding: '14px 46px',
+                borderRadius: 18,
+                fontSize: '32px',
+                fontWeight: 950,
+                textDecoration: 'none',
+                boxShadow: '0 12px 28px rgba(244, 63, 94, 0.35)',
+                letterSpacing: '0.04em',
+                transition: 'transform 0.15s ease',
+              }}
+            >
+              <span>工具連結</span>
+              <span style={{ fontSize: '28px' }}>➔</span>
+            </a>
+          )}
           <a
-            href={href}
+            href={uploadHref}
             target="_blank"
             rel="noreferrer"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 14,
-              background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
+              background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
               color: colors.white,
               padding: '14px 46px',
               borderRadius: 18,
               fontSize: '32px',
               fontWeight: 950,
               textDecoration: 'none',
-              boxShadow: '0 12px 28px rgba(244, 63, 94, 0.35)',
+              boxShadow: '0 12px 28px rgba(14, 165, 233, 0.3)',
               letterSpacing: '0.04em',
               transition: 'transform 0.15s ease',
             }}
           >
-            <span>{linkText}</span>
+            <span>上傳檔案</span>
             <span style={{ fontSize: '28px' }}>➔</span>
           </a>
-        )}
+        </div>
       </div>
 
       <TextbookFooter subtitle={`實作時間：${toolName}`} />
@@ -1419,9 +1455,30 @@ const ToolScreenshotFrame = ({
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <div style={{ display: 'flex', gap: 7 }}>
-          <span style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(255, 255, 255, 0.85)' }} />
-          <span style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(255, 255, 255, 0.55)' }} />
-          <span style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(255, 255, 255, 0.55)' }} />
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.85)',
+            }}
+          />
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.55)',
+            }}
+          />
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.55)',
+            }}
+          />
         </div>
         <span>{label}</span>
       </div>
@@ -1737,7 +1794,7 @@ const MixerSiteCard = ({
       textDecoration: 'none',
       boxShadow: '0 22px 48px rgba(148, 163, 184, 0.16)',
       display: 'grid',
-       gridTemplateRows: '320px 1fr',
+      gridTemplateRows: '320px 1fr',
       overflow: 'hidden',
     }}
   >
@@ -1796,8 +1853,8 @@ const MixerSiteCard = ({
           color: accent,
           background: 'rgba(255, 255, 255, 0.7)',
           borderRadius: 10,
-           padding: '14px 16px',
-           marginTop: 'auto',
+          padding: '14px 16px',
+          marginTop: 'auto',
           fontSize: '20px',
           lineHeight: 1.18,
           fontWeight: 850,
@@ -2074,7 +2131,7 @@ const Slide02_Speaker: Page = () => (
             fontWeight: 700,
           }}
         >
-          國中特教教師
+          {''}
         </p>
       </div>
 
@@ -2266,7 +2323,13 @@ const Slide02a_WorkshopSlides: Page = () => (
           <img
             src={imgWorkshopSearchResult}
             alt="搜尋米克師並點擊 AI 備課幫手"
-            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', minHeight: 0 }}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              display: 'block',
+              minHeight: 0,
+            }}
           />
         </div>
         <div
@@ -2413,49 +2476,118 @@ const Slide06_MixerIntro: Page = () => (
 
 // SVG 1: 紙本 (Folder + Paper + Checkmark)
 const SvgPaperIcon = () => (
-  <svg width="130" height="110" viewBox="0 0 130 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 26C14 20.4772 18.4772 16 24 16H48L58 26H106C111.523 26 116 30.4772 116 36V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V26Z" fill="#2563eb" />
+  <svg
+    width="130"
+    height="110"
+    viewBox="0 0 130 110"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M14 26C14 20.4772 18.4772 16 24 16H48L58 26H106C111.523 26 116 30.4772 116 36V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V26Z"
+      fill="#2563eb"
+    />
     <rect x="24" y="24" width="82" height="60" rx="8" fill="#ffffff" />
     <rect x="34" y="36" width="38" height="6" rx="3" fill="#cbd5e1" />
     <rect x="34" y="48" width="62" height="6" rx="3" fill="#e2e8f0" />
     <rect x="34" y="60" width="48" height="6" rx="3" fill="#e2e8f0" />
-    <path d="M14 42C14 36.4772 18.4772 32 24 32H106C111.523 32 116 36.4772 116 42V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V42Z" fill="#3b82f6" />
-    <path d="M26 80C32 76 38 84 44 80C50 76 56 84 62 80" stroke="#93c5fd" strokeWidth="4" strokeLinecap="round" />
+    <path
+      d="M14 42C14 36.4772 18.4772 32 24 32H106C111.523 32 116 36.4772 116 42V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V42Z"
+      fill="#3b82f6"
+    />
+    <path
+      d="M26 80C32 76 38 84 44 80C50 76 56 84 62 80"
+      stroke="#93c5fd"
+      strokeWidth="4"
+      strokeLinecap="round"
+    />
     <circle cx="96" cy="74" r="21" fill="#22c55e" />
     <circle cx="96" cy="74" r="19" stroke="#ffffff" strokeWidth="2.5" />
-    <path d="M88 74L93.5 79.5L104 69" stroke="#ffffff" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M88 74L93.5 79.5L104 69"
+      stroke="#ffffff"
+      strokeWidth="4.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 // SVG 2: 數位 (Head Silhouette + Split Brain + Arrow)
 const SvgDigitalIcon = () => (
-  <svg width="130" height="110" viewBox="0 0 130 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="130"
+    height="110"
+    viewBox="0 0 130 110"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M14 74L24 60L18 56L34 48L32 66L26 62L16 76H14Z" fill="#ef4444" />
-    <path d="M42 96V78C42 78 40 76 38 72C36 68 36 62 38 60C34 56 34 46 36 40C38 34 44 26 56 22C68 18 84 20 92 28C100 36 102 48 100 58C98 68 96 72 96 72L106 73C108 73 110 75 109 77L104 84C102 87 104 90 102 96H42Z" fill="#f59e0b" />
-    <path d="M60 26C54 26 48 32 48 40C48 44 50 48 48 52C46 56 46 62 50 66C54 70 60 70 62 70V26H60Z" fill="#3b82f6" />
+    <path
+      d="M42 96V78C42 78 40 76 38 72C36 68 36 62 38 60C34 56 34 46 36 40C38 34 44 26 56 22C68 18 84 20 92 28C100 36 102 48 100 58C98 68 96 72 96 72L106 73C108 73 110 75 109 77L104 84C102 87 104 90 102 96H42Z"
+      fill="#f59e0b"
+    />
+    <path
+      d="M60 26C54 26 48 32 48 40C48 44 50 48 48 52C46 56 46 62 50 66C54 70 60 70 62 70V26H60Z"
+      fill="#3b82f6"
+    />
     <circle cx="55" cy="38" r="3" fill="#93c5fd" />
     <circle cx="53" cy="54" r="3" fill="#93c5fd" />
-    <path d="M66 26C72 26 78 30 80 38C82 44 80 48 82 52C84 56 84 62 80 66C76 70 70 70 66 70V26Z" fill="#ef4444" />
+    <path
+      d="M66 26C72 26 78 30 80 38C82 44 80 48 82 52C84 56 84 62 80 66C76 70 70 70 66 70V26Z"
+      fill="#ef4444"
+    />
     <circle cx="73" cy="38" r="3" fill="#fca5a5" />
     <circle cx="75" cy="54" r="3" fill="#fca5a5" />
-    <line x1="64" y1="24" x2="64" y2="72" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+    <line
+      x1="64"
+      y1="24"
+      x2="64"
+      y2="72"
+      stroke="#ffffff"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+    />
   </svg>
 );
 
 // SVG 3: 自製 AI 工具 (Developer with Headset & Laptop)
 const SvgAiToolIcon = () => (
-  <svg width="130" height="110" viewBox="0 0 130 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="130"
+    height="110"
+    viewBox="0 0 130 110"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect x="15" y="86" width="100" height="10" rx="3" fill="#b45309" />
     <rect x="25" y="96" width="80" height="6" rx="2" fill="#92400e" />
     <circle cx="65" cy="38" r="16" fill="#fed7aa" />
-    <path d="M50 36C50 26 56 22 65 22C74 22 80 26 80 36C80 38 78 38 78 35C74 33 70 33 65 33C60 33 56 33 52 35C52 38 50 38 50 36Z" fill="#451a03" />
-    <path d="M48 38C48 26 55 20 65 20C75 20 82 26 82 38" stroke="#334155" strokeWidth="4" strokeLinecap="round" />
+    <path
+      d="M50 36C50 26 56 22 65 22C74 22 80 26 80 36C80 38 78 38 78 35C74 33 70 33 65 33C60 33 56 33 52 35C52 38 50 38 50 36Z"
+      fill="#451a03"
+    />
+    <path
+      d="M48 38C48 26 55 20 65 20C75 20 82 26 82 38"
+      stroke="#334155"
+      strokeWidth="4"
+      strokeLinecap="round"
+    />
     <rect x="45" y="34" width="6" height="12" rx="3" fill="#f97316" />
     <rect x="79" y="34" width="6" height="12" rx="3" fill="#f97316" />
     <path d="M82 42L86 48H80" stroke="#334155" strokeWidth="2.5" strokeLinecap="round" />
     <path d="M42 86C42 66 48 58 65 58C82 58 88 66 88 86H42Z" fill="#3b82f6" />
     <path d="M58 58L65 68L72 58" fill="#fed7aa" />
-    <rect x="46" y="66" width="38" height="22" rx="3" fill="#1e293b" stroke="#64748b" strokeWidth="1.5" />
+    <rect
+      x="46"
+      y="66"
+      width="38"
+      height="22"
+      rx="3"
+      fill="#1e293b"
+      stroke="#64748b"
+      strokeWidth="1.5"
+    />
     <circle cx="65" cy="77" r="3" fill="#60a5fa" />
     <rect x="42" y="86" width="46" height="3" rx="1.5" fill="#475569" />
   </svg>
@@ -2609,7 +2741,15 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div style={{ height: 84, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '2px 0' }}>
+          <div
+            style={{
+              height: 84,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '2px 0',
+            }}
+          >
             <SvgPaperIcon />
           </div>
         </div>
@@ -2734,7 +2874,15 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div style={{ height: 84, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '2px 0' }}>
+          <div
+            style={{
+              height: 84,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '2px 0',
+            }}
+          >
             <SvgDigitalIcon />
           </div>
         </div>
@@ -2859,7 +3007,15 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div style={{ height: 84, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '2px 0' }}>
+          <div
+            style={{
+              height: 84,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '2px 0',
+            }}
+          >
             <SvgAiToolIcon />
           </div>
         </div>
@@ -3025,10 +3181,7 @@ const Slide05_AdminIep: Page = () => (
           border: '1px solid rgba(226, 232, 240, 0.8)',
         }}
       >
-        {[
-          '貼入起點行為現況',
-          '一秒生成標準目標',
-        ].map((pt, idx) => (
+        {['貼入起點行為現況', '一秒生成標準目標'].map((pt, idx) => (
           <div
             key={idx}
             style={{
@@ -3099,7 +3252,7 @@ const Slide06_Practice_IEP: Page = () => (
     time="10 分鐘"
     task="請利用 IEP 目標生成器，輸入學生現況試做一組教育目標。"
     href={toolUrls.iep}
-    linkText="🚀 前往使用"
+    uploadHref={uploadFileUrls.general}
   />
 );
 
@@ -3164,13 +3317,21 @@ const MinimalToolSlide = ({
         }}
       >
         {/* 頂部功能分類與副標籤 */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+          }}
+        >
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
               border: '1px solid rgba(99, 102, 241, 0.22)',
               padding: '6px 16px',
               borderRadius: 20,
@@ -3202,7 +3363,16 @@ const MinimalToolSlide = ({
         </div>
 
         {/* 核心卡片內容區 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, flex: 1, justifyContent: 'center', margin: '12px 0' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 14,
+            flex: 1,
+            justifyContent: 'center',
+            margin: '12px 0',
+          }}
+        >
           {children && (
             <div
               style={{
@@ -3217,60 +3387,77 @@ const MinimalToolSlide = ({
             </div>
           )}
 
-          {points && points.length > 0 && points.map((pt, idx) => {
-            const accents = [
-              { bg: 'rgba(99, 102, 241, 0.12)', text: '#4f46e5', border: 'rgba(99, 102, 241, 0.25)', num: '01' },
-              { bg: 'rgba(244, 63, 94, 0.12)', text: '#e11d48', border: 'rgba(244, 63, 94, 0.25)', num: '02' },
-              { bg: 'rgba(14, 165, 233, 0.12)', text: '#0284c7', border: 'rgba(14, 165, 233, 0.25)', num: '03' },
-            ];
-            const acc = accents[idx % accents.length];
-            return (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 16,
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  border: '1.5px solid rgba(226, 232, 240, 0.9)',
-                  borderRadius: 18,
-                  padding: '16px 20px',
-                  boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
-                }}
-              >
+          {points &&
+            points.length > 0 &&
+            points.map((pt, idx) => {
+              const accents = [
+                {
+                  bg: 'rgba(99, 102, 241, 0.12)',
+                  text: '#4f46e5',
+                  border: 'rgba(99, 102, 241, 0.25)',
+                  num: '01',
+                },
+                {
+                  bg: 'rgba(244, 63, 94, 0.12)',
+                  text: '#e11d48',
+                  border: 'rgba(244, 63, 94, 0.25)',
+                  num: '02',
+                },
+                {
+                  bg: 'rgba(14, 165, 233, 0.12)',
+                  text: '#0284c7',
+                  border: 'rgba(14, 165, 233, 0.25)',
+                  num: '03',
+                },
+              ];
+              const acc = accents[idx % accents.length];
+              return (
                 <div
+                  key={idx}
                   style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 12,
-                    background: acc.bg,
-                    border: `1px solid ${acc.border}`,
-                    color: acc.text,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '22px',
-                    fontWeight: 950,
-                    fontFamily: 'var(--osd-font-display)',
-                    flexShrink: 0,
+                    gap: 16,
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    border: '1.5px solid rgba(226, 232, 240, 0.9)',
+                    borderRadius: 18,
+                    padding: '16px 20px',
+                    boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
                   }}
                 >
-                  {acc.num}
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
+                      background: acc.bg,
+                      border: `1px solid ${acc.border}`,
+                      color: acc.text,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '22px',
+                      fontWeight: 950,
+                      fontFamily: 'var(--osd-font-display)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {acc.num}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '32px',
+                      lineHeight: 1.35,
+                      fontWeight: 850,
+                      color: colors.text,
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {pt}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: '32px',
-                    lineHeight: 1.35,
-                    fontWeight: 850,
-                    color: colors.text,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {pt}
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
 
         {/* 底部行動呼籲按鈕 或 適性成效提示 */}
@@ -3304,7 +3491,8 @@ const MinimalToolSlide = ({
               display: 'flex',
               alignItems: 'center',
               gap: 12,
-              background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)',
               border: '1.5px solid rgba(226, 232, 240, 0.95)',
               borderRadius: 16,
               padding: '12px 18px',
@@ -3455,7 +3643,7 @@ const ToolChapterSlide = ({
         {desc && (
           <p
             style={{
-              fontSize: '32px',
+              fontSize: '45px',
               color: colors.muted,
               fontWeight: 700,
               lineHeight: 1.45,
@@ -3499,11 +3687,7 @@ const ToolChapterSlide = ({
       </div>
 
       {/* 右欄：大尺寸工具截圖展示框 */}
-      <ToolScreenshotFrame
-        label={frameLabel}
-        delay={0.15}
-        style={{ height: 600, maxHeight: 600 }}
-      >
+      <ToolScreenshotFrame label={frameLabel} delay={0.15} style={{ height: 600, maxHeight: 600 }}>
         <img
           src={imgSrc}
           alt={imgAlt}
@@ -3549,11 +3733,7 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
     imgSrc={imgChineseTianzi}
     imgAlt="田字格與摘要"
     frameLabel="手寫鷹架 · 注音田字格"
-    points={[
-      '注音田字格生字練寫',
-      '段落核心重點摘要',
-      '降低特教生書寫挫折',
-    ]}
+    points={['注音田字格生字練寫', '段落核心重點摘要', '降低特教生書寫挫折']}
   />
 );
 
@@ -3566,11 +3746,7 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
     imgSrc={imgChineseQuiz}
     imgAlt="隨堂選擇題"
     frameLabel="即時檢核 · 隨堂測驗"
-    points={[
-      '隨段兩題即時測驗',
-      '快速檢核學生理解',
-      '低認知負荷隨學隨測',
-    ]}
+    points={['隨段兩題即時測驗', '快速檢核學生理解', '低認知負荷隨學隨測']}
   />
 );
 
@@ -3583,11 +3759,7 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
     imgSrc={imgChineseTable}
     imgAlt="課文脈絡表格"
     frameLabel="結構鷹架 · 脈絡歸納"
-    points={[
-      '引導式重點歸納表格',
-      '文章結構脈絡梳理',
-      '培養特教生深層理解',
-    ]}
+    points={['引導式重點歸納表格', '文章結構脈絡梳理', '培養特教生深層理解']}
   />
 );
 
@@ -3601,11 +3773,7 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
     imgSrc={imgChineseMatch}
     imgAlt="詞語連連看評量"
     frameLabel="多元評量 · 詞語連連看"
-    points={[
-      '課文詞語注釋連連看',
-      '強化生字詞釋義記憶',
-      '師生雙版本一鍵印出',
-    ]}
+    points={['課文詞語注釋連連看', '強化生字詞釋義記憶', '師生雙版本一鍵印出']}
   />
 );
 
@@ -3617,7 +3785,7 @@ const Slide08_Practice_Chinese: Page = () => (
     time="10 分鐘"
     task="請利用國文課堂學習單生成器試做一課課文。"
     href={toolUrls.chineseLessonGemini}
-    linkText="🚀 開始實作"
+    uploadHref={uploadFileUrls.language}
   />
 );
 
@@ -3639,11 +3807,7 @@ const Slide10_MathScaffold1: Page = () => (
 const Slide10_MathScaffold2: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader
-      unit="數學備課"
-      title="概念說明融入學習單"
-      subtitle="先懂再練"
-    />
+    <TextbookHeader unit="數學備課" title="概念說明融入學習單" subtitle="先懂再練" />
 
     <div
       style={{
@@ -3683,7 +3847,8 @@ const Slide10_MathScaffold2: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
               border: '1px solid rgba(99, 102, 241, 0.22)',
               padding: '6px 16px',
               borderRadius: 20,
@@ -3742,7 +3907,9 @@ const Slide10_MathScaffold2: Page = () => (
             >
               💡
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>先說明這題在學什麼</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>
+              先說明這題在學什麼
+            </span>
           </div>
 
           <div
@@ -3775,7 +3942,9 @@ const Slide10_MathScaffold2: Page = () => (
             >
               ②
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>用例題拆解解題想法</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>
+              用例題拆解解題想法
+            </span>
           </div>
 
           <div
@@ -3808,7 +3977,9 @@ const Slide10_MathScaffold2: Page = () => (
             >
               ③
             </div>
-            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>再用練習確認是否理解</span>
+            <span style={{ fontSize: '32px', fontWeight: 850, color: colors.text }}>
+              再用練習確認是否理解
+            </span>
           </div>
         </div>
 
@@ -3916,11 +4087,7 @@ const Slide10_MathScaffold3: Page = () => (
     imgAlt="單元章節目錄選單"
     frameLabel="浮動工具列：單元章節目錄多頁跳轉"
     imgStyle={{ width: '72%', height: 'auto', maxHeight: '90%' }}
-    points={[
-      '單元目錄快速跳轉',
-      '階梯式基礎到變形題',
-      '螢光筆板書一鍵解答',
-    ]}
+    points={['單元目錄快速跳轉', '階梯式基礎到變形題', '螢光筆板書一鍵解答']}
   />
 );
 
@@ -3934,11 +4101,7 @@ const Slide10_MathScaffold4: Page = () => (
     imgSrc={imgMathPrint}
     imgAlt="列印預覽畫面"
     frameLabel="列印預覽：標準 A4 白底作業卷"
-    points={[
-      '一鍵濾除按鈕與答案',
-      '標準無干擾 A4 作業卷',
-      '免二次排版直接出紙本',
-    ]}
+    points={['一鍵濾除按鈕與答案', '標準無干擾 A4 作業卷', '免二次排版直接出紙本']}
   />
 );
 
@@ -3950,7 +4113,7 @@ const Slide10_Practice_Math: Page = () => (
     time="10 分鐘"
     task="請利用數學簡化學習單生成器，輸入題目試做一課教材。"
     href={toolUrls.mathScaffold}
-    linkText="🚀 開始實作"
+    uploadHref={uploadFileUrls.general}
   />
 );
 
@@ -3977,11 +4140,7 @@ const Slide09_EnglishWorksheet2: Page = () => (
     imgSrc={imgEnglishStoryboard}
     imgAlt="分鏡閱讀畫面"
     frameLabel="分鏡閱讀：圖文對照與單字高亮"
-    points={[
-      '4:3 全彩情境插圖',
-      '大字級關鍵生字高亮',
-      '慢速逐句語音朗讀',
-    ]}
+    points={['4:3 全彩情境插圖', '大字級關鍵生字高亮', '慢速逐句語音朗讀']}
   />
 );
 
@@ -3994,11 +4153,7 @@ const Slide09_EnglishWorksheet3: Page = () => (
     imgSrc={imgEnglishHandwriting}
     imgAlt="四線三格單字練寫"
     frameLabel="單字練寫：四線三格＋音節拆解"
-    points={[
-      '標記紅色第三基準線',
-      '音節拆分與灰字描紅',
-      '低肌肉張力貼心優化',
-    ]}
+    points={['標記紅色第三基準線', '音節拆分與灰字描紅', '低肌肉張力貼心優化']}
   />
 );
 
@@ -4011,11 +4166,7 @@ const Slide09_EnglishWorksheet4: Page = () => (
     imgSrc={imgEnglishQuiz}
     imgAlt="隨段測驗畫面"
     frameLabel="隨段測驗：單字與文法四選一"
-    points={[
-      '每分鏡 2 題雙軌檢核',
-      '免手寫拖曳即時發音',
-      '答錯立即語音訂正',
-    ]}
+    points={['每分鏡 2 題雙軌檢核', '免手寫拖曳即時發音', '答錯立即語音訂正']}
   />
 );
 
@@ -4029,11 +4180,7 @@ const Slide09_EnglishWorksheet5: Page = () => (
     imgSrc={imgEnglishSummary}
     imgAlt="故事順序總結畫面"
     frameLabel="順序總結：單字提示箱與角色狀態"
-    points={[
-      'Word Bank 提示箱',
-      '四格漫畫情境繪本',
-      '師生雙版 Word 匯出',
-    ]}
+    points={['Word Bank 提示箱', '四格漫畫情境繪本', '師生雙版 Word 匯出']}
   />
 );
 
@@ -4045,7 +4192,7 @@ const Slide09_Practice_English: Page = () => (
     time="10 分鐘"
     task="請利用英文課堂學習單生成器，貼入課文試做一課教材。"
     href={toolUrls.englishWorksheet}
-    linkText="🚀 開始實作"
+    uploadHref={uploadFileUrls.language}
   />
 );
 
@@ -4065,7 +4212,7 @@ const Slide14_WebTool1: Page = () => (
     unit="單元二：自製互動網頁"
     title="句型排列"
     subtitle="視覺拖曳 · 語音校對"
-    desc="免手寫直覺拖曳操作，支援即時語音朗讀與自我校對訂正"
+    desc="免手寫直覺拖曳操作，支援即時字卡朗讀"
     btnHref={toolUrls.unscramble}
     btnText="🚀 體驗句型排列工具"
     imgSrc={imgTool1}
@@ -4078,11 +4225,11 @@ const Slide14_WebTool1: Page = () => (
 const Slide14_Practice_Unscramble: Page = () => (
   <PracticePage
     num="05"
-    toolName="句型排列與語法重組"
+    toolName="句型排列"
     time="10 分鐘"
     task="請利用句型排列工具，輸入 2~3 個句子試做互動練習。"
     href={toolUrls.unscramble}
-    linkText="🚀 開啟句型排列工具"
+    uploadHref={uploadFileUrls.general}
   />
 );
 
@@ -4092,50 +4239,29 @@ const Slide15_InteractiveMath: Page = () => (
     unit="單元二：自製互動網頁"
     title="互動步驟數學"
     subtitle="步驟拆解 · 即時檢核"
-    desc="小步拆解解題流程，提供逐步填答與點選操作雙軌模式"
+    desc="小步驟檢核解題流程，提供輸入和點選兩種模式"
     buttons={
-      <div style={{ display: 'flex', gap: 16 }}>
-        <a
-          href={toolUrls.interactiveMathInput}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
-            background: colors.accent,
-            color: colors.white,
-            padding: '18px 32px',
-            borderRadius: 18,
-            fontSize: '28px',
-            fontWeight: 950,
-            textDecoration: 'none',
-            boxShadow: '0 10px 24px rgba(99, 102, 241, 0.35)',
-          }}
-        >
-          <span>⌨️ 逐步填答型</span>
-        </a>
-        <a
-          href={toolUrls.interactiveMathClick}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
-            background: colors.orange,
-            color: colors.white,
-            padding: '18px 32px',
-            borderRadius: 18,
-            fontSize: '28px',
-            fontWeight: 950,
-            textDecoration: 'none',
-            boxShadow: '0 10px 24px rgba(244, 63, 94, 0.35)',
-          }}
-        >
-          <span>👆 點選操作型</span>
-        </a>
-      </div>
+      <a
+        href={toolUrls.interactiveMath}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 10,
+          background: colors.accent,
+          color: colors.white,
+          padding: '18px 32px',
+          borderRadius: 18,
+          fontSize: '28px',
+          fontWeight: 950,
+          textDecoration: 'none',
+          boxShadow: '0 10px 24px rgba(99, 102, 241, 0.35)',
+        }}
+      >
+        <span>工具連結</span>
+        <span style={{ fontSize: '26px' }}>➔</span>
+      </a>
     }
     imgSrc={imgInteractiveStepMath}
     imgAlt="步步練互動數學學習單畫面"
@@ -4150,8 +4276,8 @@ const Slide15_Practice_StepMath: Page = () => (
     toolName="互動式步驟數學學習單"
     time="10 分鐘"
     task="請利用互動步驟數學生成器，輸入題目試做一組題型。"
-    href={toolUrls.interactiveMathInput}
-    linkText="🚀 開啟逐步填答型生成器"
+    href={toolUrls.interactiveMath}
+    uploadHref={uploadFileUrls.general}
   />
 );
 
@@ -4324,7 +4450,10 @@ const Slide19_VibePromptStructure: Page = () => (
               textAlign: 'left',
             }}
           >
-            「使用者貼上教材、選擇題型」<strong>{''}</strong>{''}<strong>{''}</strong>{''}
+            「使用者貼上教材、選擇題型」<strong>{''}</strong>
+            {''}
+            <strong>{''}</strong>
+            {''}
             <strong>{''}</strong>
           </div>
         </div>
@@ -4443,163 +4572,168 @@ const Slide19_VibePromptStructure: Page = () => (
   </div>
 );
 
-// Slide 24-26: 實作示範：考卷生成助手的三次迭代
-const IterationShowcasePage = ({
-  step,
-  title,
-  subtitle,
-  accent,
-  prompt,
-  promptLabel,
-  result,
-  resultAlt,
-  headline,
-  body,
-  resultWidth = '100%',
-}: {
-  step: string;
-  title: string;
-  subtitle: string;
-  accent: string;
-  prompt: string;
-  promptLabel: string;
-  result: string;
-  resultAlt: string;
-  headline: string;
-  body: string;
-  resultWidth?: CSSProperties['width'];
-}) => (
+const Slide20_CommonIssuesHelper: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader unit="單元三" title={title} subtitle={subtitle} />
+    <TextbookHeader
+      unit="單元三"
+      title="自製工具，現場也會卡關"
+      subtitle="把常見問題整理成一個 AI 小幫手"
+    />
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: '0.9fr 1.1fr',
-        gap: 40,
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 28,
         flex: 1,
-        zIndex: 2,
         minHeight: 0,
         alignItems: 'stretch',
+        zIndex: 2,
       }}
     >
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'linear-gradient(145deg, #0f172a 0%, #1e293b 100%)',
-          borderRadius: 28,
-          color: colors.white,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          minHeight: 0,
-          padding: '34px 38px',
-          boxShadow: '0 24px 54px rgba(15, 23, 42, 0.24)',
-          borderTop: `8px solid ${accent}`,
-        }}
-      >
-        <div>
-          <div style={{ color: accent, fontSize: '26px', fontWeight: 950, letterSpacing: '0.08em' }}>
-            {step} · 我怎麼回饋
-          </div>
-          <h3 style={{ color: colors.white, fontSize: '48px', lineHeight: 1.2, fontWeight: 950, margin: '20px 0 16px' }}>
-            {headline}
-          </h3>
-          <p style={{ color: '#cbd5e1', fontSize: '30px', lineHeight: 1.45, fontWeight: 700, margin: 0 }}>
-            {body}
-          </p>
-        </div>
+      {[
+        {
+          number: '01',
+          title: 'Canvas 接 AI',
+          problem: '要求使用者輸入 API',
+          solution: '要求 AI 自動串接 Gemini',
+          accent: colors.accent,
+          tint: 'rgba(99, 102, 241, 0.1)',
+        },
+        {
+          number: '02',
+          title: '列印按鈕',
+          problem: '按了按鈕，列印功能卻沒反應。',
+          solution: '點擊按鈕後另開 blob 分頁，並跳出列印視窗。',
+          accent: colors.orange,
+          tint: 'rgba(244, 63, 94, 0.1)',
+        },
+        {
+          number: '03',
+          title: 'Word 匯出',
+          problem: '格式跑掉，或檔案沒有照預期產生。',
+          solution: '直接截圖貼上個人常用格式。',
+          accent: colors.blue,
+          tint: 'rgba(14, 165, 233, 0.1)',
+        },
+      ].map((issue) => (
         <div
+          key={issue.number}
           style={{
-            background: '#f8fafc',
-            borderRadius: 18,
-            padding: 16,
-            marginTop: 22,
-            boxShadow: '0 10px 24px rgba(2, 6, 23, 0.2)',
+            minHeight: 250,
+            padding: '34px 36px',
+            borderRadius: 24,
+            background: 'rgba(255, 255, 255, 0.9)',
+            border: '1.5px solid rgba(255, 255, 255, 0.95)',
+            borderTop: `8px solid ${issue.accent}`,
+            boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 18,
+            zIndex: 2,
           }}
         >
-          <div style={{ color: colors.muted, fontSize: '21px', fontWeight: 900, marginBottom: 8 }}>
-            {promptLabel}
+          <span
+            style={{
+              alignSelf: 'flex-start',
+              padding: '8px 16px',
+              borderRadius: 10,
+              background: issue.tint,
+              color: issue.accent,
+              fontSize: '25px',
+              fontWeight: 950,
+            }}
+          >
+            {issue.number}
+          </span>
+          <h3 style={{ margin: 0, color: colors.text, fontSize: '50px', fontWeight: 950 }}>
+            {issue.title}
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '88px 1fr', gap: 12 }}>
+              <strong style={{ color: colors.orange, fontSize: '30px', fontWeight: 950 }}>
+                問題
+              </strong>
+              <p
+                style={{
+                  margin: 0,
+                  color: colors.text,
+                  fontSize: '30px',
+                  lineHeight: 1.4,
+                  fontWeight: 700,
+                }}
+              >
+                {issue.problem}
+              </p>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '88px 1fr',
+                gap: 12,
+                borderTop: '1px solid rgba(148, 163, 184, 0.3)',
+                paddingTop: 14,
+              }}
+            >
+              <strong style={{ color: colors.blue, fontSize: '30px', fontWeight: 950 }}>
+                解方
+              </strong>
+              <p
+                style={{
+                  margin: 0,
+                  color: colors.muted,
+                  fontSize: '30px',
+                  lineHeight: 1.4,
+                  fontWeight: 700,
+                }}
+              >
+                {issue.solution}
+              </p>
+            </div>
           </div>
-          <img src={prompt} alt={`${promptLabel}文字`} style={{ width: '100%', maxHeight: 210, objectFit: 'contain', display: 'block' }} />
         </div>
+      ))}
+    </div>
+    <div
+      style={{
+        zIndex: 2,
+        marginTop: 28,
+        padding: '24px 32px',
+        borderRadius: 22,
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+        color: colors.white,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 28,
+        boxShadow: '0 18px 40px rgba(15, 23, 42, 0.16)',
+      }}
+    >
+      <div style={{ fontSize: '30px', lineHeight: 1.45, fontWeight: 750 }}>
+        遇到這些狀況不用自己慢慢試，
+        <strong style={{ color: '#c7d2fe' }}>直接問 AI 小幫手</strong>，少繞一點路。
       </div>
-
-      <div
-        className="es-fadeUp"
+      <a
+        href="https://gemini.google.com/gem/1wKgy93k8glqhdWihRvKa3MTJA2yu9UEu?usp=sharing"
+        target="_blank"
+        rel="noreferrer"
         style={{
-          animationDelay: '0.18s',
-          background: 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(18px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderRadius: 28,
-          boxShadow: '0 24px 54px rgba(148, 163, 184, 0.18)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: 0,
-          padding: '26px 34px',
+          flexShrink: 0,
+          padding: '18px 24px',
+          borderRadius: 14,
+          background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
+          color: '#0f172a',
+          fontSize: '26px',
+          fontWeight: 950,
+          textDecoration: 'none',
+          boxShadow: '0 10px 24px rgba(56, 189, 248, 0.2)',
         }}
       >
-        <div style={{ width: '100%', color: accent, fontSize: '26px', fontWeight: 950, marginBottom: 18 }}>
-          🖥️ 修正後的成果畫面
-        </div>
-        <img
-          src={result}
-          alt={resultAlt}
-          style={{ width: resultWidth, maxWidth: '100%', maxHeight: 520, objectFit: 'contain', borderRadius: 16, boxShadow: '0 12px 26px rgba(15, 23, 42, 0.14)' }}
-        />
-      </div>
+        開啟 AI 小幫手 ↗
+      </a>
     </div>
-    <TextbookFooter subtitle={`第三部分：實作迭代 ${step}`} />
+    <TextbookFooter subtitle="第三部分：自製 AI 工具現場支援" />
   </div>
-);
-
-const Slide20_Iteration1: Page = () => (
-  <IterationShowcasePage
-    step="01"
-    title="實作範例︰先做出第一版"
-    subtitle="一句咒語，先讓工具跑起來"
-    accent={colors.accent}
-    prompt={imgExamAssistantPrompt}
-    promptLabel="貼給 Gemini 的初版咒語"
-    result={imgExamAssistantFirstDraft}
-    resultAlt="考卷生成助手的第一版成果畫面"
-    headline="先把需求說清楚"
-    body="做一個考卷生成助手，讓使用者貼上教材、生成題目，最後可以直接匯出 Word。"
-  />
-);
-
-const Slide20_Iteration2: Page = () => (
-  <IterationShowcasePage
-    step="02"
-    title="實作範例︰指出使用上的卡點"
-    subtitle="不順的地方，直接回饋"
-    accent={colors.blue}
-    prompt={imgExamAssistantFeedbackApi}
-    promptLabel="我對第二版的回饋"
-    result={imgExamAssistantGeminiResult}
-    resultAlt="改為直接串接 Gemini 後的成果畫面"
-    headline="使用者不用自己輸入 API"
-    body="這裡不順，就直接說。請工具自己接 Gemini，讓使用者專心放教材與設定考卷。"
-  />
-);
-
-const Slide20_Iteration3: Page = () => (
-  <IterationShowcasePage
-    step="03"
-    title="實作範例︰Word 匯出不順就直說"
-    subtitle="把不好用的地方，說到它修好"
-    accent={colors.orange}
-    prompt={imgExamAssistantFeedbackWord}
-    promptLabel="我對 Word 匯出的回饋"
-    result={imgExamAssistantWordMenu}
-    resultAlt="修正後的 Word 匯出選單"
-    resultWidth={360}
-    headline="Word 匯出真的很醜"
-    body="不要客氣，哪裡不順就直接說，請它把匯出選單整理清楚，分開學生卷與教師解答。"
-  />
 );
 
 const Slide20_IterationTakeaway: Page = () => (
@@ -4622,12 +4756,29 @@ const Slide20_IterationTakeaway: Page = () => (
       >
         自製 AI 工具的心法
       </div>
-      <h2 style={{ color: colors.text, fontSize: '82px', fontWeight: 950, lineHeight: 1.18, letterSpacing: '-0.03em', margin: 0 }}>
+      <h2
+        style={{
+          color: colors.text,
+          fontSize: '82px',
+          fontWeight: 950,
+          lineHeight: 1.18,
+          letterSpacing: '-0.03em',
+          margin: 0,
+        }}
+      >
         厲害的不是提示詞下得多漂亮
         <br />
         而是看得出問題，說得清楚
       </h2>
-      <p style={{ color: colors.muted, fontSize: '38px', fontWeight: 700, lineHeight: 1.5, margin: '30px 0 0' }}>
+      <p
+        style={{
+          color: colors.muted,
+          fontSize: '38px',
+          fontWeight: 700,
+          lineHeight: 1.5,
+          margin: '30px 0 0',
+        }}
+      >
         請它修正，再看一次。保持耐心，工具會慢慢長成你要的樣子。
       </p>
       <div
@@ -4657,634 +4808,24 @@ const Slide20_Practice_Canvas: Page = () => (
     toolName="Gemini Canvas 自製出題助手"
     time="15 分鐘"
     task="請打開 Gemini Canvas，貼入咒語試做專屬出題助手。"
-    href="https://gemini.google.com"
-    linkText="🚀 前往 Gemini 開啟 Canvas"
+    href="https://gemini.google.com/gem/8ed4d05fb486?usp=sharing"
+    uploadHref={uploadFileUrls.general}
   />
-);
-
-// Slide 26: 漸進式調校：讓出題工具更懂特教 (精簡版)
-const Slide21_IterativeRefinement: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader
-      unit="單元三"
-      title="進階調校︰讓工具更符合特教需求"
-      subtitle="三階段逐步疊加特教鷹架"
-    />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
-        gap: 32,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        alignItems: 'center',
-      }}
-    >
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(99, 102, 241, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            01
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            第一版：核心跑通
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['輸入學習內容', '生成 3 題選擇題', '測試 Word 下載'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.accent,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.15s',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.orange}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(244, 63, 94, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            02
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            第二版：加特教欄位
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['年級與現況描述欄', '16pt 大字雙倍行距', '加上引導式提示詞'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.orange,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.3s',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(99, 102, 241, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            03
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            第三版：對齊特需
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['融入社會生活管理', '學習策略情境融入', '對齊特教個別指標'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.accent,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div
-      className="es-fadeUp"
-      style={{
-        zIndex: 2,
-        marginTop: 26,
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        color: colors.white,
-        borderRadius: 20,
-        padding: '20px 32px',
-        textAlign: 'center',
-        fontSize: '36px',
-        fontWeight: 900,
-        boxShadow: '0 18px 40px rgba(15, 23, 42, 0.14)',
-      }}
-    >
-      💡 Vibe Coding 核心心法：<span style={{ color: '#fed7aa' }}>「先做陽春版，再一句一句微調修改」</span>！
-    </div>
-    <TextbookFooter subtitle="第三部分：工具迭代與調校" />
-  </div>
-);
-
-// Slide 27: 工具完成後的三大檢驗點 (精簡版)
-const Slide22_QualityCheck: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader
-      unit="單元三"
-      title="品質檢視︰完成後的三大檢查點"
-      subtitle="確保教材可直接用於教學現場"
-    />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
-        gap: 32,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        alignItems: 'center',
-      }}
-    >
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(99, 102, 241, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            01
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            內容適切度
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['題目切合真實起點', '題幹簡潔明瞭無冗詞', '選項具備足夠區辨度'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.accent,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.15s',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.orange}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(244, 63, 94, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            02
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            匯出與排版
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['點擊匯出 Word 正常', '字級達 14~16pt 標準', '保留足夠作答書寫空間'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.orange,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.3s',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 24,
-          padding: '34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 24,
-          height: 'auto',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div
-            style={{
-              width: 58,
-              height: 58,
-              borderRadius: 16,
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: colors.white,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '30px',
-              fontWeight: 950,
-              boxShadow: '0 8px 20px rgba(99, 102, 241, 0.35)',
-              flexShrink: 0,
-            }}
-          >
-            03
-          </div>
-          <h3
-            style={{
-              margin: 0,
-              fontSize: '44px',
-              fontWeight: 950,
-              color: colors.text,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            工作流留存
-          </h3>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' }}>
-          {['網頁加入最愛書籤', '每週 1 分鐘快速出題', '直接分享特教夥伴'].map((pt, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                fontSize: '38px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-              }}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 34,
-                  height: 34,
-                  borderRadius: '50%',
-                  background: colors.accent,
-                  color: colors.white,
-                  fontSize: '20px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                }}
-              >
-                ✓
-              </span>
-              <span>{pt}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div
-      className="es-fadeUp"
-      style={{
-        zIndex: 2,
-        marginTop: 26,
-        background: 'rgba(255, 255, 255, 0.90)',
-        backdropFilter: 'blur(16px)',
-        border: '2px solid rgba(244, 63, 94, 0.4)',
-        borderRadius: 20,
-        padding: '20px 32px',
-        textAlign: 'center',
-        fontSize: '36px',
-        fontWeight: 950,
-        color: colors.orange,
-        boxShadow: '0 16px 36px rgba(244, 63, 94, 0.12)',
-      }}
-    >
-      🎉 只要這三點過關，你就真正擁有一套專屬的「自製 AI 備課出題助理」！
-    </div>
-    <TextbookFooter subtitle="第三部分：產出品質與工作流驗證" />
-  </div>
 );
 
 // Slide 28: 今天的總結與閉幕
 const Slide23_ClosingSummary: Page = () => (
   <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
     <TextbookBg />
-    <div style={{ zIndex: 2, maxWidth: 1480, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div
+      style={{
+        zIndex: 2,
+        maxWidth: 1480,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <div
         style={{
           background: colors.accentMuted,
@@ -5324,13 +4865,16 @@ const Slide23_ClosingSummary: Page = () => (
         }}
       >
         <div>
-          <strong style={{ color: colors.text, fontWeight: 950 }}>不必全用：</strong>工具很多，挑一個最上手的就好。
+          <strong style={{ color: colors.text, fontWeight: 950 }}>不必全用：</strong>
+          工具很多，挑一個最上手的就好。
         </div>
         <div>
-          <strong style={{ color: colors.text, fontWeight: 950 }}>不用追趕：</strong>紙本、數位或自製 AI，適合你的就是好工具。
+          <strong style={{ color: colors.text, fontWeight: 950 }}>不用追趕：</strong>
+          紙本、數位或自製 AI，適合你的就是好工具。
         </div>
         <div>
-          <strong style={{ color: colors.text, fontWeight: 950 }}>回歸痛點：</strong>看見每天重複的困擾，讓 AI 幫你少花一點力氣。
+          <strong style={{ color: colors.text, fontWeight: 950 }}>回歸痛點：</strong>
+          看見每天重複的困擾，讓 AI 幫你少花一點力氣。
         </div>
       </div>
       <div
@@ -5391,7 +4935,11 @@ const toolRecommendations = [
 const Slide24_RecommendedTools: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader unit="延伸工具" title="還有這些工具，也很好用" subtitle="從教學痛點直接挑工具" />
+    <TextbookHeader
+      unit="延伸工具"
+      title="還有這些工具，也很好用"
+      subtitle="從教學痛點直接挑工具"
+    />
     <div
       style={{
         display: 'grid',
@@ -5543,13 +5091,9 @@ export default [
   Slide15_Practice_StepMath,
   Slide17_Part3Header,
   Slide19_VibePromptStructure,
-  Slide20_Iteration1,
-  Slide20_Iteration2,
-  Slide20_Iteration3,
+  Slide20_CommonIssuesHelper,
   Slide20_IterationTakeaway,
   Slide20_Practice_Canvas,
-  Slide21_IterativeRefinement,
-  Slide22_QualityCheck,
   Slide24_RecommendedTools,
   Slide23_ClosingSummary,
   Slide02c_Social,

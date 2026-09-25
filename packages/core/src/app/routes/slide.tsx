@@ -107,7 +107,7 @@ export function Slide() {
 
   useEffect(() => {
     document.title = slide?.meta?.title ? `${slide.meta.title} · 研習簡報` : '研習簡報';
-  }, [slide, slideId]);
+  }, [slide]);
 
   useEffect(() => {
     if (!import.meta.hot) return;

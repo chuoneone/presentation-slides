@@ -1,3 +1,9 @@
+import headshot from '@assets/headshot.webp';
+import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
+import imgMixerShare from '@assets/mixer-share.webp';
+import imgMixerTeaching from '@assets/mixer-teaching.webp';
+import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
+import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import {
   type DesignSystem,
   type Page,
@@ -7,17 +13,11 @@ import {
   Steps,
   useSlidePageNumber,
 } from '@open-slide/core';
-import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
 import exampleEnglish from './assets/example-english.png';
 import exampleLibai from './assets/example-libai.png';
 import exampleMath from './assets/example-math.png';
 import finalQrCode from './assets/final-qr-code.png';
-import headshot from '@assets/headshot.webp';
-import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
-import imgMixerShare from '@assets/mixer-share.webp';
-import imgMixerTeaching from '@assets/mixer-teaching.webp';
-import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
-import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import printStep1 from './assets/html學習單列印-步驟1全選.png';
 import printStep2 from './assets/html學習單列印-步驟2ctrl+p.png';
 import slidoQr from './assets/slido-qr.png';
@@ -156,7 +156,7 @@ function playTimerChimeSound() {
       ctx.resume().catch(() => {});
     }
     const now = ctx.currentTime;
-    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
@@ -210,7 +210,8 @@ function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: stri
       const samePractice = current.practiceNumber === targetPractice;
       const totalSec =
         (minutes || (current.totalSeconds > 0 ? current.totalSeconds / 60 : initialMinutes)) * 60;
-      const remaining = samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
+      const remaining =
+        samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
       const end = Date.now() + remaining * 1000;
       const next = {
         totalSeconds: totalSec,
@@ -1533,13 +1534,15 @@ const Slide01Speaker: Page = () => (
             }}
           >
             <li>
-              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
+              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong>{' '}
+              特殊教育學系（資訊工程輔系）
             </li>
             <li>
               <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>{' 資訊教育所博士班（就讀中）'}
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>
+              {' 資訊教育所博士班（就讀中）'}
             </li>
           </ul>
         </div>
@@ -1584,16 +1587,22 @@ const Slide01Speaker: Page = () => (
               <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>{' 資源班教師（兼巡迴輔導）'}
+              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>
+              {' 資源班教師（兼巡迴輔導）'}
             </li>
             <li>
-              <strong style={{ color: greenDark, fontWeight: 900 }}>米克師 AI 備課幫手 創辦人</strong>：自製多種 AI 教材工具
+              <strong style={{ color: greenDark, fontWeight: 900 }}>
+                米克師 AI 備課幫手 創辦人
+              </strong>
+              ：自製多種 AI 教材工具
             </li>
             <li>
-              <strong style={{ color: greenDark, fontWeight: 900 }}>特教教材共享平台 發起人</strong>：建立特師教材共享生態
+              <strong style={{ color: greenDark, fontWeight: 900 }}>特教教材共享平台 發起人</strong>
+              ：建立特師教材共享生態
             </li>
             <li>
-              <strong style={{ color: greenDark, fontWeight: 900 }}>特教 AI 研習講師</strong>：受邀於各縣市特教輔導團與學校分享
+              <strong style={{ color: greenDark, fontWeight: 900 }}>特教 AI 研習講師</strong>
+              ：受邀於各縣市特教輔導團與學校分享
             </li>
           </ul>
         </div>
@@ -1732,7 +1741,8 @@ const Slide01WorkshopSlides: Page = () => (
               輸入今日密碼
             </div>
             <div style={{ fontSize: 24, color: muted, fontWeight: 700, lineHeight: 1.4 }}>
-              輸入 <strong style={{ color: coral, fontSize: 32 }}>1150826</strong>，即可看到今日研習簡報。
+              輸入 <strong style={{ color: coral, fontSize: 32 }}>1150826</strong>
+              ，即可看到今日研習簡報。
             </div>
           </div>
         </div>
@@ -1827,7 +1837,9 @@ const ThreadsIcon = () => (
 
 const Slide01Social: Page = () => (
   <PageShell eyebrow="單元 1 · 社群入口" accent={coral}>
-    <Title size={68} margin="0 0 20px">社群</Title>
+    <Title size={68} margin="0 0 20px">
+      社群
+    </Title>
     <p
       style={{
         margin: '0 0 44px',
@@ -1877,7 +1889,8 @@ const Slide01Social: Page = () => (
             alignItems: 'center',
             justifyContent: 'center',
             color: '#ffffff',
-            background: 'linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)',
+            background:
+              'linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)',
             boxShadow: '0 16px 36px rgba(214, 41, 118, 0.3)',
           }}
         >
@@ -2079,7 +2092,15 @@ const Slide01MixerSites: Page = () => (
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
-        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+        <div
+          style={{
+            fontSize: 23,
+            color: muted,
+            fontWeight: 700,
+            lineHeight: 1.4,
+            marginTop: 'auto',
+          }}
+        >
           特教老師生成教材、學習單、課程素材與備課工具的主要入口。
         </div>
         <div
@@ -2147,7 +2168,15 @@ const Slide01MixerSites: Page = () => (
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
-        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+        <div
+          style={{
+            fontSize: 23,
+            color: muted,
+            fontWeight: 700,
+            lineHeight: 1.4,
+            marginTop: 'auto',
+          }}
+        >
           整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。
         </div>
         <div
@@ -2215,7 +2244,15 @@ const Slide01MixerSites: Page = () => (
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
-        <div style={{ fontSize: 23, color: muted, fontWeight: 700, lineHeight: 1.4, marginTop: 'auto' }}>
+        <div
+          style={{
+            fontSize: 23,
+            color: muted,
+            fontWeight: 700,
+            lineHeight: 1.4,
+            marginTop: 'auto',
+          }}
+        >
           提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。
         </div>
         <div
@@ -3456,13 +3493,17 @@ const WorkshopPracticeTimer = ({
   practiceNumber?: string;
   initialMinutes?: number;
 }) => {
-  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(initialMinutes, practiceNumber);
+  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(
+    initialMinutes,
+    practiceNumber,
+  );
 
   const isCurrentPractice = state.practiceNumber === practiceNumber;
   const displayRemaining = isCurrentPractice ? state.remainingSeconds : initialMinutes * 60;
   const isRunning = isCurrentPractice && state.isRunning;
   const isFinished = isCurrentPractice && state.remainingSeconds === 0;
-  const total = isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
+  const total =
+    isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
   const progressPercent = Math.min(100, Math.max(0, ((total - displayRemaining) / total) * 100));
 
   return (
@@ -3478,7 +3519,8 @@ const WorkshopPracticeTimer = ({
       {/* Digital Clock */}
       <div
         style={{
-          fontFamily: '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace',
+          fontFamily:
+            '"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace',
           fontSize: 82,
           fontWeight: 950,
           lineHeight: 1,
@@ -4211,7 +4253,9 @@ const Slide17WebPaperSection: Page = () => (
             marginBottom: 16,
           }}
         >
-          {'PART 03 '}<br />{''}
+          {'PART 03 '}
+          <br />
+          {''}
         </div>
         <h2
           style={{
@@ -4223,8 +4267,9 @@ const Slide17WebPaperSection: Page = () => (
             letterSpacing: '-0.055em',
           }}
         >
-          網頁與紙本<br />搭配實例
-          
+          網頁與紙本
+          <br />
+          搭配實例
           {''}
         </h2>
         <p style={{ margin: 0, color: 'rgba(255, 253, 248, 0.68)', fontSize: 36, lineHeight: 1.5 }}>
@@ -4276,7 +4321,7 @@ const Slide17WebPaperSection: Page = () => (
               marginTop: 36,
               padding: '16px 20px',
               background: 'rgba(24, 59, 56, 0.08)',
-              fontSize: 24,
+              fontSize: 30,
               fontWeight: 900,
               color: greenDark,
             }}
@@ -4357,7 +4402,7 @@ const Slide18WebPaperGeneral: Page = () => (
           <Step>
             <div
               style={{
-                padding: '22px 26px',
+                padding: '26px 30px',
                 background: paperLight,
                 borderLeft: `12px solid ${green}`,
                 boxShadow: shadow,
@@ -4374,7 +4419,7 @@ const Slide18WebPaperGeneral: Page = () => (
                   borderRadius: '50%',
                   background: green,
                   color: paperLight,
-                  fontSize: 24,
+                  fontSize: 30,
                   fontWeight: 950,
                   display: 'grid',
                   placeItems: 'center',
@@ -4383,11 +4428,8 @@ const Slide18WebPaperGeneral: Page = () => (
                 01
               </div>
               <div>
-                <div style={{ fontSize: 32, fontWeight: 950, color: greenDark }}>
+                <div style={{ fontSize: 40, fontWeight: 950, color: greenDark }}>
                   說明示範 5 分鐘
-                </div>
-                <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
-                  教師簡要示範操作與任務，不急著在台上長篇講述。
                 </div>
               </div>
             </div>
@@ -4396,7 +4438,7 @@ const Slide18WebPaperGeneral: Page = () => (
           <Step>
             <div
               style={{
-                padding: '22px 26px',
+                padding: '26px 30px',
                 background: paperLight,
                 borderLeft: `12px solid ${blue}`,
                 boxShadow: shadow,
@@ -4413,7 +4455,7 @@ const Slide18WebPaperGeneral: Page = () => (
                   borderRadius: '50%',
                   background: blue,
                   color: paperLight,
-                  fontSize: 24,
+                  fontSize: 30,
                   fontWeight: 950,
                   display: 'grid',
                   placeItems: 'center',
@@ -4422,11 +4464,8 @@ const Slide18WebPaperGeneral: Page = () => (
                 02
               </div>
               <div>
-                <div style={{ fontSize: 32, fontWeight: 950, color: blue }}>
+                <div style={{ fontSize: 40, fontWeight: 950, color: blue }}>
                   網頁探索 ＋ 紙本留痕
-                </div>
-                <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
-                  學生進入網頁自主探索（如李白社群），邊找答案邊抄寫紙本。
                 </div>
               </div>
             </div>
@@ -4435,7 +4474,7 @@ const Slide18WebPaperGeneral: Page = () => (
           <Step>
             <div
               style={{
-                padding: '22px 26px',
+                padding: '26px 30px',
                 background: paperLight,
                 borderLeft: `12px solid ${coral}`,
                 boxShadow: shadow,
@@ -4452,7 +4491,7 @@ const Slide18WebPaperGeneral: Page = () => (
                   borderRadius: '50%',
                   background: coral,
                   color: paperLight,
-                  fontSize: 24,
+                  fontSize: 30,
                   fontWeight: 950,
                   display: 'grid',
                   placeItems: 'center',
@@ -4461,12 +4500,7 @@ const Slide18WebPaperGeneral: Page = () => (
                 03
               </div>
               <div>
-                <div style={{ fontSize: 32, fontWeight: 950, color: coral }}>
-                  帶著線索聽講統整
-                </div>
-                <div style={{ fontSize: 26, color: ink, lineHeight: 1.35, fontWeight: 750, marginTop: 4 }}>
-                  腦中已有具體線索，教師再講課統整，大幅降低抽離感。
-                </div>
+                <div style={{ fontSize: 40, fontWeight: 950, color: coral }}>帶著線索聽講統整</div>
               </div>
             </div>
           </Step>
@@ -4478,7 +4512,7 @@ const Slide18WebPaperGeneral: Page = () => (
                 padding: '14px 24px',
                 background: amber,
                 color: ink,
-                fontSize: 26,
+                fontSize: 30,
                 fontWeight: 950,
                 transform: 'rotate(-0.4deg)',
                 textAlign: 'center',
@@ -4511,8 +4545,8 @@ const Slide18WebPaperGeneral: Page = () => (
 
 const Slide18WebPaperEnglish: Page = () => (
   <PageShell eyebrow="17 · 網頁與紙本搭配（二）· 英文科實務" accent={blue}>
-    <Title size={58} margin="0 0 24px">
-      英文科：電腦負責即時檢核，紙本負責遷移固化
+    <Title size={58} margin="0 0 24px" style={{ fontSize: '70px' }}>
+      英文科：電腦減少書寫挫折
     </Title>
     <div
       style={{
@@ -4535,19 +4569,13 @@ const Slide18WebPaperEnglish: Page = () => (
           }}
         >
           <div style={{ borderRight: `2px solid ${hairline}`, paddingRight: 12 }}>
-            <div style={{ color: coral, fontSize: 22, fontWeight: 950, marginBottom: 4 }}>
+            <div style={{ color: coral, fontSize: 30, fontWeight: 950, marginBottom: 4 }}>
               ❌ 傳統痛點
-            </div>
-            <div style={{ color: muted, fontSize: 22, lineHeight: 1.35, fontWeight: 700 }}>
-              書寫弱＋注意力短 ➔ 長篇書寫過載挫折、睡覺。
             </div>
           </div>
           <div>
-            <div style={{ color: green, fontSize: 22, fontWeight: 950, marginBottom: 4 }}>
+            <div style={{ color: green, fontSize: 30, fontWeight: 950, marginBottom: 4 }}>
               ⭕ 課堂解方
-            </div>
-            <div style={{ color: ink, fontSize: 22, lineHeight: 1.35, fontWeight: 800 }}>
-              5分鐘概念 ➔ 電腦組句即時檢核 ➔ 教師巡堂。
             </div>
           </div>
         </div>
@@ -4557,17 +4585,14 @@ const Slide18WebPaperEnglish: Page = () => (
             <Step>
               <div
                 style={{
-                  padding: '14px 22px',
+                  padding: '22px 26px',
                   background: paperLight,
                   borderLeft: `10px solid ${green}`,
                   boxShadow: shadow,
                 }}
               >
-                <div style={{ fontSize: 26, fontWeight: 950, color: greenDark }}>
+                <div style={{ fontSize: 34, fontWeight: 950, color: greenDark }}>
                   模式 A【熟練後遷移】
-                </div>
-                <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
-                  在電腦反覆練習熟悉 ➔ 直接抄寫至紙本，固化句型。
                 </div>
               </div>
             </Step>
@@ -4575,17 +4600,14 @@ const Slide18WebPaperEnglish: Page = () => (
             <Step>
               <div
                 style={{
-                  padding: '14px 22px',
+                  padding: '22px 26px',
                   background: paperLight,
                   borderLeft: `10px solid ${blue}`,
                   boxShadow: shadow,
                 }}
               >
-                <div style={{ fontSize: 26, fontWeight: 950, color: blue }}>
+                <div style={{ fontSize: 34, fontWeight: 950, color: blue }}>
                   模式 B【逐題對照組】
-                </div>
-                <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
-                  電腦練一題 ➔ 紙本寫一題（題目相同），即時自我挑戰。
                 </div>
               </div>
             </Step>
@@ -4593,17 +4615,14 @@ const Slide18WebPaperEnglish: Page = () => (
             <Step>
               <div
                 style={{
-                  padding: '14px 22px',
+                  padding: '22px 26px',
                   background: paperLight,
                   borderLeft: `10px solid ${coral}`,
                   boxShadow: shadow,
                 }}
               >
-                <div style={{ fontSize: 26, fontWeight: 950, color: coral }}>
+                <div style={{ fontSize: 34, fontWeight: 950, color: coral }}>
                   模式 C【全通關挑戰】
-                </div>
-                <div style={{ fontSize: 23, color: ink, fontWeight: 700, marginTop: 4 }}>
-                  網頁全部題目通關 ➔ 主動關機獨立完成紙本學習單。
                 </div>
               </div>
             </Step>
@@ -4615,7 +4634,7 @@ const Slide18WebPaperEnglish: Page = () => (
             padding: '14px 22px',
             background: greenDark,
             color: paperLight,
-            fontSize: 24,
+            fontSize: 29,
             fontWeight: 900,
             textAlign: 'center',
             borderRadius: 8,
@@ -4646,8 +4665,8 @@ const Slide18WebPaperEnglish: Page = () => (
 
 const Slide18WebPaperMath: Page = () => (
   <PageShell eyebrow="18 · 網頁與紙本搭配（三）· 數學科實務" accent={green}>
-    <Title size={58} margin="0 0 24px">
-      數學科：課堂黃金時間分配 ＆ 差異化練習
+    <Title size={58} margin="0 0 24px" style={{ fontSize: '70px' }}>
+      數學科：弱勢學生差異化練習
     </Title>
     <div
       style={{
@@ -4658,109 +4677,26 @@ const Slide18WebPaperMath: Page = () => (
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div
-          style={{
-            padding: '18px 22px',
-            background: paperLight,
-            boxShadow: shadow,
-            borderRadius: 16,
-          }}
-        >
-          <div
-            style={{
-              color: greenDark,
-              fontSize: 24,
-              fontWeight: 950,
-              letterSpacing: '0.08em',
-              marginBottom: 12,
-            }}
-          >
-            ⏱️ 課堂 40-45 分鐘黃金節奏（螺旋複習）
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <Steps>
-              <Step>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '120px 1fr',
-                    gap: 14,
-                    alignItems: 'center',
-                    padding: '8px 14px',
-                    background: 'rgba(47, 107, 95, 0.08)',
-                    borderLeft: `8px solid ${green}`,
-                  }}
-                >
-                  <div style={{ fontSize: 22, fontWeight: 950, color: green }}>前 10 分鐘</div>
-                  <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
-                    網頁小測驗上次內容，喚醒先備知識。
-                  </div>
-                </div>
-              </Step>
-
-              <Step>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '120px 1fr',
-                    gap: 14,
-                    alignItems: 'center',
-                    padding: '8px 14px',
-                    background: 'rgba(79, 116, 128, 0.08)',
-                    borderLeft: `8px solid ${blue}`,
-                  }}
-                >
-                  <div style={{ fontSize: 22, fontWeight: 950, color: blue }}>中 20 分鐘</div>
-                  <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
-                    教師精講新觀念，解題步驟互動示範。
-                  </div>
-                </div>
-              </Step>
-
-              <Step>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '120px 1fr',
-                    gap: 14,
-                    alignItems: 'center',
-                    padding: '8px 14px',
-                    background: 'rgba(232, 93, 63, 0.08)',
-                    borderLeft: `8px solid ${coral}`,
-                  }}
-                >
-                  <div style={{ fontSize: 22, fontWeight: 950, color: coral }}>後 10-15 分</div>
-                  <div style={{ color: ink, fontSize: 22, fontWeight: 700 }}>
-                    網頁即時複習本日學習，當堂驗收成效。
-                  </div>
-                </div>
-              </Step>
-            </Steps>
-          </div>
-        </div>
-
         <Steps>
           <Step>
             <div
               style={{
-                padding: '18px 22px',
+                padding: '24px 28px',
                 background: paperLight,
                 borderTop: `10px solid #9d6518`,
                 boxShadow: shadow,
                 borderRadius: 16,
               }}
             >
-              <div style={{ color: '#9d6518', fontSize: 24, fontWeight: 950, marginBottom: 10 }}>
-                🎯 弱勢學生差異化策略
+              <div style={{ color: '#9d6518', fontSize: 36, fontWeight: 950, marginBottom: 18 }}>
+                {''}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <div style={{ fontSize: 22, color: ink, fontWeight: 700 }}>
-                  <span style={{ color: '#9d6518', fontWeight: 950 }}>1. 精準聚焦 2 個概念</span>
-                  ：一堂課學 2 個重點，不貪多、降負荷。
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div style={{ fontSize: '51px', color: '#9d6518', fontWeight: 950 }}>
+                  1. 精準聚焦 2 個概念
                 </div>
-                <div style={{ fontSize: 22, color: ink, fontWeight: 700 }}>
-                  <span style={{ color: '#9d6518', fontWeight: 950 }}>2.「數題數題」重複鞏固</span>
-                  ：結構化同型題反覆練習，建立算感。
+                <div style={{ fontSize: '50px', color: '#9d6518', fontWeight: 950 }}>
+                  2.「數題數題」重複鞏固
                 </div>
               </div>
             </div>
@@ -4772,13 +4708,13 @@ const Slide18WebPaperMath: Page = () => (
                 padding: '12px 20px',
                 background: amber,
                 color: ink,
-                fontSize: 23,
+                fontSize: '50px',
                 fontWeight: 950,
                 transform: 'rotate(-0.3deg)',
                 textAlign: 'center',
               }}
             >
-              控制概念數量＋結構化工具，課堂結束前必有所獲！
+              控制概念數量＋結構化工具
             </div>
           </Step>
         </Steps>

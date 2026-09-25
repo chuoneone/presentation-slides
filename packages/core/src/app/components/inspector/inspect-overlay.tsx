@@ -352,11 +352,23 @@ function pickInspectorTarget(el: HTMLElement | null): HTMLElement | null {
   if (!el) return null;
   const root = el.closest('[data-inspector-root]');
   const startedOnInlineText = INLINE_TEXT_TAGS.has(el.tagName);
+  let inlineTarget: HTMLElement | null = null;
   for (let cur: HTMLElement | null = el; cur && root?.contains(cur); cur = cur.parentElement) {
-    if (startedOnInlineText && INLINE_TEXT_TAGS.has(cur.tagName)) continue;
-    if (isEditableTextContainer(cur)) return cur;
+    if (!isEditableTextContainer(cur)) continue;
+    if (!startedOnInlineText) return cur;
+    if (INLINE_TEXT_TAGS.has(cur.tagName)) {
+      if (!inlineTarget && cur.hasAttribute('data-slide-loc')) inlineTarget = cur;
+      continue;
+    }
+    if (
+      Array.from(cur.childNodes).some(
+        (child) => child.nodeType === Node.TEXT_NODE && child.textContent?.trim(),
+      )
+    ) {
+      return cur;
+    }
   }
-  return el;
+  return inlineTarget ?? el;
 }
 
 function isEditableTextContainer(el: HTMLElement): boolean {

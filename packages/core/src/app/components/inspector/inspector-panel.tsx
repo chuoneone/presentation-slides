@@ -990,7 +990,13 @@ function readSnapshot(el: HTMLElement): ElementSnapshot {
 
 function isSimpleTextElement(el: HTMLElement): boolean {
   if (el.childNodes.length === 0) return true;
-  return hasOnlyInlineTextChildren(el);
+  if (!hasOnlyInlineTextChildren(el)) return false;
+  const hasDirectText = Array.from(el.childNodes).some(
+    (child) => child.nodeType === Node.TEXT_NODE && child.textContent?.trim(),
+  );
+  return (
+    hasDirectText || !Array.from(el.children).some((child) => child.hasAttribute('data-slide-loc'))
+  );
 }
 
 const INLINE_TEXT_TAGS = new Set([

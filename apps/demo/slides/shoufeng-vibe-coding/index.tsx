@@ -1,3 +1,5 @@
+import headshot from '@assets/headshot.webp';
+import imgMixerTeaching from '@assets/mixer-teaching.webp';
 import {
   type DesignSystem,
   ImagePlaceholder,
@@ -8,7 +10,7 @@ import {
   Steps,
   useSlidePageNumber,
 } from '@open-slide/core';
-import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
 import githubStep1 from './assets/github-step1.png';
 import githubStep2 from './assets/github-step2.png';
 import githubStep3 from './assets/github-step3.png';
@@ -38,13 +40,11 @@ import githubStep44 from './assets/github-step44.png';
 import githubStep45 from './assets/github-step45.png';
 import githubStep46 from './assets/github-step46.png';
 import indexHtmlFile from './assets/index-html-file.png';
-import spedmixQr from './assets/spedmix-qr.png';
-import headshot from '@assets/headshot.webp';
-import imgMixerTeaching from '@assets/mixer-teaching.webp';
-import imgThreeMethodsSummary from './assets/three-methods-summary.jpg';
 import imgMethod1CanvasShare from './assets/method1-canvas-share.jpg';
 import imgMethod2GithubPages from './assets/method2-github-pages.jpg';
 import imgMethod3AiAgent from './assets/method3-ai-agent.jpg';
+import spedmixQr from './assets/spedmix-qr.png';
+import imgThreeMethodsSummary from './assets/three-methods-summary.jpg';
 
 export const design: DesignSystem = {
   palette: { bg: '#edf4f1', text: '#27343b', accent: '#ee9a83' },
@@ -228,7 +228,7 @@ function playTimerChimeSound() {
       ctx.resume().catch(() => {});
     }
     const now = ctx.currentTime;
-    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
@@ -282,7 +282,8 @@ function useWorkshopTimer(initialMinutes: number = 10, defaultPracticeName: stri
       const samePractice = current.practiceNumber === targetPractice;
       const totalSec =
         (minutes || (current.totalSeconds > 0 ? current.totalSeconds / 60 : initialMinutes)) * 60;
-      const remaining = samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
+      const remaining =
+        samePractice && current.remainingSeconds > 0 ? current.remainingSeconds : totalSec;
       const end = Date.now() + remaining * 1000;
       const next = {
         totalSeconds: totalSec,
@@ -866,7 +867,9 @@ Slide01Cover.transition = sectionTransition;
 
 const Slide01Speaker: Page = () => (
   <PageShell eyebrow="00 · 講師介紹" accent={cyan} mood="warm">
-    <Title size={68} margin="0 0 20px">介紹</Title>
+    <Title size={68} margin="0 0 20px">
+      介紹
+    </Title>
     <div
       style={{
         display: 'grid',
@@ -900,7 +903,9 @@ const Slide01Speaker: Page = () => (
             color: '#27343b',
             margin: 0,
           }}
-        >朱旆誼</h3>
+        >
+          朱旆誼
+        </h3>
         <div
           style={{
             width: 220,
@@ -976,13 +981,15 @@ const Slide01Speaker: Page = () => (
             }}
           >
             <li>
-              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
+              <strong style={{ fontWeight: 900 }}>國立彰化師範大學</strong>{' '}
+              特殊教育學系（資訊工程輔系）
             </li>
             <li>
               <strong style={{ fontWeight: 900 }}>國立東華大學</strong> 資訊管理所 碩士
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
+              <strong style={{ fontWeight: 900 }}>國立台灣師範大學</strong>{' '}
+              資訊教育學系博士班（就讀中）
             </li>
           </ul>
         </div>
@@ -1027,16 +1034,22 @@ const Slide01Speaker: Page = () => (
               <strong style={{ fontWeight: 900 }}>宜蘭縣凱旋國中</strong> 資源班教師
             </li>
             <li>
-              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>{' 資源班教師（兼巡迴輔導）'}
+              <strong style={{ fontWeight: 900 }}>花蓮縣平和國中</strong>
+              {' 資源班教師（兼巡迴輔導）'}
             </li>
             <li>
-              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>米克師 AI 備課幫手 創辦人</strong>：自製多種 AI 教材工具
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>
+                米克師 AI 備課幫手 創辦人
+              </strong>
+              ：自製多種 AI 教材工具
             </li>
             <li>
-              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教教材共享平台 發起人</strong>：建立特師教材共享生態
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教教材共享平台 發起人</strong>
+              ：建立特師教材共享生態
             </li>
             <li>
-              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教 AI 研習講師</strong>：受邀於各縣市特教輔導團與學校分享
+              <strong style={{ color: '#1a4b43', fontWeight: 900 }}>特教 AI 研習講師</strong>
+              ：受邀於各縣市特教輔導團與學校分享
             </li>
           </ul>
         </div>
@@ -2384,13 +2397,17 @@ const PracticeCountdownWidget = ({
   practiceNumber?: string;
   initialMinutes?: number;
 }) => {
-  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(initialMinutes, practiceNumber);
+  const { state, start, pause, reset, addSeconds } = useWorkshopTimer(
+    initialMinutes,
+    practiceNumber,
+  );
 
   const isCurrentPractice = state.practiceNumber === practiceNumber;
   const displayRemaining = isCurrentPractice ? state.remainingSeconds : initialMinutes * 60;
   const isRunning = isCurrentPractice && state.isRunning;
   const isFinished = isCurrentPractice && state.remainingSeconds === 0;
-  const total = isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
+  const total =
+    isCurrentPractice && state.totalSeconds > 0 ? state.totalSeconds : initialMinutes * 60;
   const progressPercent = Math.min(100, Math.max(0, ((total - displayRemaining) / total) * 100));
 
   return (
@@ -2629,7 +2646,10 @@ const PracticeBreak = ({
           width: 580,
         }}
       >
-        <PracticeCountdownWidget practiceNumber={`${partNumber} · ${title}`} initialMinutes={minutes} />
+        <PracticeCountdownWidget
+          practiceNumber={`${partNumber} · ${title}`}
+          initialMinutes={minutes}
+        />
       </div>
     </div>
   </div>
@@ -2676,9 +2696,7 @@ const Slide22InspirationIdeas: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 28, fontWeight: 950, color: '#245257' }}>
-            🏫 教師個人小站
-          </span>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#245257' }}>🏫 教師個人小站</span>
           <span
             style={{
               fontSize: 15,
@@ -2713,9 +2731,7 @@ const Slide22InspirationIdeas: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 28, fontWeight: 950, color: '#27523f' }}>
-            📚 課程學習導航
-          </span>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#27523f' }}>📚 課程學習導航</span>
           <span
             style={{
               fontSize: 15,
@@ -2750,9 +2766,7 @@ const Slide22InspirationIdeas: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 28, fontWeight: 950, color: '#7a5a12' }}>
-            🎯 學生專題成果展
-          </span>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#7a5a12' }}>🎯 學生專題成果展</span>
           <span
             style={{
               fontSize: 15,
@@ -2824,9 +2838,7 @@ const Slide22InspirationIdeas: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 28, fontWeight: 950, color: '#2c4b57' }}>
-            🏡 班級生活日誌
-          </span>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#2c4b57' }}>🏡 班級生活日誌</span>
           <span
             style={{
               fontSize: 15,
@@ -2861,9 +2873,7 @@ const Slide22InspirationIdeas: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 28, fontWeight: 950, color: '#593863' }}>
-            🧘 心情充電解憂角
-          </span>
+          <span style={{ fontSize: 28, fontWeight: 950, color: '#593863' }}>🧘 心情充電解憂角</span>
           <span
             style={{
               fontSize: 15,
@@ -2988,7 +2998,8 @@ const Part02Practice: Page = () => (
             04｜下載或複製 HTML
           </div>
           <div style={{ fontSize: 20, color: '#27343b', fontWeight: 800, lineHeight: 1.4 }}>
-            取得程式碼並確認檔名為 <code style={{ fontFamily: mono, color: coral, fontWeight: 900 }}>index.html</code>。
+            取得程式碼並確認檔名為{' '}
+            <code style={{ fontFamily: mono, color: coral, fontWeight: 900 }}>index.html</code>。
           </div>
         </div>
       </div>
@@ -3007,10 +3018,7 @@ const Part02Practice: Page = () => (
           justifyContent: 'center',
         }}
       >
-        <PracticeCountdownWidget
-          practiceNumber="PART 02 · 實作 15 分鐘"
-          initialMinutes={15}
-        />
+        <PracticeCountdownWidget practiceNumber="PART 02 · 實作 15 分鐘" initialMinutes={15} />
       </div>
     </div>
   </PageShell>
@@ -3072,7 +3080,14 @@ const Slide17WhatIsGithub: Page = () => (
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 10,
+            }}
+          >
             <span style={{ fontSize: 32, fontWeight: 950, color: '#245257' }}>
               🌐 免費個人教學網站
             </span>
@@ -3100,7 +3115,8 @@ const Slide17WhatIsGithub: Page = () => (
               lineHeight: 1.45,
             }}
           >
-            不用花錢買主機或租網域！把做好的網頁丟上去，GitHub <strong>直接送你專屬公開網址</strong>。
+            不用花錢買主機或租網域！把做好的網頁丟上去，GitHub <strong>直接送你專屬公開網址</strong>
+            。
           </div>
         </div>
         <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
@@ -3124,7 +3140,14 @@ const Slide17WhatIsGithub: Page = () => (
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 10,
+            }}
+          >
             <span style={{ fontSize: 32, fontWeight: 950, color: '#1f4e41' }}>
               📱 學生家長掃碼即用
             </span>
@@ -3152,7 +3175,8 @@ const Slide17WhatIsGithub: Page = () => (
               lineHeight: 1.45,
             }}
           >
-            <strong>免安裝 App、免登入帳號</strong>，手機平板直接掃 QR Code 就能玩互動測驗與點讀學習單！
+            <strong>免安裝 App、免登入帳號</strong>，手機平板直接掃 QR Code
+            就能玩互動測驗與點讀學習單！
           </div>
         </div>
         <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
@@ -3176,7 +3200,14 @@ const Slide17WhatIsGithub: Page = () => (
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 10,
+            }}
+          >
             <span style={{ fontSize: 32, fontWeight: 950, color: '#7a5a12' }}>
               🔒 教材雲端永久保存
             </span>
@@ -3204,7 +3235,8 @@ const Slide17WhatIsGithub: Page = () => (
               lineHeight: 1.45,
             }}
           >
-            不怕隨身碟壞掉或換電腦檔案不見！所有版本修改都有紀錄，更是 <strong>AI Agent 協作的雲端基地</strong>。
+            不怕隨身碟壞掉或換電腦檔案不見！所有版本修改都有紀錄，更是{' '}
+            <strong>AI Agent 協作的雲端基地</strong>。
           </div>
         </div>
         <div style={{ fontSize: 20, color: muted, fontWeight: 800 }}>
@@ -3226,7 +3258,8 @@ const Slide17WhatIsGithub: Page = () => (
         textAlign: 'center',
       }}
     >
-      💡 <strong>一句話搞懂 GitHub：</strong>它是你的「教材雲端硬碟 ＋ 免費網站發布機」，讓你的作品隨時能分享給全世界！
+      💡 <strong>一句話搞懂 GitHub：</strong>它是你的「教材雲端硬碟 ＋
+      免費網站發布機」，讓你的作品隨時能分享給全世界！
     </div>
   </PageShell>
 );
@@ -3533,7 +3566,8 @@ const Slide32WebsiteBenefits: Page = () => (
               lineHeight: 1.45,
             }}
           >
-            免裝 App、免登入！把網址印成 QR Code 貼在聯絡簿或投在大螢幕，手機平板一點就開，回家也能自學。
+            免裝 App、免登入！把網址印成 QR Code
+            貼在聯絡簿或投在大螢幕，手機平板一點就開，回家也能自學。
           </div>
         </div>
       </div>
@@ -3610,7 +3644,8 @@ const Slide32WebsiteBenefits: Page = () => (
               border: '1px solid rgba(238, 154, 131, 0.25)',
             }}
           >
-            完全零主機費、零年費！不用擔心第三方線上測驗平台突然改版收費或關閉服務，內容 100% 由你掌控。
+            完全零主機費、零年費！不用擔心第三方線上測驗平台突然改版收費或關閉服務，內容 100%
+            由你掌控。
           </div>
         </div>
       </div>
@@ -4103,7 +4138,15 @@ const Slide42GitStep1Install: Page = () => (
               <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
                 🚀 免去網頁重複上傳
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 之後修改網站，不用再手動把 HTML 檔案拖到 GitHub 網頁。
               </div>
             </div>
@@ -4117,7 +4160,15 @@ const Slide42GitStep1Install: Page = () => (
               <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
                 🔄 完整版本存檔紀錄
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 每一次修改都有備份，改壞了也能隨時一鍵還原。
               </div>
             </div>
@@ -4131,7 +4182,15 @@ const Slide42GitStep1Install: Page = () => (
               <div style={{ fontSize: 26, color: '#27343b', fontWeight: 950 }}>
                 🤖 Agent 必備連線工具
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 讓 Antigravity 可以直接幫你把本機專案推播到 GitHub。
               </div>
             </div>
@@ -4180,9 +4239,7 @@ const Slide42GitStep2Auth: Page = () => (
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 30, fontWeight: 950, color: '#245257' }}>
-              01 · 開啟命令列
-            </span>
+            <span style={{ fontSize: 30, fontWeight: 950, color: '#245257' }}>01 · 開啟命令列</span>
             <span
               style={{
                 fontSize: 17,
@@ -4196,7 +4253,15 @@ const Slide42GitStep2Auth: Page = () => (
               快捷鍵
             </span>
           </div>
-          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
+          <div
+            style={{
+              marginTop: 18,
+              fontSize: 25,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
             按下鍵盤快捷鍵：
             <div
               style={{
@@ -4213,7 +4278,8 @@ const Slide42GitStep2Auth: Page = () => (
             >
               Windows 鍵 ＋ R
             </div>
-            輸入 <strong style={{ color: '#245257', fontFamily: mono, fontSize: 28 }}>CMD</strong> 並按 Enter，開啟「命令提示字元」。
+            輸入 <strong style={{ color: '#245257', fontFamily: mono, fontSize: 28 }}>CMD</strong>{' '}
+            並按 Enter，開啟「命令提示字元」。
           </div>
         </div>
         <div style={{ fontSize: 18, color: muted, fontWeight: 750 }}>
@@ -4254,7 +4320,15 @@ const Slide42GitStep2Auth: Page = () => (
               執行指令
             </span>
           </div>
-          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
+          <div
+            style={{
+              marginTop: 18,
+              fontSize: 25,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
             AI 安裝好 Git 後，會在對話框提供一段認證指令。
             <div
               style={{
@@ -4313,7 +4387,15 @@ const Slide42GitStep2Auth: Page = () => (
               綠色按鈕
             </span>
           </div>
-          <div style={{ marginTop: 18, fontSize: 25, color: '#27343b', fontWeight: 850, lineHeight: 1.45 }}>
+          <div
+            style={{
+              marginTop: 18,
+              fontSize: 25,
+              color: '#27343b',
+              fontWeight: 850,
+              lineHeight: 1.45,
+            }}
+          >
             瀏覽器會跳出 GitHub 授權視窗：
             <div
               style={{
@@ -4477,7 +4559,15 @@ const Slide42GitStep3Push: Page = () => (
               <div style={{ fontSize: 26, fontWeight: 950, color: cyan, fontFamily: mono }}>
                 📦 git add .
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 自動打包所有新增與修改的網頁、圖片與檔案。
               </div>
             </div>
@@ -4491,7 +4581,15 @@ const Slide42GitStep3Push: Page = () => (
               <div style={{ fontSize: 26, fontWeight: 950, color: '#9a7011', fontFamily: mono }}>
                 🔖 git commit
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 為這次修改建立專屬存檔點與版本說明。
               </div>
             </div>
@@ -4505,7 +4603,15 @@ const Slide42GitStep3Push: Page = () => (
               <div style={{ fontSize: 26, fontWeight: 950, color: coral, fontFamily: mono }}>
                 🚀 git push
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 4, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 4,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 正式推播同步到 GitHub 遠端儲存庫，啟動自動部署！
               </div>
             </div>
@@ -4590,8 +4696,17 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
               <div style={{ fontSize: 26, fontWeight: 950, color: '#27343b' }}>
                 🚀 2. AI 自動或手動上傳
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.4 }}>
-                AI 修改完通常會「自動」幫你上傳；也可以隨時對 AI 說「<strong>上傳</strong>」或「<strong>Push</strong>」。
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 6,
+                  fontWeight: 750,
+                  lineHeight: 1.4,
+                }}
+              >
+                AI 修改完通常會「自動」幫你上傳；也可以隨時對 AI 說「<strong>上傳</strong>」或「
+                <strong>Push</strong>」。
               </div>
             </div>
           </div>
@@ -4641,7 +4756,15 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
               <div style={{ fontSize: 26, color: '#7a5a12', fontWeight: 950 }}>
                 🟡 黃色 / 咖啡色圓點（Building）
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 6,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 代表 GitHub Pages 正在自動編譯與部署，稍候約 1~2 分鐘。
               </div>
             </div>
@@ -4656,7 +4779,15 @@ const Slide42GitStep4UpdateWorkflow: Page = () => (
               <div style={{ fontSize: 26, color: '#166534', fontWeight: 950 }}>
                 🟢 綠色勾勾（Success）
               </div>
-              <div style={{ fontSize: 22, color: muted, marginTop: 6, fontWeight: 750, lineHeight: 1.35 }}>
+              <div
+                style={{
+                  fontSize: 22,
+                  color: muted,
+                  marginTop: 6,
+                  fontWeight: 750,
+                  lineHeight: 1.35,
+                }}
+              >
                 代表已順利部署完成！
               </div>
             </div>
