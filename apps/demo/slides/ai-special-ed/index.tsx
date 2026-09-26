@@ -65,23 +65,27 @@ export const transition: SlideTransition = {
 };
 
 const colors = {
-  bg: '#f1f5f9',
+  bg: '#f5efe6', // 暖燕麥拿鐵奶茶色
   bgGradient:
-    'radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.07) 0px, transparent 50%), radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%), #f8fafc',
-  text: '#0f172a',
-  accent: '#6366f1', // 晶透鳶尾靛紫
-  accentMuted: '#e0e7ff',
-  orange: '#f43f5e', // 活力霓光珊瑚玫紅
-  orangeLight: '#ffe4e6',
-  border: 'rgba(255, 255, 255, 0.75)',
-  muted: '#64748b',
+    'radial-gradient(at 0% 0%, rgba(197, 137, 85, 0.12) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(181, 141, 103, 0.10) 0px, transparent 50%), radial-gradient(at 50% 100%, rgba(196, 93, 71, 0.08) 0px, transparent 50%), #f5efe6',
+  text: '#1e1b18', // 濃縮深焙黑咖啡暖字
+  accent: '#a66832', // 焦糖琥珀暖棕（社群主色）
+  accentMuted: '#f4eae0', // 燕麥奶白
+  orange: '#c45d47', // 暖陶紅／珊瑚赤陶（點綴色）
+  orangeLight: '#faebe6',
+  kraft: '#b58d67', // 牛皮紙膠帶色
+  kraftLight: '#f6f0ea',
+  slate: '#242b35', // SPED Logo 極致深藍岩灰
+  slateLight: '#e8edf2',
+  blue: '#385a73', // 北歐謐藍
+  blueLight: '#eaf0f5',
+  border: 'rgba(226, 216, 204, 0.85)',
+  muted: '#706459', // 溫暖可可灰
   white: '#ffffff',
-  navy: '#0f172a',
-  blue: '#0ea5e9', // 霓光天空青
-  blueLight: '#e0f2fe',
-  glassBg: 'rgba(255, 255, 255, 0.78)',
-  glassBorder: 'rgba(255, 255, 255, 0.85)',
-  glassShadow: '0 20px 48px rgba(148, 163, 184, 0.18), 0 4px 12px rgba(99, 102, 241, 0.04)',
+  navy: '#1e1b18',
+  glassBg: 'rgba(255, 255, 255, 0.94)',
+  glassBorder: 'rgba(255, 255, 255, 0.98)',
+  glassShadow: '0 18px 44px rgba(78, 64, 53, 0.10), 0 4px 14px rgba(181, 141, 103, 0.06)',
 } as const;
 
 const toolUrls = {
@@ -156,13 +160,13 @@ const TextbookBg = () => (
     style={{
       position: 'absolute',
       inset: 0,
-      border: '14px solid rgba(255, 255, 255, 0.7)',
+      border: '14px solid rgba(255, 255, 255, 0.85)',
       background: 'transparent',
       overflow: 'hidden',
       pointerEvents: 'none',
     }}
   >
-    {/* 微光玻璃發光球體 */}
+    {/* 暖陽柔光發光球體 (呼應社群日照光影質感) */}
     <div
       style={{
         position: 'absolute',
@@ -172,7 +176,7 @@ const TextbookBg = () => (
         height: 680,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(236, 72, 153, 0.08) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(181, 141, 103, 0.20) 0%, rgba(197, 137, 85, 0.08) 50%, transparent 70%)',
         filter: 'blur(50px)',
       }}
     />
@@ -185,7 +189,7 @@ const TextbookBg = () => (
         height: 720,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(196, 93, 71, 0.12) 0%, rgba(181, 141, 103, 0.08) 50%, transparent 70%)',
         filter: 'blur(60px)',
       }}
     />
@@ -193,8 +197,8 @@ const TextbookBg = () => (
       style={{
         position: 'absolute',
         inset: 0,
-        opacity: 0.45,
-        backgroundImage: 'radial-gradient(rgba(148, 163, 184, 0.45) 1.2px, transparent 1.2px)',
+        opacity: 0.35,
+        backgroundImage: 'radial-gradient(rgba(140, 120, 105, 0.35) 1.2px, transparent 1.2px)',
         backgroundSize: '28px 28px',
       }}
     />
@@ -234,7 +238,7 @@ const TextbookFooter = ({
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
         <span
           style={{
-            background: 'linear-gradient(90deg, #6366f1, #0ea5e9)',
+            background: 'linear-gradient(90deg, #a66832, #c45d47)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             fontWeight: 950,
@@ -260,7 +264,7 @@ const TextbookFooter = ({
         <span
           style={{
             padding: '2px 10px',
-            background: inverse ? 'rgba(255, 255, 255, 0.15)' : 'rgba(99, 102, 241, 0.1)',
+            background: inverse ? 'rgba(255, 255, 255, 0.15)' : 'rgba(166, 104, 50, 0.12)',
             color: inverse ? '#c7d2fe' : colors.accent,
             borderRadius: 6,
             fontWeight: 950,
@@ -297,12 +301,12 @@ const TextbookHeader = ({
           fontSize: '26px',
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
           padding: '6px 20px',
           borderRadius: 10,
-          boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+          boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
         }}
       >
         {unit}
@@ -339,11 +343,11 @@ const PartHeaderPage = ({
   desc: string;
 }) => {
   const accents: Record<string, string> = {
-    '1': '#818cf8',
-    '2': '#38bdf8',
-    '3': '#f472b6',
+    '1': '#d9822b', // 焦糖琥珀暖金 (PART 1)
+    '2': '#c45d47', // 暖陶珊瑚赤紅 (PART 2)
+    '3': '#4a90b8', // 北歐謐藍 (PART 3)
   };
-  const accent = accents[partNum] ?? '#818cf8';
+  const accent = accents[partNum] ?? '#d9822b';
 
   return (
     <div
@@ -353,7 +357,7 @@ const PartHeaderPage = ({
         alignItems: 'center',
         textAlign: 'center',
         color: colors.white,
-        background: 'linear-gradient(135deg, #0f172a 0%, #172554 52%, #312e81 100%)',
+        background: 'linear-gradient(135deg, #1c222b 0%, #242b35 52%, #2c3644 100%)',
       }}
     >
       <div
@@ -367,14 +371,14 @@ const PartHeaderPage = ({
         }}
       />
 
-      {/* 微光球體 */}
+      {/* 暖色柔光球體 */}
       <div
         style={{
           position: 'absolute',
           width: 850,
           height: 850,
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${accent}66 0%, rgba(15, 23, 42, 0) 70%)`,
+          background: `radial-gradient(circle, ${accent}55 0%, rgba(28, 34, 43, 0) 70%)`,
           filter: 'blur(50px)',
           top: '20%',
           left: '50%',
@@ -390,7 +394,7 @@ const PartHeaderPage = ({
           fontSize: '340px',
           fontWeight: 950,
           color: colors.white,
-          opacity: 0.08,
+          opacity: 0.06,
           top: '42%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
@@ -454,7 +458,7 @@ const PartHeaderPage = ({
         <p
           style={{
             fontSize: '40px',
-            color: '#cbd5e1',
+            color: '#d2d9e0',
             lineHeight: 1.4,
             margin: '0 0 64px 0',
             fontWeight: 650,
@@ -471,7 +475,7 @@ const PartHeaderPage = ({
             justifyContent: 'center',
             gap: 32,
             padding: '18px 42px',
-            background: 'rgba(15, 23, 42, 0.35)',
+            background: 'rgba(28, 34, 43, 0.65)',
             backdropFilter: 'blur(20px)',
             borderRadius: 999,
             border: '1.5px solid rgba(255, 255, 255, 0.16)',
@@ -494,7 +498,7 @@ const PartHeaderPage = ({
                   alignItems: 'center',
                   gap: 12,
                   fontWeight: isActive ? 950 : 700,
-                  color: isActive ? '#ffffff' : isPassed ? '#c7d2fe' : '#94a3b8',
+                  color: isActive ? '#ffffff' : isPassed ? '#f4eae0' : '#8c9aa8',
                   fontSize: '28px',
                 }}
               >
@@ -506,7 +510,7 @@ const PartHeaderPage = ({
                     background: isActive
                       ? `linear-gradient(135deg, ${accent} 0%, #ffffff 180%)`
                       : isPassed
-                        ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
+                        ? 'linear-gradient(135deg, #a66832 0%, #8c5222 100%)'
                         : 'rgba(255, 255, 255, 0.18)',
                     color: isActive ? colors.navy : '#ffffff',
                     display: 'flex',
@@ -846,7 +850,7 @@ const WorkshopPracticeTimer = ({
           justifyContent: 'center',
           background:
             'radial-gradient(circle, rgba(15, 23, 42, 0.97) 0%, rgba(30, 41, 59, 0.94) 100%)',
-          boxShadow: '0 24px 60px rgba(15, 23, 42, 0.28), 0 0 48px rgba(244, 63, 94, 0.22)',
+          boxShadow: '0 24px 60px rgba(15, 23, 42, 0.28), 0 0 48px rgba(196, 93, 71, 0.22)',
           border: '2.5px solid rgba(255, 255, 255, 0.18)',
         }}
       >
@@ -862,8 +866,8 @@ const WorkshopPracticeTimer = ({
         >
           <defs>
             <linearGradient id="circularTimerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#f43f5e" />
-              <stop offset="100%" stopColor="#fb923c" />
+              <stop offset="0%" stopColor="#d9822b" />
+              <stop offset="100%" stopColor="#c45d47" />
             </linearGradient>
           </defs>
           {/* 灰色底軌 */}
@@ -987,14 +991,14 @@ const WorkshopPracticeTimer = ({
             alignItems: 'center',
             gap: 10,
             padding: '12px 38px',
-            background: isRunning ? '#fed7aa' : 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
-            color: isRunning ? colors.navy : colors.white,
+            background: isRunning ? '#f4eae0' : 'linear-gradient(135deg, #d9822b 0%, #b56e29 100%)',
+            color: isRunning ? colors.text : colors.white,
             border: 'none',
             borderRadius: 16,
             fontSize: '24px',
             fontWeight: 950,
             cursor: 'pointer',
-            boxShadow: '0 8px 26px rgba(244, 63, 94, 0.38)',
+            boxShadow: isRunning ? 'none' : '0 8px 24px rgba(181, 110, 41, 0.32)',
             transition: 'transform 0.15s ease, background 0.2s ease',
           }}
         >
@@ -1090,7 +1094,7 @@ const PracticePage = ({
             gap: 10,
             padding: '6px 22px',
             borderRadius: 999,
-            background: 'rgba(244, 63, 94, 0.12)',
+            background: 'rgba(196, 93, 71, 0.12)',
             color: colors.orange,
             fontSize: '22px',
             fontWeight: 900,
@@ -1163,14 +1167,14 @@ const PracticePage = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 14,
-                background: 'linear-gradient(135deg, #f43f5e 0%, #e11d48 100%)',
+                background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
                 color: colors.white,
                 padding: '14px 46px',
                 borderRadius: 18,
                 fontSize: '32px',
                 fontWeight: 950,
                 textDecoration: 'none',
-                boxShadow: '0 12px 28px rgba(244, 63, 94, 0.35)',
+                boxShadow: '0 12px 28px rgba(166, 104, 50, 0.32)',
                 letterSpacing: '0.04em',
                 transition: 'transform 0.15s ease',
               }}
@@ -1187,14 +1191,14 @@ const PracticePage = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: 14,
-              background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+              background: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
               color: colors.white,
               padding: '14px 46px',
               borderRadius: 18,
               fontSize: '32px',
               fontWeight: 950,
               textDecoration: 'none',
-              boxShadow: '0 12px 28px rgba(14, 165, 233, 0.3)',
+              boxShadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
               letterSpacing: '0.04em',
               transition: 'transform 0.15s ease',
             }}
@@ -1366,7 +1370,7 @@ const Unit2Card = ({
             height: 52,
             borderRadius: 14,
             background:
-              accent === colors.accent ? 'rgba(99, 102, 241, 0.12)' : 'rgba(244, 63, 94, 0.12)',
+              accent === colors.accent ? 'rgba(166, 104, 50, 0.12)' : 'rgba(196, 93, 71, 0.12)',
             color: accent,
             display: 'flex',
             alignItems: 'center',
@@ -1429,7 +1433,7 @@ const ToolScreenshotFrame = ({
       backdropFilter: 'blur(20px)',
       border: '1.5px solid rgba(255, 255, 255, 0.95)',
       borderRadius: 24,
-      boxShadow: '0 24px 60px rgba(148, 163, 184, 0.22), 0 4px 16px rgba(99, 102, 241, 0.08)',
+      boxShadow: '0 24px 60px rgba(148, 163, 184, 0.22), 0 4px 16px rgba(166, 104, 50, 0.08)',
       overflow: 'hidden',
       minHeight: 0,
       height: '100%',
@@ -1441,7 +1445,7 @@ const ToolScreenshotFrame = ({
   >
     <div
       style={{
-        background: 'linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+        background: 'linear-gradient(90deg, #242b35 0%, #364150 100%)',
         color: '#ffffff',
         display: 'flex',
         alignItems: 'center',
@@ -1450,7 +1454,7 @@ const ToolScreenshotFrame = ({
         fontSize: '22px',
         fontWeight: 900,
         letterSpacing: '0.02em',
-        boxShadow: '0 2px 10px rgba(99, 102, 241, 0.25)',
+        boxShadow: '0 2px 10px rgba(36, 43, 53, 0.25)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -1556,7 +1560,7 @@ const ToolBullet = ({
         fontSize: '24px',
         fontWeight: 900,
         fontFamily: 'var(--osd-font-display)',
-        border: `1.5px solid ${accent === colors.accent ? 'rgba(99, 102, 241, 0.25)' : 'rgba(244, 63, 94, 0.25)'}`,
+        border: `1.5px solid ${accent === colors.accent ? 'rgba(166, 104, 50, 0.25)' : 'rgba(196, 93, 71, 0.25)'}`,
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.04)',
       }}
     >
@@ -1613,7 +1617,7 @@ const WorkshopStepCard = ({
         height: 58,
         borderRadius: 16,
         background:
-          accent === colors.accent ? 'rgba(99, 102, 241, 0.12)' : 'rgba(244, 63, 94, 0.12)',
+          accent === colors.accent ? 'rgba(166, 104, 50, 0.12)' : 'rgba(196, 93, 71, 0.12)',
         color: accent,
         display: 'flex',
         alignItems: 'center',
@@ -1823,7 +1827,7 @@ const MixerSiteCard = ({
         style={{
           width: 'fit-content',
           background:
-            accent === colors.accent ? 'rgba(99, 102, 241, 0.12)' : 'rgba(244, 63, 94, 0.12)',
+            accent === colors.accent ? 'rgba(166, 104, 50, 0.12)' : 'rgba(196, 93, 71, 0.12)',
           color: accent,
           borderRadius: 10,
           padding: '6px 14px',
@@ -1873,187 +1877,165 @@ const MixerSiteCard = ({
 // ==========================================
 
 // Slide 01: 封面 (大圖插畫風格：左側滿版大圖 + 右側大字標題與講者膠囊，精準對標參考圖比例)
+// Slide 01: 封面 (社群風格：溫暖純白卡片 + 牛皮紙膠帶 + 居中大標題與講者品牌徽章)
 const Slide01_Title: Page = () => (
-  <div
-    style={{
-      ...fill,
-      padding: 0,
-      position: 'relative',
-      overflow: 'hidden',
-      background: '#ffffff',
-    }}
-  >
-    {/* 柔和幾何有機雲朵背景 (精準呼應參考圖 #edf2f4 雲朵光斑) */}
-    <div
-      style={{
-        position: 'absolute',
-        top: '-12%',
-        left: '-8%',
-        width: 650,
-        height: 520,
-        borderRadius: '50% 60% 40% 70% / 60% 50% 60% 40%',
-        background: '#edf2f4',
-        pointerEvents: 'none',
-      }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        top: '-15%',
-        left: '42%',
-        width: 600,
-        height: 380,
-        borderRadius: '40% 60% 50% 50% / 50% 40% 60% 50%',
-        background: '#edf2f4',
-        pointerEvents: 'none',
-      }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        bottom: '-15%',
-        right: '12%',
-        width: 650,
-        height: 480,
-        borderRadius: '60% 40% 70% 40% / 50% 60% 40% 60%',
-        background: '#edf2f4',
-        pointerEvents: 'none',
-      }}
-    />
+  <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+    <TextbookBg />
 
-    {/* 右上角年份：2026 (呼應參考圖右上角醒目字樣) */}
-    <div
-      style={{
-        position: 'absolute',
-        top: 95,
-        right: 80,
-        fontSize: '68px',
-        fontWeight: 950,
-        color: '#0f172a',
-        fontFamily: 'var(--osd-font-display)',
-        lineHeight: 1,
-        letterSpacing: '0.02em',
-        zIndex: 2,
-      }}
-    >
-      2026
-    </div>
-
-    {/* 右側：巨型活力標題與資訊欄 (依指示再往右下一點，與人物拉開舒適呼吸空間並完美垂直居中) */}
+    {/* 主卡片容器：呼應社群 Instagram 紙張質感 */}
     <div
       className="es-fadeUp"
       style={{
-        animationDelay: '0.1s',
-        position: 'absolute',
-        left: '52.5%',
-        right: '40px',
-        top: 255,
+        zIndex: 2,
+        maxWidth: 1360,
+        width: '92%',
+        height: 640,
+        background: '#ffffff',
+        borderRadius: 36,
+        padding: '52px 64px 44px 64px',
+        boxShadow: '0 28px 68px rgba(78, 64, 53, 0.14), 0 4px 18px rgba(181, 141, 103, 0.08)',
+        border: '1.5px solid rgba(255, 255, 255, 0.95)',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start',
-        textAlign: 'left',
-        zIndex: 5,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        position: 'relative',
+        boxSizing: 'border-box',
       }}
     >
-      {/* 巨幅亮黃斜角標籤塊 (模仿 STAY FOCUSED 大黃色長條) */}
-      <div style={{ marginBottom: 6 }}>
-        <div
-          style={{
-            display: 'inline-block',
-            background: '#f8b337',
-            color: '#0f172a',
-            padding: '16px 44px',
-            borderRadius: 6,
-            transform: 'rotate(-2.4deg)',
-            fontSize: '76px',
-            fontWeight: 950,
-            letterSpacing: '0.04em',
-            boxShadow: '0 12px 32px rgba(248, 179, 55, 0.36)',
-            lineHeight: 1.05,
-          }}
-        >
-          從使用 AI 到打造 AI
-        </div>
-      </div>
-
-      {/* 巨型粗黑大標 (模仿 AT WORK 150px 超強視覺震撼) */}
-      <h1
+      {/* 頂部牛皮紙膠帶 (Washi Tape 裝飾) */}
+      <div
         style={{
-          fontSize: '108px',
-          fontWeight: 950,
-          color: '#0f172a',
-          margin: '8px 0 16px 0',
-          lineHeight: 1.05,
-          letterSpacing: '-0.03em',
+          position: 'absolute',
+          top: -20,
+          left: '50%',
+          transform: 'translateX(-50%) rotate(-1.2deg)',
+          width: 200,
+          height: 42,
+          background: 'linear-gradient(135deg, #c49a78 0%, #b58d67 100%)',
+          borderRadius: 4,
+          boxShadow: '0 4px 14px rgba(90, 70, 50, 0.22)',
+          opacity: 0.95,
         }}
-      >
-        <>
-          <span style={{ display: 'block' }}>特教教師的</span>
-          <span style={{ display: 'block' }}>教學工作流革命</span>
-        </>
-      </h1>
+      />
 
-      {/* 副標題 */}
-      <p
-        style={{
-          fontSize: '44px',
-          fontWeight: 900,
-          color: '#1e293b',
-          margin: '0 0 34px 0',
-          lineHeight: 1.3,
-          letterSpacing: '0.02em',
-        }}
-      >
-        教學應用與自製工具實作
-      </p>
-
-      {/* 講者膠囊 (模仿 Warner & Spencer 飽滿紫藍大膠囊) */}
+      {/* 頂部小標籤 */}
       <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 14,
-          background: '#5b72ce',
-          color: '#ffffff',
-          borderRadius: 999,
-          padding: '16px 52px',
-          fontSize: '40px',
+          gap: 12,
+          fontSize: '28px',
           fontWeight: 950,
-          letterSpacing: '0.06em',
-          boxShadow: '0 14px 32px rgba(91, 114, 206, 0.38)',
+          color: colors.accent,
+          background: 'rgba(166, 104, 50, 0.12)',
+          border: '1.5px solid rgba(166, 104, 50, 0.25)',
+          padding: '8px 32px',
+          borderRadius: 999,
+          letterSpacing: '0.12em',
+          marginTop: 6,
         }}
       >
-        <span>主講人 ‧ 朱旆誼</span>
+        <span>從使用 AI 到打造 AI</span>
       </div>
-    </div>
 
-    {/* 左側：巨幅滿版插畫 (已去背裁切，左下零邊距完全貼齊) */}
-    <div
-      className="es-fadeUp"
-      style={{
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        height: '820px',
-        width: '915px',
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-start',
-        zIndex: 2,
-        pointerEvents: 'none',
-      }}
-    >
-      <img
-        src={imgHeroTeacher}
-        alt="特教教師備課與AI工作流"
+      {/* 中部核心標題與副標 */}
+      <div style={{ margin: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h1
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: '94px',
+            fontWeight: 950,
+            color: colors.text,
+            margin: '0 0 16px 0',
+            lineHeight: 1.15,
+            letterSpacing: '-0.03em',
+          }}
+        >
+          特教教師的教學工作流革命
+        </h1>
+
+        <p
+          style={{
+            fontSize: '40px',
+            fontWeight: 800,
+            color: colors.muted,
+            margin: 0,
+            letterSpacing: '0.04em',
+            lineHeight: 1.3,
+          }}
+        >
+          教學應用 ‧ 行政減量 ‧ 自製工具實作
+        </p>
+      </div>
+
+      {/* 底部講者與社群品牌資訊列 */}
+      <div
         style={{
-          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 20,
           width: '100%',
-          objectFit: 'contain',
-          objectPosition: 'bottom left',
-          filter: 'drop-shadow(24px 24px 44px rgba(15, 23, 42, 0.14))',
+          flexWrap: 'wrap',
+          marginBottom: 6,
         }}
-      />
+      >
+        {/* 講者膠囊 */}
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 12,
+            background: colors.slate,
+            color: '#ffffff',
+            borderRadius: 999,
+            padding: '14px 40px',
+            fontSize: '32px',
+            fontWeight: 950,
+            letterSpacing: '0.06em',
+            boxShadow: '0 10px 24px rgba(36, 43, 53, 0.28)',
+          }}
+        >
+          <span>主講人 ‧ 朱旆誼</span>
+        </div>
+
+        {/* 社群帳號標籤 */}
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+            background: 'rgba(181, 141, 103, 0.12)',
+            color: colors.accent,
+            border: '1.5px solid rgba(181, 141, 103, 0.3)',
+            borderRadius: 999,
+            padding: '14px 32px',
+            fontSize: '28px',
+            fontWeight: 900,
+          }}
+        >
+          <span>@spedmix2025</span>
+        </div>
+
+        {/* 年份/研習標籤 */}
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'rgba(196, 93, 71, 0.1)',
+            color: colors.orange,
+            border: '1.5px solid rgba(196, 93, 71, 0.25)',
+            borderRadius: 999,
+            padding: '14px 28px',
+            fontSize: '28px',
+            fontWeight: 900,
+          }}
+        >
+          <span>2026 特教研習</span>
+        </div>
+      </div>
     </div>
 
     <TextbookFooter subtitle="研習封面" />
@@ -2594,145 +2576,75 @@ const SvgAiToolIcon = () => (
 );
 
 // Slide 03: 今日大綱 (亮色微光玻璃擬態、清爽大氣、三大核心實踐)
+// Slide 03: 今日大綱 (簡約俐落社群風：無小插圖圖示，純淨01/02序號與清晰文字)
 const Slide03_Agenda: Page = () => (
-  <div style={{ ...fill, padding: '54px 108px 90px 108px' }}>
+  <div style={fill}>
     <TextbookBg />
+    <TextbookHeader
+      unit="今日大綱"
+      title="特教教師的 AI 工作流"
+      subtitle="三大核心實踐 ‧ 模組化流程"
+    />
 
-    {/* 左上角懸掛書籤／盾牌標籤 (清爽亮色微光質感) */}
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 108,
-        width: 136,
-        height: 156,
-        background: 'rgba(255, 255, 255, 0.95)',
-        border: '1.5px solid rgba(255, 255, 255, 0.95)',
-        borderTop: 'none',
-        borderRadius: '0 0 46px 46px',
-        boxShadow: '0 14px 32px rgba(148, 163, 184, 0.2)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 16,
-        zIndex: 10,
-      }}
-    >
-      <span
-        style={{
-          fontSize: '64px',
-          fontWeight: 950,
-          color: colors.accent,
-          fontFamily: 'var(--osd-font-display)',
-          lineHeight: 1,
-        }}
-      >
-        03
-      </span>
-      <span
-        style={{
-          fontSize: '18px',
-          fontWeight: 900,
-          color: colors.muted,
-          letterSpacing: '0.12em',
-          marginTop: 6,
-        }}
-      >
-        大綱
-      </span>
-    </div>
-
-    {/* 標題區域：80 號字大標 + 40 號字副標 */}
-    <div
-      style={{
-        marginLeft: 170,
-        marginBottom: 30,
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 2,
-      }}
-    >
-      <h2
-        style={{
-          fontSize: '80px',
-          fontWeight: 950,
-          color: colors.text,
-          margin: 0,
-          lineHeight: 1.15,
-          fontFamily: 'var(--osd-font-display)',
-        }}
-      >
-        特教教師的 AI 工作流
-      </h2>
-      <div
-        style={{
-          fontSize: '40px',
-          fontWeight: 800,
-          color: colors.muted,
-          marginTop: 10,
-        }}
-      >
-        今日研習大綱 ‧ 三大核心實踐
-      </div>
-    </div>
-
-    {/* 三大直立圓角柱卡片 (清爽亮色微光玻璃擬態，高 520px) */}
+    {/* 三大精簡直立卡片 (純文字與乾淨序號，無任何多餘彩色小圖示) */}
     <div
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: 32,
         zIndex: 2,
-        margin: 'auto 0',
-        alignItems: 'center',
+        flex: 1,
+        alignItems: 'stretch',
+        marginTop: 12,
+        minHeight: 0,
+        height: 540,
+        maxHeight: 540,
       }}
     >
-      {/* 卡片 1: 行政與教材備課 + 紙本小藥丸 */}
+      {/* PART 01 卡片 */}
       <div
         className="es-fadeUp"
         style={{
-          background: 'rgba(255, 255, 255, 0.88)',
+          background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          borderRadius: 24,
-          padding: '22px 22px',
+          border: '1.5px solid rgba(255, 255, 255, 0.98)',
+          borderTop: `7px solid ${colors.accent}`,
+          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
+          borderRadius: 28,
+          padding: '36px 30px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          textAlign: 'center',
-          height: '520px',
+          height: '100%',
           boxSizing: 'border-box',
         }}
       >
-        {/* 上部：PART 標籤 + 時間 + SVG 插圖 */}
         <div>
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 6,
+              marginBottom: 16,
             }}
           >
             <span
               style={{
-                fontSize: '28px',
+                fontSize: '34px',
                 fontWeight: 950,
                 color: colors.accent,
                 fontFamily: 'var(--osd-font-display)',
+                letterSpacing: '0.04em',
               }}
             >
               PART 01
             </span>
             <span
               style={{
-                background: 'rgba(99, 102, 241, 0.1)',
+                background: 'rgba(166, 104, 50, 0.12)',
                 color: colors.accent,
                 borderRadius: 999,
-                padding: '3px 14px',
+                padding: '6px 18px',
                 fontSize: '20px',
                 fontWeight: 900,
               }}
@@ -2741,131 +2653,141 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div
+          <h3
             style={{
-              height: 84,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '2px 0',
+              margin: '0 0 8px 0',
+              fontSize: '40px',
+              fontWeight: 950,
+              color: colors.text,
+              lineHeight: 1.2,
             }}
           >
-            <SvgPaperIcon />
-          </div>
-        </div>
-
-        {/* 中部：原標題 + 紙本小藥丸補充 + 次標 */}
-        <div style={{ margin: '4px 0' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              flexWrap: 'wrap',
-              marginBottom: 6,
-            }}
-          >
-            <h3
-              style={{
-                margin: 0,
-                fontSize: '38px',
-                fontWeight: 950,
-                color: colors.text,
-                lineHeight: 1.2,
-              }}
-            >
-              行政與教材備課
-            </h3>
-            <span
-              style={{
-                background: 'rgba(99, 102, 241, 0.12)',
-                color: colors.accent,
-                border: '1px solid rgba(99, 102, 241, 0.25)',
-                borderRadius: 999,
-                padding: '3px 12px',
-                fontSize: '19px',
-                fontWeight: 900,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              紙本
-            </span>
-          </div>
-          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 700 }}>
+            行政與教材備課
+          </h3>
+          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
             先求快速產出第一版
           </div>
         </div>
 
-        {/* 下部：兩大具體列點 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {['🎯 IEP 目標生成器', '📝 國英數簡化學習單'].map((t) => (
+        {/* 兩大核心要點 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
             <div
-              key={t}
               style={{
-                background: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid rgba(226, 232, 240, 0.9)',
-                borderRadius: 16,
-                padding: '13px 12px',
-                fontSize: '28px',
-                fontWeight: 900,
-                color: colors.text,
-                textAlign: 'center',
-                boxShadow: '0 4px 12px rgba(148, 163, 184, 0.08)',
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(166, 104, 50, 0.12)',
+                color: colors.accent,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
               }}
             >
-              {t}
+              01
             </div>
-          ))}
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              IEP 目標生成器
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
+            <div
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(196, 93, 71, 0.12)',
+                color: colors.orange,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              國數適性學習單
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 卡片 2: 自製互動教學網頁 + 數位小藥丸 */}
+      {/* PART 02 卡片 */}
       <div
         className="es-fadeUp"
         style={{
           animationDelay: '0.12s',
-          background: 'rgba(255, 255, 255, 0.88)',
+          background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.orange}`,
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          borderRadius: 24,
-          padding: '22px 22px',
+          border: '1.5px solid rgba(255, 255, 255, 0.98)',
+          borderTop: `7px solid ${colors.orange}`,
+          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
+          borderRadius: 28,
+          padding: '36px 30px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          textAlign: 'center',
-          height: '520px',
+          height: '100%',
           boxSizing: 'border-box',
         }}
       >
-        {/* 上部：PART 標籤 + 時間 + SVG 插圖 */}
         <div>
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 6,
+              marginBottom: 16,
             }}
           >
             <span
               style={{
-                fontSize: '28px',
+                fontSize: '34px',
                 fontWeight: 950,
                 color: colors.orange,
                 fontFamily: 'var(--osd-font-display)',
+                letterSpacing: '0.04em',
               }}
             >
               PART 02
             </span>
             <span
               style={{
-                background: 'rgba(244, 63, 94, 0.1)',
+                background: 'rgba(196, 93, 71, 0.12)',
                 color: colors.orange,
                 borderRadius: 999,
-                padding: '3px 14px',
+                padding: '6px 18px',
                 fontSize: '20px',
                 fontWeight: 900,
               }}
@@ -2874,131 +2796,141 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div
+          <h3
             style={{
-              height: 84,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '2px 0',
+              margin: '0 0 8px 0',
+              fontSize: '40px',
+              fontWeight: 950,
+              color: colors.text,
+              lineHeight: 1.2,
             }}
           >
-            <SvgDigitalIcon />
-          </div>
-        </div>
-
-        {/* 中部：原標題 + 數位小藥丸補充 + 次標 */}
-        <div style={{ margin: '4px 0' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              flexWrap: 'wrap',
-              marginBottom: 6,
-            }}
-          >
-            <h3
-              style={{
-                margin: 0,
-                fontSize: '38px',
-                fontWeight: 950,
-                color: colors.text,
-                lineHeight: 1.2,
-              }}
-            >
-              自製互動教學網頁
-            </h3>
-            <span
-              style={{
-                background: 'rgba(244, 63, 94, 0.12)',
-                color: colors.orange,
-                border: '1px solid rgba(244, 63, 94, 0.25)',
-                borderRadius: 999,
-                padding: '3px 12px',
-                fontSize: '19px',
-                fontWeight: 900,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              數位
-            </span>
-          </div>
-          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 700 }}>
+            自製互動教學網頁
+          </h3>
+          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
             打造適性特教學習鷹架
           </div>
         </div>
 
-        {/* 下部：兩大具體列點 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {['🧩 句型排列重組', '💻 互動步驟數學'].map((t) => (
+        {/* 兩大核心要點 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
             <div
-              key={t}
               style={{
-                background: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid rgba(226, 232, 240, 0.9)',
-                borderRadius: 16,
-                padding: '13px 12px',
-                fontSize: '28px',
-                fontWeight: 900,
-                color: colors.text,
-                textAlign: 'center',
-                boxShadow: '0 4px 12px rgba(148, 163, 184, 0.08)',
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(166, 104, 50, 0.12)',
+                color: colors.accent,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
               }}
             >
-              {t}
+              01
             </div>
-          ))}
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              句型排列重組
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
+            <div
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(196, 93, 71, 0.12)',
+                color: colors.orange,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              互動步驟數學
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 卡片 3: 自製 AI 工具實作 + 自製 AI 小藥丸 */}
+      {/* PART 03 卡片 */}
       <div
         className="es-fadeUp"
         style={{
           animationDelay: '0.24s',
-          background: 'rgba(255, 255, 255, 0.88)',
+          background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.blue}`,
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          borderRadius: 24,
-          padding: '22px 22px',
+          border: '1.5px solid rgba(255, 255, 255, 0.98)',
+          borderTop: `7px solid ${colors.slate}`,
+          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
+          borderRadius: 28,
+          padding: '36px 30px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          textAlign: 'center',
-          height: '520px',
+          height: '100%',
           boxSizing: 'border-box',
         }}
       >
-        {/* 上部：PART 標籤 + 時間 + SVG 插圖 */}
         <div>
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 6,
+              marginBottom: 16,
             }}
           >
             <span
               style={{
-                fontSize: '28px',
+                fontSize: '34px',
                 fontWeight: 950,
-                color: colors.blue,
+                color: colors.slate,
                 fontFamily: 'var(--osd-font-display)',
+                letterSpacing: '0.04em',
               }}
             >
               PART 03
             </span>
             <span
               style={{
-                background: 'rgba(14, 165, 233, 0.1)',
-                color: colors.blue,
+                background: 'rgba(36, 43, 53, 0.10)',
+                color: colors.slate,
                 borderRadius: 999,
-                padding: '3px 14px',
+                padding: '6px 18px',
                 fontSize: '20px',
                 fontWeight: 900,
               }}
@@ -3007,86 +2939,97 @@ const Slide03_Agenda: Page = () => (
             </span>
           </div>
 
-          <div
+          <h3
             style={{
-              height: 84,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '2px 0',
+              margin: '0 0 8px 0',
+              fontSize: '40px',
+              fontWeight: 950,
+              color: colors.text,
+              lineHeight: 1.2,
             }}
           >
-            <SvgAiToolIcon />
-          </div>
-        </div>
-
-        {/* 中部：原標題 + 自製 AI 小藥丸補充 + 次標 */}
-        <div style={{ margin: '4px 0' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              flexWrap: 'wrap',
-              marginBottom: 6,
-            }}
-          >
-            <h3
-              style={{
-                margin: 0,
-                fontSize: '38px',
-                fontWeight: 950,
-                color: colors.text,
-                lineHeight: 1.2,
-              }}
-            >
-              自製 AI 工具實作
-            </h3>
-            <span
-              style={{
-                background: 'rgba(14, 165, 233, 0.12)',
-                color: colors.blue,
-                border: '1px solid rgba(14, 165, 233, 0.25)',
-                borderRadius: 999,
-                padding: '3px 12px',
-                fontSize: '19px',
-                fontWeight: 900,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              自製 AI
-            </span>
-          </div>
-          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 700 }}>
+            自製 AI 工具實作
+          </h3>
+          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
             Canvas 打造專屬工具
           </div>
         </div>
 
-        {/* 下部：兩大具體列點 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {['💬 Vibe Coding 咒語', '🛠️ Canvas 出題助手'].map((t) => (
+        {/* 兩大核心要點 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
             <div
-              key={t}
               style={{
-                background: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid rgba(226, 232, 240, 0.9)',
-                borderRadius: 16,
-                padding: '13px 12px',
-                fontSize: '28px',
-                fontWeight: 900,
-                color: colors.text,
-                textAlign: 'center',
-                boxShadow: '0 4px 12px rgba(148, 163, 184, 0.08)',
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(166, 104, 50, 0.12)',
+                color: colors.accent,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
               }}
             >
-              {t}
+              01
             </div>
-          ))}
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              Vibe Coding 咒語
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 216, 204, 0.85)',
+              borderRadius: 18,
+              padding: '18px 22px',
+              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
+            }}
+          >
+            <div
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 12,
+                background: 'rgba(36, 43, 53, 0.12)',
+                color: colors.slate,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
+              Canvas 出題助手
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <TextbookFooter subtitle="今日課程大綱" />
+    <TextbookFooter subtitle="今日研習大綱" />
   </div>
 );
 
@@ -3096,7 +3039,7 @@ const Slide04_Part1Header: Page = () => (
     partNum="1"
     time="14:00~14:50"
     title={'行政減量與教材備課\n實例分享'}
-    desc="IEP 行政目標生成 ＋ 國英數適性課堂學習單，AI 快速產出第一版，老師回歸個別化微調"
+    desc="IEP 行政目標生成 ＋ 國數適性課堂學習單，AI 快速產出第一版，老師回歸個別化微調"
   />
 );
 
@@ -3142,10 +3085,10 @@ const Slide05_AdminIep: Page = () => {
             background: 'rgba(255, 255, 255, 0.94)',
             backdropFilter: 'blur(20px)',
             border: '1.5px solid rgba(254, 205, 211, 0.95)',
-            borderTop: '8px solid #f43f5e',
+            borderTop: `8px solid ${colors.orange}`,
             borderRadius: 24,
             padding: '28px 32px',
-            boxShadow: '0 20px 48px rgba(244, 63, 94, 0.10)',
+            boxShadow: '0 20px 48px rgba(196, 93, 71, 0.10)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -3157,13 +3100,13 @@ const Slide05_AdminIep: Page = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                background: 'rgba(244, 63, 94, 0.1)',
-                border: '1.5px solid rgba(244, 63, 94, 0.25)',
+                background: 'rgba(196, 93, 71, 0.1)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
                 padding: '8px 24px',
                 borderRadius: 20,
                 fontSize: '26px',
                 fontWeight: 950,
-                color: '#e11d48',
+                color: '#c45d47',
                 letterSpacing: '0.04em',
               }}
             >
@@ -3184,7 +3127,7 @@ const Slide05_AdminIep: Page = () => {
                   gap: 18,
                   background: 'rgba(255, 255, 255, 0.98)',
                   border: '1.5px solid rgba(226, 232, 240, 0.9)',
-                  borderLeft: '7px solid #f43f5e',
+                  borderLeft: `7px solid ${colors.orange}`,
                   borderRadius: 18,
                   padding: '18px 22px',
                   boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
@@ -3195,8 +3138,8 @@ const Slide05_AdminIep: Page = () => {
                     width: 42,
                     height: 42,
                     borderRadius: 12,
-                    background: 'rgba(244, 63, 94, 0.12)',
-                    color: '#e11d48',
+                    background: 'rgba(196, 93, 71, 0.12)',
+                    color: '#c45d47',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -3246,8 +3189,8 @@ const Slide05_AdminIep: Page = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                background: 'rgba(99, 102, 241, 0.1)',
-                border: '1.5px solid rgba(99, 102, 241, 0.25)',
+                background: 'rgba(166, 104, 50, 0.1)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
                 padding: '8px 24px',
                 borderRadius: 20,
                 fontSize: '26px',
@@ -3284,7 +3227,7 @@ const Slide05_AdminIep: Page = () => {
                     width: 42,
                     height: 42,
                     borderRadius: 12,
-                    background: 'rgba(99, 102, 241, 0.12)',
+                    background: 'rgba(166, 104, 50, 0.12)',
                     color: '#4338ca',
                     display: 'flex',
                     alignItems: 'center',
@@ -3405,13 +3348,13 @@ const MinimalToolSlide = ({
               alignItems: 'center',
               gap: 8,
               background:
-                'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.22)',
+                'linear-gradient(135deg, rgba(166, 104, 50, 0.1) 0%, rgba(196, 93, 71, 0.1) 100%)',
+              border: '1px solid rgba(166, 104, 50, 0.22)',
               padding: '6px 16px',
               borderRadius: 20,
               fontSize: '22px',
               fontWeight: 900,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -3422,9 +3365,9 @@ const MinimalToolSlide = ({
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                background: 'rgba(244, 63, 94, 0.08)',
+                background: 'rgba(196, 93, 71, 0.08)',
                 color: colors.orange,
-                border: '1px solid rgba(244, 63, 94, 0.2)',
+                border: '1px solid rgba(196, 93, 71, 0.2)',
                 padding: '6px 14px',
                 borderRadius: 14,
                 fontSize: '20px',
@@ -3466,21 +3409,21 @@ const MinimalToolSlide = ({
             points.map((pt, idx) => {
               const accents = [
                 {
-                  bg: 'rgba(99, 102, 241, 0.12)',
+                  bg: 'rgba(166, 104, 50, 0.12)',
                   text: '#4f46e5',
-                  border: 'rgba(99, 102, 241, 0.25)',
+                  border: 'rgba(166, 104, 50, 0.25)',
                   num: '01',
                 },
                 {
-                  bg: 'rgba(244, 63, 94, 0.12)',
-                  text: '#e11d48',
-                  border: 'rgba(244, 63, 94, 0.25)',
+                  bg: 'rgba(196, 93, 71, 0.12)',
+                  text: '#c45d47',
+                  border: 'rgba(196, 93, 71, 0.25)',
                   num: '02',
                 },
                 {
-                  bg: 'rgba(14, 165, 233, 0.12)',
-                  text: '#0284c7',
-                  border: 'rgba(14, 165, 233, 0.25)',
+                  bg: 'rgba(56, 90, 115, 0.12)',
+                  text: '#385a73',
+                  border: 'rgba(56, 90, 115, 0.25)',
                   num: '03',
                 },
               ];
@@ -3545,14 +3488,14 @@ const MinimalToolSlide = ({
               alignItems: 'center',
               justifyContent: 'center',
               gap: 12,
-              background: 'linear-gradient(135deg, #f43f5e 0%, #fb7185 100%)',
+              background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
               color: colors.white,
               padding: '16px 28px',
               borderRadius: 16,
               fontSize: '28px',
               fontWeight: 950,
               textDecoration: 'none',
-              boxShadow: '0 12px 28px rgba(244, 63, 94, 0.32)',
+              boxShadow: '0 12px 28px rgba(196, 93, 71, 0.32)',
               marginTop: 4,
             }}
           >
@@ -3566,7 +3509,7 @@ const MinimalToolSlide = ({
               alignItems: 'center',
               gap: 12,
               background:
-                'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)',
+                'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
               border: '1.5px solid rgba(226, 232, 240, 0.95)',
               borderRadius: 16,
               padding: '12px 18px',
@@ -3672,12 +3615,12 @@ const ToolChapterSlide = ({
               fontWeight: 900,
               fontSize: '26px',
               letterSpacing: '0.08em',
-              background: 'rgba(99, 102, 241, 0.1)',
+              background: 'rgba(166, 104, 50, 0.1)',
               backdropFilter: 'blur(12px)',
-              border: '1.5px solid rgba(99, 102, 241, 0.25)',
+              border: '1.5px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 24px',
               borderRadius: 14,
-              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.08)',
+              boxShadow: '0 4px 12px rgba(166, 104, 50, 0.08)',
             }}
           >
             {unit}
@@ -3686,8 +3629,8 @@ const ToolChapterSlide = ({
             <span
               style={{
                 color: colors.orange,
-                background: 'rgba(244, 63, 94, 0.08)',
-                border: '1.5px solid rgba(244, 63, 94, 0.2)',
+                background: 'rgba(196, 93, 71, 0.08)',
+                border: '1.5px solid rgba(196, 93, 71, 0.2)',
                 padding: '8px 20px',
                 borderRadius: 14,
                 fontSize: '24px',
@@ -3742,14 +3685,14 @@ const ToolChapterSlide = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 16,
-                background: 'linear-gradient(135deg, #f43f5e 0%, #fb7185 100%)',
+                background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
                 color: colors.white,
                 padding: '20px 48px',
                 borderRadius: 20,
                 fontSize: '32px',
                 fontWeight: 950,
                 textDecoration: 'none',
-                boxShadow: '0 14px 36px rgba(244, 63, 94, 0.38)',
+                boxShadow: '0 14px 36px rgba(196, 93, 71, 0.38)',
                 letterSpacing: '0.02em',
               }}
             >
@@ -3827,17 +3770,17 @@ const ToolCoverSlide = ({
     rose: {
       bg: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
       border: 'rgba(251, 113, 133, 0.45)',
-      badgeBg: 'rgba(244, 63, 94, 0.15)',
-      badgeColor: '#e11d48',
-      shadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+      badgeBg: 'rgba(196, 93, 71, 0.15)',
+      badgeColor: '#c45d47',
+      shadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
       tailRadius: '28px 28px 28px 6px',
     },
     sky: {
       bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
       border: 'rgba(56, 189, 248, 0.45)',
-      badgeBg: 'rgba(14, 165, 233, 0.15)',
-      badgeColor: '#0284c7',
-      shadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+      badgeBg: 'rgba(56, 90, 115, 0.15)',
+      badgeColor: '#385a73',
+      shadow: '0 14px 32px rgba(56, 90, 115, 0.10)',
       tailRadius: '28px 28px 6px 28px',
     },
     amber: {
@@ -3851,9 +3794,9 @@ const ToolCoverSlide = ({
     indigo: {
       bg: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
       border: 'rgba(129, 140, 248, 0.45)',
-      badgeBg: 'rgba(99, 102, 241, 0.15)',
+      badgeBg: 'rgba(166, 104, 50, 0.15)',
       badgeColor: '#4f46e5',
-      shadow: '0 14px 32px rgba(99, 102, 241, 0.10)',
+      shadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
       tailRadius: '28px 28px 6px 28px',
     },
     emerald: {
@@ -3878,7 +3821,7 @@ const ToolCoverSlide = ({
           height: 800,
           borderRadius: '50%',
           background:
-            'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+            'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
           filter: 'blur(50px)',
           pointerEvents: 'none',
         }}
@@ -3910,12 +3853,12 @@ const ToolCoverSlide = ({
             fontSize: '24px',
             fontWeight: 950,
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             padding: '6px 26px',
             borderRadius: 999,
             letterSpacing: '0.12em',
             marginBottom: 14,
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
           }}
         >
           <span>{unit}</span>
@@ -4040,7 +3983,7 @@ const Slide08_ChineseLessonTitle: Page = () => (
         height: 800,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
@@ -4072,12 +4015,12 @@ const Slide08_ChineseLessonTitle: Page = () => (
           fontSize: '28px',
           fontWeight: 950,
           color: colors.accent,
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           padding: '8px 30px',
           borderRadius: 999,
           letterSpacing: '0.12em',
           marginBottom: 14,
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
         }}
       >
         <span>語文備課</span>
@@ -4109,8 +4052,8 @@ const Slide08_ChineseLessonTitle: Page = () => (
           {/* 老師心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-              border: '2px solid rgba(251, 113, 133, 0.45)',
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
               borderRadius: '28px 28px 28px 6px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -4118,7 +4061,7 @@ const Slide08_ChineseLessonTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
               transform: 'rotate(-1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -4132,8 +4075,8 @@ const Slide08_ChineseLessonTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#e11d48',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -4160,8 +4103,8 @@ const Slide08_ChineseLessonTitle: Page = () => (
           {/* 學生心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-              border: '2px solid rgba(56, 189, 248, 0.45)',
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
               borderRadius: '28px 28px 6px 28px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -4169,7 +4112,7 @@ const Slide08_ChineseLessonTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
               transform: 'rotate(1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -4183,8 +4126,8 @@ const Slide08_ChineseLessonTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#0284c7',
-                  background: 'rgba(14, 165, 233, 0.15)',
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -4228,12 +4171,12 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           語文備課
@@ -4289,13 +4232,13 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -4305,9 +4248,9 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -4320,20 +4263,20 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>原文與易讀雙軌排版</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>結合情境插圖輔助理解</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>唸讀計時檢核框</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -4362,12 +4305,12 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           語文備課
@@ -4423,13 +4366,13 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -4439,9 +4382,9 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -4454,16 +4397,16 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>注音田字格生字練寫</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>段落核心重點摘要</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -4492,12 +4435,12 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           語文備課
@@ -4553,13 +4496,13 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -4569,9 +4512,9 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -4584,20 +4527,20 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>隨段兩題即時測驗</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>快速檢核學生理解</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>範圍縮短成每段測驗，降低負荷</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -4626,12 +4569,12 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           語文備課
@@ -4687,13 +4630,13 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -4703,9 +4646,9 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -4718,20 +4661,20 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>引導式重點歸納表格</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>文章結構脈絡梳理</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>培養深層理解</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -4760,12 +4703,12 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           語文備課
@@ -4821,13 +4764,13 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -4837,9 +4780,9 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -4852,16 +4795,16 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>課文詞語注釋連連看</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>強化生字詞釋義記憶</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -4901,7 +4844,7 @@ const Slide10_MathScaffoldTitle: Page = () => (
         height: 800,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
@@ -4933,12 +4876,12 @@ const Slide10_MathScaffoldTitle: Page = () => (
           fontSize: '28px',
           fontWeight: 950,
           color: colors.accent,
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           padding: '8px 30px',
           borderRadius: 999,
           letterSpacing: '0.12em',
           marginBottom: 14,
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
         }}
       >
         <span>數學備課</span>
@@ -4970,8 +4913,8 @@ const Slide10_MathScaffoldTitle: Page = () => (
           {/* 老師心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-              border: '2px solid rgba(251, 113, 133, 0.45)',
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
               borderRadius: '28px 28px 28px 6px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -4979,7 +4922,7 @@ const Slide10_MathScaffoldTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
               transform: 'rotate(-1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -4993,8 +4936,8 @@ const Slide10_MathScaffoldTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#e11d48',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -5021,8 +4964,8 @@ const Slide10_MathScaffoldTitle: Page = () => (
           {/* 學生心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-              border: '2px solid rgba(56, 189, 248, 0.45)',
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
               borderRadius: '28px 28px 6px 28px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -5030,7 +4973,7 @@ const Slide10_MathScaffoldTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
               transform: 'rotate(1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -5044,8 +4987,8 @@ const Slide10_MathScaffoldTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#0284c7',
-                  background: 'rgba(14, 165, 233, 0.15)',
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -5089,12 +5032,12 @@ const Slide10_MathScaffold1: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           數學備課
@@ -5150,13 +5093,13 @@ const Slide10_MathScaffold1: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -5166,9 +5109,9 @@ const Slide10_MathScaffold1: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -5181,20 +5124,20 @@ const Slide10_MathScaffold1: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>只需輸入題目類型</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>也能直接貼上課本概念或題目截圖</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>一次一種概念結構清楚</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -5255,13 +5198,13 @@ const Slide10_MathScaffold2: Page = () => (
               alignItems: 'center',
               gap: 8,
               background:
-                'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.22)',
+                'linear-gradient(135deg, rgba(166, 104, 50, 0.1) 0%, rgba(196, 93, 71, 0.1) 100%)',
+              border: '1px solid rgba(166, 104, 50, 0.22)',
               padding: '6px 16px',
               borderRadius: 20,
               fontSize: '22px',
               fontWeight: 900,
-              color: colors.indigo,
+              color: colors.accent,
             }}
           >
             <span>💡 先理解，再作答</span>
@@ -5270,9 +5213,9 @@ const Slide10_MathScaffold2: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '6px 14px',
               borderRadius: 14,
               fontSize: '20px',
@@ -5301,8 +5244,8 @@ const Slide10_MathScaffold2: Page = () => (
                 width: 44,
                 height: 44,
                 borderRadius: 12,
-                background: 'rgba(244, 63, 94, 0.12)',
-                border: '1px solid rgba(244, 63, 94, 0.25)',
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1px solid rgba(196, 93, 71, 0.25)',
                 color: colors.orange,
                 display: 'flex',
                 alignItems: 'center',
@@ -5336,8 +5279,8 @@ const Slide10_MathScaffold2: Page = () => (
                 width: 44,
                 height: 44,
                 borderRadius: 12,
-                background: 'rgba(99, 102, 241, 0.12)',
-                border: '1px solid rgba(99, 102, 241, 0.25)',
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1px solid rgba(166, 104, 50, 0.25)',
                 color: '#4f46e5',
                 display: 'flex',
                 alignItems: 'center',
@@ -5371,9 +5314,9 @@ const Slide10_MathScaffold2: Page = () => (
                 width: 44,
                 height: 44,
                 borderRadius: 12,
-                background: 'rgba(14, 165, 233, 0.12)',
-                border: '1px solid rgba(14, 165, 233, 0.25)',
-                color: '#0284c7',
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -5396,7 +5339,7 @@ const Slide10_MathScaffold2: Page = () => (
             alignItems: 'center',
             gap: 12,
             background:
-              'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)',
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
             border: '1.5px solid rgba(226, 232, 240, 0.95)',
             borderRadius: 16,
             padding: '12px 18px',
@@ -5475,7 +5418,7 @@ const Slide10_MathScaffold2: Page = () => (
           }}
         >
           <span>概念說明</span>
-          <span style={{ color: '#f43f5e' }}>➔</span>
+          <span style={{ color: colors.orange }}>➔</span>
           <span>分步練習</span>
         </div>
       </div>
@@ -5498,12 +5441,12 @@ const Slide10_MathScaffold3: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           數學備課
@@ -5557,13 +5500,13 @@ const Slide10_MathScaffold3: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -5573,9 +5516,9 @@ const Slide10_MathScaffold3: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -5588,20 +5531,20 @@ const Slide10_MathScaffold3: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>單元目錄快速導航</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>無觸控大屏也適用</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>畫筆、秀答案等基本功能</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -5630,12 +5573,12 @@ const Slide10_MathScaffold4: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           數學備課
@@ -5691,13 +5634,13 @@ const Slide10_MathScaffold4: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -5707,9 +5650,9 @@ const Slide10_MathScaffold4: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -5722,20 +5665,20 @@ const Slide10_MathScaffold4: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>一鍵濾除按鈕與答案</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>標準無干擾 A4 作業卷</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>免二次排版直接出紙本</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -5775,7 +5718,7 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
         height: 800,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
@@ -5807,12 +5750,12 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
           fontSize: '28px',
           fontWeight: 950,
           color: colors.accent,
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           padding: '8px 30px',
           borderRadius: 999,
           letterSpacing: '0.12em',
           marginBottom: 14,
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
         }}
       >
         <span>英文備課</span>
@@ -5842,8 +5785,8 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
           {/* 老師心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-              border: '2px solid rgba(251, 113, 133, 0.45)',
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
               borderRadius: '28px 28px 28px 6px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -5851,7 +5794,7 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
               transform: 'rotate(-1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -5865,8 +5808,8 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#e11d48',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -5891,8 +5834,8 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
           {/* 學生心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-              border: '2px solid rgba(56, 189, 248, 0.45)',
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
               borderRadius: '28px 28px 6px 28px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -5900,7 +5843,7 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
               transform: 'rotate(1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -5914,8 +5857,8 @@ const Slide09_EnglishWorksheetTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#0284c7',
-                  background: 'rgba(14, 165, 233, 0.15)',
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -5957,12 +5900,12 @@ const Slide09_EnglishWorksheet1: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           英文備課
@@ -6016,13 +5959,13 @@ const Slide09_EnglishWorksheet1: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -6032,9 +5975,9 @@ const Slide09_EnglishWorksheet1: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -6047,20 +5990,20 @@ const Slide09_EnglishWorksheet1: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>貼入課文</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>貼入單字文法</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>差異化按鈕調整</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -6089,12 +6032,12 @@ const Slide09_EnglishWorksheet2: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           英文備課
@@ -6150,13 +6093,13 @@ const Slide09_EnglishWorksheet2: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -6166,9 +6109,9 @@ const Slide09_EnglishWorksheet2: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -6181,20 +6124,20 @@ const Slide09_EnglishWorksheet2: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>課文情境插圖</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>關鍵單字劃記</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>逐句中英排版</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -6223,12 +6166,12 @@ const Slide09_EnglishWorksheet3: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           英文備課
@@ -6315,12 +6258,12 @@ const Slide09_EnglishWorksheet5: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           英文備課
@@ -6410,7 +6353,7 @@ const Slide14_WebTool1Title: Page = () => (
         height: 800,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
@@ -6442,12 +6385,12 @@ const Slide14_WebTool1Title: Page = () => (
           fontSize: '28px',
           fontWeight: 950,
           color: colors.accent,
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           padding: '8px 30px',
           borderRadius: 999,
           letterSpacing: '0.12em',
           marginBottom: 14,
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
         }}
       >
         <span>單元二：自製互動網頁</span>
@@ -6477,8 +6420,8 @@ const Slide14_WebTool1Title: Page = () => (
           {/* 老師心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-              border: '2px solid rgba(251, 113, 133, 0.45)',
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
               borderRadius: '28px 28px 28px 6px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -6486,7 +6429,7 @@ const Slide14_WebTool1Title: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
               transform: 'rotate(-1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -6500,8 +6443,8 @@ const Slide14_WebTool1Title: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#e11d48',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -6526,8 +6469,8 @@ const Slide14_WebTool1Title: Page = () => (
           {/* 學生心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-              border: '2px solid rgba(56, 189, 248, 0.45)',
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
               borderRadius: '28px 28px 6px 28px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -6535,7 +6478,7 @@ const Slide14_WebTool1Title: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
               transform: 'rotate(1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -6549,8 +6492,8 @@ const Slide14_WebTool1Title: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#0284c7',
-                  background: 'rgba(14, 165, 233, 0.15)',
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -6594,12 +6537,12 @@ const Slide14_WebTool1: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           單元二：自製互動網頁
@@ -6653,13 +6596,13 @@ const Slide14_WebTool1: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -6669,9 +6612,9 @@ const Slide14_WebTool1: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -6684,20 +6627,20 @@ const Slide14_WebTool1: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>免手寫直覺拖曳操作</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>支援即時字卡語音朗讀</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>靠聽力去把句子組起來，不是死記文法</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -6716,7 +6659,7 @@ const Slide14_WebTool1: Page = () => (
 // Slide 18: 實作五︰句型排列與語法重組 (10分鐘實作)
 const Slide14_Practice_Unscramble: Page = () => (
   <PracticePage
-    num="05"
+    num="04"
     toolName="句型排列"
     time="10 分鐘"
     task="請利用句型排列工具，輸入 2~3 個句子試做互動練習。"
@@ -6737,7 +6680,7 @@ const Slide15_InteractiveMathTitle: Page = () => (
         height: 800,
         borderRadius: '50%',
         background:
-          'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.06) 50%, transparent 70%)',
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
@@ -6769,12 +6712,12 @@ const Slide15_InteractiveMathTitle: Page = () => (
           fontSize: '28px',
           fontWeight: 950,
           color: colors.accent,
-          background: 'rgba(99, 102, 241, 0.1)',
+          background: 'rgba(166, 104, 50, 0.1)',
           padding: '8px 30px',
           borderRadius: 999,
           letterSpacing: '0.12em',
           marginBottom: 14,
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          border: '1px solid rgba(166, 104, 50, 0.2)',
         }}
       >
         <span>單元二：自製互動網頁</span>
@@ -6804,8 +6747,8 @@ const Slide15_InteractiveMathTitle: Page = () => (
           {/* 老師心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-              border: '2px solid rgba(251, 113, 133, 0.45)',
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
               borderRadius: '28px 28px 28px 6px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -6813,7 +6756,7 @@ const Slide15_InteractiveMathTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(244, 63, 94, 0.10)',
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
               transform: 'rotate(-1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -6827,8 +6770,8 @@ const Slide15_InteractiveMathTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#e11d48',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -6855,8 +6798,8 @@ const Slide15_InteractiveMathTitle: Page = () => (
           {/* 學生心聲 */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-              border: '2px solid rgba(56, 189, 248, 0.45)',
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
               borderRadius: '28px 28px 6px 28px',
               padding: '32px 36px',
               textAlign: 'left',
@@ -6864,7 +6807,7 @@ const Slide15_InteractiveMathTitle: Page = () => (
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: 18,
-              boxShadow: '0 14px 32px rgba(14, 165, 233, 0.10)',
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
               transform: 'rotate(1.2deg)',
               transition: 'transform 0.2s ease',
               position: 'relative',
@@ -6878,8 +6821,8 @@ const Slide15_InteractiveMathTitle: Page = () => (
                   gap: 6,
                   fontSize: '24px',
                   fontWeight: 950,
-                  color: '#0284c7',
-                  background: 'rgba(14, 165, 233, 0.15)',
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
                   padding: '6px 18px',
                   borderRadius: 999,
                 }}
@@ -6923,12 +6866,12 @@ const Slide15_InteractiveMath: Page = () => (
             fontWeight: 900,
             letterSpacing: '0.08em',
             color: colors.accent,
-            background: 'rgba(99, 102, 241, 0.1)',
+            background: 'rgba(166, 104, 50, 0.1)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99, 102, 241, 0.2)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(99, 102, 241, 0.08)',
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
           }}
         >
           單元二：自製互動網頁
@@ -6984,13 +6927,13 @@ const Slide15_InteractiveMath: Page = () => (
               display: 'inline-flex',
               alignItems: 'center',
               gap: 8,
-              background: 'rgba(99, 102, 241, 0.1)',
-              border: '1px solid rgba(99, 102, 241, 0.2)',
+              background: 'rgba(166, 104, 50, 0.1)',
+              border: '1px solid rgba(166, 104, 50, 0.25)',
               padding: '8px 20px',
               borderRadius: 20,
               fontSize: '24px',
               fontWeight: 950,
-              color: colors.indigo,
+              color: colors.accent,
               letterSpacing: '0.02em',
             }}
           >
@@ -7000,9 +6943,9 @@ const Slide15_InteractiveMath: Page = () => (
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              background: 'rgba(244, 63, 94, 0.08)',
+              background: 'rgba(196, 93, 71, 0.08)',
               color: colors.orange,
-              border: '1px solid rgba(244, 63, 94, 0.2)',
+              border: '1px solid rgba(196, 93, 71, 0.2)',
               padding: '8px 18px',
               borderRadius: 14,
               fontSize: '24px',
@@ -7015,20 +6958,20 @@ const Slide15_InteractiveMath: Page = () => (
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(99, 102, 241, 0.12)', border: '1.5px solid rgba(99, 102, 241, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>小步驟拆解解題流程</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(244, 63, 94, 0.12)', border: '1.5px solid rgba(244, 63, 94, 0.25)', color: '#e11d48', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>提供輸入與點選雙模式</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(14, 165, 233, 0.12)', border: '1.5px solid rgba(14, 165, 233, 0.25)', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
             <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>即時回饋強化解題信心</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(241, 245, 249, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
           <span style={{ fontSize: '26px' }}>💡</span>
           <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
         </div>
@@ -7047,7 +6990,7 @@ const Slide15_InteractiveMath: Page = () => (
 // Slide 20: 實作六︰互動式步驟數學學習單生成器 (10分鐘實作)
 const Slide15_Practice_StepMath: Page = () => (
   <PracticePage
-    num="06"
+    num="05"
     toolName="互動式步驟數學學習單"
     time="10 分鐘"
     task="請利用互動步驟數學生成器，輸入題目試做一組題型。"
@@ -7108,7 +7051,7 @@ const Slide19_VibePromptStructure: Page = () => (
               width: 64,
               height: 64,
               borderRadius: 18,
-              background: 'rgba(99, 102, 241, 0.12)',
+              background: 'rgba(166, 104, 50, 0.12)',
               color: colors.accent,
               display: 'flex',
               alignItems: 'center',
@@ -7152,7 +7095,7 @@ const Slide19_VibePromptStructure: Page = () => (
         </div>
         <div
           style={{
-            background: 'rgba(99, 102, 241, 0.08)',
+            background: 'rgba(166, 104, 50, 0.08)',
             borderRadius: 14,
             padding: '12px 16px',
             fontSize: '26px',
@@ -7188,7 +7131,7 @@ const Slide19_VibePromptStructure: Page = () => (
               width: 64,
               height: 64,
               borderRadius: 18,
-              background: 'rgba(244, 63, 94, 0.12)',
+              background: 'rgba(196, 93, 71, 0.12)',
               color: colors.orange,
               display: 'flex',
               alignItems: 'center',
@@ -7234,7 +7177,7 @@ const Slide19_VibePromptStructure: Page = () => (
         </div>
         <div
           style={{
-            background: 'rgba(244, 63, 94, 0.08)',
+            background: 'rgba(196, 93, 71, 0.08)',
             borderRadius: 14,
             padding: '12px 16px',
             fontSize: '26px',
@@ -7270,7 +7213,7 @@ const Slide19_VibePromptStructure: Page = () => (
               width: 64,
               height: 64,
               borderRadius: 18,
-              background: 'rgba(14, 165, 233, 0.12)',
+              background: 'rgba(56, 90, 115, 0.12)',
               color: colors.blue,
               display: 'flex',
               alignItems: 'center',
@@ -7312,7 +7255,7 @@ const Slide19_VibePromptStructure: Page = () => (
         </div>
         <div
           style={{
-            background: 'rgba(14, 165, 233, 0.08)',
+            background: 'rgba(56, 90, 115, 0.08)',
             borderRadius: 14,
             padding: '12px 16px',
             fontSize: '26px',
@@ -7373,7 +7316,7 @@ const Slide20_CommonIssuesHelper: Page = () => (
           problem: '要求使用者輸入 API',
           solution: '要求 AI 自動串接 Gemini',
           accent: colors.accent,
-          tint: 'rgba(99, 102, 241, 0.1)',
+          tint: 'rgba(166, 104, 50, 0.1)',
         },
         {
           number: '02',
@@ -7381,7 +7324,7 @@ const Slide20_CommonIssuesHelper: Page = () => (
           problem: '按了按鈕，列印功能卻沒反應。',
           solution: '點擊按鈕後另開 blob 分頁，並跳出列印視窗。',
           accent: colors.orange,
-          tint: 'rgba(244, 63, 94, 0.1)',
+          tint: 'rgba(196, 93, 71, 0.1)',
         },
         {
           number: '03',
@@ -7389,7 +7332,7 @@ const Slide20_CommonIssuesHelper: Page = () => (
           problem: '格式跑掉，或檔案沒有照預期產生。',
           solution: '直接截圖貼上個人常用格式。',
           accent: colors.blue,
-          tint: 'rgba(14, 165, 233, 0.1)',
+          tint: 'rgba(56, 90, 115, 0.1)',
         },
       ].map((issue) => (
         <div
@@ -7521,7 +7464,7 @@ const Slide20_IterationTakeaway: Page = () => (
           alignItems: 'center',
           gap: 12,
           borderRadius: 999,
-          background: 'rgba(99, 102, 241, 0.12)',
+          background: 'rgba(166, 104, 50, 0.12)',
           color: colors.accent,
           padding: '10px 28px',
           fontSize: '26px',
@@ -7579,7 +7522,7 @@ const Slide20_IterationTakeaway: Page = () => (
 // Slide 25: 實作七︰Gemini Canvas 自製出題助手實戰 (15分鐘實作)
 const Slide20_Practice_Canvas: Page = () => (
   <PracticePage
-    num="07"
+    num="06"
     toolName="Gemini Canvas 自製出題助手"
     time="15 分鐘"
     task="請打開 Gemini Canvas，貼入咒語試做專屬出題助手。"
@@ -7679,7 +7622,7 @@ const toolRecommendations = [
     painPoint: '學生學文言文理解有限，學習動機也低',
     name: '文言文翻譯與導讀',
     href: 'https://spedmix.pages.dev/chinesetranslate',
-    accent: '#0ea5e9',
+    accent: '#385a73',
   },
   {
     painPoint: '課文太難，學生需要逐句搭配圖解',
@@ -7697,7 +7640,7 @@ const toolRecommendations = [
     painPoint: '書商題目太難，學生做起來不適性',
     name: '個別化出題小幫手',
     href: 'https://spedmix.pages.dev/question',
-    accent: '#f43f5e',
+    accent: '#c45d47',
   },
   {
     painPoint: '要教學生技能，還要拆步驟與配圖',
@@ -7855,12 +7798,6 @@ export default [
   Slide10_MathScaffold3,
   Slide10_MathScaffold4,
   Slide10_Practice_Math,
-  Slide09_EnglishWorksheetTitle,
-  Slide09_EnglishWorksheet1,
-  Slide09_EnglishWorksheet2,
-  Slide09_EnglishWorksheet3,
-  Slide09_EnglishWorksheet5,
-  Slide09_Practice_English,
   Slide11_Part2Header,
   Slide14_WebTool1Title,
   Slide14_WebTool1,
