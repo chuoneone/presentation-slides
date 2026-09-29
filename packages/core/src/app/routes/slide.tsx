@@ -92,8 +92,6 @@ import { useSlideModule } from '../lib/use-slide-module';
 
 const { showSlideUi, showSlideBrowser, allowHtmlDownload } = config.build;
 
-const noop = () => {};
-
 export function Slide() {
   const { slideId = '' } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -373,7 +371,7 @@ export function Slide() {
     );
   }
 
-  const presentReady = Boolean(slide) && pageCount > 0 && isDeckWarmed(slideId);
+  const presentReady = Boolean(slide) && pageCount > 0;
   if (playMode && slide && presentReady) {
     lastPresentedRef.current = { slideId, slide, pages, index };
   }
@@ -392,19 +390,19 @@ export function Slide() {
           design={presented.slide.design}
           transition={presented.slide.transition}
           index={presented.index}
-          onIndexChange={presentReady ? goTo : noop}
+          onIndexChange={goTo}
           onExit={() => setPlayMode(null)}
           controls
           slideId={presented.slideId}
           onSwitchSlide={switchPresentedSlide}
           fullscreen={playMode === 'fullscreen'}
         />
-        {!presentReady && slide && pageCount > 0 && (
+        {!isDeckWarmed(slideId) && (
           <SlidePreloadLayer
             pages={pages}
             index={index}
-            design={slide.design}
-            includeCurrent
+            design={presented.slide.design}
+            includeCurrent={false}
             onDone={handleAssetsWarmed}
           />
         )}
@@ -453,34 +451,6 @@ export function Slide() {
           </code>
           {t.slide.emptyHintSuffix}
         </p>
-      </div>
-    );
-  }
-
-  // Hold the loader while a hidden layer warms the whole deck's images and
-  // fonts, so the slide UI first paints with every asset already in cache.
-  if (view !== 'assets' && !isDeckWarmed(slideId)) {
-    return (
-      <div className="grid min-h-dvh place-items-center px-8 text-muted-foreground">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative h-px w-56 overflow-hidden bg-hairline">
-            <span
-              aria-hidden
-              className="line-loader-bar absolute inset-y-[-0.5px] left-0 w-1/4 bg-foreground"
-            />
-          </div>
-          <div className="flex flex-wrap items-baseline justify-center gap-x-2 text-[11.5px]">
-            <span className="eyebrow">{t.slide.loadingAssetsEyebrow}</span>
-            <span className="font-mono">{slideId}</span>
-          </div>
-        </div>
-        <SlidePreloadLayer
-          pages={pages}
-          index={index}
-          design={slide.design}
-          includeCurrent
-          onDone={handleAssetsWarmed}
-        />
       </div>
     );
   }
@@ -921,6 +891,15 @@ export function Slide() {
                 onExportImagePptx: exportImagePptx,
                 onGoToPage: goTo,
               }}
+            />
+          )}
+          {view === 'slides' && !isDeckWarmed(slideId) && (
+            <SlidePreloadLayer
+              pages={pages}
+              index={index}
+              design={slide.design}
+              includeCurrent={false}
+              onDone={handleAssetsWarmed}
             />
           )}
         </div>

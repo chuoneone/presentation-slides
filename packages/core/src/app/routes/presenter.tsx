@@ -174,31 +174,6 @@ export function Presenter() {
   const CurrentPage = pages[index];
   const NextPage = hasNext ? pages[nextPageIndex] : null;
 
-  // Hold the loader while a hidden layer warms the whole deck's images and
-  // fonts, so the previews first paint with every asset already in cache.
-  if (!isDeckWarmed(slideId)) {
-    return (
-      <div className="dark grid h-dvh place-items-center bg-background text-muted-foreground">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative h-px w-56 overflow-hidden bg-border">
-            <span
-              aria-hidden
-              className="line-loader-bar absolute inset-y-[-0.5px] left-0 w-1/4 bg-foreground"
-            />
-          </div>
-          <div className="text-[11.5px]">{t.presenter.loadingAssets}</div>
-        </div>
-        <SlidePreloadLayer
-          pages={pages}
-          index={index}
-          design={slide.design}
-          includeCurrent
-          onDone={handleAssetsWarmed}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="dark flex h-dvh w-screen flex-col overflow-hidden bg-background text-foreground">
       <PresenterTopBar
@@ -277,6 +252,15 @@ export function Presenter() {
         onBlackout={toggleBlack}
         onWhiteout={toggleWhite}
       />
+      {!isDeckWarmed(slideId) && (
+        <SlidePreloadLayer
+          pages={pages}
+          index={index}
+          design={slide.design}
+          includeCurrent={false}
+          onDone={handleAssetsWarmed}
+        />
+      )}
     </div>
   );
 }

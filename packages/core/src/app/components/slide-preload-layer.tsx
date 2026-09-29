@@ -4,8 +4,8 @@ import { SlidePageProvider } from '../lib/page-context';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, type Page } from '../lib/sdk';
 import { type StepController, StepHost } from '../lib/step-context';
 
-const PAGES_PER_FRAME = 2;
-const SETTLE_TIMEOUT_MS = 15_000;
+const PAGES_PER_FRAME = 6;
+const SETTLE_TIMEOUT_MS = 2_000;
 
 type Props = {
   pages: Page[];

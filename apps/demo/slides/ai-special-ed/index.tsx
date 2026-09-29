@@ -12,25 +12,25 @@ import {
   useSlidePageNumber,
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
-import imgAgendaSchedule from './assets/agenda-schedule.png';
-import imgChineseMatch from './assets/chinese-match-quiz.png';
-import imgChineseQuiz from './assets/chinese-paragraph-quiz.png';
-import imgChineseReading from './assets/chinese-scaffold-reading.png';
-import imgChineseTable from './assets/chinese-structure-table.png';
-import imgChineseTianzi from './assets/chinese-tianzi-grid.png';
-import imgChineseWorksheet from './assets/chinese-worksheet-tool.png';
-import imgEnglishHandwriting from './assets/english-handwriting-practice.png';
-import imgEnglishInput from './assets/english-input-form.png';
-import imgEnglishQuiz from './assets/english-scene-quiz.png';
-import imgEnglishSummary from './assets/english-story-summary.png';
-import imgEnglishStoryboard from './assets/english-storyboard-reading.png';
-import imgHeroTeacher from './assets/hero-teacher.png';
-import imgInteractiveStepMath from './assets/interactive-step-math.png';
-import imgMathCatalog from './assets/math-ebook-catalog.png';
-import imgMathConcept from './assets/math-ebook-concept.png';
-import imgMathInputGemini from './assets/math-input-gemini.png';
-import imgMathPrint from './assets/math-print-preview.png';
-import imgTool1 from './assets/工具一.png';
+import imgAgendaSchedule from './assets/agenda-schedule.webp';
+import imgChineseMatch from './assets/chinese-match-quiz.webp';
+import imgChineseQuiz from './assets/chinese-paragraph-quiz.webp';
+import imgChineseReading from './assets/chinese-scaffold-reading.webp';
+import imgChineseTable from './assets/chinese-structure-table.webp';
+import imgChineseTianzi from './assets/chinese-tianzi-grid.webp';
+import imgChineseWorksheet from './assets/chinese-worksheet-tool.webp';
+import imgEnglishHandwriting from './assets/english-handwriting-practice.webp';
+import imgEnglishInput from './assets/english-input-form.webp';
+import imgEnglishQuiz from './assets/english-scene-quiz.webp';
+import imgEnglishSummary from './assets/english-story-summary.webp';
+import imgEnglishStoryboard from './assets/english-storyboard-reading.webp';
+import imgHeroTeacher from './assets/hero-teacher.webp';
+import imgInteractiveStepMath from './assets/interactive-step-math.webp';
+import imgMathCatalog from './assets/math-ebook-catalog.webp';
+import imgMathConcept from './assets/math-ebook-concept.webp';
+import imgMathInputGemini from './assets/math-input-gemini.webp';
+import imgMathPrint from './assets/math-print-preview.webp';
+import imgTool1 from './assets/工具一.webp';
 
 export const design: DesignSystem = {
   palette: { bg: '#f1f5f9', text: '#0f172a', accent: '#6366f1' },
