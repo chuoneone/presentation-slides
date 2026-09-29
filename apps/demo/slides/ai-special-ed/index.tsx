@@ -2017,24 +2017,6 @@ const Slide01_Title: Page = () => (
         >
           <span>@spedmix2025</span>
         </div>
-
-        {/* 年份/研習標籤 */}
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            background: 'rgba(196, 93, 71, 0.1)',
-            color: colors.orange,
-            border: '1.5px solid rgba(196, 93, 71, 0.25)',
-            borderRadius: 999,
-            padding: '14px 28px',
-            fontSize: '28px',
-            fontWeight: 900,
-          }}
-        >
-          <span>2026 特教研習</span>
-        </div>
       </div>
     </div>
 
