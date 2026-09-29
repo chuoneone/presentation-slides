@@ -8,6 +8,7 @@ import {
   StepHost,
 } from '../lib/step-context';
 import {
+  holdOpacity,
   type MorphTransition,
   resolveTransition,
   type SlideTransition,
@@ -180,7 +181,7 @@ function shouldSkipCopiedStyle(
   prop: string,
   preserveInheritedVisualStyle: boolean,
 ): boolean {
-  if (prop === TEXT_FILL_COLOR_PROPERTY && getStyleProperty(styles, prop) === styles.color) {
+  if (prop === TEXT_FILL_COLOR_PROPERTY && styles.getPropertyValue(prop) === styles.color) {
     return true;
   }
 
@@ -190,7 +191,7 @@ function shouldSkipCopiedStyle(
   if (!parent) return false;
 
   const parentStyles = getComputedStyle(parent);
-  return getStyleProperty(styles, prop) === getStyleProperty(parentStyles, prop);
+  return styles.getPropertyValue(prop) === parentStyles.getPropertyValue(prop);
 }
 
 function copyComputedStyles(
@@ -261,8 +262,10 @@ function morphTranslateTransform(rect: LocalRect, local: string): string {
   return [`translate(${rect.left}px, ${rect.top}px)`, local].filter(Boolean).join(' ');
 }
 
-function getStyleProperty(styles: CSSStyleDeclaration, css: string): string {
-  return styles.getPropertyValue(css);
+// element.animate() silently drops kebab-case keys; keyframe properties must
+// use their IDL camelCase names.
+function keyframeProperty(css: string): string {
+  return css.replace(/^-/, '').replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
 }
 
 function visualStyleKeyframe(
@@ -278,9 +281,9 @@ function visualStyleKeyframe(
     ) {
       continue;
     }
-    const value = getStyleProperty(styles, prop);
+    const value = styles.getPropertyValue(prop);
     if (prop === TEXT_FILL_COLOR_PROPERTY && value === styles.color) continue;
-    if (value) frame[prop] = value;
+    if (value) frame[keyframeProperty(prop)] = value;
   }
   if (opacity !== undefined) frame.opacity = opacity;
   return frame;
@@ -296,8 +299,8 @@ function isVisibleBorderSide(
   styles: CSSStyleDeclaration,
   side: (typeof BORDER_SIDE_PROPERTIES)[number],
 ): boolean {
-  const width = parsePx(getStyleProperty(styles, side.cssWidth)) ?? 0;
-  const borderStyle = getStyleProperty(styles, side.cssStyle);
+  const width = parsePx(styles.getPropertyValue(side.cssWidth)) ?? 0;
+  const borderStyle = styles.getPropertyValue(side.cssStyle);
   return width > 0 && borderStyle !== 'none' && borderStyle !== 'hidden';
 }
 
@@ -319,8 +322,8 @@ function borderFrameKeyframe(
   };
 
   for (const side of BORDER_SIDE_PROPERTIES) {
-    frame[side.width] = getStyleProperty(styles, side.cssWidth);
-    frame[side.color] = getStyleProperty(styles, side.cssColor);
+    frame[side.width] = styles.getPropertyValue(side.cssWidth);
+    frame[side.color] = styles.getPropertyValue(side.cssColor);
   }
 
   return frame;
@@ -351,9 +354,9 @@ function appendBorderFrame(
 
   for (const side of BORDER_SIDE_PROPERTIES) {
     const styles = isVisibleBorderSide(sourceStyles, side) ? sourceStyles : targetStyles;
-    frame.style[side.style] = getStyleProperty(styles, side.cssStyle);
-    frame.style[side.width] = getStyleProperty(sourceStyles, side.cssWidth);
-    frame.style[side.color] = getStyleProperty(sourceStyles, side.cssColor);
+    frame.style[side.style] = styles.getPropertyValue(side.cssStyle);
+    frame.style[side.width] = sourceStyles.getPropertyValue(side.cssWidth);
+    frame.style[side.color] = sourceStyles.getPropertyValue(side.cssColor);
   }
 
   overlay.appendChild(frame);
@@ -362,7 +365,7 @@ function appendBorderFrame(
 
 function hasVisualStyleChange(from: CSSStyleDeclaration, to: CSSStyleDeclaration): boolean {
   for (const prop of MORPH_VISUAL_PROPERTIES) {
-    if (getStyleProperty(from, prop) !== getStyleProperty(to, prop)) return true;
+    if (from.getPropertyValue(prop) !== to.getPropertyValue(prop)) return true;
   }
   return false;
 }
@@ -502,7 +505,38 @@ function runMorphTransition(
   const animations: Animation[] = [];
   const restore: Array<() => void> = [];
   const outgoing = collectMorphElements(outgoingLayer);
-  const handledIncoming = new Set<string>();
+
+  // An element with no counterpart (or no usable rect on one side) can't
+  // travel, so it fades in place instead of morphing.
+  const fadeOutSource = (source: HTMLElement, from: LocalRect) => {
+    const clone = appendPositionedClone(wrapper, overlay, source, from);
+    restore.push(hideOriginal(source));
+    animations.push(
+      runStationaryMorphAnimation(
+        clone,
+        from,
+        getComputedStyle(source),
+        effectiveOpacity(source, outgoingLayer),
+        '0',
+        phase,
+      ),
+    );
+  };
+
+  const fadeInTarget = (target: HTMLElement, to: LocalRect) => {
+    const clone = appendPositionedClone(wrapper, overlay, target, to);
+    restore.push(hideOriginal(target));
+    animations.push(
+      runStationaryMorphAnimation(
+        clone,
+        to,
+        getComputedStyle(target),
+        '0',
+        effectiveOpacity(target, incomingLayer),
+        phase,
+      ),
+    );
+  };
 
   for (const [id, source] of outgoing) {
     const target = incoming.get(id);
@@ -511,64 +545,22 @@ function runMorphTransition(
       if (target) {
         const to = measureLocalRect(target, wrapper, wrapperRect);
         if (hasUsableRect(to)) {
-          handledIncoming.add(id);
-          const clone = appendPositionedClone(wrapper, overlay, target, to);
-          restore.push(hideOriginal(target));
-
-          const targetStyles = getComputedStyle(target);
-          animations.push(
-            runStationaryMorphAnimation(
-              clone,
-              to,
-              targetStyles,
-              '0',
-              effectiveOpacity(target, incomingLayer),
-              phase,
-            ),
-          );
+          fadeInTarget(target, to);
         }
       }
       continue;
     }
 
     if (!target) {
-      const clone = appendPositionedClone(wrapper, overlay, source, from);
-      restore.push(hideOriginal(source));
-
-      const sourceStyles = getComputedStyle(source);
-      animations.push(
-        runStationaryMorphAnimation(
-          clone,
-          from,
-          sourceStyles,
-          effectiveOpacity(source, outgoingLayer),
-          '0',
-          phase,
-        ),
-      );
+      fadeOutSource(source, from);
       continue;
     }
 
     const to = measureLocalRect(target, wrapper, wrapperRect);
     if (!hasUsableRect(to)) {
-      const clone = appendPositionedClone(wrapper, overlay, source, from);
-      restore.push(hideOriginal(source));
-
-      const sourceStyles = getComputedStyle(source);
-      animations.push(
-        runStationaryMorphAnimation(
-          clone,
-          from,
-          sourceStyles,
-          effectiveOpacity(source, outgoingLayer),
-          '0',
-          phase,
-        ),
-      );
+      fadeOutSource(source, from);
       continue;
     }
-
-    handledIncoming.add(id);
 
     const clone = appendPositionedClone(wrapper, overlay, source, from);
     restore.push(hideOriginal(source), hideOriginal(target));
@@ -622,25 +614,12 @@ function runMorphTransition(
   }
 
   for (const [id, target] of incoming) {
-    if (handledIncoming.has(id) || outgoing.has(id)) continue;
+    if (outgoing.has(id)) continue;
 
     const to = measureLocalRect(target, wrapper, wrapperRect);
     if (!hasUsableRect(to)) continue;
 
-    const clone = appendPositionedClone(wrapper, overlay, target, to);
-    restore.push(hideOriginal(target));
-
-    const targetStyles = getComputedStyle(target);
-    animations.push(
-      runStationaryMorphAnimation(
-        clone,
-        to,
-        targetStyles,
-        '0',
-        effectiveOpacity(target, incomingLayer),
-        phase,
-      ),
-    );
+    fadeInTarget(target, to);
   }
 
   if (animations.length === 0) overlay.remove();
@@ -733,8 +712,14 @@ export function SlideTransitionLayer({
     const morphPhase = resolveMorphTransition(transition.morph, duration, easing);
     const morphRun = morphPhase ? runMorphTransition(wrapper, out, inc, morphPhase) : null;
 
+    // The wrapper paints --osd-bg under both layers, so an exit that fades
+    // out exposes it before the enter has covered it; pages whose own
+    // background differs from --osd-bg visibly dip through the wrapper colour.
+    // The outgoing page therefore stays opaque unless the deck opts in.
+    const exitPhase = transition.throughBackground ? transition.exit : holdOpacity(transition.exit);
+
     const anims: Animation[] = [];
-    const exitAnim = runPhase(out, transition.exit, duration, easing);
+    const exitAnim = runPhase(out, exitPhase, duration, easing);
     const enterAnim = runPhase(inc, transition.enter, duration, easing);
     if (exitAnim) anims.push(exitAnim);
     if (enterAnim) anims.push(enterAnim);
@@ -824,7 +809,7 @@ export function SlideTransitionLayer({
         </div>
       ) : null}
       {CurrentPage ? (
-        <div ref={incomingLayerRef} className="absolute inset-0">
+        <div ref={incomingLayerRef} data-osd-current-page={current} className="absolute inset-0">
           <SlidePageProvider index={current} total={total}>
             <StepHost
               isActivePage

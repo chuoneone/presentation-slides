@@ -1,8 +1,9 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { designToCssVars } from './design';
+import { downloadBlob, nextFrame } from './dom';
 import { SlidePageProvider } from './page-context';
-import type { SlideModule } from './sdk';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, type SlideModule } from './sdk';
 
 type AssetEntry = { name: string; bytes: Uint8Array };
 
@@ -75,8 +76,8 @@ async function renderPagesToHtml(pages: NonNullable<SlideModule['default']>): Pr
     position: 'fixed',
     left: '-99999px',
     top: '0',
-    width: '1920px',
-    height: '1080px',
+    width: `${CANVAS_WIDTH}px`,
+    height: `${CANVAS_HEIGHT}px`,
     pointerEvents: 'none',
   });
   document.body.appendChild(container);
@@ -87,15 +88,18 @@ async function renderPagesToHtml(pages: NonNullable<SlideModule['default']>): Pr
       const Page = pages[i];
       if (!Page) continue;
       const host = document.createElement('div');
-      host.style.width = '1920px';
-      host.style.height = '1080px';
+      host.style.width = `${CANVAS_WIDTH}px`;
+      host.style.height = `${CANVAS_HEIGHT}px`;
       container.appendChild(host);
       const root = createRoot(host);
       root.render(
         createElement(SlidePageProvider, { index: i, total: pages.length }, createElement(Page)),
       );
-      await nextPaint();
-      await nextPaint();
+      await nextFrame();
+      await nextFrame();
+      for (const video of host.querySelectorAll('video')) {
+        video.defaultMuted = video.muted;
+      }
       result.push(host.innerHTML);
       root.unmount();
       container.removeChild(host);
@@ -104,10 +108,6 @@ async function renderPagesToHtml(pages: NonNullable<SlideModule['default']>): Pr
     container.remove();
   }
   return result;
-}
-
-function nextPaint(): Promise<void> {
-  return new Promise((resolve) => requestAnimationFrame(() => resolve()));
 }
 
 function collectCss(): string {
@@ -143,7 +143,7 @@ function collectExternalStylesheetLinks(): string {
 
 function findHtmlAssetUrls(html: string): string[] {
   const out: string[] = [];
-  const attrRe = /\s(?:src|href)="([^"]+)"/g;
+  const attrRe = /\s(?:src|href|poster)="([^"]+)"/g;
   for (const m of html.matchAll(attrRe)) {
     if (looksLikeAsset(m[1])) out.push(m[1]);
   }
@@ -260,7 +260,7 @@ ${opts.externalLinks}
 <style>
 html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: system-ui, sans-serif; }
 .os-stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
-.os-frame { width: 1920px; height: 1080px; flex-shrink: 0; background: #fff; color: #000; transform-origin: center center; overflow: hidden; position: relative; }
+.os-frame { width: ${CANVAS_WIDTH}px; height: ${CANVAS_HEIGHT}px; flex-shrink: 0; background: #fff; color: #000; transform-origin: center center; overflow: hidden; position: relative; }
 .os-page { position: absolute; inset: 0; }
 .os-page[hidden] { display: none !important; }
 .os-counter { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); color: #fff; background: rgba(0,0,0,.5); padding: 2px 10px; border-radius: 999px; font-size: 12px; z-index: 10; font-variant-numeric: tabular-nums; }
@@ -274,23 +274,76 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-f
 (function () {
   var pages = document.querySelectorAll('.os-page');
   var idx = 0;
+  var shown = 0;
   var frame = document.getElementById('os-frame');
   var cur = document.getElementById('os-cur');
   function fit() {
-    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    var s = Math.min(window.innerWidth / ${CANVAS_WIDTH}, window.innerHeight / ${CANVAS_HEIGHT});
     frame.style.transform = 'scale(' + s + ')';
   }
-  function go(i) {
+  // Pages authored with <Steps>/<Step> render every step into the markup, so the file still
+  // reads with scripting off. This walks them one keypress at a time, the way the player does:
+  // arrive forward and the page starts unrevealed, arrive backward and it is already complete.
+  function stepsOf(page) {
+    return page ? page.querySelectorAll('[data-osd-step]') : [];
+  }
+  function setStep(el, revealed, animate) {
+    var transition = el.style.transition;
+    if (!animate) el.style.transition = 'none';
+    el.setAttribute('data-osd-step', revealed ? 'revealed' : 'pending');
+    el.style.opacity = revealed ? '1' : '0';
+    el.style.visibility = revealed ? 'visible' : 'hidden';
+    if (!animate) {
+      void el.offsetWidth;
+      el.style.transition = transition;
+    }
+  }
+  function paintSteps(animate) {
+    var els = stepsOf(pages[idx]);
+    for (var i = 0; i < els.length; i++) setStep(els[i], i < shown, animate);
+  }
+  function go(i, revealAll) {
+    var from = idx;
     idx = Math.max(0, Math.min(pages.length - 1, i));
-    pages.forEach(function (p, n) { p.hidden = n !== idx; });
+    if (revealAll) shown = stepsOf(pages[idx]).length;
+    else if (idx > from) shown = 0;
+    else if (idx < from) shown = stepsOf(pages[idx]).length;
+    pages.forEach(function (p, n) {
+      p.hidden = n !== idx;
+      p.querySelectorAll('video').forEach(function (video) {
+        if (p.hidden) {
+          video.pause();
+          try { video.currentTime = 0; } catch {}
+        } else if (video.autoplay) {
+          video.play().catch(function () {});
+        }
+      });
+    });
+    paintSteps(false);
     cur.textContent = String(idx + 1);
+  }
+  function next() {
+    if (shown < stepsOf(pages[idx]).length) {
+      shown += 1;
+      paintSteps(true);
+      return;
+    }
+    go(idx + 1);
+  }
+  function prev() {
+    if (shown > 0) {
+      shown -= 1;
+      paintSteps(true);
+      return;
+    }
+    go(idx - 1);
   }
   window.addEventListener('resize', fit);
   window.addEventListener('keydown', function (e) {
-    if (['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key) >= 0) { e.preventDefault(); go(idx + 1); }
-    else if (['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); go(idx - 1); }
-    else if (e.key === 'Home') { e.preventDefault(); go(0); }
-    else if (e.key === 'End') { e.preventDefault(); go(pages.length - 1); }
+    if (['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key) >= 0) { e.preventDefault(); next(); }
+    else if (['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key) >= 0) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0, true); }
+    else if (e.key === 'End') { e.preventDefault(); go(pages.length - 1, true); }
   });
   fit();
   go(0);
@@ -311,16 +364,4 @@ function escapeHtml(s: string): string {
 
 function escapeAttr(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-}
-
-function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 0);
 }

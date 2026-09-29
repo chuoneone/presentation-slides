@@ -1,5 +1,207 @@
 # @open-slide/core
 
+## 2.0.1
+
+### Patch Changes
+
+- [#514](https://github.com/open-slide/open-slide/pull/514) [`8377406`](https://github.com/open-slide/open-slide/commit/83774067d179166829b66c5af223c943861f677c) Thanks [@1weiho](https://github.com/1weiho)! - Make the vite version conflict error point at the leftover `vite` entry and print the exact remove command for your package manager.
+
+## 2.0.0
+
+### Major Changes
+
+- [#420](https://github.com/open-slide/open-slide/pull/420) [`5ed5ea0`](https://github.com/open-slide/open-slide/commit/5ed5ea02758ebc1cacbd15187d6fe470d03cffdb) Thanks [@1weiho](https://github.com/1weiho)! - Upgrade the toolchain to React 19, Vite 8, and TypeScript 7, dedupe `react`/`react-dom` so workspaces still on React 18 resolve a single copy, and require Node.js 20.19+. See the v1 → v2 migration guide at https://open-slide.dev/docs/migrate-to-v2.
+
+### Minor Changes
+
+- [#451](https://github.com/open-slide/open-slide/pull/451) [`cb4faf6`](https://github.com/open-slide/open-slide/commit/cb4faf612fe1ae95c399f824fe194499325e62f6) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Add Google Fonts search to the asset panel — preview families live and download a chosen weight straight into assets. The asset detail dialog also renders a live font preview with editable sample text for font files.
+
+- [#424](https://github.com/open-slide/open-slide/pull/424) [`49a8a12`](https://github.com/open-slide/open-slide/commit/49a8a12a70653895afcbd221ba7bd2ef2a7fdb88) Thanks [@1weiho](https://github.com/1weiho)! - Click any text element in the slide view to edit it inline, with a floating toolbar for font size, bold, italic, text color, and alignment.
+
+- [#498](https://github.com/open-slide/open-slide/pull/498) [`db59662`](https://github.com/open-slide/open-slide/commit/db596625fa8ff164051c17687a197eed43763839) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Render speaker notes as Markdown in presenter view — bold, italic, inline code, headings, and lists.
+
+- [#481](https://github.com/open-slide/open-slide/pull/481) [`66ab298`](https://github.com/open-slide/open-slide/commit/66ab298a5e11fa3038020ac2d088131a2d499a7e) Thanks [@1weiho](https://github.com/1weiho)! - Add "Export as PPTX": converts every page into native, editable PowerPoint text boxes, shapes, and images directly in the browser.
+
+- [#457](https://github.com/open-slide/open-slide/pull/457) [`7df6d47`](https://github.com/open-slide/open-slide/commit/7df6d476ab9defb8f918ab6e84b749581e8eeceb) Thanks [@1weiho](https://github.com/1weiho)! - Keep the outgoing page opaque during a page transition so cuts no longer dip through the deck background; set `throughBackground: true` on a transition to let its exit fade out.
+
+- [#450](https://github.com/open-slide/open-slide/pull/450) [`8d316ea`](https://github.com/open-slide/open-slide/commit/8d316ea139274fdc3cb557c59c6907fcec316fff) Thanks [@1weiho](https://github.com/1weiho)! - Add visual slide editing with snapping, safe resizing and layer ordering, inline text formatting, a compact Format panel, animated inspector controls, and reliable undo and save recovery.
+
+### Patch Changes
+
+- [#470](https://github.com/open-slide/open-slide/pull/470) [`2713e38`](https://github.com/open-slide/open-slide/commit/2713e38df2d6d7c560c6c3ba42b9b9dbbc13781e) Thanks [@peelar](https://github.com/peelar)! - Use the active deck title as the browser tab title.
+
+- [#416](https://github.com/open-slide/open-slide/pull/416) [`663c957`](https://github.com/open-slide/open-slide/commit/663c9578aa00c1107a1b697f79d96ec0a6d471d6) Thanks [@1weiho](https://github.com/1weiho)! - Clean up the runtime: drop unused theme tokens, locale keys, and dead code, consolidate duplicated internal helpers, serve the bundled Geist webfont in dev when the package resolves outside the project directory, and write a valid `DesignSystem` import when saving a design to a slide whose `@open-slide/core` import is type-only.
+
+- [#437](https://github.com/open-slide/open-slide/pull/437) [`edbe17f`](https://github.com/open-slide/open-slide/commit/edbe17ff1bbad21d5bab12a2526cbd585a75f98c) Thanks [@1weiho](https://github.com/1weiho)! - Restyle `dev`, `build`, and `preview` output with an open-slide header and URL block, and stop surfacing Vite branding in server logs.
+
+- [#499](https://github.com/open-slide/open-slide/pull/499) [`5249335`](https://github.com/open-slide/open-slide/commit/524933530f1be71ee78be0571b8d92df4d6f121a) Thanks [@dadofsambonzuki](https://github.com/dadofsambonzuki)! - Carry `<Steps>` builds into the HTML export: pressing forward reveals one step at a time, the way the player does, instead of showing every step at once.
+
+- [#483](https://github.com/open-slide/open-slide/pull/483) [`7343674`](https://github.com/open-slide/open-slide/commit/7343674f8cac5d4b198dbec2357090a464a14627) Thanks [@1weiho](https://github.com/1weiho)! - Export fully rounded (pill-shaped) boxes as rounded rectangles instead of ellipses in editable PPTX output.
+
+- [#490](https://github.com/open-slide/open-slide/pull/490) [`a47edb0`](https://github.com/open-slide/open-slide/commit/a47edb00919f5c85017add6035d1a653228f8266) Thanks [@1weiho](https://github.com/1weiho)! - Point repository and issue URLs at the open-slide/open-slide GitHub org.
+
+- [#426](https://github.com/open-slide/open-slide/pull/426) [`ba5af02`](https://github.com/open-slide/open-slide/commit/ba5af021b603805ad542939156ff2caa58c6d6bf) Thanks [@1weiho](https://github.com/1weiho)! - Teach the authoring skills and agent guide to write speech scripts into the built-in `notes` export instead of separate markdown files.
+
+- [#457](https://github.com/open-slide/open-slide/pull/457) [`7df6d47`](https://github.com/open-slide/open-slide/commit/7df6d476ab9defb8f918ab6e84b749581e8eeceb) Thanks [@1weiho](https://github.com/1weiho)! - Rewrite the transition family around a held exit and a fade-in enter, and make the webfont/style injection snippet update on HMR instead of skipping.
+
+- [#431](https://github.com/open-slide/open-slide/pull/431) [`90bb861`](https://github.com/open-slide/open-slide/commit/90bb86172f7e390c29bbf2f33067c7b05c646b70) Thanks [@benben6515](https://github.com/benben6515)! - Slide toolbar back button returns to the previous browser location and preserves home query state like folder filters.
+
+- [#417](https://github.com/open-slide/open-slide/pull/417) [`329d83c`](https://github.com/open-slide/open-slide/commit/329d83ca43a2f5363788b2e14e8c437d2ec48a1f) Thanks [@1weiho](https://github.com/1weiho)! - Redesign the viewer chrome: an inset shell with elevated content cards replaces structural borders, the sidebar gains a brand mark, command search field, and footer controls, system views use line icons, page headers are compact, micro-interactions are refined, and the slide card actions menu opens when clicked.
+
+- [#436](https://github.com/open-slide/open-slide/pull/436) [`654bd97`](https://github.com/open-slide/open-slide/commit/654bd97b906f5b69224ded3c4adbed4d0c3f0d22) Thanks [@1weiho](https://github.com/1weiho)! - Refuse to start when a stale `vite` devDependency shadows the Vite copy core depends on, and point at the v1 → v2 migration guide.
+
+## 2.0.0-beta.6
+
+### Minor Changes
+
+- [#498](https://github.com/open-slide/open-slide/pull/498) [`db59662`](https://github.com/open-slide/open-slide/commit/db596625fa8ff164051c17687a197eed43763839) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Render speaker notes as Markdown in presenter view — bold, italic, inline code, headings, and lists.
+
+### Patch Changes
+
+- [#499](https://github.com/open-slide/open-slide/pull/499) [`5249335`](https://github.com/open-slide/open-slide/commit/524933530f1be71ee78be0571b8d92df4d6f121a) Thanks [@dadofsambonzuki](https://github.com/dadofsambonzuki)! - Carry `<Steps>` builds into the HTML export: pressing forward reveals one step at a time, the way the player does, instead of showing every step at once.
+
+## 2.0.0-beta.5
+
+### Patch Changes
+
+- [#490](https://github.com/open-slide/open-slide/pull/490) [`a47edb0`](https://github.com/open-slide/open-slide/commit/a47edb00919f5c85017add6035d1a653228f8266) Thanks [@1weiho](https://github.com/1weiho)! - Point repository and issue URLs at the open-slide/open-slide GitHub org.
+
+## 2.0.0-beta.4
+
+### Minor Changes
+
+- [#451](https://github.com/open-slide/open-slide/pull/451) [`cb4faf6`](https://github.com/open-slide/open-slide/commit/cb4faf612fe1ae95c399f824fe194499325e62f6) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Add Google Fonts search to the asset panel — preview families live and download a chosen weight straight into assets. The asset detail dialog also renders a live font preview with editable sample text for font files.
+
+- [#450](https://github.com/open-slide/open-slide/pull/450) [`8d316ea`](https://github.com/open-slide/open-slide/commit/8d316ea139274fdc3cb557c59c6907fcec316fff) Thanks [@1weiho](https://github.com/1weiho)! - Add visual slide editing with snapping, safe resizing and layer ordering, inline text formatting, a compact Format panel, animated inspector controls, and reliable undo and save recovery.
+
+## 2.0.0-beta.3
+
+### Patch Changes
+
+- [#470](https://github.com/1weiho/open-slide/pull/470) [`2713e38`](https://github.com/1weiho/open-slide/commit/2713e38df2d6d7c560c6c3ba42b9b9dbbc13781e) Thanks [@peelar](https://github.com/peelar)! - Use the active deck title as the browser tab title.
+
+- [#483](https://github.com/1weiho/open-slide/pull/483) [`7343674`](https://github.com/1weiho/open-slide/commit/7343674f8cac5d4b198dbec2357090a464a14627) Thanks [@1weiho](https://github.com/1weiho)! - Export fully rounded (pill-shaped) boxes as rounded rectangles instead of ellipses in editable PPTX output.
+
+## 2.0.0-beta.2
+
+### Major Changes
+
+- Upgrade the toolchain to React 19, Vite 8, and TypeScript 7, dedupe `react`/`react-dom` so workspaces still on React 18 resolve a single copy, and require Node.js 20.19+. See the v1 → v2 migration guide at https://open-slide.dev/docs/migrate-to-v2.
+
+### Minor Changes
+
+- Click any text element in the slide view to edit it inline, with a floating toolbar for font size, bold, italic, text color, and alignment.
+
+- [#481](https://github.com/1weiho/open-slide/pull/481) [`66ab298`](https://github.com/1weiho/open-slide/commit/66ab298a5e11fa3038020ac2d088131a2d499a7e) Thanks [@1weiho](https://github.com/1weiho)! - Add "Export as PPTX": converts every page into native, editable PowerPoint text boxes, shapes, and images directly in the browser.
+
+- [#457](https://github.com/1weiho/open-slide/pull/457) [`7df6d47`](https://github.com/1weiho/open-slide/commit/7df6d476ab9defb8f918ab6e84b749581e8eeceb) Thanks [@1weiho](https://github.com/1weiho)! - Keep the outgoing page opaque during a page transition so cuts no longer dip through the deck background; set `throughBackground: true` on a transition to let its exit fade out.
+
+### Patch Changes
+
+- Clean up the runtime: drop unused theme tokens, locale keys, and dead code, consolidate duplicated internal helpers, serve the bundled Geist webfont in dev when the package resolves outside the project directory, and write a valid `DesignSystem` import when saving a design to a slide whose `@open-slide/core` import is type-only.
+
+- Restyle `dev`, `build`, and `preview` output with an open-slide header and URL block, and stop surfacing Vite branding in server logs.
+
+- Teach the authoring skills and agent guide to write speech scripts into the built-in `notes` export instead of separate markdown files.
+
+- [#457](https://github.com/1weiho/open-slide/pull/457) [`7df6d47`](https://github.com/1weiho/open-slide/commit/7df6d476ab9defb8f918ab6e84b749581e8eeceb) Thanks [@1weiho](https://github.com/1weiho)! - Rewrite the transition family around a held exit and a fade-in enter, and make the webfont/style injection snippet update on HMR instead of skipping.
+
+- Slide toolbar back button returns to the previous browser location and preserves home query state like folder filters.
+
+- Redesign the viewer chrome: an inset shell with elevated content cards replaces structural borders, the sidebar gains a brand mark, command search field, and footer controls, system views use line icons, page headers are compact, micro-interactions are refined, and the slide card actions menu opens when clicked.
+
+- Refuse to start when a stale `vite` devDependency shadows the Vite copy core depends on, and point at the v1 → v2 migration guide.
+
+## 2.0.0-beta.1
+
+### Patch Changes
+
+- [#437](https://github.com/1weiho/open-slide/pull/437) [`edbe17f`](https://github.com/1weiho/open-slide/commit/edbe17ff1bbad21d5bab12a2526cbd585a75f98c) Thanks [@1weiho](https://github.com/1weiho)! - Restyle `dev`, `build`, and `preview` output with an open-slide header and URL block, and stop surfacing Vite branding in server logs.
+
+- [#436](https://github.com/1weiho/open-slide/pull/436) [`654bd97`](https://github.com/1weiho/open-slide/commit/654bd97b906f5b69224ded3c4adbed4d0c3f0d22) Thanks [@1weiho](https://github.com/1weiho)! - Refuse to start when a stale `vite` devDependency shadows the Vite copy core depends on, and point at the v1 → v2 migration guide.
+
+## 2.0.0-beta.0
+
+### Major Changes
+
+- [#420](https://github.com/1weiho/open-slide/pull/420) [`5ed5ea0`](https://github.com/1weiho/open-slide/commit/5ed5ea02758ebc1cacbd15187d6fe470d03cffdb) Thanks [@1weiho](https://github.com/1weiho)! - Upgrade the toolchain to React 19, Vite 8, and TypeScript 7, dedupe `react`/`react-dom` so workspaces still on React 18 resolve a single copy, and require Node.js 20.19+. See the v1 → v2 migration guide at https://open-slide.dev/docs/migrate-to-v2.
+
+### Minor Changes
+
+- [#424](https://github.com/1weiho/open-slide/pull/424) [`49a8a12`](https://github.com/1weiho/open-slide/commit/49a8a12a70653895afcbd221ba7bd2ef2a7fdb88) Thanks [@1weiho](https://github.com/1weiho)! - Click any text element in the slide view to edit it inline, with a floating toolbar for font size, bold, italic, text color, and alignment.
+
+### Patch Changes
+
+- [#416](https://github.com/1weiho/open-slide/pull/416) [`663c957`](https://github.com/1weiho/open-slide/commit/663c9578aa00c1107a1b697f79d96ec0a6d471d6) Thanks [@1weiho](https://github.com/1weiho)! - Clean up the runtime: drop unused theme tokens, locale keys, and dead code, consolidate duplicated internal helpers, serve the bundled Geist webfont in dev when the package resolves outside the project directory, and write a valid `DesignSystem` import when saving a design to a slide whose `@open-slide/core` import is type-only.
+
+- [#426](https://github.com/1weiho/open-slide/pull/426) [`ba5af02`](https://github.com/1weiho/open-slide/commit/ba5af021b603805ad542939156ff2caa58c6d6bf) Thanks [@1weiho](https://github.com/1weiho)! - Teach the authoring skills and agent guide to write speech scripts into the built-in `notes` export instead of separate markdown files.
+
+- [#431](https://github.com/1weiho/open-slide/pull/431) [`90bb861`](https://github.com/1weiho/open-slide/commit/90bb86172f7e390c29bbf2f33067c7b05c646b70) Thanks [@benben6515](https://github.com/benben6515)! - Slide toolbar back button returns to the previous browser location and preserves home query state like folder filters.
+
+- [#417](https://github.com/1weiho/open-slide/pull/417) [`329d83c`](https://github.com/1weiho/open-slide/commit/329d83ca43a2f5363788b2e14e8c437d2ec48a1f) Thanks [@1weiho](https://github.com/1weiho)! - Redesign the viewer chrome: an inset shell with elevated content cards replaces structural borders, the sidebar gains a brand mark, command search field, and footer controls, system views use line icons, page headers are compact, micro-interactions are refined, and the slide card actions menu opens when clicked.
+
+## 1.19.1
+
+### Patch Changes
+
+- [#415](https://github.com/1weiho/open-slide/pull/415) [`40e2454`](https://github.com/1weiho/open-slide/commit/40e2454776ba97e1e47c67bdce6edd9671bbccf9) Thanks [@1weiho](https://github.com/1weiho)! - Fix the sidebar language and theme dropdowns not opening when clicked.
+
+- [#413](https://github.com/1weiho/open-slide/pull/413) [`b540f0b`](https://github.com/1weiho/open-slide/commit/b540f0be7db9978793fe06800aaee3d780c8a754) Thanks [@1weiho](https://github.com/1weiho)! - Polish viewer micro-interactions: shared motion curve, press and focus feedback across controls, animated enter/exit for overlays and the save bar, flick-to-swipe in present mode, grouped instant tooltips, reduced-motion coverage, tabular numerals, and a fix for the dark-mode boot flash.
+
+## 1.19.0
+
+### Minor Changes
+
+- [#336](https://github.com/1weiho/open-slide/pull/336) [`dad4c24`](https://github.com/1weiho/open-slide/commit/dad4c240136a640cb5cebf1e29b1e394ab0c62de) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Add `allowedHosts` to `open-slide.config.ts` so proxied domains (Coder, Codespaces, reverse proxies) can reach the dev and preview servers.
+
+- [#389](https://github.com/1weiho/open-slide/pull/389) [`3473db2`](https://github.com/1weiho/open-slide/commit/3473db281832aeaebcb428573d3625305a5e36e7) Thanks [@ridemountainpig](https://github.com/ridemountainpig)! - Switch between decks from the presenter window — the projection follows without leaving present mode, keeping fullscreen and the elapsed timer.
+
+### Patch Changes
+
+- [#402](https://github.com/1weiho/open-slide/pull/402) [`7080023`](https://github.com/1weiho/open-slide/commit/7080023dcecaf0cc3615c63c64fd599f7d897288) Thanks [@sunnyyoung](https://github.com/sunnyyoung)! - HTML exports preserve video posters and rendered mute state, limit autoplay to visible pages, and pause and reset videos on hidden pages.
+
+## 1.18.0
+
+### Minor Changes
+
+- [#368](https://github.com/1weiho/open-slide/pull/368) [`35dc46c`](https://github.com/1weiho/open-slide/commit/35dc46ca27716ea86f8a76710bbd3640e9590628) Thanks [@1weiho](https://github.com/1weiho)! - Add a ⌘K command menu for searching decks, jumping to pages, and running slide actions.
+
+### Patch Changes
+
+- [#354](https://github.com/1weiho/open-slide/pull/354) [`3380558`](https://github.com/1weiho/open-slide/commit/3380558fb1c157ccbcbbeface024ea7b122dff31) Thanks [@1weiho](https://github.com/1weiho)! - Add a Playwright e2e suite covering the viewer, present mode, presenter sync, inspector editing, dev API, and static builds.
+
+## 1.17.1
+
+### Patch Changes
+
+- [#356](https://github.com/1weiho/open-slide/pull/356) [`f182fbd`](https://github.com/1weiho/open-slide/commit/f182fbdf13b367c6245a8a14049b82dc830545cf) Thanks [@1weiho](https://github.com/1weiho)! - Restore React 18 and Vite 5 compatibility for existing and newly generated projects.
+
+## 1.17.0
+
+### Minor Changes
+
+- [#344](https://github.com/1weiho/open-slide/pull/344) [`4a4fa17`](https://github.com/1weiho/open-slide/commit/4a4fa17484a3caabf28cdd6885db3a1feaef356d) Thanks [@1weiho](https://github.com/1weiho)! - Upgrade to React 19 and Vite 8.
+
+## 1.16.0
+
+### Minor Changes
+
+- [#315](https://github.com/1weiho/open-slide/pull/315) [`61839b7`](https://github.com/1weiho/open-slide/commit/61839b78969edc1173657b7f53d53f6bff939f39) Thanks [@1weiho](https://github.com/1weiho)! - Stabilize the morph transition API: rename `unstable_SharedElement` to `MorphElement` and the `sharedElements` transition option to `morph`.
+
+- [#313](https://github.com/1weiho/open-slide/pull/313) [`afa9d8c`](https://github.com/1weiho/open-slide/commit/afa9d8c56fcf458403d746900b62fb27a4aec801) Thanks [@1weiho](https://github.com/1weiho)! - Add useIsActivePage() so pages can gate entrance animations to the live audience-facing instance.
+
+### Patch Changes
+
+- [#316](https://github.com/1weiho/open-slide/pull/316) [`118965e`](https://github.com/1weiho/open-slide/commit/118965e6aae6f6a2a96a6b1a9f8dd3d7213ddbad) Thanks [@1weiho](https://github.com/1weiho)! - Fix morph transitions snapping background, border, and outline colors at the end of the glide instead of interpolating them.
+
+- [#313](https://github.com/1weiho/open-slide/pull/313) [`afa9d8c`](https://github.com/1weiho/open-slide/commit/afa9d8c56fcf458403d746900b62fb27a4aec801) Thanks [@1weiho](https://github.com/1weiho)! - Measure morph-element rects before the enter/exit phases start so transform keyframes no longer offset morph targets.
+
+- [#313](https://github.com/1weiho/open-slide/pull/313) [`afa9d8c`](https://github.com/1weiho/open-slide/commit/afa9d8c56fcf458403d746900b62fb27a4aec801) Thanks [@1weiho](https://github.com/1weiho)! - Document morph transitions in the slide-authoring skill.
+
+- [#328](https://github.com/1weiho/open-slide/pull/328) [`e850d8e`](https://github.com/1weiho/open-slide/commit/e850d8e2785a171c5d4fed6c43028699931f5f30) Thanks [@1weiho](https://github.com/1weiho)! - Split the slide-authoring skill into per-primitive reference files under `references/`.
+
+- [#337](https://github.com/1weiho/open-slide/pull/337) [`5e5bcdf`](https://github.com/1weiho/open-slide/commit/5e5bcdf58f02bd50ac2c95d4e8c16c9d9252b684) Thanks [@1weiho](https://github.com/1weiho)! - Fix bundled skill prompts so agent instructions, commands, and file references work correctly in scaffolded projects.
+
 ## 1.15.3
 
 ### Patch Changes

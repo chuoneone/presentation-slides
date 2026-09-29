@@ -1,72 +1,52 @@
 type Agent = {
   name: string;
-  /** asset file stem; if no theme variants, `variants: false` */
   file: string;
-  variants: boolean;
+  url: string;
+  colored?: boolean;
 };
 
 const agents: Agent[] = [
-  { name: 'Claude', file: 'claude', variants: false },
-  { name: 'Codex', file: 'codex', variants: true },
-  { name: 'Cursor', file: 'cursor', variants: true },
-  { name: 'Gemini CLI', file: 'gemini', variants: false },
-  { name: 'OpenCode', file: 'opencode', variants: true },
-  { name: 'Windsurf', file: 'windsurf', variants: true },
-  { name: 'Zed', file: 'zed', variants: true },
+  { name: 'Claude Code', file: 'claude', url: 'https://claude.com/claude-code', colored: true },
+  { name: 'Codex', file: 'codex-light', url: 'https://openai.com/codex' },
+  { name: 'Cursor', file: 'cursor-light', url: 'https://cursor.com' },
+  {
+    name: 'Gemini CLI',
+    file: 'gemini',
+    url: 'https://github.com/google-gemini/gemini-cli',
+    colored: true,
+  },
+  { name: 'OpenCode', file: 'opencode-mono', url: 'https://opencode.ai' },
+  { name: 'Windsurf', file: 'windsurf-light', url: 'https://windsurf.com' },
+  { name: 'Zed', file: 'zed-light', url: 'https://zed.dev' },
 ];
 
-export function Agents() {
-  // double the list so the marquee loops seamlessly
-  const track = [...agents, ...agents];
-
+export function AgentLogos() {
   return (
-    <section id="agents" className="relative overflow-hidden">
-      <div className="border-y border-[color:var(--color-rule)] bg-[color:var(--color-panel)]">
-        <div className="mx-auto max-w-[1360px] px-5 sm:px-8 lg:px-12 py-10 sm:py-12">
-          <h2 className="font-[family-name:var(--font-sans)] text-[18px] sm:text-[20px] text-[color:var(--color-text-soft)] font-normal">
-            Bring your own agent. Anything that edits React works.
-          </h2>
-        </div>
-
-        <div
-          className="relative"
-          style={{
-            WebkitMaskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
-            maskImage: 'linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)',
-          }}
-        >
-          <div className="marquee-track py-10 will-change-transform">
-            {track.map((agent, i) => (
-              <span key={`${agent.file}-${i}`} className="inline-flex items-center gap-4">
-                <AgentLogo agent={agent} />
-                <span className="font-[family-name:var(--font-sans)] text-[color:var(--color-text)] text-[22px] sm:text-[28px] lg:text-[36px] tracking-[-0.02em]">
-                  {agent.name}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AgentLogo({ agent }: { agent: Agent }) {
-  const alt = agent.name;
-  const cls = 'h-[28px] md:h-[34px] lg:h-[40px] w-auto object-contain shrink-0';
-
-  if (!agent.variants) {
-    return <img src={`/assets/${agent.file}.svg`} alt={alt} className={cls} />;
-  }
-  return (
-    <>
-      <img src={`/assets/${agent.file}-dark.svg`} alt={alt} className={`${cls} logo-dark`} />
-      <img
-        src={`/assets/${agent.file}-light.svg`}
-        alt=""
-        aria-hidden
-        className={`${cls} logo-light`}
-      />
-    </>
+    <ul className="grid w-full grid-cols-4 gap-y-4 sm:grid-cols-7 sm:gap-y-0">
+      {agents.map((agent) => (
+        <li key={agent.file} className="flex justify-center">
+          <a
+            href={agent.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/agent pressable flex w-[72px] flex-col items-center gap-2.5 rounded-xl py-3 text-[color:var(--color-muted)] hover:bg-[color:var(--color-panel)] hover:text-[color:var(--color-text)] hover:shadow-[var(--shadow-edge)]"
+          >
+            <span className="flex h-7 items-center">
+              <img
+                src={`/assets/${agent.file}.svg`}
+                alt=""
+                aria-hidden
+                className={`agent-mono h-6 w-auto transition-[filter,opacity] duration-300 group-hover/agent:opacity-100 ${
+                  agent.colored ? 'group-hover/agent:[filter:none]' : ''
+                }`}
+              />
+            </span>
+            <span className="whitespace-nowrap text-[11px] font-medium tracking-[-0.005em]">
+              {agent.name}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }

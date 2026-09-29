@@ -1,9 +1,16 @@
 import fs from 'node:fs/promises';
 import type { ViteDevServer } from 'vite';
+import { applyEditBatch, type BatchEdit } from '../../editing/batch-edit.ts';
 import { applyEdit, type EditOp } from '../../editing/edit-ops.ts';
 import { applyRevertAsset } from '../../editing/revert-asset.ts';
 import { validateMutationRequest } from '../../http/request-guard.ts';
-import { type ApiContext, json, readBody, resolveSlideEntryPath } from './context.ts';
+import {
+  type ApiContext,
+  json,
+  readBody,
+  readSlideSource,
+  resolveSlideEntryPath,
+} from './context.ts';
 
 // POST /__edit                applyEdit({ slideId, line, column, ops })
 // POST /__edit/revert-asset   applyRevertAsset({ slideId, assetPath })
@@ -18,7 +25,7 @@ type EditBody = {
 
 type EditBatchBody = {
   slideId?: string;
-  edits?: Array<{ line?: number; column?: number; ops?: EditOp[] }>;
+  edits?: BatchEdit[];
 };
 
 export function registerEditRoutes(server: ViteDevServer, ctx: ApiContext): void {
@@ -38,12 +45,8 @@ export function registerEditRoutes(server: ViteDevServer, ctx: ApiContext): void
         if (!body.line || body.line < 1) return json(res, 400, { error: 'invalid line' });
         if (!Array.isArray(body.ops)) return json(res, 400, { error: 'missing ops' });
 
-        let source: string;
-        try {
-          source = await fs.readFile(file, 'utf8');
-        } catch {
-          return json(res, 404, { error: 'slide not found' });
-        }
+        const source = await readSlideSource(file);
+        if (source === null) return json(res, 404, { error: 'slide not found' });
 
         const result = applyEdit(source, body.line, body.column ?? 0, body.ops);
         if (!result.ok) return json(res, result.status, { error: result.error });
@@ -65,12 +68,8 @@ export function registerEditRoutes(server: ViteDevServer, ctx: ApiContext): void
           return json(res, 400, { error: 'asset path must start with ./assets/ or @assets/' });
         }
 
-        let source: string;
-        try {
-          source = await fs.readFile(file, 'utf8');
-        } catch {
-          return json(res, 404, { error: 'slide not found' });
-        }
+        const source = await readSlideSource(file);
+        if (source === null) return json(res, 404, { error: 'slide not found' });
 
         const result = applyRevertAsset(source, assetPath);
         if (!result.ok) return json(res, result.status, { error: result.error });
@@ -89,30 +88,12 @@ export function registerEditRoutes(server: ViteDevServer, ctx: ApiContext): void
         if (!file) return json(res, 400, { error: 'invalid slideId' });
         if (!Array.isArray(body.edits)) return json(res, 400, { error: 'missing edits' });
 
-        let source: string;
-        try {
-          source = await fs.readFile(file, 'utf8');
-        } catch {
-          return json(res, 404, { error: 'slide not found' });
-        }
+        const source = await readSlideSource(file);
+        if (source === null) return json(res, 404, { error: 'slide not found' });
 
-        const original = source;
-        const results: Array<{ ok: boolean; error?: string }> = [];
-        for (const edit of body.edits) {
-          if (!edit.line || edit.line < 1 || !Array.isArray(edit.ops)) {
-            results.push({ ok: false, error: 'invalid edit' });
-            continue;
-          }
-          const r = applyEdit(source, edit.line, edit.column ?? 0, edit.ops);
-          if (r.ok) {
-            source = r.source;
-            results.push({ ok: true });
-          } else {
-            results.push({ ok: false, error: r.error });
-          }
-        }
-        const changed = source !== original;
-        if (changed) await fs.writeFile(file, source, 'utf8');
+        const { source: updated, results } = applyEditBatch(source, body.edits);
+        const changed = updated !== source;
+        if (changed) await fs.writeFile(file, updated, 'utf8');
         return json(res, 200, { ok: true, changed, results });
       }
 

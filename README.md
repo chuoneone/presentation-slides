@@ -1,4 +1,4 @@
-<img width="1280" height="640" alt="open-slide github cover" src="https://github.com/user-attachments/assets/02f5e6d7-12a7-4a8e-88e7-ae8770a96584" />
+<img width="1280" height="640" alt="open-slide github cover" src="https://github.com/user-attachments/assets/da535284-f7a9-4834-b281-f9ac6fe416e8" />
 
 <br />
 <br />
@@ -8,8 +8,8 @@
 
 # open-slide
 
-[![GitHub stars](https://img.shields.io/github/stars/1weiho/open-slide?style=for-the-badge)](https://github.com/1weiho/open-slide/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/1weiho/open-slide?style=for-the-badge)](https://github.com/1weiho/open-slide/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/open-slide/open-slide?style=for-the-badge)](https://github.com/open-slide/open-slide/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/open-slide/open-slide?style=for-the-badge)](https://github.com/open-slide/open-slide/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 **The slide framework built for agents.** Describe your deck in natural language — your coding agent writes the React. open-slide handles the canvas, scaling, navigation, hot reload, and present mode so the agent can focus on content.
@@ -49,9 +49,9 @@ Manage images, videos, and fonts per deck through a built-in assets panel. Searc
 
 Fullscreen playback with keyboard navigation, plus a **presenter mode** with current/next slide preview, speaker notes, and a timer. Built for the stage, not just the browser tab.
 
-### 📦 Export to static HTML & PDF
+### 📦 Export to static HTML, PDF & PPTX
 
-One command exports your deck as a self-contained static HTML site or a print-ready PDF. Share without a server.
+One command exports your deck as a self-contained static HTML site, a print-ready PDF, or an editable PowerPoint file. The PPTX export runs entirely in the browser and turns each page into native text boxes, shapes, and images — no server, no headless browser.
 
 ### 📁 Slide manager
 
@@ -91,18 +91,12 @@ pnpm check    # type-checks all packages
 pnpm lint     # lints via biome
 ```
 
-## Star history
-
-If open-slide is useful to you, please [star the repo on GitHub](https://github.com/1weiho/open-slide) — it helps other people find the project.
-
-[![Star History Chart](https://api.star-history.com/svg?repos=1weiho/open-slide&type=Date)](https://star-history.com/#1weiho/open-slide&Date)
-
 ## Support
 
 If open-slide has been useful to you, consider supporting development:
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D11YPUP1)
+<a href="https://buymeacoffee.com/1weiho"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="40"></a>
 
 ## License
 
-MIT
+MIT © [Yiwei Ho](https://github.com/1weiho)

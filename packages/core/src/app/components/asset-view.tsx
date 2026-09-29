@@ -17,6 +17,7 @@ import {
   Search,
   SearchX,
   Trash2,
+  Type,
   Upload,
   X,
 } from 'lucide-react';
@@ -59,23 +60,27 @@ import {
 import {
   type AssetEntry,
   type AssetUsage,
+  fetchFontAsFile,
   fetchSvgAsFile,
+  GLOBAL_ASSET_SCOPE,
+  type GoogleFontItem,
   listAssetUsages,
   renamedCopy,
   revertAssetUsage,
   type SvglItem,
+  searchGoogleFonts,
   searchSvgl,
   useAssets,
 } from '@/lib/assets';
+import { dragHasFiles } from '@/lib/dom';
 import { format, useLocale } from '@/lib/use-locale';
-import { cn } from '@/lib/utils';
+import { cn, pad2 } from '@/lib/utils';
 
 type Props = { slideId: string | null };
 
 type Scope = 'slide' | 'global';
 type ViewMode = 'grid' | 'list';
 
-const GLOBAL_SLIDE_ID = '@global';
 const VIEW_MODE_STORAGE_KEY = 'open-slide:asset-view-mode';
 const SORT_STORAGE_KEY = 'open-slide:asset-sort-v1';
 const GRID_COLUMNS_STORAGE_KEY = 'open-slide:asset-grid-columns-v1';
@@ -164,7 +169,7 @@ type ConflictState = {
 export function AssetView({ slideId }: Props) {
   const lockedToGlobal = slideId === null;
   const [scope, setScope] = useState<Scope>(lockedToGlobal ? 'global' : 'slide');
-  const effectiveSlideId = scope === 'global' || slideId === null ? GLOBAL_SLIDE_ID : slideId;
+  const effectiveSlideId = scope === 'global' || slideId === null ? GLOBAL_ASSET_SCOPE : slideId;
   const { assets, loading, available, upload, rename, remove } = useAssets(effectiveSlideId);
   const [dragActive, setDragActive] = useState(false);
   const [conflict, setConflict] = useState<ConflictState | null>(null);
@@ -179,6 +184,7 @@ export function AssetView({ slideId }: Props) {
   const [viewMode, setViewMode] = useViewMode();
   const [sort, setSort] = useSortPreference();
   const [gridColumns, setGridColumns] = useGridColumns();
+  const [fontSearchOpen, setFontSearchOpen] = useState(false);
   const dragDepth = useRef(0);
   const inputId = useId();
   const t = useLocale();
@@ -296,13 +302,13 @@ export function AssetView({ slideId }: Props) {
       aria-label={t.asset.sectionAria}
       className={cn('relative flex h-full flex-col bg-background')}
       onDragEnter={(e) => {
-        if (!hasFiles(e)) return;
+        if (!dragHasFiles(e)) return;
         e.preventDefault();
         dragDepth.current += 1;
         setDragActive(true);
       }}
       onDragOver={(e) => {
-        if (!hasFiles(e)) return;
+        if (!dragHasFiles(e)) return;
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
       }}
@@ -311,7 +317,7 @@ export function AssetView({ slideId }: Props) {
         if (dragDepth.current === 0) setDragActive(false);
       }}
       onDrop={(e) => {
-        if (!hasFiles(e)) return;
+        if (!dragHasFiles(e)) return;
         e.preventDefault();
         dragDepth.current = 0;
         setDragActive(false);
@@ -341,7 +347,7 @@ export function AssetView({ slideId }: Props) {
                 <span className="mx-2 opacity-50">·</span>
                 <span className="folio">
                   {format(assets.length === 1 ? t.asset.fileCount.one : t.asset.fileCount.other, {
-                    count: assets.length.toString().padStart(2, '0'),
+                    count: pad2(assets.length),
                   })}
                 </span>
               </>
@@ -359,6 +365,17 @@ export function AssetView({ slideId }: Props) {
           >
             <Search className="size-3.5" />
             <span>{t.asset.searchLogos}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setFontSearchOpen(true)}
+            className={cn(
+              'inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-[5px] border border-border bg-card px-2.5 text-[12.5px] font-medium transition-colors',
+              'hover:bg-muted/60 hover:border-foreground/20 active:translate-y-px',
+            )}
+          >
+            <Type className="size-3.5" />
+            <span>{t.asset.searchFonts}</span>
           </button>
           <label
             htmlFor={inputId}
@@ -547,21 +564,28 @@ export function AssetView({ slideId }: Props) {
         )}
       </div>
 
-      {dragActive && (
-        <div
-          className="pointer-events-none absolute inset-0 z-30 animate-in fade-in-0 duration-200"
-          aria-hidden="true"
-        >
-          <div className="absolute inset-0 bg-brand/5" />
-          <div className="absolute inset-2 rounded-[10px] border border-dashed border-brand/40" />
-          <div className="absolute inset-x-0 bottom-8 flex justify-center">
-            <div className="flex animate-in items-center gap-2 rounded-[6px] border border-border bg-card px-3 py-1.5 text-[12px] font-medium shadow-floating fade-in-0 slide-in-from-bottom-1 duration-300">
-              <ArrowDownToLine className="size-3.5 text-brand" />
-              <span>{t.asset.dropToUpload}</span>
-            </div>
+      <div
+        className={cn(
+          'pointer-events-none absolute inset-0 z-30 motion-safe:transition-opacity motion-safe:duration-150',
+          dragActive ? 'opacity-100' : 'opacity-0',
+        )}
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 bg-brand/5" />
+        <div className="absolute inset-2 rounded-[10px] border border-dashed border-brand/40" />
+        <div className="absolute inset-x-0 bottom-8 flex justify-center">
+          <div
+            className={cn(
+              'flex items-center gap-2 rounded-[6px] border border-border bg-card px-3 py-1.5 text-[12px] font-medium shadow-floating',
+              'ease-swift motion-safe:transition-[opacity,translate] motion-safe:duration-200',
+              dragActive ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0',
+            )}
+          >
+            <ArrowDownToLine className="size-3.5 text-brand" />
+            <span>{t.asset.dropToUpload}</span>
           </div>
         </div>
-      )}
+      </div>
 
       {conflict && (
         <ConflictDialog
@@ -620,6 +644,13 @@ export function AssetView({ slideId }: Props) {
       {logoSearchOpen && (
         <LogoSearchDialog
           onClose={() => setLogoSearchOpen(false)}
+          onPick={(file) => handleFile(file)}
+        />
+      )}
+
+      {fontSearchOpen && (
+        <FontSearchDialog
+          onClose={() => setFontSearchOpen(false)}
           onPick={(file) => handleFile(file)}
         />
       )}
@@ -706,15 +737,6 @@ function GridColumnsControl({
       </output>
     </fieldset>
   );
-}
-
-function hasFiles(e: React.DragEvent): boolean {
-  const types = e.dataTransfer?.types;
-  if (!types) return false;
-  for (let i = 0; i < types.length; i++) {
-    if (types[i] === 'Files') return true;
-  }
-  return false;
 }
 
 function AssetSortControl({
@@ -806,7 +828,7 @@ function SortableColumnHeader({
         <DirectionIcon className="size-2.5 shrink-0" aria-hidden />
       ) : (
         <ArrowUpDown
-          className="size-2.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-60 group-focus-visible:opacity-60"
+          className="size-2.5 shrink-0 opacity-0 transition-opacity duration-150 group-hover:opacity-60 group-focus-visible:opacity-60 [@media(hover:none)]:opacity-40"
           aria-hidden
         />
       )}
@@ -872,7 +894,7 @@ function AssetCard({
   const isImage = asset.mime.startsWith('image/');
   const t = useLocale();
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-[6px] border border-border bg-card shadow-edge transition-shadow hover:shadow-floating focus-within:ring-2 focus-within:ring-ring/30">
+    <div className="group relative flex flex-col overflow-hidden rounded-[6px] border border-border bg-card shadow-edge transition-[box-shadow,scale] duration-150 hover:shadow-floating motion-safe:active:scale-[0.99] focus-within:ring-2 focus-within:ring-ring/30">
       <button
         type="button"
         onClick={onPreview}
@@ -934,7 +956,7 @@ function AssetListItem({
   const isImage = asset.mime.startsWith('image/');
   const t = useLocale();
   return (
-    <div className="group flex min-h-14 items-center gap-3 rounded-[6px] border border-border bg-card p-2 shadow-edge transition-shadow hover:shadow-floating focus-within:ring-2 focus-within:ring-ring/30">
+    <div className="group flex min-h-14 items-center gap-3 rounded-[6px] border border-border bg-card p-2 shadow-edge transition-[box-shadow,scale] duration-150 hover:shadow-floating motion-safe:active:scale-[0.995] focus-within:ring-2 focus-within:ring-ring/30">
       <button
         type="button"
         onClick={onPreview}
@@ -1012,7 +1034,7 @@ function AssetActions({
         aria-label={format(t.asset.actionsAria, { name: asset.name })}
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'icon-xs' }),
-          'opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 aria-expanded:opacity-100',
+          'opacity-0 transition-opacity duration-150 group-hover:opacity-100 focus-visible:opacity-100 aria-expanded:opacity-100 [@media(hover:none)]:opacity-100',
         )}
       >
         <MoreVertical />
@@ -1337,6 +1359,8 @@ function PreviewDialog({
               className="max-h-[60vh] max-w-full object-contain"
             />
           </div>
+        ) : isFontAsset(asset) ? (
+          <FontPreview asset={asset} />
         ) : (
           <div className="flex items-center justify-center rounded-md border bg-muted/40 py-12 text-muted-foreground">
             <FileImage className="mr-2 size-5" />
@@ -1354,6 +1378,85 @@ function PreviewDialog({
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function isFontAsset(asset: AssetEntry): boolean {
+  if (asset.mime.startsWith('font/') || /font/i.test(asset.mime)) return true;
+  return /\.(ttf|otf|woff2?)$/i.test(asset.name);
+}
+
+const FONT_PREVIEW_SIZES = [40, 28, 20, 14] as const;
+
+function FontPreview({ asset }: { asset: AssetEntry }) {
+  const t = useLocale();
+  const family = useMemo(
+    () => `os-fontpreview-${asset.name.replace(/[^a-zA-Z0-9]+/g, '-')}`,
+    [asset.name],
+  );
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [sample, setSample] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    setStatus('loading');
+    const face = new FontFace(family, `url("${asset.url}")`);
+    face
+      .load()
+      .then((loaded) => {
+        if (cancelled) return;
+        document.fonts.add(loaded);
+        setStatus('ready');
+      })
+      .catch(() => {
+        if (!cancelled) setStatus('error');
+      });
+    return () => {
+      cancelled = true;
+      document.fonts.delete(face);
+    };
+  }, [family, asset.url]);
+
+  if (status === 'error') {
+    return (
+      <div className="flex items-center justify-center rounded-md border bg-muted/40 py-12 text-muted-foreground">
+        <FileImage className="mr-2 size-5" />
+        <span className="text-sm">{t.asset.noPreview}</span>
+      </div>
+    );
+  }
+
+  const text = sample.trim() || t.asset.fontPreviewSample;
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="relative">
+        <Type className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+        <input
+          value={sample}
+          onChange={(e) => setSample(e.target.value)}
+          placeholder={t.asset.fontSearchPreviewPlaceholder}
+          className="h-9 w-full rounded-[6px] border border-border bg-background py-2 pl-8 pr-3 text-[13px] outline-none focus-visible:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/30"
+        />
+      </div>
+      <div
+        className={cn(
+          'flex max-h-[50vh] flex-col gap-4 overflow-y-auto rounded-md border bg-card px-5 py-5 transition-opacity',
+          status === 'loading' && 'opacity-40',
+        )}
+      >
+        {FONT_PREVIEW_SIZES.map((size) => (
+          <div key={size} className="flex items-baseline gap-3">
+            <span className="w-7 shrink-0 font-mono text-[10px] text-muted-foreground">{size}</span>
+            <span
+              className="min-w-0 break-words"
+              style={{ fontFamily: `'${family}', sans-serif`, fontSize: size, lineHeight: 1.25 }}
+            >
+              {text}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -1457,7 +1560,7 @@ function LogoSearchDialog({
               {SKELETON_SLOTS.map((slot) => (
                 <div
                   key={slot}
-                  className="aspect-square animate-pulse rounded-lg border bg-muted/40"
+                  className="aspect-square animate-pulse rounded-lg border bg-muted/40 motion-reduce:animate-none"
                 />
               ))}
             </div>
@@ -1581,8 +1684,10 @@ function LogoResultCard({
                 type="button"
                 onClick={() => setVariant('light')}
                 className={cn(
-                  'px-1.5 py-0.5 transition-colors',
-                  variant === 'light' ? 'bg-foreground text-background' : 'hover:bg-muted',
+                  'px-1.5 py-0.5 outline-none transition-colors duration-100 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-ring/40',
+                  variant === 'light'
+                    ? 'bg-foreground text-background'
+                    : 'hover:bg-muted active:bg-muted',
                 )}
               >
                 {t.asset.logoVariantLight}
@@ -1591,8 +1696,10 @@ function LogoResultCard({
                 type="button"
                 onClick={() => setVariant('dark')}
                 className={cn(
-                  'border-l px-1.5 py-0.5 transition-colors',
-                  variant === 'dark' ? 'bg-foreground text-background' : 'hover:bg-muted',
+                  'border-l px-1.5 py-0.5 outline-none transition-colors duration-100 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-ring/40',
+                  variant === 'dark'
+                    ? 'bg-foreground text-background'
+                    : 'hover:bg-muted active:bg-muted',
                 )}
               >
                 {t.asset.logoVariantDark}
@@ -1613,12 +1720,360 @@ function LogoResultCard({
             }}
             className="ml-auto h-6 px-2 text-[11px]"
           >
-            {pending ? <Loader2 className="size-3 animate-spin" /> : t.common.add}
+            {pending ? (
+              <Loader2 className="size-3 animate-spin motion-reduce:animate-none" />
+            ) : (
+              t.common.add
+            )}
           </Button>
         </div>
       </div>
     </div>
   );
+}
+
+function FontNoResultsMessage({ query, t }: { query: string; t: ReturnType<typeof useLocale> }) {
+  const [prefix, suffix] = t.asset.fontSearchNoResults.split('{query}');
+  return (
+    <>
+      {prefix}
+      <span className="font-mono text-foreground">{query}</span>
+      {suffix}
+    </>
+  );
+}
+
+function FontSearchDialog({
+  onClose,
+  onPick,
+}: {
+  onClose: () => void;
+  onPick: (file: File) => Promise<void> | void;
+}) {
+  const [query, setQuery] = useState('');
+  const [previewText, setPreviewText] = useState('');
+  const [results, setResults] = useState<GoogleFontItem[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState<Set<string>>(() => new Set());
+  const [retryToken, setRetryToken] = useState(0);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const t = useLocale();
+
+  useEffect(() => {
+    queueMicrotask(() => inputRef.current?.focus());
+  }, []);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: retryToken is a bump-to-refetch trigger
+  useEffect(() => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => {
+      setLoading(true);
+      setError(null);
+      searchGoogleFonts(query, ctrl.signal)
+        .then((next) => {
+          setResults(next);
+          setLoading(false);
+        })
+        .catch((err: unknown) => {
+          if (ctrl.signal.aborted) return;
+          setError(err instanceof Error ? err.message : t.asset.toastSearchFailed);
+          setLoading(false);
+        });
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+      ctrl.abort();
+    };
+  }, [query, retryToken]);
+
+  // Pull the actual web fonts so previews render in their real typeface.
+  useEffect(() => {
+    if (!results || results.length === 0) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = googleFontsCssUrl(results);
+    document.head.appendChild(link);
+    return () => {
+      link.remove();
+    };
+  }, [results]);
+
+  return (
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>{t.asset.fontSearchTitle}</DialogTitle>
+          <DialogDescription>
+            {t.asset.fontSearchPoweredByPrefix}
+            <a
+              href="https://fonts.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2"
+            >
+              Google Fonts
+            </a>
+            .
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="relative sm:flex-1">
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              ref={inputRef}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t.asset.fontSearchPlaceholder}
+              className="h-9 w-full rounded-[6px] border border-border bg-background py-2 pl-8 pr-3 text-[13px] outline-none focus-visible:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/30"
+            />
+          </div>
+          <div className="relative sm:flex-1">
+            <Type className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              value={previewText}
+              onChange={(e) => setPreviewText(e.target.value)}
+              placeholder={t.asset.fontSearchPreviewPlaceholder}
+              className="h-9 w-full rounded-[6px] border border-border bg-background py-2 pl-8 pr-3 text-[13px] outline-none focus-visible:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring/30"
+            />
+          </div>
+        </div>
+
+        <div className="max-h-[60vh] min-h-[16rem] overflow-y-auto">
+          {error ? (
+            <div className="flex h-64 flex-col items-center justify-center gap-3 px-6 text-center">
+              <div className="flex size-12 items-center justify-center rounded-full bg-muted">
+                <CloudOff className="size-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">{t.asset.fontSearchErrorTitle}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{t.asset.fontSearchErrorBody}</p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setRetryToken((n) => n + 1)}
+                className="gap-1.5"
+              >
+                <RotateCw className="size-3.5" />
+                {t.common.tryAgain}
+              </Button>
+            </div>
+          ) : loading && !results ? (
+            <div className="flex flex-col gap-2.5">
+              {SKELETON_SLOTS.map((slot) => (
+                <div
+                  key={slot}
+                  className="h-[4.5rem] animate-pulse rounded-lg border bg-muted/40"
+                />
+              ))}
+            </div>
+          ) : results && results.length === 0 ? (
+            <div className="flex h-64 flex-col items-center justify-center gap-3 px-6 text-center">
+              <div className="flex size-12 items-center justify-center rounded-full bg-muted">
+                <SearchX className="size-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">
+                  {query.trim() ? (
+                    <FontNoResultsMessage query={query.trim()} t={t} />
+                  ) : (
+                    t.asset.fontSearchEmpty
+                  )}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t.asset.fontSearchEmptyHintPrefix}
+                  <a
+                    href="https://fonts.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    Google Fonts
+                  </a>
+                  {t.asset.fontSearchEmptyHintSuffix}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2.5">
+              {results?.map((item) => (
+                <FontResultCard
+                  key={item.family}
+                  item={item}
+                  previewText={previewText.trim()}
+                  pending={pending.has(item.family)}
+                  onAdd={async (file) => {
+                    setPending((prev) => {
+                      const next = new Set(prev);
+                      next.add(item.family);
+                      return next;
+                    });
+                    try {
+                      await onPick(file);
+                    } catch (err) {
+                      toast.error(
+                        err instanceof Error ? err.message : t.asset.toastFontDownloadFailed,
+                      );
+                    } finally {
+                      setPending((prev) => {
+                        const next = new Set(prev);
+                        next.delete(item.family);
+                        return next;
+                      });
+                    }
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            {t.common.done}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function FontResultCard({
+  item,
+  previewText,
+  pending,
+  onAdd,
+}: {
+  item: GoogleFontItem;
+  previewText: string;
+  pending: boolean;
+  onAdd: (file: File) => Promise<void> | void;
+}) {
+  const [variant, setVariant] = useState(() => defaultVariant(item.variants));
+  const t = useLocale();
+  const sample = previewText || item.family;
+  const filenameBase = `${item.family.replace(/\s+/g, '')}-${variantLabel(variant).replace(/\s+/g, '')}`;
+  const italic = variant.endsWith('i');
+  const weight = (italic ? variant.slice(0, -1) : variant) || '400';
+  const isDefaultVariant = variant === defaultVariant(item.variants);
+
+  // The dialog-level stylesheet only carries each family's default face, so
+  // fetch the selected weight/style on demand for the preview.
+  useEffect(() => {
+    if (isDefaultVariant) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = googleFontsVariantCssUrl(item.family, weight, italic);
+    document.head.appendChild(link);
+    return () => {
+      link.remove();
+    };
+  }, [isDefaultVariant, item.family, weight, italic]);
+
+  return (
+    <div className="group flex items-center gap-3 rounded-lg border bg-card px-3 py-2.5">
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <span className="truncate text-[11px] font-medium" title={item.family}>
+            {item.family}
+          </span>
+          {item.category ? (
+            <span className="shrink-0 text-[10px] text-muted-foreground">{item.category}</span>
+          ) : null}
+        </div>
+        <div
+          className="mt-1 truncate text-2xl leading-tight"
+          style={{
+            fontFamily: `'${item.family}', sans-serif`,
+            fontWeight: Number(weight) || 400,
+            fontStyle: italic ? 'italic' : 'normal',
+          }}
+          title={sample}
+        >
+          {sample}
+        </div>
+      </div>
+      <div className="flex shrink-0 items-center gap-1.5">
+        {item.variants.length > 1 ? (
+          <select
+            aria-label={t.asset.fontWeightLabel}
+            value={variant}
+            onChange={(e) => setVariant(e.target.value)}
+            className="h-6 w-30 rounded-md border bg-background px-1.5 text-[11px] outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
+          >
+            {item.variants.map((v) => (
+              <option key={v} value={v}>
+                {variantLabel(v)}
+              </option>
+            ))}
+          </select>
+        ) : null}
+        <Button
+          size="sm"
+          variant="outline"
+          disabled={pending}
+          onClick={async () => {
+            try {
+              const file = await fetchFontAsFile(item.family, variant, filenameBase);
+              await onAdd(file);
+            } catch (err) {
+              toast.error(err instanceof Error ? err.message : t.asset.toastFontDownloadFailed);
+            }
+          }}
+          className="h-6 px-2 text-[11px]"
+        >
+          {pending ? <Loader2 className="size-3 animate-spin" /> : t.common.add}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+const WEIGHT_NAMES: Record<string, string> = {
+  '100': 'Thin',
+  '200': 'ExtraLight',
+  '300': 'Light',
+  '400': 'Regular',
+  '500': 'Medium',
+  '600': 'SemiBold',
+  '700': 'Bold',
+  '800': 'ExtraBold',
+  '900': 'Black',
+};
+
+function variantLabel(variant: string): string {
+  const italic = variant.endsWith('i');
+  const weight = italic ? variant.slice(0, -1) : variant;
+  const base = WEIGHT_NAMES[weight] ?? weight;
+  if (!italic) return base;
+  return base === 'Regular' ? 'Italic' : `${base} Italic`;
+}
+
+function defaultVariant(variants: string[]): string {
+  if (variants.includes('400')) return '400';
+  const firstUpright = variants.find((v) => !v.endsWith('i'));
+  return firstUpright ?? variants[0] ?? '400';
+}
+
+function googleFontsVariantCssUrl(family: string, weight: string, italic: boolean): string {
+  const name = encodeURIComponent(family).replace(/%20/g, '+');
+  const axis = italic ? `ital,wght@1,${weight}` : `wght@${weight}`;
+  return `https://fonts.googleapis.com/css2?family=${name}:${axis}&display=swap`;
+}
+
+function googleFontsCssUrl(items: GoogleFontItem[]): string {
+  const params = items
+    .map((item) => {
+      const name = encodeURIComponent(item.family).replace(/%20/g, '+');
+      // css2 without an ital axis 400s on (or silently drops) italic-only
+      // families like Molle — request their italic face explicitly.
+      const italicOnly = item.variants.length > 0 && item.variants.every((v) => v.endsWith('i'));
+      return italicOnly ? `family=${name}:ital@1` : `family=${name}`;
+    })
+    .join('&');
+  return `https://fonts.googleapis.com/css2?${params}&display=swap`;
 }
 
 function basenameFromUrl(u: string): string {

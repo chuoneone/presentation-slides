@@ -1,12 +1,10 @@
 import { Palette, Shuffle, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Field, NumberField, Section } from '@/components/panel/panel-fields';
-import { PanelShell, usePanelMount } from '@/components/panel/panel-shell';
+import { ColorField, Field, NumberField, Section } from '@/components/panel/panel-fields';
+import { PanelShell } from '@/components/panel/panel-shell';
 import { useLocale } from '@/lib/use-locale';
+import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { Separator } from '../ui/separator';
 import { Slider } from '../ui/slider';
 import { useDesignPanelState } from './design-provider';
 
@@ -23,23 +21,19 @@ const FONT_PRESETS: Array<{ label: string; value: string }> = [
 ];
 
 type DesignPanelProps = {
-  open: boolean;
   onClose: () => void;
 };
 
-export function DesignPanel({ open, onClose }: DesignPanelProps) {
+export function DesignPanel({ onClose }: DesignPanelProps) {
   const { draft, exists, warning, loaded, dirty, update, shuffle } = useDesignPanelState();
-  const { mounted, animVisible } = usePanelMount(open);
+  const ready = loaded && draft != null;
   const t = useLocale();
 
-  if (!loaded) return null;
-  if (!mounted) return null;
-  if (!draft) return null;
+  if (!ready) return null;
 
   return (
     <PanelShell
       uiAttr="design"
-      animVisible={animVisible}
       header={
         <>
           <div className="flex min-w-0 items-center gap-2">
@@ -52,13 +46,14 @@ export function DesignPanel({ open, onClose }: DesignPanelProps) {
                 {t.stylePanel.draftBadge}
               </span>
             )}
-            {dirty && (
-              <span
-                className="size-1.5 rounded-full bg-brand"
-                title={t.stylePanel.unsavedTitle}
-                aria-hidden
-              />
-            )}
+            <span
+              className={cn(
+                'size-1.5 rounded-full bg-brand transition-opacity duration-150',
+                dirty ? 'opacity-100' : 'opacity-0',
+              )}
+              title={dirty ? t.stylePanel.unsavedTitle : undefined}
+              aria-hidden
+            />
           </div>
           <div className="flex items-center gap-0.5">
             <Button
@@ -122,8 +117,6 @@ export function DesignPanel({ open, onClose }: DesignPanelProps) {
         />
       </Section>
 
-      <Separator />
-
       <Section title={t.stylePanel.typographySection}>
         <FontField
           label={t.stylePanel.displayFontLabel}
@@ -171,8 +164,6 @@ export function DesignPanel({ open, onClose }: DesignPanelProps) {
         />
       </Section>
 
-      <Separator />
-
       <Section title={t.stylePanel.shapeSection}>
         <SliderField
           label={t.stylePanel.radiusLabel}
@@ -218,47 +209,6 @@ export function DesignToggleButton({
   );
 }
 
-function ColorField({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  const [hexDraft, setHexDraft] = useState(value);
-  useEffect(() => setHexDraft(value), [value]);
-
-  return (
-    <Field label={label}>
-      <label className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background shadow-xs">
-        <span className="size-5 rounded-sm" style={{ backgroundColor: value }} />
-        <input
-          type="color"
-          value={normalizeHex(value)}
-          onChange={(e) => onChange(e.target.value)}
-          className="absolute inset-0 cursor-pointer opacity-0"
-        />
-      </label>
-      <Input
-        type="text"
-        value={hexDraft}
-        onChange={(e) => {
-          const v = e.target.value;
-          setHexDraft(v);
-          if (/^#[0-9a-fA-F]{6}$/.test(v)) onChange(v);
-        }}
-        onBlur={() => {
-          if (!/^#[0-9a-fA-F]{6}$/.test(hexDraft)) setHexDraft(value);
-        }}
-        className="h-8 flex-1 font-mono text-[11px] uppercase"
-        spellCheck={false}
-      />
-    </Field>
-  );
-}
-
 function FontField({
   label,
   value,
@@ -282,7 +232,7 @@ function FontField({
           if (typeof v === 'string' && v !== '__custom__') onChange(v);
         }}
       >
-        <SelectTrigger size="sm" className="h-8 flex-1 text-xs">
+        <SelectTrigger size="sm" className="flex-1 text-xs">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -339,15 +289,4 @@ function SliderField({
       />
     </Field>
   );
-}
-
-function normalizeHex(value: string): string {
-  if (/^#[0-9a-fA-F]{6}$/.test(value)) return value;
-  if (/^#[0-9a-fA-F]{3}$/.test(value)) {
-    const r = value[1];
-    const g = value[2];
-    const b = value[3];
-    return `#${r}${r}${g}${g}${b}${b}`;
-  }
-  return '#000000';
 }

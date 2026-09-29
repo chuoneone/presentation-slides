@@ -1,38 +1,72 @@
-import { HeroSetup } from './hero-setup';
+import { Fragment } from 'react';
+import { Container } from './frame';
+import { HeroActions } from './hero-actions';
+import { LiveDemo } from './live-demo';
+
+const headline = [
+  ['The', 'slide', 'framework'],
+  ['built', 'for', 'agents.'],
+];
+const WORD_START_MS = 80;
+const WORD_STAGGER_MS = 45;
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div aria-hidden className="hair absolute inset-x-0 top-0" />
-
-      <div className="relative mx-auto max-w-[1360px] px-5 sm:px-8 lg:px-12 pt-20 sm:pt-32 lg:pt-44 pb-20 sm:pb-32">
-        <div className="flex flex-col gap-10 sm:gap-14 max-w-[920px]">
-          <h1
-            className="text-[44px] sm:text-[72px] lg:text-[100px] leading-[1.05] sm:leading-[0.98] tracking-[-0.035em] rise"
-            style={{ animationDelay: '80ms' }}
+    <section className="relative">
+      <Container className="pt-20 sm:pt-28 lg:pt-32">
+        <div className="mx-auto flex max-w-[840px] flex-col items-center gap-6 text-center sm:gap-8">
+          <a
+            href="https://x.com/1weiho/status/2103873490730549558"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group rise pressable inline-flex h-8 items-center gap-2 rounded-full border border-[color:var(--color-rule)] bg-[color:var(--color-panel)] pl-2.5 pr-3 text-[13px] font-medium text-[color:var(--color-text-soft)] hover:border-[color:var(--color-dim)] hover:text-[color:var(--color-text)]"
           >
-            <span className="font-[family-name:var(--font-sans)] font-medium text-[color:var(--color-text)]">
-              The slide framework
+            <span aria-hidden className="size-1.5 rounded-full bg-[color:var(--color-accent)]" />
+            Introducing open-slide 2.0
+            <span
+              aria-hidden
+              className="text-[color:var(--color-muted)] transition-transform duration-200 group-hover:translate-x-0.5"
+            >
+              →
             </span>
-            <br />
-            <span className="font-[family-name:var(--font-display)] italic text-[color:var(--color-paper)]">
-              built for <span className="text-[color:var(--color-accent)]">agents</span>.
-            </span>
+          </a>
+
+          <h1 className="text-[44px] font-medium leading-[1.02] tracking-[-0.04em] text-[color:var(--color-text)] sm:text-[64px] lg:text-[76px]">
+            {headline.map((line, li) => (
+              <span key={line.join(' ')} className="block">
+                {line.map((word, wi) => {
+                  const order = headline.slice(0, li).flat().length + wi;
+                  return (
+                    <Fragment key={word}>
+                      {wi > 0 ? ' ' : null}
+                      <span
+                        className="rise rise-word"
+                        style={{ animationDelay: `${WORD_START_MS + order * WORD_STAGGER_MS}ms` }}
+                      >
+                        {word}
+                      </span>
+                    </Fragment>
+                  );
+                })}
+              </span>
+            ))}
           </h1>
 
           <p
-            className="max-w-[600px] text-[18px] sm:text-[20px] leading-[1.6] text-[color:var(--color-text-soft)] rise"
-            style={{ animationDelay: '200ms' }}
+            className="rise max-w-[560px] text-pretty text-[17px] leading-[1.55] text-[color:var(--color-text-soft)] sm:text-[19px]"
+            style={{ animationDelay: '380ms' }}
           >
             A React-first slide framework. Every page is arbitrary code on a 1920×1080 canvas. No
             layout to fight. Design anything you can imagine.
           </p>
 
-          <div className="w-full rise" style={{ animationDelay: '320ms' }}>
-            <HeroSetup />
+          <div className="rise" style={{ animationDelay: '460ms' }}>
+            <HeroActions />
           </div>
         </div>
-      </div>
+      </Container>
+
+      <LiveDemo />
     </section>
   );
 }

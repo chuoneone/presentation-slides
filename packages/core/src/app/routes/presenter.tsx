@@ -1,17 +1,30 @@
 import {
   AArrowDown,
   AArrowUp,
+  Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   RotateCcw,
   Square,
   Sun,
 } from 'lucide-react';
-import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {
+  type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { hasModifier, isBackwardKey, isForwardKey, isTypingTarget } from '@/lib/keys';
+import { useDocumentTitle } from '@/lib/use-document-title';
 import { format, useLocale } from '@/lib/use-locale';
-import { cn } from '@/lib/utils';
+import { cn, pad2 } from '@/lib/utils';
+import { NoteMarkdown } from '../components/note-markdown';
 import {
   type PresenterState,
   usePresenterChannel,
@@ -19,13 +32,15 @@ import {
 import { SlideCanvas } from '../components/slide-canvas';
 import { isDeckWarmed, markDeckWarmed, SlidePreloadLayer } from '../components/slide-preload-layer';
 import { SlidePageProvider } from '../lib/page-context';
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../lib/sdk';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, type SlideModule } from '../lib/sdk';
+import { loadSlide, slideIds } from '../lib/slides';
 import { type StepController, StepHost } from '../lib/step-context';
 import { useSlideModule } from '../lib/use-slide-module';
 
 export function Presenter() {
   const { slideId = '' } = useParams();
   const { slide, error } = useSlideModule(slideId);
+  useDocumentTitle(slide?.meta?.title);
 
   // Presenter view is a passive mirror of the projection window. It only
   // tracks the index it last heard about; navigation buttons send commands
@@ -50,17 +65,35 @@ export function Presenter() {
     }
   });
 
+  // A deck switch reuses this route instance, so the handshake state from
+  // the previous deck must be dropped before rejoining on the new channel.
+  // Render-phase reset so the new deck never renders with the old state.
+  const prevSlideIdRef = useRef(slideId);
+  if (prevSlideIdRef.current !== slideId) {
+    prevSlideIdRef.current = slideId;
+    setState(null);
+    setHasProjection(false);
+    requestedRef.current = false;
+  }
+
   // Hydrate from the projection window once.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: slideId re-fires the handshake on a deck switch even when the channel memo keeps its identity (available toggling false→true in one commit nets to no change)
   useEffect(() => {
     if (!channel.available || requestedRef.current) return;
     requestedRef.current = true;
     channel.send({ type: 'request-state' });
-    // If nothing answers within a beat, surface the "no projection" hint.
-    const t = setTimeout(() => setHasProjection((v) => v), 600);
-    return () => clearTimeout(t);
-  }, [channel]);
+  }, [channel, slideId]);
 
+  const navigate = useNavigate();
   const send = channel.send;
+  const switchDeck = useCallback(
+    (id: string) => {
+      if (id === slideId) return;
+      send({ type: 'switch-slide', slideId: id });
+      navigate(`/s/${encodeURIComponent(id)}/presenter`, { replace: true });
+    },
+    [slideId, send, navigate],
+  );
   const goPrev = useCallback(() => send({ type: 'prev' }), [send]);
   const goNext = useCallback(() => send({ type: 'next' }), [send]);
   const goTo = useCallback((i: number) => send({ type: 'goto', index: i }), [send]);
@@ -71,17 +104,14 @@ export function Presenter() {
   // presenter can drive without the mouse.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLElement && e.target.matches('input, textarea')) return;
-      if (e.altKey || e.ctrlKey || e.metaKey) return;
-      if (
-        e.key === 'ArrowRight' ||
-        e.key === 'ArrowDown' ||
-        e.key === ' ' ||
-        e.key === 'PageDown'
-      ) {
+      // The deck-switcher menu owns its own arrow-key navigation.
+      if (e.defaultPrevented) return;
+      if (isTypingTarget(e.target)) return;
+      if (hasModifier(e)) return;
+      if (isForwardKey(e)) {
         e.preventDefault();
         goNext();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      } else if (isBackwardKey(e)) {
         e.preventDefault();
         goPrev();
       } else if (e.key === 'b' || e.key === 'B') {
@@ -175,8 +205,10 @@ export function Presenter() {
         index={index}
         total={total}
         startedAt={startedAt}
+        slideId={slideId}
         slideTitle={slide.meta?.title ?? slideId}
         connected={hasProjection}
+        onSwitchDeck={switchDeck}
       />
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-6 px-6 pb-4 lg:grid-cols-[2fr_1fr]">
@@ -196,6 +228,7 @@ export function Presenter() {
                 aria-hidden
                 className={cn(
                   'pointer-events-none absolute inset-0 grid place-items-center text-[11px] tracking-[0.08em] uppercase',
+                  'motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-150',
                   blackout === 'black' ? 'bg-black text-white/35' : 'bg-white text-black/35',
                 )}
               >
@@ -252,23 +285,31 @@ function PresenterTopBar({
   index,
   total,
   startedAt,
+  slideId,
   slideTitle,
   connected,
+  onSwitchDeck,
 }: {
   index: number;
   total: number;
   startedAt: number;
+  slideId: string;
   slideTitle: string;
   connected: boolean;
+  onSwitchDeck: (slideId: string) => void;
 }) {
   const t = useLocale();
   return (
     <header className="flex h-12 shrink-0 items-center justify-between border-b border-hairline px-6">
-      <div className="flex items-baseline gap-3">
+      <div className="flex min-w-0 items-center gap-3">
         <span className="eyebrow text-white/45">{t.presenter.eyebrow}</span>
-        <span className="truncate font-heading text-[14px] font-semibold tracking-tight">
-          {slideTitle}
-        </span>
+        {slideIds.length > 1 ? (
+          <DeckSwitcher slideId={slideId} slideTitle={slideTitle} onSwitchDeck={onSwitchDeck} />
+        ) : (
+          <span className="truncate font-heading text-[14px] font-semibold tracking-tight">
+            {slideTitle}
+          </span>
+        )}
         {!connected && (
           <span className="rounded-[3px] border border-amber-300/30 bg-amber-300/10 px-1.5 py-0.5 font-mono text-[10px] tracking-[0.06em] uppercase text-amber-200/85">
             {t.presenter.notLinked}
@@ -279,12 +320,174 @@ function PresenterTopBar({
         <Clock />
         <ElapsedClock startedAt={startedAt} />
         <div className="font-mono text-[18px] tabular-nums">
-          <span className="text-foreground">{(index + 1).toString().padStart(2, '0')}</span>
+          <span className="text-foreground">{pad2(index + 1)}</span>
           <span className="text-foreground/30"> / </span>
-          <span className="text-muted-foreground">{total.toString().padStart(2, '0')}</span>
+          <span className="text-muted-foreground">{pad2(total)}</span>
         </div>
       </div>
     </header>
+  );
+}
+
+// Listing decks means importing every deck's chunk for its meta and pages.
+// That warms the module cache for switches; assets only load on render, so
+// this stays cheap.
+function useDeckModules(): Record<string, SlideModule> {
+  const [modules, setModules] = useState<Record<string, SlideModule>>({});
+  useEffect(() => {
+    let cancelled = false;
+    for (const id of slideIds) {
+      loadSlide(id)
+        .then((mod) => {
+          if (cancelled) return;
+          setModules((cur) => (cur[id] === mod ? cur : { ...cur, [id]: mod }));
+        })
+        .catch(() => {});
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  return modules;
+}
+
+function DeckSwitcher({
+  slideId,
+  slideTitle,
+  onSwitchDeck,
+}: {
+  slideId: string;
+  slideTitle: string;
+  onSwitchDeck: (slideId: string) => void;
+}) {
+  const t = useLocale();
+  const modules = useDeckModules();
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const trimmed = query.trim().toLowerCase();
+  const filtered = slideIds.filter((id) => {
+    if (!trimmed) return true;
+    const title = modules[id]?.meta?.title;
+    return id.toLowerCase().includes(trimmed) || title?.toLowerCase().includes(trimmed);
+  });
+  const active = Math.min(activeIndex, Math.max(0, filtered.length - 1));
+
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next);
+    if (next) {
+      setQuery('');
+      setActiveIndex(0);
+    }
+  };
+
+  const select = (id: string) => {
+    setOpen(false);
+    onSwitchDeck(id);
+  };
+
+  useEffect(() => {
+    listRef.current
+      ?.querySelector(`[data-index="${active}"]`)
+      ?.scrollIntoView({ block: 'nearest' });
+  }, [active]);
+
+  const onSearchKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex(Math.min(filtered.length - 1, active + 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex(Math.max(0, active - 1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const id = filtered[active];
+      if (id) select(id);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger
+        aria-label={t.presenter.switchDeck}
+        title={t.presenter.switchDeck}
+        className="group -mx-1.5 flex min-w-0 items-center gap-1 rounded-[5px] px-1.5 py-0.5 outline-none hover:bg-card focus-visible:ring-2 focus-visible:ring-ring/30"
+      >
+        <span className="truncate font-heading text-[14px] font-semibold tracking-tight">
+          {slideTitle}
+        </span>
+        <ChevronDown className="size-3.5 shrink-0 text-muted-foreground" />
+      </DialogTrigger>
+      <DialogContent
+        showCloseButton={false}
+        className="dark top-[16%] translate-y-0 gap-0 overflow-hidden p-0 sm:max-w-lg"
+      >
+        <DialogTitle className="sr-only">{t.presenter.switchDeck}</DialogTitle>
+        <input
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActiveIndex(0);
+          }}
+          onKeyDown={onSearchKeyDown}
+          placeholder={t.presenter.searchDecks}
+          className="w-full border-b border-hairline bg-transparent px-4 py-3 text-[13px] text-foreground outline-none placeholder:text-muted-foreground"
+        />
+        <div ref={listRef} className="max-h-[55vh] overflow-y-auto p-1.5">
+          {filtered.length === 0 ? (
+            <div className="px-3 py-8 text-center text-[12px] text-muted-foreground">
+              {t.presenter.noDecksFound}
+            </div>
+          ) : (
+            filtered.map((id, i) => {
+              const mod = modules[id];
+              const FirstPage = mod?.default[0];
+              return (
+                <button
+                  type="button"
+                  key={id}
+                  data-index={i}
+                  onClick={() => select(id)}
+                  onMouseMove={() => setActiveIndex(i)}
+                  className={cn(
+                    'flex w-full items-center gap-3 rounded-[6px] p-2 text-left outline-none transition-[background-color,scale] duration-100 active:scale-[0.99] focus-visible:ring-1 focus-visible:ring-ring/40',
+                    i === active && 'bg-muted',
+                  )}
+                >
+                  <div
+                    className="w-24 shrink-0 overflow-hidden rounded-[4px] bg-black ring-1 ring-border"
+                    style={{ aspectRatio: `${CANVAS_WIDTH}/${CANVAS_HEIGHT}` }}
+                  >
+                    {FirstPage && (
+                      <SlideCanvas flat freezeMotion design={mod.design}>
+                        <SlidePageProvider index={0} total={mod.default.length}>
+                          <PreviewStepHost revealed={0}>
+                            <FirstPage />
+                          </PreviewStepHost>
+                        </SlidePageProvider>
+                      </SlideCanvas>
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-[13px] font-medium text-foreground">
+                      {mod?.meta?.title ?? id}
+                    </div>
+                    <div className="mt-0.5 truncate font-mono text-[10.5px] tabular-nums text-muted-foreground">
+                      {id}
+                      {mod && ` · ${pad2(mod.default.length)}`}
+                    </div>
+                  </div>
+                  {id === slideId && <Check className="size-3.5 shrink-0 text-muted-foreground" />}
+                </button>
+              );
+            })
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -389,11 +592,11 @@ function SpeakerNotes({ note }: { note: string | undefined }) {
         </div>
       </div>
       <div
-        className="min-h-0 flex-1 overflow-y-auto rounded-[6px] border border-border bg-card p-3 leading-relaxed whitespace-pre-wrap text-card-foreground"
+        className="min-h-0 flex-1 overflow-y-auto rounded-[6px] border border-border bg-card p-3 leading-relaxed text-card-foreground"
         style={{ fontSize: NOTES_FONT_SIZES[sizeIndex] }}
       >
         {note?.trim() ? (
-          note
+          <NoteMarkdown text={note} />
         ) : (
           <span className="text-muted-foreground">
             {t.presenter.noNotesPrefix}
@@ -441,7 +644,7 @@ function PresenterJumpControl({
         placeholder={(current + 1).toString()}
         className="h-8 w-20 rounded-[5px] border border-border bg-card px-2 font-mono text-[12px] tabular-nums outline-none focus-visible:border-foreground/30"
       />
-      <span className="font-mono text-[11px] text-muted-foreground">/ {total}</span>
+      <span className="font-mono text-[11px] tabular-nums text-muted-foreground">/ {total}</span>
     </form>
   );
 }
@@ -492,10 +695,7 @@ function ElapsedClock({ startedAt }: { startedAt: number }) {
   const h = Math.floor(elapsed / 3600);
   const m = Math.floor((elapsed % 3600) / 60);
   const s = elapsed % 60;
-  const text =
-    h > 0
-      ? `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
-      : `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  const text = h > 0 ? `${h}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`;
   return (
     <time
       title={t.presenter.elapsed}

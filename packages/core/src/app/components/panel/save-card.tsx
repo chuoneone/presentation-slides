@@ -1,7 +1,13 @@
 import { Check, Loader2, Redo2, Save, Undo2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { usePanelMount } from '@/components/panel/panel-shell';
 import { Button } from '@/components/ui/button';
+import { IS_APPLE } from '@/lib/keys';
 import { useLocale } from '@/lib/use-locale';
+import { cn } from '@/lib/utils';
+
+const UNDO_SHORTCUT = IS_APPLE ? '⌘Z' : 'Ctrl Z';
+const REDO_SHORTCUT = IS_APPLE ? '⇧⌘Z' : 'Ctrl Y';
 
 type SaveCardProps = {
   dirty: boolean;
@@ -44,7 +50,8 @@ export function SaveCard({
   }, [justSaved]);
 
   const visible = dirty || committing || justSaved || canUndo || canRedo;
-  if (!visible) return null;
+  const { mounted, animVisible } = usePanelMount(visible);
+  if (!mounted) return null;
 
   const handleSave = async () => {
     await onSave();
@@ -58,7 +65,13 @@ export function SaveCard({
   return (
     <div
       {...dataAttrs}
-      className="pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2 animate-in fade-in slide-in-from-bottom-2 duration-200 ease-out"
+      className={cn(
+        'pointer-events-none absolute bottom-6 left-1/2 z-30 -translate-x-1/2',
+        'motion-safe:transition-[opacity,translate,scale] motion-safe:duration-200 motion-safe:ease-swift',
+        animVisible
+          ? 'translate-y-0 scale-100 opacity-100'
+          : 'translate-y-2 scale-[0.98] opacity-0',
+      )}
     >
       <div className="pointer-events-auto flex h-9 items-center gap-1 rounded-[8px] border border-border bg-popover/95 py-0.5 pr-0.5 pl-1 shadow-overlay backdrop-blur-md">
         {showHistory && (
@@ -70,7 +83,7 @@ export function SaveCard({
               onClick={onUndo}
               disabled={committing || !canUndo}
               aria-label={t.common.undo}
-              title={t.common.undo}
+              title={`${t.common.undo} (${UNDO_SHORTCUT})`}
             >
               <Undo2 className="size-3.5" />
             </Button>
@@ -81,7 +94,7 @@ export function SaveCard({
               onClick={onRedo}
               disabled={committing || !canRedo}
               aria-label={t.common.redo}
-              title={t.common.redo}
+              title={`${t.common.redo} (${REDO_SHORTCUT})`}
             >
               <Redo2 className="size-3.5" />
             </Button>
@@ -125,7 +138,7 @@ export function SaveCard({
           >
             {committing ? (
               <>
-                <Loader2 className="size-3.5 animate-spin" />
+                <Loader2 className="size-3.5 animate-spin motion-reduce:animate-none" />
                 {t.common.saving}
               </>
             ) : (

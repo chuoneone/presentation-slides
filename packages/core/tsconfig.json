@@ -15,11 +15,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/app/*"]
     },
     "types": ["node", "vite/client"]
   },
-  "include": ["src", "tsdown.config.ts"]
+  "include": ["src", "tsdown.config.ts", "e2e/tests", "playwright.config.ts"]
 }

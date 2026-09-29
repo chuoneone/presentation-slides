@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
@@ -34,6 +35,22 @@ function readCoreVersion(): string {
 }
 
 const CORE_VERSION = readCoreVersion();
+
+// styles.css pulls webfonts from core's own dependencies. Their real paths sit
+// outside the app root — and, under pnpm or in a workspace, outside the user's
+// project too — so Vite's fs guard would refuse to serve them.
+const RUNTIME_ASSET_ROOTS = resolveRuntimeAssetRoots();
+
+function resolveRuntimeAssetRoots(): string[] {
+  const require = createRequire(import.meta.url);
+  const roots: string[] = [];
+  for (const pkg of ['@fontsource-variable/geist']) {
+    try {
+      roots.push(path.dirname(require.resolve(`${pkg}/package.json`)));
+    } catch {}
+  }
+  return roots;
+}
 
 export type CreateViteConfigOptions = {
   userCwd: string;
@@ -72,6 +89,10 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
         '@': APP_ROOT,
         '@assets': assetsAbs,
       },
+      // A workspace that still declares its own react (e.g. scaffolded before
+      // v2) would otherwise load two copies — core's and the workspace's —
+      // which crashes the production bundle with React error #525.
+      dedupe: ['react', 'react-dom'],
     },
     optimizeDeps: {
       entries: [path.join(APP_ROOT, 'main.tsx')],
@@ -96,16 +117,13 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
       ],
       // The app source ships inside node_modules/@open-slide/core/src/app, so
       // Vite's dep scanner traverses it as if it were a third-party dep and
-      // tries to bundle our virtual imports with esbuild. Mark them external.
-      esbuildOptions: {
+      // tries to bundle our virtual imports. Mark them external.
+      rolldownOptions: {
         plugins: [
           {
             name: 'open-slide:virtual-externals',
-            setup(build) {
-              build.onResolve({ filter: /^virtual:open-slide\// }, (args) => ({
-                path: args.path,
-                external: true,
-              }));
+            resolveId(id) {
+              return id.startsWith('virtual:open-slide/') ? { id, external: true } : null;
             },
           },
         ],
@@ -113,9 +131,11 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
     },
     server: {
       port: config.port ?? 5173,
+      ...(config.allowedHosts !== undefined ? { allowedHosts: config.allowedHosts } : {}),
       fs: {
         allow: [
           APP_ROOT,
+          ...RUNTIME_ASSET_ROOTS,
           userCwd,
           slidesAbs,
           themesAbs,
@@ -132,5 +152,3 @@ export async function createViteConfig(opts: CreateViteConfigOptions): Promise<I
     },
   };
 }
-
-export { APP_ROOT };

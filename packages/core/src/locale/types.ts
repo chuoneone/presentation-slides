@@ -17,16 +17,11 @@ export type Locale = {
     loadFailed: string;
     failedToLoadSlide: string;
     home: string;
-    backToHome: string;
-    preview: string;
     add: string;
     done: string;
     tryAgain: string;
     undo: string;
     redo: string;
-    light: string;
-    dark: string;
-    system: string;
     selected: string;
   };
 
@@ -120,9 +115,8 @@ export type Locale = {
     exportAsPdf: string;
     exportAsImagePptx: string;
     exportAsPptx: string;
-    comingSoon: string;
-    pptxComingSoonTooltip: string;
     pdfExportFailed: string;
+    pptxExportFailed: string;
     imagePptxExportFailed: string;
     pdfExportSafariUnsupported: string;
     present: string;
@@ -137,7 +131,6 @@ export type Locale = {
     loadingAssetsEyebrow: string;
     emptyEyebrow: string;
     nothingToShow: string;
-    emptyHintPrefix: string;
     emptyHintMust: string;
     emptyHintSuffix: string;
   };
@@ -168,6 +161,9 @@ export type Locale = {
     /** template: "Loading {slideId}…" */
     loadingSlide: string;
     loadingAssets: string;
+    switchDeck: string;
+    searchDecks: string;
+    noDecksFound: string;
   };
 
   present: {
@@ -204,6 +200,51 @@ export type Locale = {
   };
 
   inspector: {
+    format: string;
+    editMode: string;
+    previewMode: string;
+    closeFormatPanel: string;
+    editText: string;
+    emptySelectionTitle: string;
+    emptySelectionHint: string;
+    textSelectionHint: string;
+    elementText: string;
+    elementImage: string;
+    elementShape: string;
+    sourceSection: string;
+    rotateHandle: string;
+    resizeHandle: string;
+    arrangeSection: string;
+    selectionCount: string;
+    positionLabel: string;
+    positionX: string;
+    positionY: string;
+    widthLabel: string;
+    heightLabel: string;
+    rotationLabel: string;
+    alignToLabel: string;
+    alignToSelection: string;
+    alignToSlide: string;
+    alignLeft: string;
+    alignCenter: string;
+    alignRight: string;
+    alignTop: string;
+    alignMiddle: string;
+    alignBottom: string;
+    distributeLabel: string;
+    distributeHorizontal: string;
+    distributeVertical: string;
+    layerLabel: string;
+    bringToFront: string;
+    bringForward: string;
+    sendBackward: string;
+    sendToBack: string;
+    smartGuides: string;
+    selectParent: string;
+    visualEditorHint: string;
+    sharedLayoutHint: string;
+    inlineLayoutHint: string;
+    layerLayoutHint: string;
     inspect: string;
     deselect: string;
     agentWatching: string;
@@ -246,7 +287,6 @@ export type Locale = {
     cropFitCover: string;
     cropFitContain: string;
     cropApply: string;
-    cropResetAria: string;
     leaveComment: string;
     commentPlaceholder: string;
     commentShortcutHint: string;
@@ -263,6 +303,8 @@ export type Locale = {
     commentDeleteAria: string;
     /** Prefix for the toast shown when one or more buffered edits fail to write to disk. */
     saveFailed: string;
+    decreaseFontSize: string;
+    increaseFontSize: string;
   };
 
   stylePanel: {
@@ -328,6 +370,7 @@ export type Locale = {
     noMatchingAssetsHint: string;
     clearFilters: string;
     searchLogos: string;
+    searchFonts: string;
     upload: string;
     dropToUpload: string;
     loading: string;
@@ -373,6 +416,19 @@ export type Locale = {
     logoSearchEmptyHintSuffix: string;
     logoVariantLight: string;
     logoVariantDark: string;
+    fontSearchTitle: string;
+    fontSearchPoweredByPrefix: string;
+    fontSearchPlaceholder: string;
+    fontSearchPreviewPlaceholder: string;
+    fontSearchErrorTitle: string;
+    fontSearchErrorBody: string;
+    /** template: 'No fonts for "{query}"' */
+    fontSearchNoResults: string;
+    fontSearchEmpty: string;
+    fontSearchEmptyHintPrefix: string;
+    fontSearchEmptyHintSuffix: string;
+    fontWeightLabel: string;
+    fontPreviewSample: string;
     /** template: "Upload failed ({status})" */
     toastUploadFailed: string;
     /** template: "Replaced {name}" */
@@ -390,6 +446,7 @@ export type Locale = {
     /** template: "Deleted {name}" */
     toastDeleted: string;
     toastDownloadFailed: string;
+    toastFontDownloadFailed: string;
     toastSearchFailed: string;
   };
 
@@ -431,6 +488,36 @@ export type Locale = {
     processing: string;
     generating: string;
     done: string;
+  };
+
+  commandMenu: {
+    trigger: string;
+    triggerAria: string;
+    triggerTooltip: string;
+    placeholder: string;
+    slidePlaceholder: string;
+    empty: string;
+    groupSlides: string;
+    groupFolders: string;
+    groupNavigation: string;
+    groupPresent: string;
+    groupDeck: string;
+    groupExport: string;
+    groupPages: string;
+    groupAppearance: string;
+    groupDeveloper: string;
+    /** template: "Page {n}" */
+    goToPage: string;
+    overview: string;
+    designPanel: string;
+    backToSlides: string;
+    /** template: "Theme: {name}" */
+    themeItem: string;
+    /** template: "Language: {name}" */
+    languageItem: string;
+    hintNavigate: string;
+    hintSelect: string;
+    hintClose: string;
   };
 
   themeToggle: {

@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
+import { AgentIconList } from './agent-icon-list';
+import { Container, SectionHeading } from './frame';
 
 type Step = {
   num: string;
-  kicker: string;
   title: string;
   body: string;
   code: {
@@ -15,9 +16,8 @@ type Step = {
 const steps: Step[] = [
   {
     num: '01',
-    kicker: 'scaffold',
     title: 'Spin up a workspace',
-    body: 'Creates the slide workspace. Every future deck you author lives inside it.',
+    body: 'One command scaffolds the slide workspace. Every future deck you author lives inside it.',
     code: {
       prompt: '$',
       line: 'npx @open-slide/cli init my-deck',
@@ -26,23 +26,21 @@ const steps: Step[] = [
   },
   {
     num: '02',
-    kicker: 'author',
     title: 'Ask your agent',
-    body: 'Your agent drafts pages as arbitrary React components. You guide with prompts.',
+    body: 'Your agent drafts pages as arbitrary React components. You guide it with prompts.',
     code: {
       prompt: '›',
       line: '/create-slide for Q2 roadmap',
-      tail: <AgentRow />,
+      tail: <AgentIconList />,
     },
   },
   {
     num: '03',
-    kicker: 'iterate',
     title: 'Edit, comment, apply',
-    body: 'Click any element to tweak it visually. Or leave a comment for the agent to apply.',
+    body: 'Click any element to tweak it visually, or leave a comment for the agent to apply.',
     code: {
       prompt: '›',
-      line: '/apply-comment',
+      line: '/apply-comments',
       tail: '✓ applied change',
     },
   },
@@ -69,73 +67,51 @@ function renderLine(line: string) {
   return <>{parts}</>;
 }
 
-function AgentRow() {
-  const agents: [string, string][] = [
-    ['claude.svg', 'Claude'],
-    ['codex-dark.svg', 'Codex'],
-    ['cursor-dark.svg', 'Cursor'],
-    ['gemini.svg', 'Gemini CLI'],
-  ];
-  const cls = 'agent-mono h-[14px] w-auto object-contain shrink-0';
-  return (
-    <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-2 normal-case tracking-normal">
-      {agents.map(([file, name]) => (
-        <img key={file} src={`/assets/${file}`} alt={name} className={cls} />
-      ))}
-      <span className="text-[10px] tracking-[0.1em] uppercase text-[color:var(--color-muted)]">
-        ...
-      </span>
-    </span>
-  );
-}
-
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[color:var(--color-rule)]" />
-      <div className="mx-auto max-w-[1360px] px-5 sm:px-8 lg:px-12 py-20 sm:py-32 lg:py-40">
-        <h2 className="text-[32px] sm:text-[44px] lg:text-[64px] leading-[1.1] sm:leading-[1.05] tracking-[-0.03em] max-w-[820px] mb-14 sm:mb-20">
-          <span className="font-[family-name:var(--font-sans)] font-medium">Slides as code.</span>
-          <br />
-          <span className="font-[family-name:var(--font-display)] italic text-[color:var(--color-accent)]">
-            Crafted by agents.
-          </span>
-        </h2>
+    <section id="how-it-works">
+      <Container className="py-24 sm:py-32">
+        <SectionHeading
+          eyebrow="How it works"
+          title="Three steps to a live deck."
+          lead="Scaffold once, prompt your agent, then iterate on the canvas. No config, no templates."
+        />
 
-        <ol className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[color:var(--color-rule)] border border-[color:var(--color-rule)] rounded-[6px] overflow-hidden">
+        <ol className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {steps.map((s) => (
             <li
               key={s.num}
-              className="group relative p-8 sm:p-10 lg:p-12 bg-[color:var(--color-ink)] flex flex-col gap-7 transition-colors hover:bg-[color:var(--color-panel)]"
+              data-reveal
+              className="flex flex-col gap-6 rounded-2xl border border-[color:var(--color-rule-soft)] bg-[color:var(--color-panel)] p-6 transition-colors duration-300 hover:border-[color:var(--color-rule)] sm:p-7"
             >
-              <span className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.18em] uppercase text-[color:var(--color-muted)]">
-                {s.num} · {s.kicker}
+              <span className="inline-flex size-7 items-center justify-center rounded-full bg-[color:var(--color-panel-hi)] font-[family-name:var(--font-mono)] text-[11px] text-[color:var(--color-text-soft)]">
+                {s.num}
               </span>
 
               <div>
-                <h3 className="text-[22px] sm:text-[26px] lg:text-[30px] font-medium tracking-[-0.025em] leading-[1.15]">
+                <h3 className="text-[18px] font-medium leading-[1.3] tracking-[-0.02em] sm:text-[19px]">
                   {s.title}
                 </h3>
-                <p className="mt-4 text-[15px] leading-[1.65] text-[color:var(--color-text-soft)] max-w-[36ch]">
+                <p className="mt-2 max-w-[36ch] text-[14.5px] leading-[1.6] text-[color:var(--color-muted)]">
                   {s.body}
                 </p>
               </div>
 
-              <div className="rounded-[6px] border border-[color:var(--color-rule)] bg-[color:var(--color-panel-hi)] p-4 font-[family-name:var(--font-mono)] text-[13px]">
+              <div className="mt-auto rounded-xl bg-[color:var(--color-panel-hi)] px-4 py-3.5 font-[family-name:var(--font-mono)] text-[13px]">
                 <div className="flex items-center gap-2">
                   <span className="text-[color:var(--color-accent)]">{s.code.prompt}</span>
-                  <span className="text-[color:var(--color-text)] truncate">
+                  <span className="truncate text-[color:var(--color-text)]">
                     {renderLine(s.code.line)}
                   </span>
                 </div>
-                <div className="mt-3 text-[11px] tracking-[0.1em] uppercase text-[color:var(--color-muted)]">
+                <div className="mt-3 text-[11px] uppercase tracking-[0.08em] text-[color:var(--color-muted)]">
                   {s.code.tail}
                 </div>
               </div>
             </li>
           ))}
         </ol>
-      </div>
+      </Container>
     </section>
   );
 }

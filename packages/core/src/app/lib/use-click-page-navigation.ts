@@ -7,7 +7,7 @@ const NAV_PASSTHROUGH =
   'a, button, input, textarea, select, label, summary, iframe, video, audio, embed, object, [role="button"], [role="link"], [contenteditable="true"], [data-osd-interactive], [data-osd-chrome]';
 
 type UseClickPageNavigationOptions<T extends HTMLElement> = {
-  ref: RefObject<T>;
+  ref: RefObject<T | null>;
   enabled?: boolean;
   /** Fraction of the width on each side that navigates; the center is inert. */
   edgeRatio?: number;
@@ -15,7 +15,6 @@ type UseClickPageNavigationOptions<T extends HTMLElement> = {
   canNext: boolean;
   onPrev: () => void;
   onNext: () => void;
-  onCenterClick?: () => void;
   onViewportClick?: (point: { x: number; y: number }) => void;
 };
 
@@ -27,7 +26,6 @@ export function useClickPageNavigation<T extends HTMLElement>({
   canNext,
   onPrev,
   onNext,
-  onCenterClick,
   onViewportClick,
 }: UseClickPageNavigationOptions<T>) {
   useEffect(() => {
@@ -49,12 +47,10 @@ export function useClickPageNavigation<T extends HTMLElement>({
         if (canPrev) onPrev();
       } else if (x > 1 - edgeRatio) {
         if (canNext) onNext();
-      } else {
-        onCenterClick?.();
       }
     };
 
     el.addEventListener('click', onClick);
     return () => el.removeEventListener('click', onClick);
-  }, [ref, enabled, edgeRatio, canPrev, canNext, onPrev, onNext, onCenterClick, onViewportClick]);
+  }, [ref, enabled, edgeRatio, canPrev, canNext, onPrev, onNext, onViewportClick]);
 }

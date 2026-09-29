@@ -1,28 +1,9 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
-import { Geist, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
-import { appName, gitConfig, siteUrl } from '@/lib/shared';
-
-const geist = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: '--font-jetbrains-mono',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const instrument = Instrument_Serif({
-  variable: '--font-instrument-serif',
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  display: 'swap',
-});
+import { appName, siteUrl } from '@/lib/shared';
 
 const title = `${appName} — a slide framework built for agents`;
 const description =
@@ -48,8 +29,8 @@ export const metadata: Metadata = {
     'slides as code',
     'developer presentations',
   ],
-  authors: [{ name: gitConfig.user, url: `https://github.com/${gitConfig.user}` }],
-  creator: gitConfig.user,
+  authors: [{ name: '1weiho', url: 'https://github.com/1weiho' }],
+  creator: '1weiho',
   publisher: appName,
   category: 'technology',
   alternates: {
@@ -102,8 +83,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F7F4EC' },
-    { media: '(prefers-color-scheme: dark)', color: '#1A1814' },
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A0A0A' },
   ],
 };
 
@@ -112,7 +93,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geist.className} ${geist.variable} ${jetbrains.variable} ${instrument.variable}`}
+      className={`${GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className="flex flex-col min-h-screen">
         <RootProvider>{children}</RootProvider>

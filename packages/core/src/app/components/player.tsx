@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { hasModifier, isBackwardKey, isForwardKey, isTypingTarget } from '@/lib/keys';
 import { useClickPageNavigation } from '@/lib/use-click-page-navigation';
 import { useWheelPageNavigation } from '@/lib/use-wheel-page-navigation';
 import { cn } from '@/lib/utils';
@@ -40,6 +41,7 @@ type Props = {
   allowExit?: boolean;
   controls?: boolean;
   slideId?: string;
+  onSwitchSlide?: (slideId: string) => void;
   /**
    * When true, the Player enters the browser Fullscreen API on mount.
    * When false, it renders as a window-sized overlay (viewport-filling)
@@ -58,6 +60,7 @@ export function Player({
   allowExit = true,
   controls = false,
   slideId,
+  onSwitchSlide,
   fullscreen = true,
 }: Props) {
   const isMobile = useIsMobile();
@@ -250,9 +253,11 @@ export function Player({
         setBlackout((cur) => (cur === msg.mode ? null : msg.mode));
       } else if (msg.type === 'request-state') {
         send({ type: 'state', state: presenterStateRef.current });
+      } else if (msg.type === 'switch-slide') {
+        if (msg.slideId !== slideId) onSwitchSlide?.(msg.slideId);
       }
     },
-    [goNext, goPrev, handleIndexChange, pages.length],
+    [goNext, goPrev, handleIndexChange, pages.length, slideId, onSwitchSlide],
   );
 
   const channel = usePresenterChannel(slideId ?? '__none__', (msg) => {
@@ -267,8 +272,7 @@ export function Player({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const tgt = e.target;
-      if (tgt instanceof HTMLElement && tgt.matches('input, textarea')) return;
+      if (isTypingTarget(e.target)) return;
 
       // While an overlay is open, only Esc and the toggle that owns it
       // should reach the Player. Overview installs its own capture-phase
@@ -296,9 +300,8 @@ export function Player({
         return;
       }
 
-      const isNext =
-        e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown';
-      const isPrev = e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp';
+      const isNext = isForwardKey(e);
+      const isPrev = isBackwardKey(e);
 
       if (isNext || isPrev) {
         if (controls && blackout) setBlackout(null);
@@ -330,7 +333,7 @@ export function Player({
       if (!controls) return;
       // Single-letter shortcuts only fire when no modifier is held — keeps
       // browser shortcuts (Cmd/Ctrl-something) from being hijacked.
-      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      if (hasModifier(e)) return;
 
       if (e.key === 'b' || e.key === 'B') {
         e.preventDefault();
@@ -402,7 +405,10 @@ export function Player({
       style={design ? { background: design.palette.bg } : undefined}
     >
       <SlideCanvas flat design={design}>
+        {/* Keyed per deck so a presenter-driven deck switch cuts instead of
+            animating a transition between two unrelated decks. */}
         <SlideTransitionLayer
+          key={slideId}
           pages={pages}
           index={index}
           total={pages.length}
