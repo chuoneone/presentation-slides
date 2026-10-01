@@ -2631,7 +2631,7 @@ const Slide03_Agenda: Page = () => (
                 fontWeight: 900,
               }}
             >
-              14:00 - 14:50
+              14:30 - 15:20
             </span>
           </div>
 
@@ -2774,7 +2774,7 @@ const Slide03_Agenda: Page = () => (
                 fontWeight: 900,
               }}
             >
-              14:50 - 15:40
+              15:30 - 16:20
             </span>
           </div>
 
@@ -2917,7 +2917,7 @@ const Slide03_Agenda: Page = () => (
                 fontWeight: 900,
               }}
             >
-              15:40 - 16:30
+              16:20 - 17:00
             </span>
           </div>
 
@@ -2929,9 +2929,7 @@ const Slide03_Agenda: Page = () => (
               color: colors.text,
               lineHeight: 1.2,
             }}
-          >
-            自製 AI 工具實作
-          </h3>
+          >自製 AI 工具實作(補充)</h3>
           <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
             Canvas 打造專屬工具
           </div>
@@ -3019,7 +3017,7 @@ const Slide03_Agenda: Page = () => (
 const Slide04_Part1Header: Page = () => (
   <PartHeaderPage
     partNum="1"
-    time="14:00~14:50"
+    time="14:30~15:20"
     title={'行政減量與教材備課\n實例分享'}
     desc="IEP 行政目標生成 ＋ 國數適性課堂學習單，AI 快速產出第一版，老師回歸個別化微調"
   />
@@ -6317,7 +6315,7 @@ const Slide09_Practice_English: Page = () => (
 const Slide11_Part2Header: Page = () => (
   <PartHeaderPage
     partNum="2"
-    time="14:50~15:40"
+    time="15:30~16:20"
     title="自製互動網頁"
     desc="告別枯燥紙本作業！利用點選、步驟拆解、即時回饋與視覺鷹架，打造專屬互動教材"
   />
@@ -6985,7 +6983,7 @@ const Slide15_Practice_StepMath: Page = () => (
 const Slide17_Part3Header: Page = () => (
   <PartHeaderPage
     partNum="3"
-    time="15:40~16:30"
+    time="16:20~17:00"
     title="Gemini Canvas 教師自製 AI 工具"
     desc="不用寫一行程式碼！只要說人話，手把手將你手邊的教材變成屬於你自己的出題備課工具"
   />
