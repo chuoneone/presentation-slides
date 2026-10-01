@@ -1064,7 +1064,7 @@ const PracticePage = ({
   task?: string;
   steps?: string[];
   href?: string;
-  uploadHref: string;
+  uploadHref?: string;
 }) => {
   const minNum = Number.parseInt(time, 10) || 10;
   const practiceLabel = `實作 ${num}`;
@@ -1183,29 +1183,31 @@ const PracticePage = ({
               <span style={{ fontSize: '28px' }}>➔</span>
             </a>
           )}
-          <a
-            href={uploadHref}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 14,
-              background: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
-              color: colors.white,
-              padding: '14px 46px',
-              borderRadius: 18,
-              fontSize: '32px',
-              fontWeight: 950,
-              textDecoration: 'none',
-              boxShadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
-              letterSpacing: '0.04em',
-              transition: 'transform 0.15s ease',
-            }}
-          >
-            <span>上傳檔案</span>
-            <span style={{ fontSize: '28px' }}>➔</span>
-          </a>
+          {uploadHref && (
+            <a
+              href={uploadHref}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 14,
+                background: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
+                color: colors.white,
+                padding: '14px 46px',
+                borderRadius: 18,
+                fontSize: '32px',
+                fontWeight: 950,
+                textDecoration: 'none',
+                boxShadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
+                letterSpacing: '0.04em',
+                transition: 'transform 0.15s ease',
+              }}
+            >
+              <span>上傳檔案</span>
+              <span style={{ fontSize: '28px' }}>➔</span>
+            </a>
+          )}
         </div>
       </div>
 
@@ -3249,7 +3251,6 @@ const Slide06_Practice_IEP: Page = () => (
     time="10 分鐘"
     task="請利用 IEP 目標生成器，輸入學生現況試做一組教育目標。"
     href={toolUrls.iep}
-    uploadHref={uploadFileUrls.general}
   />
 );
 
