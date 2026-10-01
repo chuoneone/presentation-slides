@@ -19,6 +19,8 @@ import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgChineseTable from './assets/chinese-structure-table.webp';
 import imgChineseTianzi from './assets/chinese-tianzi-grid.webp';
 import imgChineseWorksheet from './assets/chinese-worksheet-tool.webp';
+import imgEbookConcept from './assets/ebook-concept-input.png';
+import imgEbookDraft from './assets/ebook-draft-input.png';
 import imgEnglishHandwriting from './assets/english-handwriting-practice.webp';
 import imgEnglishInput from './assets/english-input-form.webp';
 import imgEnglishQuiz from './assets/english-scene-quiz.webp';
@@ -1056,6 +1058,7 @@ const PracticePage = ({
   task,
   href,
   uploadHref,
+  buttons,
 }: {
   num: string;
   toolName: string;
@@ -1065,10 +1068,68 @@ const PracticePage = ({
   steps?: string[];
   href?: string;
   uploadHref?: string;
+  buttons?: Array<{
+    label: string;
+    href: string;
+    variant?: 'primary' | 'secondary' | 'accent' | 'dark';
+  }>;
 }) => {
   const minNum = Number.parseInt(time, 10) || 10;
   const practiceLabel = `實作 ${num}`;
   const taskText = task || desc || `請利用${toolName}，試做教材練習。`;
+
+  const buttonItems: Array<{
+    label: string;
+    href: string;
+    bg: string;
+    shadow: string;
+  }> = buttons
+    ? buttons.map((b) => {
+        if (b.variant === 'accent') {
+          return {
+            label: b.label,
+            href: b.href,
+            bg: 'linear-gradient(135deg, #c45d47 0%, #a66832 100%)',
+            shadow: '0 12px 28px rgba(196, 93, 71, 0.32)',
+          };
+        }
+        if (b.variant === 'dark') {
+          return {
+            label: b.label,
+            href: b.href,
+            bg: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
+            shadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
+          };
+        }
+        return {
+          label: b.label,
+          href: b.href,
+          bg: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
+          shadow: '0 12px 28px rgba(166, 104, 50, 0.32)',
+        };
+      })
+    : [
+        ...(href
+          ? [
+              {
+                label: '工具連結',
+                href,
+                bg: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
+                shadow: '0 12px 28px rgba(166, 104, 50, 0.32)',
+              },
+            ]
+          : []),
+        ...(uploadHref
+          ? [
+              {
+                label: '上傳檔案',
+                href: uploadHref,
+                bg: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
+                shadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
+              },
+            ]
+          : []),
+      ];
 
   return (
     <div
@@ -1148,7 +1209,7 @@ const PracticePage = ({
       >
         <div
           style={{
-            fontSize: '40px',
+            fontSize: '38px',
             fontWeight: 850,
             color: colors.text,
             lineHeight: 1.45,
@@ -1158,56 +1219,32 @@ const PracticePage = ({
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 18 }}>
-          {href && (
+          {buttonItems.map((btn, idx) => (
             <a
-              href={href}
+              key={idx}
+              href={btn.href}
               target="_blank"
               rel="noreferrer"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 14,
-                background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
+                background: btn.bg,
                 color: colors.white,
-                padding: '14px 46px',
+                padding: '14px 44px',
                 borderRadius: 18,
-                fontSize: '32px',
+                fontSize: '30px',
                 fontWeight: 950,
                 textDecoration: 'none',
-                boxShadow: '0 12px 28px rgba(166, 104, 50, 0.32)',
+                boxShadow: btn.shadow,
                 letterSpacing: '0.04em',
                 transition: 'transform 0.15s ease',
               }}
             >
-              <span>工具連結</span>
-              <span style={{ fontSize: '28px' }}>➔</span>
+              <span>{btn.label}</span>
+              <span style={{ fontSize: '26px' }}>➔</span>
             </a>
-          )}
-          {uploadHref && (
-            <a
-              href={uploadHref}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 14,
-                background: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
-                color: colors.white,
-                padding: '14px 46px',
-                borderRadius: 18,
-                fontSize: '32px',
-                fontWeight: 950,
-                textDecoration: 'none',
-                boxShadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
-                letterSpacing: '0.04em',
-                transition: 'transform 0.15s ease',
-              }}
-            >
-              <span>上傳檔案</span>
-              <span style={{ fontSize: '28px' }}>➔</span>
-            </a>
-          )}
+          ))}
         </div>
       </div>
 
@@ -2776,7 +2813,7 @@ const Slide03_Agenda: Page = () => (
                 fontWeight: 900,
               }}
             >
-              15:30 - 16:20
+              15:20 - 16:20
             </span>
           </div>
 
@@ -2829,7 +2866,7 @@ const Slide03_Agenda: Page = () => (
               01
             </div>
             <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
-              句型排列重組
+              句型排列與步驟數學
             </div>
           </div>
 
@@ -2864,7 +2901,7 @@ const Slide03_Agenda: Page = () => (
               02
             </div>
             <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
-              互動步驟數學
+              自製電子書
             </div>
           </div>
         </div>
@@ -3243,13 +3280,13 @@ const Slide05_AdminIep: Page = () => {
   );
 };
 
-// Slide 09: 實作一︰IEP 目標生成器 (10分鐘實作)
+// Slide 09: 實作一︰IEP 目標生成器 (5分鐘實作)
 const Slide06_Practice_IEP: Page = () => (
   <PracticePage
     num="01"
     toolName="IEP 目標生成器"
-    time="10 分鐘"
-    task="請利用 IEP 目標生成器，輸入學生現況試做一組教育目標。"
+    time="5 分鐘"
+    task="請利用 IEP 目標生成器，輸入學生現況與特教需求，試做 1 份個別化教育計畫目標。"
     href={toolUrls.iep}
   />
 );
@@ -5675,15 +5712,18 @@ const Slide10_MathScaffold4: Page = () => (
   </div>
 );
 
-// Slide 17: 實作三︰數學課堂學習單 (10分鐘實作)
-const Slide10_Practice_Math: Page = () => (
+// Slide 17: 實作二︰國數適性學習單備課 (二選一，10分鐘實作)
+const Slide10_Practice_ChineseMath: Page = () => (
   <PracticePage
-    num="03"
-    toolName="數學簡化學習單"
+    num="02"
+    toolName="國數適性學習單（二選一）"
     time="10 分鐘"
-    task="請利用數學簡化學習單生成器，輸入題目試做一課教材。"
-    href={toolUrls.mathScaffold}
-    uploadHref={uploadFileUrls.general}
+    task="請依據您的任教專長，自由選擇「國語文學習單」或「數學簡化學習單」進行 1 課實作體驗。"
+    buttons={[
+      { label: '國語文學習單', href: toolUrls.chineseLessonWorksheet, variant: 'primary' },
+      { label: '數學簡化學習單', href: toolUrls.mathScaffold, variant: 'accent' },
+      { label: '上傳檔案', href: uploadFileUrls.general, variant: 'dark' },
+    ]}
   />
 );
 
@@ -6968,15 +7008,473 @@ const Slide15_InteractiveMath: Page = () => (
   </div>
 );
 
-// Slide 20: 實作六︰互動式步驟數學學習單生成器 (10分鐘實作)
-const Slide15_Practice_StepMath: Page = () => (
+// Slide 20: 實作三︰句型排列與步驟數學 (二選一，10分鐘實作)
+const Slide15_Practice_InteractiveWeb: Page = () => (
   <PracticePage
-    num="05"
-    toolName="互動式步驟數學學習單"
+    num="03"
+    toolName="句型排列 / 步驟數學（二選一）"
     time="10 分鐘"
-    task="請利用互動步驟數學生成器，輸入題目試做一組題型。"
-    href={toolUrls.interactiveMath}
-    uploadHref={uploadFileUrls.general}
+    task="請依據教學需要，自由選擇「句型排列」或「互動步驟數學」進行 1 次課堂互動網頁體驗。"
+    buttons={[
+      { label: '句型排列工具', href: toolUrls.unscramble, variant: 'primary' },
+      { label: '互動步驟數學', href: toolUrls.interactiveMath, variant: 'accent' },
+      { label: '上傳檔案', href: uploadFileUrls.general, variant: 'dark' },
+    ]}
+  />
+);
+
+// 自製電子書: 工具主題封面扉頁 (大標 + 現場痛點訊息框)
+const Slide16_EbookTitle: Page = () => (
+  <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+    <TextbookBg />
+
+    <div
+      style={{
+        position: 'absolute',
+        width: 800,
+        height: 800,
+        borderRadius: '50%',
+        background:
+          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
+        filter: 'blur(50px)',
+        pointerEvents: 'none',
+      }}
+    />
+
+    <div
+      className="es-fadeUp"
+      style={{
+        zIndex: 2,
+        maxWidth: 1440,
+        width: '94%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'rgba(255, 255, 255, 0.92)',
+        backdropFilter: 'blur(20px)',
+        border: '1.5px solid rgba(255, 255, 255, 0.95)',
+        borderTop: `8px solid ${colors.orange}`,
+        borderRadius: 36,
+        padding: '44px 52px',
+        boxShadow: '0 24px 60px rgba(148, 163, 184, 0.18)',
+      }}
+    >
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 12,
+          fontSize: '28px',
+          fontWeight: 950,
+          color: colors.orange,
+          background: 'rgba(196, 93, 71, 0.1)',
+          padding: '8px 30px',
+          borderRadius: 999,
+          letterSpacing: '0.12em',
+          marginBottom: 14,
+          border: '1px solid rgba(196, 93, 71, 0.2)',
+        }}
+      >
+        <span>單元二：自製互動網頁</span>
+      </div>
+
+      <h1
+        style={{
+          fontSize: '92px',
+          fontWeight: 950,
+          color: colors.text,
+          margin: '0 0 28px 0',
+          lineHeight: 1.15,
+          letterSpacing: '-0.03em',
+        }}
+      >
+        自製電子書
+      </h1>
+
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 28,
+            width: '100%',
+            marginTop: 6,
+          }}
+        >
+          {/* 老師心聲 */}
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
+              border: '2px solid rgba(196, 93, 71, 0.35)',
+              borderRadius: '28px 28px 28px 6px',
+              padding: '32px 36px',
+              textAlign: 'left',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: 18,
+              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
+              transform: 'rotate(-1.2deg)',
+              transition: 'transform 0.2s ease',
+              position: 'relative',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontSize: '24px',
+                  fontWeight: 950,
+                  color: '#c45d47',
+                  background: 'rgba(196, 93, 71, 0.12)',
+                  padding: '6px 18px',
+                  borderRadius: 999,
+                }}
+              >
+                👩‍🏫 老師心聲
+              </div>
+              <span style={{ fontSize: '18px', color: '#94a3b8', fontWeight: 750 }}>
+                💬 備課與課堂痛點
+              </span>
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                fontWeight: 900,
+                color: colors.text,
+                lineHeight: 1.42,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              「自編學習單上課若沒觸控螢幕，在黑板抄寫手忙腳亂；但每堂課都做簡報，備課時間真的不夠…」
+            </div>
+          </div>
+
+          {/* 學生心聲 */}
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
+              border: '2px solid rgba(166, 104, 50, 0.35)',
+              borderRadius: '28px 28px 6px 28px',
+              padding: '32px 36px',
+              textAlign: 'left',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: 18,
+              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
+              transform: 'rotate(1.2deg)',
+              transition: 'transform 0.2s ease',
+              position: 'relative',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontSize: '24px',
+                  fontWeight: 950,
+                  color: '#a66832',
+                  background: 'rgba(166, 104, 50, 0.12)',
+                  padding: '6px 18px',
+                  borderRadius: 999,
+                }}
+              >
+                👦 學生心聲
+              </div>
+              <span style={{ fontSize: '18px', color: '#94a3b8', fontWeight: 750 }}>
+                💬 課堂學習困擾
+              </span>
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                fontWeight: 900,
+                color: colors.text,
+                lineHeight: 1.42,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              「老師在黑板寫的我抄很慢，希望能看著大螢幕的題目，一步步對照自己桌上的學習單…」
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <TextbookFooter subtitle="單元導覽 · 現場需求引導" />
+  </div>
+);
+
+// 自製電子書: 一次備課，雙重教學產出 (大屏互動電子書 + 學生純淨 A4 學習單)
+const Slide16_EbookDualMode: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <div>
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
+        <span
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: '26px',
+            fontWeight: 900,
+            letterSpacing: '0.08em',
+            color: colors.orange,
+            background: 'rgba(196, 93, 71, 0.1)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(196, 93, 71, 0.2)',
+            padding: '8px 22px',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px rgba(196, 93, 71, 0.08)',
+          }}
+        >
+          單元二：自製互動網頁
+        </span>
+        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>雙模式備課神器</span>
+      </div>
+      <h2
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: '84px',
+          fontWeight: 950,
+          margin: '8px 0 0 0',
+          color: colors.text,
+          letterSpacing: '-0.02em',
+          lineHeight: 1.15,
+        }}
+      >
+        一次 AI 備課，雙重教學產出
+      </h2>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 36,
+        alignItems: 'stretch',
+        height: 600,
+        marginTop: 16,
+      }}
+    >
+      {/* 左欄卡片 */}
+      <div
+        className="es-fadeUp"
+        style={{
+          height: '100%',
+          boxSizing: 'border-box',
+          background: 'rgba(255, 255, 255, 0.90)',
+          backdropFilter: 'blur(20px)',
+          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          borderTop: `6px solid ${colors.orange}`,
+          borderRadius: 28,
+          padding: '30px 34px',
+          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(196, 93, 71, 0.1)',
+              border: '1px solid rgba(196, 93, 71, 0.25)',
+              padding: '8px 20px',
+              borderRadius: 20,
+              fontSize: '24px',
+              fontWeight: 950,
+              color: colors.orange,
+              letterSpacing: '0.02em',
+            }}
+          >
+            <span>✨ 特教備課核心創新</span>
+          </div>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              background: 'rgba(166, 104, 50, 0.08)',
+              color: colors.accent,
+              border: '1px solid rgba(166, 104, 50, 0.2)',
+              padding: '8px 18px',
+              borderRadius: 14,
+              fontSize: '24px',
+              fontWeight: 900,
+            }}
+          >
+            一魚兩吃
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: colors.orange, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
+            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>教師端大屏：點擊秀答案＋畫筆板書</div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: colors.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
+            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>學生端列印：一鍵還原乾淨 A4 作業卷</div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#385a73', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
+            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>零門檻備課：告別每堂課熬夜做簡報</div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+          <span style={{ fontSize: '26px' }}>💡</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：同步滿足「大螢幕視覺引導」與「個別紙本手寫練習」</span>
+        </div>
+      </div>
+
+      {/* 右欄截圖 */}
+      <ToolScreenshotFrame label="自製電子書 · 互動功能工具列" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
+        <img src={imgEbookDraft} alt="自製電子書操作畫面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      </ToolScreenshotFrame>
+    </div>
+
+    <TextbookFooter subtitle="工具導覽：雙模式教學與備課" />
+  </div>
+);
+
+// 自製電子書: 兩種輸入模式・隨手就能備課
+const Slide16_EbookScenarios: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <div>
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
+        <span
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: '26px',
+            fontWeight: 900,
+            letterSpacing: '0.08em',
+            color: colors.orange,
+            background: 'rgba(196, 93, 71, 0.1)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(196, 93, 71, 0.2)',
+            padding: '8px 22px',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px rgba(196, 93, 71, 0.08)',
+          }}
+        >
+          單元二：自製互動網頁
+        </span>
+        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>靈活備課流程</span>
+      </div>
+      <h2
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: '84px',
+          fontWeight: 950,
+          margin: '8px 0 0 0',
+          color: colors.text,
+          letterSpacing: '-0.02em',
+          lineHeight: 1.15,
+        }}
+      >
+        兩種輸入模式 ‧ 隨手就能備課
+      </h2>
+    </div>
+
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 32,
+        alignItems: 'stretch',
+        height: 600,
+        marginTop: 16,
+      }}
+    >
+      {/* 情境一：丟現成學習單草稿 */}
+      <div
+        className="es-fadeUp"
+        style={{
+          height: '100%',
+          boxSizing: 'border-box',
+          background: 'rgba(255, 255, 255, 0.92)',
+          backdropFilter: 'blur(20px)',
+          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          borderTop: `6px solid ${colors.accent}`,
+          borderRadius: 28,
+          padding: '24px 28px',
+          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.14)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(166, 104, 50, 0.12)', color: colors.accent, padding: '6px 18px', borderRadius: 999, fontSize: '22px', fontWeight: 950, marginBottom: 10 }}>
+            📸 情境一：丟現成草稿 / 圖片
+          </div>
+          <div style={{ fontSize: '28px', fontWeight: 850, color: colors.text, lineHeight: 1.35, marginBottom: 12 }}>
+            已有設計好的學習單草稿？拍照上傳直接轉化為電子書！
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(203, 213, 225, 0.6)', background: '#f8fafc' }}>
+          <img src={imgEbookDraft} alt="丟草稿生成電子書" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain' }} />
+        </div>
+      </div>
+
+      {/* 情境二：輸入概念或課本截圖 */}
+      <div
+        className="es-fadeUp"
+        style={{
+          animationDelay: '0.1s',
+          height: '100%',
+          boxSizing: 'border-box',
+          background: 'rgba(255, 255, 255, 0.92)',
+          backdropFilter: 'blur(20px)',
+          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          borderTop: `6px solid ${colors.orange}`,
+          borderRadius: 28,
+          padding: '24px 28px',
+          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.14)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(196, 93, 71, 0.12)', color: colors.orange, padding: '6px 18px', borderRadius: 999, fontSize: '22px', fontWeight: 950, marginBottom: 10 }}>
+            ✍️ 情境二：輸入概念 / 特教需求
+          </div>
+          <div style={{ fontSize: '28px', fontWeight: 850, color: colors.text, lineHeight: 1.35, marginBottom: 12 }}>
+            只給單元概念（如：一元一次方程式、數學學障），AI 直出特教學習單！
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(203, 213, 225, 0.6)', background: '#f8fafc' }}>
+          <img src={imgEbookConcept} alt="輸入概念生成電子書" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain' }} />
+        </div>
+      </div>
+    </div>
+
+    <TextbookFooter subtitle="工具導覽：草稿上傳與概念生成雙模式" />
+  </div>
+);
+
+// 實作四︰自製電子書 (10分鐘實作)
+const Slide16_Practice_Ebook: Page = () => (
+  <PracticePage
+    num="04"
+    toolName="自製電子書"
+    time="10 分鐘"
+    task="請嘗試丟上一份手邊的學習單草稿圖，或直接輸入教學概念（例如：七年級一元一次方程式學習障礙學習單），體驗生成自製電子書！"
+    buttons={[
+      { label: '自製電子書 Gem', href: 'https://gemini.google.com/', variant: 'primary' },
+      { label: '上傳檔案', href: uploadFileUrls.general, variant: 'dark' },
+    ]}
   />
 );
 
@@ -7761,6 +8259,7 @@ export const meta: SlideMeta = {
 export default [
   Slide01_Title,
   Slide02_Speaker,
+  Slide06_MixerIntro,
   Slide02a_WorkshopSlides,
   Slide03_Agenda,
   Slide04_Part1Header,
@@ -7772,20 +8271,22 @@ export default [
   Slide08_ChineseLessonWorksheet3,
   Slide08_ChineseLessonWorksheet4,
   Slide08_ChineseLessonWorksheet5,
-  Slide08_Practice_Chinese,
   Slide10_MathScaffoldTitle,
   Slide10_MathScaffold1,
   Slide10_MathScaffold2,
   Slide10_MathScaffold3,
   Slide10_MathScaffold4,
-  Slide10_Practice_Math,
+  Slide10_Practice_ChineseMath,
   Slide11_Part2Header,
   Slide14_WebTool1Title,
   Slide14_WebTool1,
-  Slide14_Practice_Unscramble,
   Slide15_InteractiveMathTitle,
   Slide15_InteractiveMath,
-  Slide15_Practice_StepMath,
+  Slide15_Practice_InteractiveWeb,
+  Slide16_EbookTitle,
+  Slide16_EbookDualMode,
+  Slide16_EbookScenarios,
+  Slide16_Practice_Ebook,
   Slide17_Part3Header,
   Slide19_VibePromptStructure,
   Slide20_CommonIssuesHelper,
@@ -7794,5 +8295,4 @@ export default [
   Slide24_RecommendedTools,
   Slide23_ClosingSummary,
   Slide02c_Social,
-  Slide06_MixerIntro,
 ] satisfies Page[];
