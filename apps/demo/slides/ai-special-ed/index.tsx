@@ -3285,35 +3285,27 @@ const Slide05_AdminIep: Page = () => {
   );
 };
 
-// 更多 IEP 與行政減量工具 (第 7 頁後延伸：卡片連結，自行摸索)
+// 更多 IEP 與行政減量工具 (第 7 頁後延伸：卡片展示，下方統一入口)
 const Slide05b_OtherIepTools: Page = () => {
   const tools = [
     {
       num: '01',
       name: 'IEP 能力現況',
-      tag: 'iep-status',
-      href: toolUrls.iepStatus,
       accent: colors.accent,
     },
     {
       num: '02',
       name: 'IEP 完整報告',
-      tag: 'iep-combined',
-      href: toolUrls.iepCombined,
       accent: colors.orange,
     },
     {
       num: '03',
       name: 'IEP 會議紀錄',
-      tag: 'iep-meeting',
-      href: toolUrls.iepMeeting,
       accent: colors.slate,
     },
     {
       num: '04',
       name: '課程計畫',
-      tag: 'lesson-plan',
-      href: toolUrls.lessonPlan,
       accent: '#385a73',
     },
   ];
@@ -3324,69 +3316,62 @@ const Slide05b_OtherIepTools: Page = () => {
       <TextbookHeader
         unit="行政減量"
         title="更多 IEP 與行政減量工具"
-        subtitle="點擊卡片前往體驗 · 亦可至平台專區自行摸索"
+        subtitle="平台精選工具清單 · 請至下方統一入口體驗"
       />
 
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 20,
+          gap: 24,
           flex: 1,
           zIndex: 2,
           minHeight: 0,
           justifyContent: 'center',
         }}
       >
-        {/* 四大工具 2x2 卡片網格 */}
+        {/* 四大工具 2x2 展示卡片 */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gridTemplateRows: '1fr 1fr',
-            gap: 24,
+            gap: 26,
             height: 440,
             minHeight: 0,
           }}
         >
-          {tools.map(({ num, name, tag, href, accent }, index) => (
-            <a
+          {tools.map(({ num, name, accent }, index) => (
+            <div
               key={name}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
               className="es-fadeUp"
               style={{
                 animationDelay: `${index * 0.08}s`,
                 background: 'rgba(255, 255, 255, 0.94)',
                 backdropFilter: 'blur(20px)',
                 border: '1.5px solid rgba(226, 232, 240, 0.9)',
-                borderLeft: `10px solid ${accent}`,
-                borderRadius: 22,
-                padding: '24px 32px',
+                borderLeft: `12px solid ${accent}`,
+                borderRadius: 24,
+                padding: '28px 40px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                textDecoration: 'none',
-                color: colors.text,
                 boxShadow: '0 16px 36px rgba(148, 163, 184, 0.14)',
                 position: 'relative',
                 overflow: 'hidden',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
               }}
             >
               {/* 背景水印數字 */}
               <span
                 style={{
                   position: 'absolute',
-                  right: 24,
+                  right: 32,
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  fontSize: '110px',
+                  fontSize: '130px',
                   fontWeight: 950,
                   fontFamily: 'var(--osd-font-display)',
                   color: accent,
-                  opacity: 0.07,
+                  opacity: 0.08,
                   lineHeight: 1,
                   pointerEvents: 'none',
                 }}
@@ -3394,18 +3379,18 @@ const Slide05b_OtherIepTools: Page = () => {
                 {num}
               </span>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 20, zIndex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 24, zIndex: 1 }}>
                 <div
                   style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 16,
+                    width: 68,
+                    height: 68,
+                    borderRadius: 18,
                     background: `${accent}18`,
                     color: accent,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '26px',
+                    fontSize: '32px',
                     fontWeight: 950,
                     fontFamily: 'var(--osd-font-display)',
                     flexShrink: 0,
@@ -3413,57 +3398,24 @@ const Slide05b_OtherIepTools: Page = () => {
                 >
                   {num}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <div
-                    style={{
-                      fontFamily: 'var(--osd-font-display)',
-                      fontSize: '44px',
-                      fontWeight: 950,
-                      color: colors.text,
-                      lineHeight: 1.15,
-                      letterSpacing: '-0.02em',
-                    }}
-                  >
-                    {name}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '20px',
-                      fontWeight: 750,
-                      color: colors.muted,
-                      letterSpacing: '0.04em',
-                    }}
-                  >
-                    {href}
-                  </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--osd-font-display)',
+                    fontSize: '48px',
+                    fontWeight: 950,
+                    color: colors.text,
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {name}
                 </div>
               </div>
-
-              {/* 右側傳送門按鈕 */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  background: `${accent}14`,
-                  color: accent,
-                  border: `1.5px solid ${accent}33`,
-                  borderRadius: 14,
-                  padding: '12px 22px',
-                  fontSize: '22px',
-                  fontWeight: 900,
-                  flexShrink: 0,
-                  zIndex: 1,
-                }}
-              >
-                <span>前往工具</span>
-                <span style={{ fontSize: '24px' }}>↗</span>
-              </div>
-            </a>
+            </div>
           ))}
         </div>
 
-        {/* 底部平台整體工具區傳送門 */}
+        {/* 底部平台整體工具區統一入口 */}
         <a
           href={toolUrls.aiToolsOverview}
           target="_blank"
@@ -3475,22 +3427,23 @@ const Slide05b_OtherIepTools: Page = () => {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 14,
-            padding: '14px 32px',
-            background: 'linear-gradient(135deg, rgba(36, 43, 53, 0.06) 0%, rgba(166, 104, 50, 0.08) 100%)',
-            border: '1.5px dashed rgba(166, 104, 50, 0.4)',
-            borderRadius: 16,
+            padding: '18px 36px',
+            background: 'linear-gradient(135deg, rgba(36, 43, 53, 0.06) 0%, rgba(166, 104, 50, 0.1) 100%)',
+            border: '2px dashed rgba(166, 104, 50, 0.45)',
+            borderRadius: 18,
             textDecoration: 'none',
             color: colors.accent,
-            fontSize: '24px',
+            fontSize: '26px',
             fontWeight: 900,
-            boxShadow: '0 4px 16px rgba(78, 64, 53, 0.04)',
+            boxShadow: '0 6px 20px rgba(78, 64, 53, 0.06)',
+            transition: 'background 0.2s ease, transform 0.2s ease',
           }}
         >
           <span>👉 更多特教行政與 AI 工具，歡迎前往 spedmix 平台專區自行摸索：</span>
-          <span style={{ textDecoration: 'underline', color: colors.orange }}>
+          <span style={{ textDecoration: 'underline', color: colors.orange, fontWeight: 950 }}>
             https://spedmix.pages.dev/#detail/ai-tools
           </span>
-          <span style={{ fontSize: '22px' }}>↗</span>
+          <span style={{ fontSize: '24px' }}>↗</span>
         </a>
       </div>
 
