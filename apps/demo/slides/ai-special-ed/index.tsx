@@ -2380,7 +2380,7 @@ const Slide02a_WorkshopSlides: Page = () => (
 const Slide02c_Social: Page = () => (
   <div style={fill}>
     <TextbookBg />
-    <TextbookHeader title="歡迎追蹤" subtitle="社群入口" unit="單元 1" />
+    <TextbookHeader title="謝謝大家！歡迎追蹤看更多~" subtitle="社群入口" unit="單元 1" />
     <div
       style={{
         zIndex: 2,
@@ -7656,7 +7656,7 @@ const Slide17_Part3Header: Page = () => (
     partNum="3"
     time="16:20~17:00"
     title="Gemini Canvas 教師自製 AI 工具"
-    desc="不用寫一行程式碼！只要說人話，手把手將你手邊的教材變成屬於你自己的出題備課工具"
+    desc="只要說人話，就能自己做AI工具"
   />
 );
 
@@ -8464,7 +8464,6 @@ export default [
   Slide19_VibePromptStructure,
   Slide20_CommonIssuesHelper,
   Slide20_IterationTakeaway,
-  Slide20_Practice_Canvas,
   Slide24_RecommendedTools,
   Slide23_ClosingSummary,
   Slide02c_Social,
