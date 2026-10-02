@@ -6,9 +6,12 @@ import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
 import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import {
   type DesignSystem,
+  MorphElement,
   type Page,
   type SlideMeta,
   type SlideTransition,
+  Step,
+  Steps,
   useSlidePageNumber,
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
@@ -35,7 +38,7 @@ import imgMathPrint from './assets/math-print-preview.webp';
 import imgTool1 from './assets/工具一.webp';
 
 export const design: DesignSystem = {
-  palette: { bg: '#f1f5f9', text: '#0f172a', accent: '#6366f1' },
+  palette: { bg: '#f5efe6', text: '#1e1b18', accent: '#a66832' },
   fonts: {
     display:
       "'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif",
@@ -45,22 +48,28 @@ export const design: DesignSystem = {
   radius: 20,
 };
 
+// Morph Transition ＋ Smooth Slide Timing
 export const transition: SlideTransition = {
-  duration: 220,
+  duration: 380,
+  easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  morph: {
+    duration: 520,
+    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  },
   exit: {
-    duration: 150,
+    duration: 180,
     easing: 'cubic-bezier(0.4, 0, 1, 1)',
     keyframes: [
       { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-4px)' },
+      { opacity: 0, transform: 'translateY(-6px)' },
     ],
   },
   enter: {
-    duration: 220,
-    delay: 72,
-    easing: 'cubic-bezier(0, 0, 0.2, 1)',
+    duration: 260,
+    delay: 60,
+    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
     keyframes: [
-      { opacity: 0, transform: 'translateY(8px)' },
+      { opacity: 0, transform: 'translateY(10px)' },
       { opacity: 1, transform: 'translateY(0)' },
     ],
   },
@@ -146,17 +155,66 @@ h1, h2, h3, [data-heading] {
   font-family: var(--osd-font-display), 'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif !important;
 }
 
-@keyframes es-fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* Steps in Motion & Physical Animation Framework */
+@keyframes mRise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes mRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes mPop { from { opacity: 0; transform: scale(0.78); } to { opacity: 1; transform: scale(1); } }
+@keyframes mBlur { from { opacity: 0; filter: blur(14px); transform: translateY(8px); } to { opacity: 1; filter: blur(0); transform: translateY(0); } }
+@keyframes mFlip { from { opacity: 0; transform: rotateX(-80deg); } to { opacity: 1; transform: rotateX(0); } }
+@keyframes mWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mTile { from { opacity: 0; transform: scale(0.72) translateY(18px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes mSweep { from { background-size: 0% 0.45em; } to { background-size: 100% 0.45em; } }
+
 .es-fadeUp {
-  animation: es-fadeUp 0.42s cubic-bezier(0, 0, 0.2, 1) both;
+  animation: mRise 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
   will-change: transform, opacity;
 }
+.m-rise  { animation: mRise 540ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.m-left  { animation: mLeft 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.m-right { animation: mRight 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.m-pop   { animation: mPop 560ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+.m-blur  { animation: mBlur 580ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.m-flip  { animation: mFlip 620ms cubic-bezier(0.34, 1.45, 0.64, 1) both; transform-origin: top center; }
+.m-wipe  { animation: mWipe 540ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.m-sweep {
+  background-image: linear-gradient(rgba(196, 93, 71, 0.24), rgba(166, 104, 50, 0.28));
+  background-repeat: no-repeat;
+  background-position: left 88%;
+  background-size: 100% 0.45em;
+  animation: mSweep 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  padding: 0 6px;
+  border-radius: 4px;
+}
+
+[data-osd-step="revealed"] .m-rise  { animation: mRise 540ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+[data-osd-step="revealed"] .m-left  { animation: mLeft 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+[data-osd-step="revealed"] .m-right { animation: mRight 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+[data-osd-step="revealed"] .m-pop   { animation: mPop 560ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+[data-osd-step="revealed"] .m-blur  { animation: mBlur 580ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+[data-osd-step="revealed"] .m-sweep { animation: mSweep 500ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.m-grid > * { animation: mTile 520ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+.m-grid > *:nth-child(1) { animation-delay: 0ms; }
+.m-grid > *:nth-child(2) { animation-delay: 80ms; }
+.m-grid > *:nth-child(3) { animation-delay: 160ms; }
+.m-grid > *:nth-child(4) { animation-delay: 240ms; }
+.m-grid > *:nth-child(5) { animation-delay: 120ms; }
+.m-grid > *:nth-child(6) { animation-delay: 200ms; }
+
+[data-osd-step="revealed"] .m-grid > * { animation: mTile 520ms cubic-bezier(0.34, 1.45, 0.64, 1) both; }
+[data-osd-step="revealed"] .m-grid > *:nth-child(1) { animation-delay: 0ms; }
+[data-osd-step="revealed"] .m-grid > *:nth-child(2) { animation-delay: 80ms; }
+[data-osd-step="revealed"] .m-grid > *:nth-child(3) { animation-delay: 160ms; }
+[data-osd-step="revealed"] .m-grid > *:nth-child(4) { animation-delay: 240ms; }
+
+.absolute.inset-0:first-child:not(:last-child) [data-osd-step] * {
+  animation: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .es-fadeUp {
-    animation-duration: 0.01ms;
+  .es-fadeUp, .m-rise, .m-pop, .m-left, .m-right, .m-grid > * {
+    animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
   }
 }
@@ -242,22 +300,24 @@ const TextbookFooter = ({
         backdropFilter: 'blur(8px)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <span
-          style={{
-            background: 'linear-gradient(90deg, #a66832, #c45d47)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            fontWeight: 950,
-          }}
-        >
-          特教教師的AI工作流
-        </span>
-        <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>·</span>
-        <span style={{ color: inverse ? '#cbd5e1' : colors.muted, fontWeight: 750 }}>
-          {subtitle ?? '教學應用與自製工具實作'}
-        </span>
-      </div>
+      <MorphElement id="footer-brand-logo">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span
+            style={{
+              background: 'linear-gradient(90deg, #a66832, #c45d47)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontWeight: 950,
+            }}
+          >
+            特教教師的AI工作流
+          </span>
+          <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>·</span>
+          <span style={{ color: inverse ? '#cbd5e1' : colors.muted, fontWeight: 750 }}>
+            {subtitle ?? '教學應用與自製工具實作'}
+          </span>
+        </div>
+      </MorphElement>
       <div
         style={{
           fontVariantNumeric: 'tabular-nums',
@@ -298,26 +358,29 @@ const TextbookHeader = ({
   title: string;
   subtitle?: string;
 }) => (
-  <div style={{ zIndex: 2, marginBottom: 26 }}>
+  <div style={{ zIndex: 2, marginBottom: 26 }} className="m-rise">
     <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-      <span
-        style={{
-          color: colors.accent,
-          fontFamily: 'var(--osd-font-display)',
-          fontWeight: 900,
-          fontSize: '26px',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          background: 'rgba(166, 104, 50, 0.1)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(166, 104, 50, 0.2)',
-          padding: '6px 20px',
-          borderRadius: 10,
-          boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-        }}
-      >
-        {unit}
-      </span>
+      <MorphElement id="os-header-unit-badge">
+        <span
+          style={{
+            color: colors.accent,
+            fontFamily: 'var(--osd-font-display)',
+            fontWeight: 900,
+            fontSize: '26px',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            background: 'rgba(166, 104, 50, 0.1)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(166, 104, 50, 0.2)',
+            padding: '6px 20px',
+            borderRadius: 10,
+            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
+            display: 'inline-block',
+          }}
+        >
+          {unit}
+        </span>
+      </MorphElement>
       {subtitle && (
         <span style={{ color: colors.muted, fontSize: '26px', fontWeight: 700 }}>{subtitle}</span>
       )}
@@ -422,32 +485,35 @@ const PartHeaderPage = ({
           alignItems: 'center',
         }}
       >
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 14,
-            fontSize: '28px',
-            fontFamily: 'var(--osd-font-display)',
-            fontWeight: 950,
-            color: '#ffffff',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(16px)',
-            border: `1.5px solid ${accent}99`,
-            padding: '10px 32px',
-            borderRadius: 999,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            marginBottom: 32,
-            boxShadow: `0 10px 28px ${accent}4d`,
-          }}
-        >
-          <span>PART 0{partNum}</span>
-          <span>·</span>
-          <span>{time}</span>
-        </div>
+        <MorphElement id="part-pill-header">
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 14,
+              fontSize: '28px',
+              fontFamily: 'var(--osd-font-display)',
+              fontWeight: 950,
+              color: '#ffffff',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(16px)',
+              border: `1.5px solid ${accent}99`,
+              padding: '10px 32px',
+              borderRadius: 999,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              marginBottom: 32,
+              boxShadow: `0 10px 28px ${accent}4d`,
+            }}
+          >
+            <span>PART 0{partNum}</span>
+            <span>·</span>
+            <span>{time}</span>
+          </div>
+        </MorphElement>
 
         <h2
+          className="m-rise"
           style={{
             fontFamily: 'var(--osd-font-display)',
             fontSize: '80px',
@@ -463,6 +529,7 @@ const PartHeaderPage = ({
         </h2>
 
         <p
+          className="m-rise"
           style={{
             fontSize: '40px',
             color: '#d2d9e0',
@@ -470,25 +537,27 @@ const PartHeaderPage = ({
             margin: '0 0 64px 0',
             fontWeight: 650,
             maxWidth: 1280,
+            animationDelay: '100ms',
           }}
         >
           {desc}
         </p>
 
         {/* 底部 3 階段導引節奏 */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 32,
-            padding: '18px 42px',
-            background: 'rgba(28, 34, 43, 0.65)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: 999,
-            border: '1.5px solid rgba(255, 255, 255, 0.16)',
-            boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
-          }}
-        >
+        <MorphElement id="part-guide-flow">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 32,
+              padding: '18px 42px',
+              background: 'rgba(28, 34, 43, 0.65)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: 999,
+              border: '1.5px solid rgba(255, 255, 255, 0.16)',
+              boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
+            }}
+          >
           {[
             { num: 1, name: '行政與教材備課' },
             { num: 2, name: '自製互動教學網頁' },
@@ -538,6 +607,7 @@ const PartHeaderPage = ({
             );
           })}
         </div>
+        </MorphElement>
       </div>
       <TextbookFooter subtitle={`PART 0${partNum}`} inverse />
     </div>
@@ -2382,6 +2452,7 @@ const Slide02c_Social: Page = () => (
     <TextbookBg />
     <TextbookHeader title="謝謝大家！歡迎追蹤看更多~" subtitle="社群入口" unit="單元 1" />
     <div
+      className="m-grid"
       style={{
         zIndex: 2,
         flex: 1,
@@ -2436,6 +2507,7 @@ const Slide06_MixerIntro: Page = () => (
     <TextbookBg />
     <TextbookHeader title="本人相關網站" subtitle="三個入口" unit="單元 1" />
     <div
+      className="m-grid"
       style={{
         zIndex: 2,
         flex: 1,
@@ -2614,6 +2686,7 @@ const Slide03_Agenda: Page = () => (
 
     {/* 三大精簡直立卡片 (純文字與乾淨序號，無任何多餘彩色小圖示) */}
     <div
+      className="m-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
@@ -3145,7 +3218,9 @@ const Slide05_AdminIep: Page = () => {
             {problemPoints.map((pt, idx) => (
               <div
                 key={idx}
+                className="m-rise"
                 style={{
+                  animationDelay: `${idx * 80 + 100}ms`,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 18,
@@ -3194,6 +3269,7 @@ const Slide05_AdminIep: Page = () => {
         <div
           className="es-fadeUp"
           style={{
+            animationDelay: '120ms',
             height: '100%',
             background: 'rgba(255, 255, 255, 0.94)',
             backdropFilter: 'blur(20px)',
@@ -3234,7 +3310,9 @@ const Slide05_AdminIep: Page = () => {
             {solutionPoints.map((pt, idx) => (
               <div
                 key={idx}
+                className="m-rise"
                 style={{
+                  animationDelay: `${idx * 80 + 200}ms`,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 18,
@@ -3332,6 +3410,7 @@ const Slide05b_OtherIepTools: Page = () => {
       >
         {/* 四大工具 2x2 展示卡片 */}
         <div
+          className="m-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -8310,6 +8389,7 @@ const Slide24_RecommendedTools: Page = () => (
       subtitle="從教學痛點直接挑工具"
     />
     <div
+      className="m-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
