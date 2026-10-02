@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/workshop-search-result-D78lNhIr.webp`;export{e as t};
