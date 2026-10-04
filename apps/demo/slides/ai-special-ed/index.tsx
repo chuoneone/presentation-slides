@@ -3,35 +3,21 @@ import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
 import imgMixerShare from '@assets/mixer-share.webp';
 import imgMixerTeaching from '@assets/mixer-teaching.webp';
 import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
-import imgWorkshopHomepageNav from './assets/workshop-homepage-nav.png';
-import {
-  type DesignSystem,
-  type Page,
-  type SlideMeta,
-  type SlideTransition,
-  useSlidePageNumber,
-} from '@open-slide/core';
+import { type DesignSystem, type Page, type SlideMeta, useSlidePageNumber } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
-import imgAgendaSchedule from './assets/agenda-schedule.webp';
 import imgChineseMatch from './assets/chinese-match-quiz.webp';
 import imgChineseQuiz from './assets/chinese-paragraph-quiz.webp';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgChineseTable from './assets/chinese-structure-table.webp';
 import imgChineseTianzi from './assets/chinese-tianzi-grid.webp';
-import imgChineseWorksheet from './assets/chinese-worksheet-tool.webp';
 import imgEbookConcept from './assets/ebook-concept-input.png';
 import imgEbookDraft from './assets/ebook-draft-input.png';
-import imgEnglishHandwriting from './assets/english-handwriting-practice.webp';
-import imgEnglishInput from './assets/english-input-form.webp';
-import imgEnglishQuiz from './assets/english-scene-quiz.webp';
-import imgEnglishSummary from './assets/english-story-summary.webp';
-import imgEnglishStoryboard from './assets/english-storyboard-reading.webp';
-import imgHeroTeacher from './assets/hero-teacher.webp';
 import imgInteractiveStepMath from './assets/interactive-step-math.webp';
 import imgMathCatalog from './assets/math-ebook-catalog.webp';
 import imgMathConcept from './assets/math-ebook-concept.webp';
 import imgMathInputGemini from './assets/math-input-gemini.webp';
 import imgMathPrint from './assets/math-print-preview.webp';
+import imgWorkshopHomepageNav from './assets/workshop-homepage-nav.png';
 import imgTool1 from './assets/工具一.webp';
 
 export const design: DesignSystem = {
@@ -43,27 +29,6 @@ export const design: DesignSystem = {
   },
   typeScale: { hero: 150, body: 36 },
   radius: 20,
-};
-
-// 乾淨俐落的極簡換頁（線上螢幕分享完全順暢不卡頓）
-export const transition: SlideTransition = {
-  duration: 150,
-  exit: {
-    duration: 80,
-    easing: 'linear',
-    keyframes: [
-      { opacity: 1 },
-      { opacity: 0 },
-    ],
-  },
-  enter: {
-    duration: 120,
-    easing: 'linear',
-    keyframes: [
-      { opacity: 0 },
-      { opacity: 1 },
-    ],
-  },
 };
 
 const colors = {
@@ -144,20 +109,6 @@ const keyframes = `
 
 h1, h2, h3, [data-heading] {
   font-family: var(--osd-font-display), 'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif !important;
-}
-
-@keyframes es-fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.es-fadeUp, .m-rise, .m-pop, .m-left, .m-right {
-  animation: es-fadeUp 0.18s ease-out both;
-  will-change: transform, opacity;
-}
-@media (prefers-reduced-motion: reduce) {
-  .es-fadeUp, .m-rise, .m-pop, .m-left, .m-right {
-    animation: none !important;
-  }
 }
 `;
 
@@ -1258,206 +1209,6 @@ const PracticePage = ({
   );
 };
 
-const AdminDocCard = ({
-  num,
-  title,
-  accent = colors.accent,
-  children,
-  href,
-  delay = 0,
-}: {
-  num: string;
-  title: string;
-  accent?: string;
-  children: ReactNode;
-  href?: string;
-  delay?: number;
-}) => {
-  const content = (
-    <>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-        <div
-          style={{
-            width: 72,
-            height: 72,
-            borderRadius: 18,
-            background: accent,
-            color: colors.white,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '32px',
-            fontWeight: 950,
-            fontFamily: 'var(--osd-font-display)',
-          }}
-        >
-          {num}
-        </div>
-        <h3
-          style={{
-            margin: 0,
-            fontSize: '52px',
-            lineHeight: 1.15,
-            fontWeight: 900,
-            color: colors.text,
-            fontFamily: 'var(--osd-font-display)',
-          }}
-        >
-          {title}
-        </h3>
-      </div>
-      <div
-        style={{
-          fontSize: '36px',
-          lineHeight: 1.5,
-          color: colors.text,
-          fontWeight: 550,
-          textAlign: 'left',
-        }}
-      >
-        {children}
-      </div>
-      {href && (
-        <div
-          style={{
-            marginTop: 10,
-            alignSelf: 'flex-start',
-            color: accent,
-            fontSize: '28px',
-            fontWeight: 900,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-          }}
-        >
-          <span>傳送門連結 ➔</span>
-          <span style={{ fontSize: '22px', opacity: 0.8 }}>{href}</span>
-        </div>
-      )}
-    </>
-  );
-
-  const cardStyle: CSSProperties = {
-    background: 'rgba(255, 255, 255, 0.85)',
-    backdropFilter: 'blur(16px)',
-    border: '1.5px solid rgba(255, 255, 255, 0.9)',
-    borderTop: `8px solid ${accent}`,
-    borderRadius: 24,
-    padding: '30px 38px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    gap: 18,
-    boxShadow: '0 22px 48px rgba(148, 163, 184, 0.16)',
-    animationDelay: `${delay}s`,
-    textDecoration: 'none',
-    color: colors.text,
-    cursor: href ? 'pointer' : 'default',
-  };
-
-  if (href) {
-    return (
-      <a href={href} target="_blank" rel="noreferrer" className="es-fadeUp" style={cardStyle}>
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <div className="es-fadeUp" style={cardStyle}>
-      {content}
-    </div>
-  );
-};
-
-const Unit2Card = ({
-  num,
-  title,
-  children,
-  delay = 0,
-  accent = colors.accent,
-  style,
-}: {
-  num?: string;
-  title: string;
-  children?: ReactNode;
-  delay?: number;
-  accent?: string;
-  style?: CSSProperties;
-}) => (
-  <div
-    className="es-fadeUp"
-    style={{
-      animationDelay: `${delay}s`,
-      background: 'rgba(255, 255, 255, 0.90)',
-      backdropFilter: 'blur(16px)',
-      border: `1.5px solid rgba(255, 255, 255, 0.95)`,
-      borderLeft: `8px solid ${accent}`,
-      borderRadius: 20,
-      padding: children ? '20px 28px' : '22px 28px',
-      boxShadow: '0 12px 32px rgba(148, 163, 184, 0.14)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      gap: children ? 12 : 0,
-      position: 'relative',
-      overflow: 'hidden',
-      textAlign: 'left',
-      ...style,
-    }}
-  >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-      {num && (
-        <div
-          style={{
-            width: 52,
-            height: 52,
-            borderRadius: 14,
-            background:
-              accent === colors.accent ? 'rgba(166, 104, 50, 0.12)' : 'rgba(196, 93, 71, 0.12)',
-            color: accent,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '26px',
-            fontWeight: 950,
-            flexShrink: 0,
-            boxShadow: 'inset 0 2px 4px rgba(255, 255, 255, 0.8)',
-          }}
-        >
-          {num}
-        </div>
-      )}
-      <h3
-        style={{
-          margin: 0,
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '40px',
-          fontWeight: 900,
-          color: colors.text,
-          lineHeight: 1.25,
-        }}
-      >
-        {title}
-      </h3>
-    </div>
-    {children && (
-      <div
-        style={{
-          fontSize: '30px',
-          lineHeight: 1.45,
-          color: colors.muted,
-          fontWeight: 650,
-          textAlign: 'left',
-        }}
-      >
-        {children}
-      </div>
-    )}
-  </div>
-);
-
 const ToolScreenshotFrame = ({
   label,
   children,
@@ -1557,66 +1308,6 @@ const ToolScreenshotFrame = ({
       }}
     >
       {children}
-    </div>
-  </div>
-);
-
-const ToolBullet = ({
-  num,
-  title,
-  children,
-  delay = 0,
-  accent = colors.accent,
-}: {
-  num: string;
-  title: string;
-  children: ReactNode;
-  delay?: number;
-  accent?: string;
-}) => (
-  <div
-    className="es-fadeUp"
-    style={{
-      animationDelay: `${delay}s`,
-      display: 'grid',
-      gridTemplateColumns: '58px 1fr',
-      gap: 16,
-      alignItems: 'center',
-      background: 'rgba(255, 255, 255, 0.86)',
-      backdropFilter: 'blur(12px)',
-      border: '1.5px solid rgba(255, 255, 255, 0.9)',
-      borderLeft: `7px solid ${accent}`,
-      borderRadius: 20,
-      padding: '18px 22px 18px 18px',
-      boxShadow: '0 12px 28px rgba(148, 163, 184, 0.12)',
-    }}
-  >
-    <div
-      style={{
-        width: 52,
-        height: 52,
-        borderRadius: 999,
-        background: 'rgba(255, 255, 255, 0.95)',
-        color: accent,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '24px',
-        fontWeight: 900,
-        fontFamily: 'var(--osd-font-display)',
-        border: `1.5px solid ${accent === colors.accent ? 'rgba(166, 104, 50, 0.25)' : 'rgba(196, 93, 71, 0.25)'}`,
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.04)',
-      }}
-    >
-      {num}
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, textAlign: 'left' }}>
-      <div style={{ fontSize: '32px', fontWeight: 900, color: colors.text, lineHeight: 1.2 }}>
-        {title}
-      </div>
-      <div style={{ fontSize: '26px', lineHeight: 1.42, color: colors.muted, fontWeight: 650 }}>
-        {children}
-      </div>
     </div>
   </div>
 );
@@ -1984,7 +1675,9 @@ const Slide01_Title: Page = () => (
       </div>
 
       {/* 中部核心標題與副標 */}
-      <div style={{ margin: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div
+        style={{ margin: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         <h1
           style={{
             fontFamily: 'var(--osd-font-display)',
@@ -2484,125 +2177,6 @@ const Slide06_MixerIntro: Page = () => (
   </div>
 );
 
-// SVG 1: 紙本 (Folder + Paper + Checkmark)
-const SvgPaperIcon = () => (
-  <svg
-    width="130"
-    height="110"
-    viewBox="0 0 130 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M14 26C14 20.4772 18.4772 16 24 16H48L58 26H106C111.523 26 116 30.4772 116 36V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V26Z"
-      fill="#2563eb"
-    />
-    <rect x="24" y="24" width="82" height="60" rx="8" fill="#ffffff" />
-    <rect x="34" y="36" width="38" height="6" rx="3" fill="#cbd5e1" />
-    <rect x="34" y="48" width="62" height="6" rx="3" fill="#e2e8f0" />
-    <rect x="34" y="60" width="48" height="6" rx="3" fill="#e2e8f0" />
-    <path
-      d="M14 42C14 36.4772 18.4772 32 24 32H106C111.523 32 116 36.4772 116 42V88C116 93.5228 111.523 98 106 98H24C18.4772 98 14 93.5228 14 88V42Z"
-      fill="#3b82f6"
-    />
-    <path
-      d="M26 80C32 76 38 84 44 80C50 76 56 84 62 80"
-      stroke="#93c5fd"
-      strokeWidth="4"
-      strokeLinecap="round"
-    />
-    <circle cx="96" cy="74" r="21" fill="#22c55e" />
-    <circle cx="96" cy="74" r="19" stroke="#ffffff" strokeWidth="2.5" />
-    <path
-      d="M88 74L93.5 79.5L104 69"
-      stroke="#ffffff"
-      strokeWidth="4.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-// SVG 2: 數位 (Head Silhouette + Split Brain + Arrow)
-const SvgDigitalIcon = () => (
-  <svg
-    width="130"
-    height="110"
-    viewBox="0 0 130 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M14 74L24 60L18 56L34 48L32 66L26 62L16 76H14Z" fill="#ef4444" />
-    <path
-      d="M42 96V78C42 78 40 76 38 72C36 68 36 62 38 60C34 56 34 46 36 40C38 34 44 26 56 22C68 18 84 20 92 28C100 36 102 48 100 58C98 68 96 72 96 72L106 73C108 73 110 75 109 77L104 84C102 87 104 90 102 96H42Z"
-      fill="#f59e0b"
-    />
-    <path
-      d="M60 26C54 26 48 32 48 40C48 44 50 48 48 52C46 56 46 62 50 66C54 70 60 70 62 70V26H60Z"
-      fill="#3b82f6"
-    />
-    <circle cx="55" cy="38" r="3" fill="#93c5fd" />
-    <circle cx="53" cy="54" r="3" fill="#93c5fd" />
-    <path
-      d="M66 26C72 26 78 30 80 38C82 44 80 48 82 52C84 56 84 62 80 66C76 70 70 70 66 70V26Z"
-      fill="#ef4444"
-    />
-    <circle cx="73" cy="38" r="3" fill="#fca5a5" />
-    <circle cx="75" cy="54" r="3" fill="#fca5a5" />
-    <line
-      x1="64"
-      y1="24"
-      x2="64"
-      y2="72"
-      stroke="#ffffff"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-// SVG 3: 自製 AI 工具 (Developer with Headset & Laptop)
-const SvgAiToolIcon = () => (
-  <svg
-    width="130"
-    height="110"
-    viewBox="0 0 130 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect x="15" y="86" width="100" height="10" rx="3" fill="#b45309" />
-    <rect x="25" y="96" width="80" height="6" rx="2" fill="#92400e" />
-    <circle cx="65" cy="38" r="16" fill="#fed7aa" />
-    <path
-      d="M50 36C50 26 56 22 65 22C74 22 80 26 80 36C80 38 78 38 78 35C74 33 70 33 65 33C60 33 56 33 52 35C52 38 50 38 50 36Z"
-      fill="#451a03"
-    />
-    <path
-      d="M48 38C48 26 55 20 65 20C75 20 82 26 82 38"
-      stroke="#334155"
-      strokeWidth="4"
-      strokeLinecap="round"
-    />
-    <rect x="45" y="34" width="6" height="12" rx="3" fill="#f97316" />
-    <rect x="79" y="34" width="6" height="12" rx="3" fill="#f97316" />
-    <path d="M82 42L86 48H80" stroke="#334155" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M42 86C42 66 48 58 65 58C82 58 88 66 88 86H42Z" fill="#3b82f6" />
-    <path d="M58 58L65 68L72 58" fill="#fed7aa" />
-    <rect
-      x="46"
-      y="66"
-      width="38"
-      height="22"
-      rx="3"
-      fill="#1e293b"
-      stroke="#64748b"
-      strokeWidth="1.5"
-    />
-    <circle cx="65" cy="77" r="3" fill="#60a5fa" />
-    <rect x="42" y="86" width="46" height="3" rx="1.5" fill="#475569" />
-  </svg>
-);
-
 // Slide 03: 今日大綱 (亮色微光玻璃擬態、清爽大氣、三大核心實踐)
 // Slide 03: 今日大綱 (簡約俐落社群風：無小插圖圖示，純淨01/02序號與清晰文字)
 const Slide03_Agenda: Page = () => (
@@ -2908,9 +2482,7 @@ const Slide03_Agenda: Page = () => (
             >
               02
             </div>
-            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
-              自製電子書
-            </div>
+            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>自製電子書</div>
           </div>
         </div>
       </div>
@@ -2976,7 +2548,9 @@ const Slide03_Agenda: Page = () => (
               color: colors.text,
               lineHeight: 1.2,
             }}
-          >自製 AI 工具實作(補充)</h3>
+          >
+            自製 AI 工具實作(補充)
+          </h3>
           <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
             Canvas 打造專屬工具
           </div>
@@ -3089,7 +2663,11 @@ const Slide05_AdminIep: Page = () => {
   return (
     <div style={fill}>
       <TextbookBg />
-      <TextbookHeader unit="行政減量" title="IEP 目標撰寫：從痛點到自製解方" subtitle="問題與解方" />
+      <TextbookHeader
+        unit="行政減量"
+        title="IEP 目標撰寫：從痛點到自製解方"
+        subtitle="問題與解方"
+      />
 
       <div
         style={{
@@ -3144,7 +2722,15 @@ const Slide05_AdminIep: Page = () => {
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1, justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
             {problemPoints.map((pt, idx) => (
               <div
                 key={idx}
@@ -3236,7 +2822,15 @@ const Slide05_AdminIep: Page = () => {
             </span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1, justifyContent: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 16,
+              flex: 1,
+              justifyContent: 'center',
+            }}
+          >
             {solutionPoints.map((pt, idx) => (
               <div
                 key={idx}
@@ -3437,7 +3031,8 @@ const Slide05b_OtherIepTools: Page = () => {
             justifyContent: 'center',
             gap: 14,
             padding: '18px 36px',
-            background: 'linear-gradient(135deg, rgba(36, 43, 53, 0.06) 0%, rgba(166, 104, 50, 0.1) 100%)',
+            background:
+              'linear-gradient(135deg, rgba(36, 43, 53, 0.06) 0%, rgba(166, 104, 50, 0.1) 100%)',
             border: '2px dashed rgba(166, 104, 50, 0.45)',
             borderRadius: 18,
             textDecoration: 'none',
@@ -3471,704 +3066,6 @@ const Slide06_Practice_IEP: Page = () => (
     href={toolUrls.iep}
   />
 );
-
-const MinimalToolSlide = ({
-  unit,
-  title,
-  subtitle,
-  children,
-  points,
-  btnHref,
-  btnText = '🚀 開始使用',
-  imgSrc,
-  imgAlt,
-  frameLabel,
-  imgStyle,
-}: {
-  unit: string;
-  title: string;
-  subtitle?: string;
-  children?: ReactNode;
-  points?: string[];
-  btnHref?: string;
-  btnText?: string;
-  imgSrc: string;
-  imgAlt: string;
-  frameLabel: string;
-  imgStyle?: CSSProperties;
-}) => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader unit={unit} title={title} subtitle={subtitle} />
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '0.94fr 1.06fr',
-        gap: 36,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        height: 560,
-        maxHeight: 560,
-        alignItems: 'stretch',
-      }}
-    >
-      <div
-        className="es-fadeUp"
-        style={{
-          height: '100%',
-          background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `6px solid ${colors.orange}`,
-          borderRadius: 24,
-          padding: '28px 32px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          boxSizing: 'border-box',
-          minHeight: 0,
-        }}
-      >
-        {/* 頂部功能分類與副標籤 */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 12,
-          }}
-        >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background:
-                'linear-gradient(135deg, rgba(166, 104, 50, 0.1) 0%, rgba(196, 93, 71, 0.1) 100%)',
-              border: '1px solid rgba(166, 104, 50, 0.22)',
-              padding: '6px 16px',
-              borderRadius: 20,
-              fontSize: '22px',
-              fontWeight: 900,
-              color: colors.accent,
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span>✨ 特教鷹架核心亮點</span>
-          </div>
-          {subtitle && (
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                background: 'rgba(196, 93, 71, 0.08)',
-                color: colors.orange,
-                border: '1px solid rgba(196, 93, 71, 0.2)',
-                padding: '6px 14px',
-                borderRadius: 14,
-                fontSize: '20px',
-                fontWeight: 850,
-              }}
-            >
-              {subtitle}
-            </div>
-          )}
-        </div>
-
-        {/* 核心卡片內容區 */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 14,
-            flex: 1,
-            justifyContent: 'center',
-            margin: '12px 0',
-          }}
-        >
-          {children && (
-            <div
-              style={{
-                fontSize: '34px',
-                lineHeight: 1.4,
-                fontWeight: 850,
-                color: colors.text,
-                padding: '4px 2px',
-              }}
-            >
-              {children}
-            </div>
-          )}
-
-          {points &&
-            points.length > 0 &&
-            points.map((pt, idx) => {
-              const accents = [
-                {
-                  bg: 'rgba(166, 104, 50, 0.12)',
-                  text: '#4f46e5',
-                  border: 'rgba(166, 104, 50, 0.25)',
-                  num: '01',
-                },
-                {
-                  bg: 'rgba(196, 93, 71, 0.12)',
-                  text: '#c45d47',
-                  border: 'rgba(196, 93, 71, 0.25)',
-                  num: '02',
-                },
-                {
-                  bg: 'rgba(56, 90, 115, 0.12)',
-                  text: '#385a73',
-                  border: 'rgba(56, 90, 115, 0.25)',
-                  num: '03',
-                },
-              ];
-              const acc = accents[idx % accents.length];
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    border: '1.5px solid rgba(226, 232, 240, 0.9)',
-                    borderRadius: 18,
-                    padding: '16px 20px',
-                    boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 12,
-                      background: acc.bg,
-                      border: `1px solid ${acc.border}`,
-                      color: acc.text,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '22px',
-                      fontWeight: 950,
-                      fontFamily: 'var(--osd-font-display)',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {acc.num}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '32px',
-                      lineHeight: 1.35,
-                      fontWeight: 850,
-                      color: colors.text,
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {pt}
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-
-        {/* 底部行動呼籲按鈕 或 適性成效提示 */}
-        {btnHref ? (
-          <a
-            href={btnHref}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 12,
-              background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
-              color: colors.white,
-              padding: '16px 28px',
-              borderRadius: 16,
-              fontSize: '28px',
-              fontWeight: 950,
-              textDecoration: 'none',
-              boxShadow: '0 12px 28px rgba(196, 93, 71, 0.32)',
-              marginTop: 4,
-            }}
-          >
-            <span>{btnText}</span>
-            <span style={{ fontSize: '24px' }}>➔</span>
-          </a>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              background:
-                'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
-              border: '1.5px solid rgba(226, 232, 240, 0.95)',
-              borderRadius: 16,
-              padding: '12px 18px',
-              marginTop: 4,
-            }}
-          >
-            <span style={{ fontSize: '22px' }}>💡</span>
-            <span
-              style={{
-                fontSize: '22px',
-                fontWeight: 800,
-                color: colors.muted,
-                lineHeight: 1.35,
-              }}
-            >
-              特教適性亮點：降低書寫挫折，提供高結構鷹架支持
-            </span>
-          </div>
-        )}
-      </div>
-
-      <ToolScreenshotFrame label={frameLabel} delay={0.15}>
-        <img
-          src={imgSrc}
-          alt={imgAlt}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
-            display: 'block',
-            ...imgStyle,
-          }}
-        />
-      </ToolScreenshotFrame>
-    </div>
-    <TextbookFooter subtitle={`第一部分：${title}`} />
-  </div>
-);
-
-// 工具封面章節頁組件 (工具第一頁：僅展示工具名稱、核心引導、行動按鈕與大截圖，無多餘條列介紹)
-const ToolChapterSlide = ({
-  unit,
-  title,
-  subtitle,
-  desc,
-  btnHref,
-  btnText = '🚀 開始使用',
-  buttons,
-  imgSrc,
-  imgAlt,
-  frameLabel,
-}: {
-  unit: string;
-  title: string;
-  subtitle?: string;
-  desc?: string;
-  btnHref?: string;
-  btnText?: string;
-  buttons?: ReactNode;
-  imgSrc: string;
-  imgAlt: string;
-  frameLabel: string;
-}) => (
-  <div style={fill}>
-    <TextbookBg />
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '0.88fr 1.12fr',
-        gap: 48,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        height: 600,
-        maxHeight: 600,
-        alignItems: 'center',
-      }}
-    >
-      {/* 左欄：章節主標區（純粹大器，零多餘列點介紹） */}
-      <div
-        className="es-fadeUp"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          gap: 24,
-          paddingLeft: 8,
-        }}
-      >
-        {/* 單元分類與標籤 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <span
-            style={{
-              color: colors.accent,
-              fontFamily: 'var(--osd-font-display)',
-              fontWeight: 900,
-              fontSize: '26px',
-              letterSpacing: '0.08em',
-              background: 'rgba(166, 104, 50, 0.1)',
-              backdropFilter: 'blur(12px)',
-              border: '1.5px solid rgba(166, 104, 50, 0.25)',
-              padding: '8px 24px',
-              borderRadius: 14,
-              boxShadow: '0 4px 12px rgba(166, 104, 50, 0.08)',
-            }}
-          >
-            {unit}
-          </span>
-          {subtitle && (
-            <span
-              style={{
-                color: colors.orange,
-                background: 'rgba(196, 93, 71, 0.08)',
-                border: '1.5px solid rgba(196, 93, 71, 0.2)',
-                padding: '8px 20px',
-                borderRadius: 14,
-                fontSize: '24px',
-                fontWeight: 850,
-              }}
-            >
-              {subtitle}
-            </span>
-          )}
-        </div>
-
-        {/* 巨幅工具名稱（章節主標） */}
-        <h1
-          style={{
-            fontSize: '84px',
-            fontWeight: 950,
-            margin: '4px 0 0 0',
-            color: colors.text,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.15,
-          }}
-        >
-          {title}
-        </h1>
-
-        {/* 章節定位導引短語 */}
-        {desc && (
-          <p
-            style={{
-              fontSize: '45px',
-              color: colors.muted,
-              fontWeight: 700,
-              lineHeight: 1.45,
-              margin: '0',
-              maxWidth: 580,
-            }}
-          >
-            {desc}
-          </p>
-        )}
-
-        {/* 行動按鈕 */}
-        {buttons ? (
-          <div style={{ marginTop: 12 }}>{buttons}</div>
-        ) : btnHref ? (
-          <div style={{ marginTop: 12 }}>
-            <a
-              href={btnHref}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 16,
-                background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
-                color: colors.white,
-                padding: '20px 48px',
-                borderRadius: 20,
-                fontSize: '32px',
-                fontWeight: 950,
-                textDecoration: 'none',
-                boxShadow: '0 14px 36px rgba(196, 93, 71, 0.38)',
-                letterSpacing: '0.02em',
-              }}
-            >
-              <span>{btnText}</span>
-              <span style={{ fontSize: '28px' }}>➔</span>
-            </a>
-          </div>
-        ) : null}
-      </div>
-
-      {/* 右欄：大尺寸工具截圖展示框 */}
-      <ToolScreenshotFrame label={frameLabel} delay={0.15} style={{ height: 600, maxHeight: 600 }}>
-        <img
-          src={imgSrc}
-          alt={imgAlt}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
-            display: 'block',
-          }}
-        />
-      </ToolScreenshotFrame>
-    </div>
-
-    <TextbookFooter subtitle={`工具導覽：${title}`} />
-  </div>
-);
-
-// 工具主題封面扉頁共用組件 (大標 + 特教現場痛點訊息對話框)
-interface PainPointBubble {
-  tag?: string;
-  text: string;
-  status?: string;
-  color?: 'rose' | 'sky' | 'amber' | 'indigo' | 'emerald';
-}
-
-const ToolCoverSlide = ({
-  unit,
-  title,
-  painPoints,
-}: {
-  unit: string;
-  title: string;
-  painPoints?: Array<PainPointBubble | string>;
-}) => {
-  const defaultColors: Array<'rose' | 'sky'> = ['rose', 'sky'];
-  const defaultTags = ['👩‍🏫 老師心聲', '👦 學生心聲'];
-  const defaultStatuses = ['💬 備課日常', '😩 課堂心聲'];
-  const rotations = ['-1.2deg', '1.2deg'];
-
-  const formattedPoints: PainPointBubble[] = (painPoints || []).map((pt, idx) => {
-    if (typeof pt === 'string') {
-      return {
-        tag: defaultTags[idx % defaultTags.length],
-        text: pt,
-        status: defaultStatuses[idx % defaultStatuses.length],
-        color: defaultColors[idx % defaultColors.length],
-      };
-    }
-    return {
-      tag: pt.tag || defaultTags[idx % defaultTags.length],
-      text: pt.text,
-      status: pt.status || defaultStatuses[idx % defaultStatuses.length],
-      color: pt.color || defaultColors[idx % defaultColors.length],
-    };
-  });
-
-  const colorStyles = {
-    rose: {
-      bg: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-      border: 'rgba(251, 113, 133, 0.45)',
-      badgeBg: 'rgba(196, 93, 71, 0.15)',
-      badgeColor: '#c45d47',
-      shadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
-      tailRadius: '28px 28px 28px 6px',
-    },
-    sky: {
-      bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-      border: 'rgba(56, 189, 248, 0.45)',
-      badgeBg: 'rgba(56, 90, 115, 0.15)',
-      badgeColor: '#385a73',
-      shadow: '0 14px 32px rgba(56, 90, 115, 0.10)',
-      tailRadius: '28px 28px 6px 28px',
-    },
-    amber: {
-      bg: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
-      border: 'rgba(251, 191, 36, 0.5)',
-      badgeBg: 'rgba(245, 158, 11, 0.15)',
-      badgeColor: '#d97706',
-      shadow: '0 14px 32px rgba(245, 158, 11, 0.10)',
-      tailRadius: '28px 28px 28px 6px',
-    },
-    indigo: {
-      bg: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
-      border: 'rgba(129, 140, 248, 0.45)',
-      badgeBg: 'rgba(166, 104, 50, 0.15)',
-      badgeColor: '#4f46e5',
-      shadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
-      tailRadius: '28px 28px 6px 28px',
-    },
-    emerald: {
-      bg: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-      border: 'rgba(52, 211, 153, 0.45)',
-      badgeBg: 'rgba(16, 185, 129, 0.15)',
-      badgeColor: '#059669',
-      shadow: '0 14px 32px rgba(16, 185, 129, 0.10)',
-      tailRadius: '28px 28px 28px 6px',
-    },
-  };
-
-  return (
-    <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-      <TextbookBg />
-
-      {/* 背景微光 */}
-      <div
-        style={{
-          position: 'absolute',
-          width: 800,
-          height: 800,
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-          filter: 'blur(50px)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div
-        className="es-fadeUp"
-        style={{
-          zIndex: 2,
-          maxWidth: 1440,
-          width: '94%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 36,
-          padding: '44px 52px',
-          boxShadow: '0 24px 60px rgba(148, 163, 184, 0.18)',
-        }}
-      >
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 12,
-            fontSize: '24px',
-            fontWeight: 950,
-            color: colors.accent,
-            background: 'rgba(166, 104, 50, 0.1)',
-            padding: '6px 26px',
-            borderRadius: 999,
-            letterSpacing: '0.12em',
-            marginBottom: 14,
-            border: '1px solid rgba(166, 104, 50, 0.2)',
-          }}
-        >
-          <span>{unit}</span>
-        </div>
-
-        <h1
-          style={{
-            fontSize: '84px',
-            fontWeight: 950,
-            color: colors.text,
-            margin: '0 0 28px 0',
-            lineHeight: 1.15,
-            letterSpacing: '-0.03em',
-          }}
-        >
-          {title}
-        </h1>
-
-        {formattedPoints.length > 0 && (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 12,
-            }}
-          >
-            {/* 訊息對話框群 */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: formattedPoints.length === 2 ? 'repeat(2, 1fr)' : `repeat(${formattedPoints.length}, 1fr)`,
-                gap: 24,
-                width: '100%',
-                marginTop: 6,
-              }}
-            >
-              {formattedPoints.map((pt, idx) => {
-                const conf = colorStyles[pt.color || (idx === 0 ? 'rose' : 'sky')];
-                const rot = rotations[idx % rotations.length];
-                return (
-                  <div
-                    key={idx}
-                    style={{
-                      background: conf.bg,
-                      border: `2px solid ${conf.border}`,
-                      borderRadius: conf.tailRadius,
-                      padding: '28px 32px',
-                      textAlign: 'left',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      gap: 16,
-                      boxShadow: conf.shadow,
-                      transform: `rotate(${rot})`,
-                      transition: 'transform 0.2s ease',
-                      position: 'relative',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 6,
-                          fontSize: '20px',
-                          fontWeight: 950,
-                          color: conf.badgeColor,
-                          background: conf.badgeBg,
-                          padding: '5px 16px',
-                          borderRadius: 999,
-                        }}
-                      >
-                        {pt.tag}
-                      </div>
-                      {pt.status && (
-                        <span style={{ fontSize: '16px', color: '#94a3b8', fontWeight: 750 }}>
-                          {pt.status}
-                        </span>
-                      )}
-                    </div>
-
-                    <div
-                      style={{
-                        fontSize: '32px',
-                        fontWeight: 900,
-                        color: colors.text,
-                        lineHeight: 1.38,
-                        letterSpacing: '-0.01em',
-                      }}
-                    >
-                      {pt.text}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <TextbookFooter subtitle={`工具導覽：${title}`} />
-    </div>
-  );
-};
 
 // 國文課堂學習單: 工具主題封面扉頁 (大標 + 現場痛點訊息框)
 const Slide08_ChineseLessonTitle: Page = () => (
@@ -4461,29 +3358,177 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>原文與易讀雙軌排版</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              原文與易讀雙軌排版
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>結合情境插圖輔助理解</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              結合情境插圖輔助理解
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>唸讀計時檢核框</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              唸讀計時檢核框
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="雙軌閱讀 · 原文與易讀對照" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgChineseReading} alt="課文雙軌對照" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="雙軌閱讀 · 原文與易讀對照"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgChineseReading}
+          alt="課文雙軌對照"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -4595,25 +3640,134 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>注音田字格生字練寫</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '26px 28px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 58,
+                height: 58,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '30px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '40px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              注音田字格生字練寫
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>段落核心重點摘要</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '26px 28px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 58,
+                height: 58,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '30px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '40px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              段落核心重點摘要
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="手寫鷹架 · 注音田字格" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgChineseTianzi} alt="田字格與摘要" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="手寫鷹架 · 注音田字格"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgChineseTianzi}
+          alt="田字格與摘要"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -4725,29 +3879,177 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>隨段兩題即時測驗</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              隨段兩題即時測驗
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>快速檢核學生理解</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              快速檢核學生理解
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>範圍縮短成每段測驗，降低負荷</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              範圍縮短成每段測驗，降低負荷
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="即時檢核 · 隨堂測驗" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgChineseQuiz} alt="隨堂選擇題" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="即時檢核 · 隨堂測驗"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgChineseQuiz}
+          alt="隨堂選擇題"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -4859,29 +4161,177 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>引導式重點歸納表格</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              引導式重點歸納表格
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>文章結構脈絡梳理</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              文章結構脈絡梳理
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>培養深層理解</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              培養深層理解
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="結構鷹架 · 脈絡歸納" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgChineseTable} alt="課文脈絡表格" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="結構鷹架 · 脈絡歸納"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgChineseTable}
+          alt="課文脈絡表格"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -4993,42 +4443,139 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>課文詞語注釋連連看</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '26px 28px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 58,
+                height: 58,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '30px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '40px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              課文詞語注釋連連看
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '26px 28px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 58, height: 58, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '40px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>強化生字詞釋義記憶</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '26px 28px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 58,
+                height: 58,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '30px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '40px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              強化生字詞釋義記憶
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="多元評量 · 詞語連連看" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgChineseMatch} alt="詞語連連看評量" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="多元評量 · 詞語連連看"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgChineseMatch}
+          alt="詞語連連看評量"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
     <TextbookFooter subtitle="工具導覽：詞語多元評量" />
   </div>
-);
-
-// 實作二︰國文課堂學習單 (10分鐘實作)
-const Slide08_Practice_Chinese: Page = () => (
-  <PracticePage
-    num="02"
-    toolName="國文課堂學習單"
-    time="10 分鐘"
-    task="請利用國文課堂學習單生成器試做一課課文。"
-    href={toolUrls.chineseLessonWorksheet}
-    uploadHref={uploadFileUrls.language}
-  />
 );
 
 // 數學簡化學習單: 工具主題封面扉頁 (大標 + 現場痛點訊息框)
@@ -5322,29 +4869,177 @@ const Slide10_MathScaffold1: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>只需輸入題目類型</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              只需輸入題目類型
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>也能直接貼上課本概念或題目截圖</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              也能直接貼上課本概念或題目截圖
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>一次一種概念結構清楚</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              一次一種概念結構清楚
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="極簡輸入 · 階梯解題鷹架" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgMathInputGemini} alt="輸入解一元一次" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="極簡輸入 · 階梯解題鷹架"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgMathInputGemini}
+          alt="輸入解一元一次"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -5662,7 +5357,9 @@ const Slide10_MathScaffold3: Page = () => (
           letterSpacing: '-0.02em',
           lineHeight: 1.15,
         }}
-      >電子書功能</h2>
+      >
+        電子書功能
+      </h2>
     </div>
 
     <div
@@ -5729,29 +5426,177 @@ const Slide10_MathScaffold3: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>單元目錄快速導航</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              單元目錄快速導航
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>無觸控大屏也適用</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              無觸控大屏也適用
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>畫筆、秀答案等基本功能</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              畫筆、秀答案等基本功能
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="概念目錄 · 循序漸進" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgMathCatalog} alt="單元目錄與概念檢視" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="概念目錄 · 循序漸進"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgMathCatalog}
+          alt="單元目錄與概念檢視"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -5863,29 +5708,177 @@ const Slide10_MathScaffold4: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>一鍵濾除按鈕與答案</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              一鍵濾除按鈕與答案
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>標準無干擾 A4 作業卷</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              標準無干擾 A4 作業卷
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>免二次排版直接出紙本</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              免二次排版直接出紙本
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="列印預覽：標準 A4 白底作業卷" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgMathPrint} alt="A4 列印預覽" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="列印預覽：標準 A4 白底作業卷"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgMathPrint}
+          alt="A4 列印預覽"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -5905,631 +5898,6 @@ const Slide10_Practice_ChineseMath: Page = () => (
       { label: '數學簡化學習單', href: toolUrls.mathScaffold, variant: 'accent' },
       { label: '上傳檔案', href: uploadFileUrls.general, variant: 'dark' },
     ]}
-  />
-);
-
-// 英文課堂學習單: 工具主題封面扉頁 (大標 + 現場痛點訊息框)
-const Slide09_EnglishWorksheetTitle: Page = () => (
-  <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-    <TextbookBg />
-
-    <div
-      style={{
-        position: 'absolute',
-        width: 800,
-        height: 800,
-        borderRadius: '50%',
-        background:
-          'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
-        pointerEvents: 'none',
-      }}
-    />
-
-    <div
-      className="es-fadeUp"
-      style={{
-        zIndex: 2,
-        maxWidth: 1440,
-        width: '94%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
-        border: '1.5px solid rgba(255, 255, 255, 0.95)',
-        borderTop: `8px solid ${colors.accent}`,
-        borderRadius: 36,
-        padding: '44px 52px',
-        boxShadow: '0 24px 60px rgba(148, 163, 184, 0.18)',
-      }}
-    >
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 12,
-          fontSize: '28px',
-          fontWeight: 950,
-          color: colors.accent,
-          background: 'rgba(166, 104, 50, 0.1)',
-          padding: '8px 30px',
-          borderRadius: 999,
-          letterSpacing: '0.12em',
-          marginBottom: 14,
-          border: '1px solid rgba(166, 104, 50, 0.2)',
-        }}
-      >
-        <span>英文備課</span>
-      </div>
-
-      <h1
-        style={{
-          fontSize: '92px',
-          fontWeight: 950,
-          color: colors.text,
-          margin: '0 0 28px 0',
-          lineHeight: 1.15,
-          letterSpacing: '-0.03em',
-        }}
-      >英語圖文學習單</h1>
-
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 28,
-            width: '100%',
-            marginTop: 6,
-          }}
-        >
-          {/* 老師心聲 */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #fff5f2 0%, #faebe6 100%)',
-              border: '2px solid rgba(196, 93, 71, 0.35)',
-              borderRadius: '28px 28px 28px 6px',
-              padding: '32px 36px',
-              textAlign: 'left',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 18,
-              boxShadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
-              transform: 'rotate(-1.2deg)',
-              transition: 'transform 0.2s ease',
-              position: 'relative',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  fontSize: '24px',
-                  fontWeight: 950,
-                  color: '#c45d47',
-                  background: 'rgba(196, 93, 71, 0.12)',
-                  padding: '6px 18px',
-                  borderRadius: 999,
-                }}
-              >
-                👩‍🏫 老師心聲
-              </div>
-              <span style={{ fontSize: '18px', color: '#94a3b8', fontWeight: 750 }}>
-                💬 備課日常
-              </span>
-            </div>
-            <div
-              style={{
-                fontSize: '38px',
-                fontWeight: 900,
-                color: colors.text,
-                lineHeight: 1.42,
-                letterSpacing: '-0.01em',
-              }}
-            >「想做圖文對照與分鏡又找不出時間…」</div>
-          </div>
-
-          {/* 學生心聲 */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #faf7f2 0%, #f4ece2 100%)',
-              border: '2px solid rgba(166, 104, 50, 0.35)',
-              borderRadius: '28px 28px 6px 28px',
-              padding: '32px 36px',
-              textAlign: 'left',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 18,
-              boxShadow: '0 14px 32px rgba(166, 104, 50, 0.10)',
-              transform: 'rotate(1.2deg)',
-              transition: 'transform 0.2s ease',
-              position: 'relative',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  fontSize: '24px',
-                  fontWeight: 950,
-                  color: '#a66832',
-                  background: 'rgba(166, 104, 50, 0.12)',
-                  padding: '6px 18px',
-                  borderRadius: 999,
-                }}
-              >
-                👦 學生心聲
-              </div>
-              <span style={{ fontSize: '18px', color: '#94a3b8', fontWeight: 750 }}>
-                💬 學習困擾
-              </span>
-            </div>
-            <div
-              style={{
-                fontSize: '38px',
-                fontWeight: 900,
-                color: colors.text,
-                lineHeight: 1.42,
-                letterSpacing: '-0.01em',
-              }}
-            >「學了單字、文法，然後呢？這些英文要用在哪裡…」</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <TextbookFooter subtitle="單元導覽 · 現場需求引導" />
-  </div>
-);
-
-// 英文課堂學習單 1: 情境分鏡切分 (功能介紹)
-const Slide09_EnglishWorksheet1: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <div>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-        <span
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '26px',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            color: colors.accent,
-            background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(166, 104, 50, 0.2)',
-            padding: '8px 22px',
-            borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-          }}
-        >
-          英文備課
-        </span>
-        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>智能排版</span>
-      </div>
-      <h2
-        style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '84px',
-          fontWeight: 950,
-          margin: '8px 0 0 0',
-          color: colors.text,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.15,
-        }}
-      >輸入模式</h2>
-    </div>
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 36,
-        alignItems: 'stretch',
-        height: 600,
-        marginTop: 16,
-      }}
-    >
-      {/* 左欄卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          height: '100%',
-          boxSizing: 'border-box',
-          background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `6px solid ${colors.accent}`,
-          borderRadius: 28,
-          padding: '30px 34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: 'rgba(166, 104, 50, 0.1)',
-              border: '1px solid rgba(166, 104, 50, 0.25)',
-              padding: '8px 20px',
-              borderRadius: 20,
-              fontSize: '24px',
-              fontWeight: 950,
-              color: colors.accent,
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span>✨ 特教鷹架核心亮點</span>
-          </div>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              background: 'rgba(196, 93, 71, 0.08)',
-              color: colors.orange,
-              border: '1px solid rgba(196, 93, 71, 0.2)',
-              padding: '8px 18px',
-              borderRadius: 14,
-              fontSize: '24px',
-              fontWeight: 900,
-            }}
-          >
-            智能排版
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>貼入課文</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>貼入單字文法</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>差異化按鈕調整</div>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
-          <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
-        </div>
-      </div>
-
-      {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="智能輸入 · 情境自動切分" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgEnglishInput} alt="設定介面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
-      </ToolScreenshotFrame>
-    </div>
-
-    <TextbookFooter subtitle="工具導覽：情境分鏡切分" />
-  </div>
-);
-
-// Slide 19: 英文課堂學習單（分鏡圖文閱讀）
-const Slide09_EnglishWorksheet2: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <div>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-        <span
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '26px',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            color: colors.accent,
-            background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(166, 104, 50, 0.2)',
-            padding: '8px 22px',
-            borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-          }}
-        >
-          英文備課
-        </span>
-        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>視覺鷹架</span>
-      </div>
-      <h2
-        style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '84px',
-          fontWeight: 950,
-          margin: '8px 0 0 0',
-          color: colors.text,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.15,
-        }}
-      >
-        課文分鏡圖文閱讀
-      </h2>
-    </div>
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 36,
-        alignItems: 'stretch',
-        height: 600,
-        marginTop: 16,
-      }}
-    >
-      {/* 左欄卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          height: '100%',
-          boxSizing: 'border-box',
-          background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `6px solid ${colors.accent}`,
-          borderRadius: 28,
-          padding: '30px 34px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: 'rgba(166, 104, 50, 0.1)',
-              border: '1px solid rgba(166, 104, 50, 0.25)',
-              padding: '8px 20px',
-              borderRadius: 20,
-              fontSize: '24px',
-              fontWeight: 950,
-              color: colors.accent,
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span>✨ 特教鷹架核心亮點</span>
-          </div>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              background: 'rgba(196, 93, 71, 0.08)',
-              color: colors.orange,
-              border: '1px solid rgba(196, 93, 71, 0.2)',
-              padding: '8px 18px',
-              borderRadius: 14,
-              fontSize: '24px',
-              fontWeight: 900,
-            }}
-          >
-            視覺鷹架
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>課文情境插圖</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>關鍵單字劃記</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>逐句中英排版</div>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
-          <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
-        </div>
-      </div>
-
-      {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="分鏡閱讀：圖文對照與單字高亮" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgEnglishStoryboard} alt="分鏡閱讀畫面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
-      </ToolScreenshotFrame>
-    </div>
-
-    <TextbookFooter subtitle="工具導覽：課文分鏡圖文閱讀" />
-  </div>
-);
-
-// 英文課堂學習單 3: 抄寫與練習（合併手寫與隨段檢核）
-const Slide09_EnglishWorksheet3: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <div>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-        <span
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '26px',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            color: colors.accent,
-            background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(166, 104, 50, 0.2)',
-            padding: '8px 22px',
-            borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-          }}
-        >
-          英文備課
-        </span>
-      </div>
-      <h2
-        style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '84px',
-          fontWeight: 950,
-          margin: '8px 0 0 0',
-          color: colors.text,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.15,
-        }}
-      >
-        抄寫與練習
-      </h2>
-    </div>
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 36,
-        alignItems: 'stretch',
-        height: 600,
-        marginTop: 16,
-      }}
-    >
-      {/* 左圖：四線三格練寫 */}
-      <ToolScreenshotFrame label="四線三格單字練寫" delay={0.1} style={{ height: '100%', maxHeight: 600 }}>
-        <img
-          src={imgEnglishHandwriting}
-          alt="四線三格單字練寫"
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
-            display: 'block',
-          }}
-        />
-      </ToolScreenshotFrame>
-
-      {/* 右圖：隨段測驗畫面 */}
-      <ToolScreenshotFrame label="隨段測驗即時檢核" delay={0.2} style={{ height: '100%', maxHeight: 600 }}>
-        <img
-          src={imgEnglishQuiz}
-          alt="隨段測驗畫面"
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
-            display: 'block',
-          }}
-        />
-      </ToolScreenshotFrame>
-    </div>
-
-    <TextbookFooter subtitle="工具導覽：抄寫與練習" />
-  </div>
-);
-
-// Slide 22: 英文課堂學習單（故事順序總結）
-const Slide09_EnglishWorksheet5: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <div>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-        <span
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '26px',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            color: colors.accent,
-            background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(166, 104, 50, 0.2)',
-            padding: '8px 22px',
-            borderRadius: 12,
-            boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-          }}
-        >
-          英文備課
-        </span>
-      </div>
-      <h2
-        style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '84px',
-          fontWeight: 950,
-          margin: '8px 0 0 0',
-          color: colors.text,
-          letterSpacing: '-0.02em',
-          lineHeight: 1.15,
-        }}
-      >故事總結</h2>
-    </div>
-
-    <div
-      style={{
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 16,
-        height: 600,
-      }}
-    >
-      <ToolScreenshotFrame
-        label="故事順序總結與繪本成果畫面"
-        delay={0.15}
-        style={{ width: '100%', maxWidth: 1280, height: '100%', maxHeight: 600 }}
-      >
-        <img
-          src={imgEnglishSummary}
-          alt="故事順序總結畫面"
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
-            display: 'block',
-          }}
-        />
-      </ToolScreenshotFrame>
-    </div>
-
-    <TextbookFooter subtitle="工具導覽：故事順序總結與繪本" />
-  </div>
-);
-
-// Slide 23: 實作四︰英文課堂學習單生成系統 (10分鐘實作)
-const Slide09_Practice_English: Page = () => (
-  <PracticePage
-    num="04"
-    toolName="英文課堂學習單"
-    time="10 分鐘"
-    task="請利用英文課堂學習單生成器，貼入課文試做一課教材。"
-    href={toolUrls.englishWorksheet}
-    uploadHref={uploadFileUrls.language}
   />
 );
 
@@ -6607,7 +5975,9 @@ const Slide14_WebTool1Title: Page = () => (
           lineHeight: 1.15,
           letterSpacing: '-0.03em',
         }}
-      >句型重組</h1>
+      >
+        句型重組
+      </h1>
 
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div
@@ -6665,7 +6035,9 @@ const Slide14_WebTool1Title: Page = () => (
                 lineHeight: 1.42,
                 letterSpacing: '-0.01em',
               }}
-            >「wordwall有類似功能，但若要做多，要花錢，且無法客製化…」</div>
+            >
+              「wordwall有類似功能，但若要做多，要花錢，且無法客製化…」
+            </div>
           </div>
 
           {/* 學生心聲 */}
@@ -6761,7 +6133,9 @@ const Slide14_WebTool1: Page = () => (
           letterSpacing: '-0.02em',
           lineHeight: 1.15,
         }}
-      >視覺點擊與逐題檢核</h2>
+      >
+        視覺點擊與逐題檢核
+      </h2>
     </div>
 
     <div
@@ -6828,46 +6202,182 @@ const Slide14_WebTool1: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>免手寫直覺拖曳操作</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              免手寫直覺拖曳操作
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>支援即時字卡語音朗讀</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              支援即時字卡語音朗讀
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>靠聽力去把句子組起來，不是死記文法</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              靠聽力去把句子組起來，不是死記文法
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="互動操作 · 視覺拖曳與朗讀" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgTool1} alt="句型排列操作介面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="互動操作 · 視覺拖曳與朗讀"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgTool1}
+          alt="句型排列操作介面"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
     <TextbookFooter subtitle="工具導覽：視覺拖曳與校對" />
   </div>
-);
-
-// Slide 18: 實作五︰句型排列與語法重組 (10分鐘實作)
-const Slide14_Practice_Unscramble: Page = () => (
-  <PracticePage
-    num="04"
-    toolName="句型排列"
-    time="10 分鐘"
-    task="請利用句型排列工具，輸入 2~3 個句子試做互動練習。"
-    href={toolUrls.unscramble}
-    uploadHref={uploadFileUrls.general}
-  />
 );
 
 // 互動步驟數學: 工具主題封面扉頁 (大標 + 現場痛點訊息框)
@@ -6934,7 +6444,9 @@ const Slide15_InteractiveMathTitle: Page = () => (
           lineHeight: 1.15,
           letterSpacing: '-0.03em',
         }}
-      >互動步驟數學</h1>
+      >
+        互動步驟數學
+      </h1>
 
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div
@@ -7159,29 +6671,177 @@ const Slide15_InteractiveMath: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>小步驟拆解解題流程</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: '#4f46e5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              小步驟拆解解題流程
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: '#c45d47', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>提供輸入與點選雙模式</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: '#c45d47',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              提供輸入與點選雙模式
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#a66832', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '35px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>即時回饋強化解題信心</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#a66832',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '35px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              即時回饋強化解題信心
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：降低書寫挫折，提供高結構鷹架支持</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：降低書寫挫折，提供高結構鷹架支持
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="步驟鷹架 · 即時回饋檢核" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgInteractiveStepMath} alt="步步練互動數學學習單畫面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="步驟鷹架 · 即時回饋檢核"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgInteractiveStepMath}
+          alt="步步練互動數學學習單畫面"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -7414,7 +7074,9 @@ const Slide16_EbookDualMode: Page = () => (
         >
           單元二：自製互動網頁
         </span>
-        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>雙模式備課神器</span>
+        <span style={{ color: colors.muted, fontSize: '28px', fontWeight: 750 }}>
+          雙模式備課神器
+        </span>
       </div>
       <h2
         style={{
@@ -7495,29 +7157,177 @@ const Slide16_EbookDualMode: Page = () => (
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, margin: 'auto 0' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(196, 93, 71, 0.12)', border: '1.5px solid rgba(196, 93, 71, 0.25)', color: colors.orange, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>01</div>
-            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>教師端大屏：點擊秀答案＋畫筆板書</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(196, 93, 71, 0.12)',
+                border: '1.5px solid rgba(196, 93, 71, 0.25)',
+                color: colors.orange,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              01
+            </div>
+            <div
+              style={{
+                fontSize: '33px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              教師端大屏：點擊秀答案＋畫筆板書
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(166, 104, 50, 0.12)', border: '1.5px solid rgba(166, 104, 50, 0.25)', color: colors.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>02</div>
-            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>學生端列印：一鍵還原乾淨 A4 作業卷</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(166, 104, 50, 0.12)',
+                border: '1.5px solid rgba(166, 104, 50, 0.25)',
+                color: colors.accent,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              02
+            </div>
+            <div
+              style={{
+                fontSize: '33px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              學生端列印：一鍵還原乾淨 A4 作業卷
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(255, 255, 255, 0.95)', border: '1.5px solid rgba(226, 232, 240, 0.9)', borderRadius: 18, padding: '18px 24px', boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)' }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(56, 90, 115, 0.12)', border: '1.5px solid rgba(56, 90, 115, 0.25)', color: '#385a73', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', fontWeight: 950, fontFamily: 'var(--osd-font-display)', flexShrink: 0 }}>03</div>
-            <div style={{ fontSize: '33px', lineHeight: 1.35, fontWeight: 900, color: colors.text, letterSpacing: '-0.01em' }}>零門檻備課：告別每堂課熬夜做簡報</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1.5px solid rgba(226, 232, 240, 0.9)',
+              borderRadius: 18,
+              padding: '18px 24px',
+              boxShadow: '0 4px 16px rgba(148, 163, 184, 0.08)',
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: 'rgba(56, 90, 115, 0.12)',
+                border: '1.5px solid rgba(56, 90, 115, 0.25)',
+                color: '#385a73',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '26px',
+                fontWeight: 950,
+                fontFamily: 'var(--osd-font-display)',
+                flexShrink: 0,
+              }}
+            >
+              03
+            </div>
+            <div
+              style={{
+                fontSize: '33px',
+                lineHeight: 1.35,
+                fontWeight: 900,
+                color: colors.text,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              零門檻備課：告別每堂課熬夜做簡報
+            </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)', border: '1.5px solid rgba(226, 232, 240, 0.95)', borderRadius: 16, padding: '16px 22px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background:
+              'linear-gradient(135deg, rgba(246, 241, 234, 0.95) 0%, rgba(240, 233, 224, 0.95) 100%)',
+            border: '1.5px solid rgba(226, 232, 240, 0.95)',
+            borderRadius: 16,
+            padding: '16px 22px',
+          }}
+        >
           <span style={{ fontSize: '26px' }}>💡</span>
-          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>特教適性亮點：同步滿足「大螢幕視覺引導」與「個別紙本手寫練習」</span>
+          <span style={{ fontSize: '24px', fontWeight: 850, color: colors.muted }}>
+            特教適性亮點：同步滿足「大螢幕視覺引導」與「個別紙本手寫練習」
+          </span>
         </div>
       </div>
 
       {/* 右欄截圖 */}
-      <ToolScreenshotFrame label="自製電子書 · 互動功能工具列" delay={0.15} style={{ height: '100%', maxHeight: 600 }}>
-        <img src={imgEbookDraft} alt="自製電子書操作畫面" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', borderRadius: 14, border: '1px solid rgba(203, 213, 225, 0.6)', boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)', display: 'block' }} />
+      <ToolScreenshotFrame
+        label="自製電子書 · 互動功能工具列"
+        delay={0.15}
+        style={{ height: '100%', maxHeight: 600 }}
+      >
+        <img
+          src={imgEbookDraft}
+          alt="自製電子書操作畫面"
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+            borderRadius: 14,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            boxShadow: '0 12px 32px rgba(15, 23, 42, 0.1)',
+            display: 'block',
+          }}
+        />
       </ToolScreenshotFrame>
     </div>
 
@@ -7594,16 +7404,59 @@ const Slide16_EbookScenarios: Page = () => (
         }}
       >
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(166, 104, 50, 0.12)', color: colors.accent, padding: '6px 18px', borderRadius: 999, fontSize: '22px', fontWeight: 950, marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(166, 104, 50, 0.12)',
+              color: colors.accent,
+              padding: '6px 18px',
+              borderRadius: 999,
+              fontSize: '22px',
+              fontWeight: 950,
+              marginBottom: 10,
+            }}
+          >
             📸 情境一：丟現成草稿 / 圖片
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 850, color: colors.text, lineHeight: 1.35, marginBottom: 12 }}>
+          <div
+            style={{
+              fontSize: '28px',
+              fontWeight: 850,
+              color: colors.text,
+              lineHeight: 1.35,
+              marginBottom: 12,
+            }}
+          >
             已有設計好的學習單草稿？拍照上傳直接轉化為電子書！
           </div>
         </div>
 
-        <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(203, 213, 225, 0.6)', background: '#f8fafc' }}>
-          <img src={imgEbookDraft} alt="丟草稿生成電子書" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain' }} />
+        <div
+          style={{
+            flex: 1,
+            minHeight: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            borderRadius: 16,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            background: '#f8fafc',
+          }}
+        >
+          <img
+            src={imgEbookDraft}
+            alt="丟草稿生成電子書"
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+            }}
+          />
         </div>
       </div>
 
@@ -7627,16 +7480,59 @@ const Slide16_EbookScenarios: Page = () => (
         }}
       >
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(196, 93, 71, 0.12)', color: colors.orange, padding: '6px 18px', borderRadius: 999, fontSize: '22px', fontWeight: 950, marginBottom: 10 }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(196, 93, 71, 0.12)',
+              color: colors.orange,
+              padding: '6px 18px',
+              borderRadius: 999,
+              fontSize: '22px',
+              fontWeight: 950,
+              marginBottom: 10,
+            }}
+          >
             ✍️ 情境二：輸入概念 / 特教需求
           </div>
-          <div style={{ fontSize: '28px', fontWeight: 850, color: colors.text, lineHeight: 1.35, marginBottom: 12 }}>
+          <div
+            style={{
+              fontSize: '28px',
+              fontWeight: 850,
+              color: colors.text,
+              lineHeight: 1.35,
+              marginBottom: 12,
+            }}
+          >
             只給單元概念（如：一元一次方程式、數學學障），AI 直出特教學習單！
           </div>
         </div>
 
-        <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(203, 213, 225, 0.6)', background: '#f8fafc' }}>
-          <img src={imgEbookConcept} alt="輸入概念生成電子書" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain' }} />
+        <div
+          style={{
+            flex: 1,
+            minHeight: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            borderRadius: 16,
+            border: '1px solid rgba(203, 213, 225, 0.6)',
+            background: '#f8fafc',
+          }}
+        >
+          <img
+            src={imgEbookConcept}
+            alt="輸入概念生成電子書"
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+            }}
+          />
         </div>
       </div>
     </div>
@@ -8177,18 +8073,6 @@ const Slide20_IterationTakeaway: Page = () => (
     </div>
     <TextbookFooter subtitle="第三部分：自製工具的迭代心法" />
   </div>
-);
-
-// Slide 25: 實作七︰Gemini Canvas 自製出題助手實戰 (15分鐘實作)
-const Slide20_Practice_Canvas: Page = () => (
-  <PracticePage
-    num="06"
-    toolName="Gemini Canvas 自製出題助手"
-    time="15 分鐘"
-    task="請打開 Gemini Canvas，貼入咒語試做專屬出題助手。"
-    href="https://gemini.google.com/gem/8ed4d05fb486?usp=sharing"
-    uploadHref={uploadFileUrls.general}
-  />
 );
 
 // Slide 28: 今天的總結與閉幕
