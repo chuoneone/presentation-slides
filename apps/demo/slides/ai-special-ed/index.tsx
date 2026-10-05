@@ -303,7 +303,6 @@ const PartHeaderPage = ({
   const accents: Record<string, string> = {
     '1': '#d9822b', // 焦糖琥珀暖金 (PART 1)
     '2': '#c45d47', // 暖陶珊瑚赤紅 (PART 2)
-    '3': '#4a90b8', // 北歐謐藍 (PART 3)
   };
   const accent = accents[partNum] ?? '#d9822b';
 
@@ -443,7 +442,6 @@ const PartHeaderPage = ({
           {[
             { num: 1, name: '行政與教材備課' },
             { num: 2, name: '自製互動教學網頁' },
-            { num: 3, name: '自製 AI 工具實作' },
           ].map((item) => {
             const currentPart = Number.parseInt(partNum, 10);
             const isActive = item.num === currentPart;
@@ -482,7 +480,7 @@ const PartHeaderPage = ({
                   {isPassed ? '✓' : item.num}
                 </div>
                 <span>{item.name}</span>
-                {item.num < 3 && (
+                {item.num < 2 && (
                   <span style={{ color: 'rgba(255, 255, 255, 0.32)', marginLeft: 20 }}>➔</span>
                 )}
               </div>
@@ -851,7 +849,9 @@ const WorkshopPracticeTimer = ({
             style={{
               transform: 'rotate(-90deg)',
               transformOrigin: '50% 50%',
-              transition: 'stroke-dashoffset 0.4s linear',
+              transition: isRunning
+                ? 'stroke-dashoffset 1s linear'
+                : 'stroke-dashoffset 0.45s cubic-bezier(0.22, 1, 0.36, 1)',
             }}
           />
         </svg>
@@ -2177,7 +2177,6 @@ const Slide06_MixerIntro: Page = () => (
   </div>
 );
 
-// Slide 03: 今日大綱 (亮色微光玻璃擬態、清爽大氣、三大核心實踐)
 // Slide 03: 今日大綱 (簡約俐落社群風：無小插圖圖示，純淨01/02序號與清晰文字)
 const Slide03_Agenda: Page = () => (
   <div style={fill}>
@@ -2185,15 +2184,15 @@ const Slide03_Agenda: Page = () => (
     <TextbookHeader
       unit="今日大綱"
       title="特教教師的 AI 工作流"
-      subtitle="三大核心實踐 ‧ 模組化流程"
+      subtitle="兩大核心實踐 ‧ 模組化流程"
     />
 
-    {/* 三大精簡直立卡片 (純文字與乾淨序號，無任何多餘彩色小圖示) */}
+    {/* 兩大精簡直立卡片 (純文字與乾淨序號，無任何多餘彩色小圖示) */}
     <div
       className="m-grid"
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(2, 1fr)',
         gap: 32,
         zIndex: 2,
         flex: 1,
@@ -2483,149 +2482,6 @@ const Slide03_Agenda: Page = () => (
               02
             </div>
             <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>自製電子書</div>
-          </div>
-        </div>
-      </div>
-
-      {/* PART 03 卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.24s',
-          background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.98)',
-          borderTop: `7px solid ${colors.slate}`,
-          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-          borderRadius: 28,
-          padding: '36px 30px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 16,
-            }}
-          >
-            <span
-              style={{
-                fontSize: '34px',
-                fontWeight: 950,
-                color: colors.slate,
-                fontFamily: 'var(--osd-font-display)',
-                letterSpacing: '0.04em',
-              }}
-            >
-              PART 03
-            </span>
-            <span
-              style={{
-                background: 'rgba(36, 43, 53, 0.10)',
-                color: colors.slate,
-                borderRadius: 999,
-                padding: '6px 18px',
-                fontSize: '20px',
-                fontWeight: 900,
-              }}
-            >
-              16:20 - 17:00
-            </span>
-          </div>
-
-          <h3
-            style={{
-              margin: '0 0 8px 0',
-              fontSize: '40px',
-              fontWeight: 950,
-              color: colors.text,
-              lineHeight: 1.2,
-            }}
-          >
-            自製 AI 工具實作(補充)
-          </h3>
-          <div style={{ fontSize: '24px', color: colors.muted, fontWeight: 750 }}>
-            Canvas 打造專屬工具
-          </div>
-        </div>
-
-        {/* 兩大核心要點 */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              background: 'rgba(255, 255, 255, 0.95)',
-              border: '1.5px solid rgba(226, 216, 204, 0.85)',
-              borderRadius: 18,
-              padding: '18px 22px',
-              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
-            }}
-          >
-            <div
-              style={{
-                width: 46,
-                height: 46,
-                borderRadius: 12,
-                background: 'rgba(166, 104, 50, 0.12)',
-                color: colors.accent,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '24px',
-                fontWeight: 950,
-                fontFamily: 'var(--osd-font-display)',
-                flexShrink: 0,
-              }}
-            >
-              01
-            </div>
-            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
-              Vibe Coding 咒語
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              background: 'rgba(255, 255, 255, 0.95)',
-              border: '1.5px solid rgba(226, 216, 204, 0.85)',
-              borderRadius: 18,
-              padding: '18px 22px',
-              boxShadow: '0 4px 14px rgba(78, 64, 53, 0.05)',
-            }}
-          >
-            <div
-              style={{
-                width: 46,
-                height: 46,
-                borderRadius: 12,
-                background: 'rgba(36, 43, 53, 0.12)',
-                color: colors.slate,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '24px',
-                fontWeight: 950,
-                fontFamily: 'var(--osd-font-display)',
-                flexShrink: 0,
-              }}
-            >
-              02
-            </div>
-            <div style={{ fontSize: '30px', fontWeight: 900, color: colors.text }}>
-              Canvas 出題助手
-            </div>
           </div>
         </div>
       </div>
@@ -7555,526 +7411,6 @@ const Slide16_Practice_Ebook: Page = () => (
   />
 );
 
-// Slide 21: PART 3 過渡頁 (使用者指定：標題改 Gemini Canvas 教師自製 AI 工具實作)
-const Slide17_Part3Header: Page = () => (
-  <PartHeaderPage
-    partNum="3"
-    time="16:20~17:00"
-    title="Gemini Canvas 教師自製 AI 工具"
-    desc="只要說人話，就能自己做AI工具"
-  />
-);
-
-// Slide 23: Vibe coding「AI 備課工具」- 咒語架構三要素 (精簡版)
-const Slide19_VibePromptStructure: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader
-      unit="單元三"
-      title="Vibe Coding 咒語架構三要素"
-      subtitle="以 AI 智能考卷生成助手為例"
-    />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
-        gap: 32,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        alignItems: 'center',
-      }}
-    >
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'rgba(255, 255, 255, 0.86)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.accent}`,
-          borderRadius: 24,
-          padding: '28px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 20,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              background: 'rgba(166, 104, 50, 0.12)',
-              color: colors.accent,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '34px',
-              fontWeight: 950,
-              fontFamily: 'var(--osd-font-display)',
-              marginBottom: 16,
-            }}
-          >
-            01
-          </div>
-          <h3 style={{ margin: 0, fontSize: '52px', fontWeight: 950, color: colors.text }}>
-            大目標
-            <span
-              style={{
-                display: 'block',
-                fontSize: '26px',
-                color: colors.accent,
-                fontWeight: 800,
-                marginTop: 4,
-              }}
-            >
-              Goal · 宣告工具定位
-            </span>
-          </h3>
-          <div
-            style={{
-              fontSize: '36px',
-              lineHeight: 1.42,
-              color: colors.text,
-              fontWeight: 650,
-              marginTop: 16,
-              textAlign: 'left',
-            }}
-          >
-            「做一個 AI 考卷生成助手」<strong style={{ color: colors.accent }}>{''}</strong>
-            {''}
-            {''}
-          </div>
-        </div>
-        <div
-          style={{
-            background: 'rgba(166, 104, 50, 0.08)',
-            borderRadius: 14,
-            padding: '12px 16px',
-            fontSize: '26px',
-            color: colors.muted,
-            fontWeight: 700,
-            marginTop: 16,
-          }}
-        >
-          💡 明確設定工具目的與角色。
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.15s',
-          background: 'rgba(255, 255, 255, 0.86)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.orange}`,
-          borderRadius: 24,
-          padding: '28px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 20,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              background: 'rgba(196, 93, 71, 0.12)',
-              color: colors.orange,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '34px',
-              fontWeight: 950,
-              fontFamily: 'var(--osd-font-display)',
-              marginBottom: 16,
-            }}
-          >
-            02
-          </div>
-          <h3 style={{ margin: 0, fontSize: '52px', fontWeight: 950, color: colors.text }}>
-            操作流程
-            <span
-              style={{
-                display: 'block',
-                fontSize: '26px',
-                color: colors.orange,
-                fontWeight: 800,
-                marginTop: 4,
-              }}
-            >
-              Workflow · 介面輸入欄位
-            </span>
-          </h3>
-          <div
-            style={{
-              fontSize: '36px',
-              lineHeight: 1.42,
-              color: colors.text,
-              fontWeight: 650,
-              marginTop: 16,
-              textAlign: 'left',
-            }}
-          >
-            「使用者貼上教材、選擇題型」<strong>{''}</strong>
-            {''}
-            <strong>{''}</strong>
-            {''}
-            <strong>{''}</strong>
-          </div>
-        </div>
-        <div
-          style={{
-            background: 'rgba(196, 93, 71, 0.08)',
-            borderRadius: 14,
-            padding: '12px 16px',
-            fontSize: '26px',
-            color: colors.muted,
-            fontWeight: 700,
-            marginTop: 16,
-          }}
-        >
-          💡 規劃畫面要按什麼、填什麼。
-        </div>
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.3s',
-          background: 'rgba(255, 255, 255, 0.86)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `8px solid ${colors.blue}`,
-          borderRadius: 24,
-          padding: '28px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 20,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              background: 'rgba(56, 90, 115, 0.12)',
-              color: colors.blue,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '34px',
-              fontWeight: 950,
-              fontFamily: 'var(--osd-font-display)',
-              marginBottom: 16,
-            }}
-          >
-            03
-          </div>
-          <h3 style={{ margin: 0, fontSize: '52px', fontWeight: 950, color: colors.text }}>
-            期望結果
-            <span
-              style={{
-                display: 'block',
-                fontSize: '26px',
-                color: colors.blue,
-                fontWeight: 800,
-                marginTop: 4,
-              }}
-            >
-              Outcome · 具體成品
-            </span>
-          </h3>
-          <div
-            style={{
-              fontSize: '36px',
-              lineHeight: 1.42,
-              color: colors.text,
-              fontWeight: 650,
-              marginTop: 16,
-              textAlign: 'left',
-            }}
-          >
-            「就能生成題目並匯出 Word」<strong style={{ color: colors.orange }}>{''}</strong>
-          </div>
-        </div>
-        <div
-          style={{
-            background: 'rgba(56, 90, 115, 0.08)',
-            borderRadius: 14,
-            padding: '12px 16px',
-            fontSize: '26px',
-            color: colors.muted,
-            fontWeight: 700,
-            marginTop: 16,
-          }}
-        >
-          💡 產出實體可用的檔案與成果。
-        </div>
-      </div>
-    </div>
-
-    <div
-      className="es-fadeUp"
-      style={{
-        zIndex: 2,
-        marginTop: 26,
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        color: colors.white,
-        borderRadius: 20,
-        padding: '20px 32px',
-        textAlign: 'center',
-        fontSize: '32px',
-        fontWeight: 850,
-        boxShadow: '0 16px 36px rgba(15, 23, 42, 0.14)',
-      }}
-    >
-      🎯 黃金公式：<strong>【做什麼工具】＋【使用者輸入什麼】＋【產出什麼檔案】</strong>
-    </div>
-    <TextbookFooter subtitle="第三部分：Vibe Coding 咒語架構" />
-  </div>
-);
-
-const Slide20_CommonIssuesHelper: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader
-      unit="單元三"
-      title="自製工具，現場也會卡關"
-      subtitle="把常見問題整理成一個 AI 小幫手"
-    />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 28,
-        flex: 1,
-        minHeight: 0,
-        alignItems: 'stretch',
-        zIndex: 2,
-      }}
-    >
-      {[
-        {
-          number: '01',
-          title: 'Canvas 接 AI',
-          problem: '要求使用者輸入 API',
-          solution: '要求 AI 自動串接 Gemini',
-          accent: colors.accent,
-          tint: 'rgba(166, 104, 50, 0.1)',
-        },
-        {
-          number: '02',
-          title: '列印按鈕',
-          problem: '按了按鈕，列印功能卻沒反應。',
-          solution: '點擊按鈕後另開 blob 分頁，並跳出列印視窗。',
-          accent: colors.orange,
-          tint: 'rgba(196, 93, 71, 0.1)',
-        },
-        {
-          number: '03',
-          title: 'Word 匯出',
-          problem: '格式跑掉，或檔案沒有照預期產生。',
-          solution: '直接截圖貼上個人常用格式。',
-          accent: colors.blue,
-          tint: 'rgba(56, 90, 115, 0.1)',
-        },
-      ].map((issue) => (
-        <div
-          key={issue.number}
-          style={{
-            minHeight: 250,
-            padding: '34px 36px',
-            borderRadius: 24,
-            background: 'rgba(255, 255, 255, 0.9)',
-            border: '1.5px solid rgba(255, 255, 255, 0.95)',
-            borderTop: `8px solid ${issue.accent}`,
-            boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 18,
-            zIndex: 2,
-          }}
-        >
-          <span
-            style={{
-              alignSelf: 'flex-start',
-              padding: '8px 16px',
-              borderRadius: 10,
-              background: issue.tint,
-              color: issue.accent,
-              fontSize: '25px',
-              fontWeight: 950,
-            }}
-          >
-            {issue.number}
-          </span>
-          <h3 style={{ margin: 0, color: colors.text, fontSize: '50px', fontWeight: 950 }}>
-            {issue.title}
-          </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '88px 1fr', gap: 12 }}>
-              <strong style={{ color: colors.orange, fontSize: '30px', fontWeight: 950 }}>
-                問題
-              </strong>
-              <p
-                style={{
-                  margin: 0,
-                  color: colors.text,
-                  fontSize: '30px',
-                  lineHeight: 1.4,
-                  fontWeight: 700,
-                }}
-              >
-                {issue.problem}
-              </p>
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '88px 1fr',
-                gap: 12,
-                borderTop: '1px solid rgba(148, 163, 184, 0.3)',
-                paddingTop: 14,
-              }}
-            >
-              <strong style={{ color: colors.blue, fontSize: '30px', fontWeight: 950 }}>
-                解方
-              </strong>
-              <p
-                style={{
-                  margin: 0,
-                  color: colors.muted,
-                  fontSize: '30px',
-                  lineHeight: 1.4,
-                  fontWeight: 700,
-                }}
-              >
-                {issue.solution}
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-    <div
-      style={{
-        zIndex: 2,
-        marginTop: 28,
-        padding: '24px 32px',
-        borderRadius: 22,
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        color: colors.white,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 28,
-        boxShadow: '0 18px 40px rgba(15, 23, 42, 0.16)',
-      }}
-    >
-      <div style={{ fontSize: '30px', lineHeight: 1.45, fontWeight: 750 }}>
-        遇到這些狀況不用自己慢慢試，
-        <strong style={{ color: '#c7d2fe' }}>直接問 AI 小幫手</strong>，少繞一點路。
-      </div>
-      <a
-        href="https://gemini.google.com/gem/1wKgy93k8glqhdWihRvKa3MTJA2yu9UEu?usp=sharing"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          flexShrink: 0,
-          padding: '18px 24px',
-          borderRadius: 14,
-          background: 'linear-gradient(135deg, #818cf8, #38bdf8)',
-          color: '#0f172a',
-          fontSize: '26px',
-          fontWeight: 950,
-          textDecoration: 'none',
-          boxShadow: '0 10px 24px rgba(56, 189, 248, 0.2)',
-        }}
-      >
-        開啟 AI 小幫手 ↗
-      </a>
-    </div>
-    <TextbookFooter subtitle="第三部分：自製 AI 工具現場支援" />
-  </div>
-);
-
-const Slide20_IterationTakeaway: Page = () => (
-  <div style={{ ...fill, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-    <TextbookBg />
-    <div style={{ zIndex: 2, maxWidth: 1420 }}>
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 12,
-          borderRadius: 999,
-          background: 'rgba(166, 104, 50, 0.12)',
-          color: colors.accent,
-          padding: '10px 28px',
-          fontSize: '26px',
-          fontWeight: 950,
-          marginBottom: 30,
-        }}
-      >
-        自製 AI 工具的心法
-      </div>
-      <h2
-        style={{
-          color: colors.text,
-          fontSize: '82px',
-          fontWeight: 950,
-          lineHeight: 1.18,
-          letterSpacing: '-0.03em',
-          margin: 0,
-        }}
-      >
-        厲害的不是提示詞下得多漂亮
-        <br />
-        而是看得出問題，說得清楚
-      </h2>
-      <p
-        style={{
-          color: colors.muted,
-          fontSize: '38px',
-          fontWeight: 700,
-          lineHeight: 1.5,
-          margin: '30px 0 0',
-        }}
-      >
-        請它修正，再看一次。保持耐心，工具會慢慢長成你要的樣子。
-      </p>
-      <div
-        style={{
-          marginTop: 44,
-          borderRadius: 24,
-          background: 'linear-gradient(135deg, #0f172a 0%, #312e81 100%)',
-          boxShadow: '0 22px 50px rgba(49, 46, 129, 0.22)',
-          color: colors.white,
-          padding: '28px 46px',
-          fontSize: '42px',
-          fontWeight: 950,
-          lineHeight: 1.35,
-        }}
-      >
-        把迭代當成遊戲破關，耐心就會變成樂趣。
-      </div>
-    </div>
-    <TextbookFooter subtitle="第三部分：自製工具的迭代心法" />
-  </div>
-);
-
 // Slide 28: 今天的總結與閉幕
 const Slide23_ClosingSummary: Page = () => (
   <div style={{ ...fill, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
@@ -8132,7 +7468,7 @@ const Slide23_ClosingSummary: Page = () => (
         </div>
         <div>
           <strong style={{ color: colors.text, fontWeight: 950 }}>不用追趕：</strong>
-          紙本、數位或自製 AI，適合你的就是好工具。
+          紙本或數位互動，適合你的就是好工具。
         </div>
         <div>
           <strong style={{ color: colors.text, fontWeight: 950 }}>回歸痛點：</strong>
@@ -8354,10 +7690,6 @@ export default [
   Slide16_EbookDualMode,
   Slide16_EbookScenarios,
   Slide16_Practice_Ebook,
-  Slide17_Part3Header,
-  Slide19_VibePromptStructure,
-  Slide20_CommonIssuesHelper,
-  Slide20_IterationTakeaway,
   Slide24_RecommendedTools,
   Slide23_ClosingSummary,
   Slide02c_Social,
