@@ -2912,6 +2912,208 @@ const Slide05b_OtherIepTools: Page = () => {
   );
 };
 
+const aiReviewChecks = [
+  {
+    title: '刪掉漂亮的廢話',
+    desc: '「具備良好潛能」「能積極參與」這類空泛句子，刪掉或改寫',
+  },
+  {
+    title: '補上你的平常觀察',
+    desc: '寫出具體情境、行為與次數，例如：40 分鐘內離座 3 次',
+  },
+  {
+    title: '逐句核對事實',
+    desc: 'AI 會自己補細節，評量結果與能力描述都要再確認',
+  },
+  {
+    title: '目標要能評量',
+    desc: '確認有條件、標準與評量方式，而不只是好聽的句子',
+  },
+] as const;
+
+const privacyItems = [
+  '姓名',
+  '身分證字號',
+  '生日',
+  '學號',
+  '學校與班級',
+  '家庭狀況',
+  '診斷證明',
+  '照片',
+];
+
+const Slide05c_IepAiReminder: Page = () => (
+  <div style={fill}>
+    <TextbookBg />
+    <TextbookHeader
+      unit="使用提醒"
+      title="AI 搭架構，內容靠你的觀察"
+      subtitle="生成只是起點，不是成品"
+    />
+
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+        flex: 1,
+        minHeight: 0,
+        zIndex: 2,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 28,
+          background: 'linear-gradient(135deg, #1c222b 0%, #242b35 60%, #2c3644 100%)',
+          borderRadius: 24,
+          padding: '26px 40px',
+          color: colors.white,
+        }}
+      >
+        <span
+          style={{
+            flexShrink: 0,
+            background: colors.orange,
+            borderRadius: 14,
+            padding: '8px 20px',
+            fontSize: '28px',
+            fontWeight: 950,
+            letterSpacing: '0.04em',
+          }}
+        >
+          重點
+        </span>
+        <div style={{ fontSize: '34px', fontWeight: 800, lineHeight: 1.45 }}>
+          AI 能幫我們<strong style={{ color: '#fed7aa' }}>快速做出架構</strong>
+          ，但內容常常寫得漂亮卻充滿廢話。
+          <br />
+          送出前，<strong style={{ color: '#fed7aa' }}>一定要再自行加註平常的觀察</strong>。
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1.35fr 1fr',
+          gap: 24,
+          flex: 1,
+          minHeight: 0,
+        }}
+      >
+        <div
+          style={{
+            background: 'rgba(255, 255, 255, 0.94)',
+            border: '1.5px solid rgba(226, 216, 204, 0.85)',
+            borderTop: `7px solid ${colors.accent}`,
+            borderRadius: 24,
+            padding: '24px 34px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 14,
+          }}
+        >
+          <div style={{ fontSize: '32px', fontWeight: 950, color: colors.accent }}>
+            AI 生成後，這樣檢查
+          </div>
+          {aiReviewChecks.map(({ title, desc }, index) => (
+            <div key={title} style={{ display: 'flex', gap: 18, alignItems: 'flex-start' }}>
+              <div
+                style={{
+                  width: 46,
+                  height: 46,
+                  borderRadius: 12,
+                  background: 'rgba(166, 104, 50, 0.12)',
+                  color: colors.accent,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '24px',
+                  fontWeight: 950,
+                  fontFamily: 'var(--osd-font-display)',
+                  flexShrink: 0,
+                  marginTop: 2,
+                }}
+              >
+                {String(index + 1).padStart(2, '0')}
+              </div>
+              <div>
+                <div style={{ fontSize: '30px', fontWeight: 950, color: colors.text }}>{title}</div>
+                <div
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: 650,
+                    color: colors.muted,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {desc}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            background: colors.orangeLight,
+            border: `2px solid ${colors.orange}55`,
+            borderTop: `7px solid ${colors.orange}`,
+            borderRadius: 24,
+            padding: '24px 34px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 18,
+          }}
+        >
+          <div style={{ fontSize: '32px', fontWeight: 950, color: colors.orange }}>
+            ⚠️ 學生個資，不要上傳
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+            {privacyItems.map((item) => (
+              <span
+                key={item}
+                style={{
+                  background: colors.white,
+                  border: `1.5px solid ${colors.orange}40`,
+                  borderRadius: 999,
+                  padding: '10px 24px',
+                  fontSize: '30px',
+                  fontWeight: 850,
+                  color: colors.text,
+                  textDecoration: 'line-through',
+                  textDecorationColor: `${colors.orange}aa`,
+                  textDecorationThickness: 3,
+                }}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <div
+            style={{
+              marginTop: 'auto',
+              background: colors.white,
+              borderRadius: 16,
+              padding: '16px 22px',
+              fontSize: '26px',
+              fontWeight: 800,
+              color: colors.text,
+              lineHeight: 1.45,
+            }}
+          >
+            改用<strong style={{ color: colors.orange }}>「A 生」等代號</strong>
+            ，只描述學習表現與需求，上傳前再檢查一次。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <TextbookFooter subtitle="AI 使用提醒：架構、觀察與個資" />
+  </div>
+);
+
 // Slide 09: 實作一︰IEP 目標生成器 (5分鐘實作)
 const Slide06_Practice_IEP: Page = () => (
   <PracticePage
@@ -7667,6 +7869,7 @@ export default [
   Slide04_Part1Header,
   Slide05_AdminIep,
   Slide05b_OtherIepTools,
+  Slide05c_IepAiReminder,
   Slide06_Practice_IEP,
   Slide08_ChineseLessonTitle,
   Slide08_ChineseLessonWorksheet1,
