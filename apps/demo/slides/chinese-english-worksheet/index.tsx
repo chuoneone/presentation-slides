@@ -2,90 +2,42 @@ import imgHeadshot from '@assets/headshot.webp';
 import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
 import imgMixerShare from '@assets/mixer-share.webp';
 import imgMixerTeaching from '@assets/mixer-teaching.webp';
-import imgWorkshopHomepage from '@assets/workshop-homepage.webp';
-import imgWorkshopSearchResult from '@assets/workshop-search-result.webp';
 import {
   type DesignSystem,
+  MorphElement,
   type Page,
   type SlideMeta,
   type SlideTransition,
+  Step,
+  Steps,
+  useIsActivePage,
   useSlidePageNumber,
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
-import imgChineseMatch from './assets/chinese-match-quiz.webp';
-import imgChineseQuiz from './assets/chinese-paragraph-quiz.webp';
-import imgChineseReading from './assets/chinese-scaffold-reading.webp';
-import imgChineseTable from './assets/chinese-structure-table.webp';
-import imgChineseTianzi from './assets/chinese-tianzi-grid.webp';
-import imgChineseWorksheet from './assets/chinese-worksheet-tool.webp';
-import imgChineseTranslate from './assets/chinese-translate-screenshot.png';
 import imgCharacterFamily from './assets/character-family-screenshot.png';
+import imgChineseReading from './assets/chinese-scaffold-reading.webp';
+import imgChineseTranslate from './assets/chinese-translate-screenshot.png';
+import imgMathPrint from './assets/math-print-preview.webp';
+import imgSpecialEdEnglish from './assets/special-ed-english-screenshot.png';
 import imgSteppedVocab from './assets/stepped-vocab-screenshot.png';
 import imgVocabPractice from './assets/vocab-practice-screenshot.png';
-import imgSpecialEdEnglish from './assets/special-ed-english-screenshot.png';
-import imgEbookDraft from './assets/ebook-draft-input.png';
-import imgEnglishHandwriting from './assets/english-handwriting-practice.webp';
-import imgEnglishInput from './assets/english-input-form.webp';
-import imgEnglishQuiz from './assets/english-scene-quiz.webp';
-import imgEnglishSummary from './assets/english-story-summary.webp';
-import imgEnglishStoryboard from './assets/english-storyboard-reading.webp';
-import imgMathPrint from './assets/math-print-preview.webp';
 
 export const design: DesignSystem = {
-  palette: { bg: '#f1f5f9', text: '#0f172a', accent: '#6366f1' },
+  palette: { bg: '#F0F4F8', text: '#1e293b', accent: '#38A3A5' },
   fonts: {
     display:
-      "'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif",
-    body: "'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif",
+      '"Outfit", "Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
+    body: '"Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
   },
-  typeScale: { hero: 150, body: 36 },
-  radius: 20,
+  typeScale: { hero: 132, body: 36 },
+  radius: 36,
 };
 
-export const transition: SlideTransition = {
-  duration: 220,
-  exit: {
-    duration: 150,
-    easing: 'cubic-bezier(0.4, 0, 1, 1)',
-    keyframes: [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-4px)' },
-    ],
-  },
-  enter: {
-    duration: 220,
-    delay: 72,
-    easing: 'cubic-bezier(0, 0, 0.2, 1)',
-    keyframes: [
-      { opacity: 0, transform: 'translateY(8px)' },
-      { opacity: 1, transform: 'translateY(0)' },
-    ],
-  },
-};
+const deep = '#22577A';
+const muted = '#64748b';
+const rose = '#f43f5e';
 
-const colors = {
-  bg: '#f5efe6', // 暖燕麥拿鐵奶茶色
-  bgGradient:
-    'radial-gradient(at 0% 0%, rgba(197, 137, 85, 0.12) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(181, 141, 103, 0.10) 0px, transparent 50%), radial-gradient(at 50% 100%, rgba(196, 93, 71, 0.08) 0px, transparent 50%), #f5efe6',
-  text: '#1e1b18', // 濃縮深焙黑咖啡暖字
-  accent: '#a66832', // 焦糖琥珀暖棕（社群主色）
-  accentMuted: '#f4eae0', // 燕麥奶白
-  orange: '#c45d47', // 暖陶紅／珊瑚赤陶（點綴色）
-  orangeLight: '#faebe6',
-  kraft: '#b58d67', // 牛皮紙膠帶色
-  kraftLight: '#f6f0ea',
-  slate: '#242b35', // SPED Logo 極致深藍岩灰
-  slateLight: '#e8edf2',
-  blue: '#385a73', // 北歐謐藍
-  blueLight: '#eaf0f5',
-  border: 'rgba(226, 216, 204, 0.85)',
-  muted: '#706459', // 溫暖可可灰
-  white: '#ffffff',
-  navy: '#1e1b18',
-  glassBg: 'rgba(255, 255, 255, 0.94)',
-  glassBorder: 'rgba(255, 255, 255, 0.98)',
-  glassShadow: '0 18px 44px rgba(78, 64, 53, 0.10), 0 4px 14px rgba(181, 141, 103, 0.06)',
-} as const;
+const SLIDE_ID = 'chinese-english-worksheet';
 
 const toolUrls = {
   chineseLessonWorksheet: 'https://spedmix.pages.dev/chinese-lesson-worksheet',
@@ -95,10 +47,6 @@ const toolUrls = {
   steppedVocab: 'https://spedmix.pages.dev/stepped-vocab-worksheet',
   vocabPractice: 'https://spedmix.pages.dev/vocab-practice-worksheet',
   ebookHome: 'https://spedmix.pages.dev/',
-} as const;
-
-const uploadFileUrls = {
-  general: 'https://forms.gle/wnMPK8xJXCwQ6VNh8',
 } as const;
 
 const socialUrls = {
@@ -113,596 +61,616 @@ const mixerSiteUrls = {
   teaching: 'https://spedmixteaching.pages.dev/',
 } as const;
 
+const ICONS = [
+  'add',
+  'arrow_forward',
+  'auto_awesome',
+  'auto_stories',
+  'chat_bubble',
+  'check',
+  'face',
+  'favorite',
+  'folder_shared',
+  'history_edu',
+  'lightbulb',
+  'menu_book',
+  'open_in_new',
+  'pause',
+  'photo_library',
+  'play_arrow',
+  'quiz',
+  'remove',
+  'restart_alt',
+  'school',
+  'sentiment_dissatisfied',
+  'spellcheck',
+  'stairs',
+  'task_alt',
+  'timer',
+  'translate',
+  'work',
+].sort();
+
+const FONT_LINKS: [string, string][] = [
+  [
+    `osd-webfont-${SLIDE_ID}`,
+    'https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap',
+  ],
+  [
+    `osd-icons-${SLIDE_ID}`,
+    `https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0&icon_names=${ICONS.join(',')}&display=block`,
+  ],
+];
+
+// Apple's two-parameter spring (damping ratio + response), sampled into a CSS
+// linear() easing so in-page entrances carry real overshoot and settle.
+type Spring = { easing: string; ms: number };
+const spring = (dampingRatio: number, response: number): Spring => {
+  const w0 = (2 * Math.PI) / response;
+  const z = dampingRatio;
+  const wd = z < 1 ? w0 * Math.sqrt(1 - z * z) : 0;
+  const pos = (t: number) =>
+    z < 1
+      ? 1 - Math.exp(-z * w0 * t) * (Math.cos(wd * t) + ((z * w0) / wd) * Math.sin(wd * t))
+      : 1 - (1 + w0 * t) * Math.exp(-w0 * t);
+  const envelope = (t: number) =>
+    z < 1 ? Math.exp(-z * w0 * t) / Math.sqrt(1 - z * z) : (1 + w0 * t) * Math.exp(-w0 * t);
+  let settle = 0;
+  while (envelope(settle) > 0.002) settle += 0.005;
+  const samples = 48;
+  const points: number[] = [];
+  for (let i = 0; i <= samples; i++) points.push(i === samples ? 1 : pos((settle * i) / samples));
+  return {
+    easing: `linear(${points.map((p) => Number(p.toFixed(4))).join(', ')})`,
+    ms: Math.round(settle * 1000),
+  };
+};
+
+const SOFT = spring(1, 0.5);
+const BOUNCY = spring(0.7, 0.45);
+
+const css = `
+@keyframes cew-rise { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }
+@keyframes cew-materialize { from { opacity: 0; transform: scale(0.94); filter: blur(18px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes cew-pop { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: none; } }
+@keyframes cew-fade { from { opacity: 0; } to { opacity: 1; } }
+[data-osd-step="revealed"] > .cew-step { animation: cew-rise ${SOFT.ms}ms ${SOFT.easing} both; }
+.cew-link { transition: transform 160ms ease-out; }
+.cew-link:active { transform: scale(0.97); transition-duration: 80ms; }
+@media (prefers-reduced-motion: reduce) {
+  .cew-anim, [data-osd-step="revealed"] > .cew-step {
+    animation-name: cew-fade !important;
+    animation-duration: 240ms !important;
+    animation-timing-function: ease-out !important;
+  }
+}
+`;
+
+if (typeof document !== 'undefined') {
+  for (const [id, href] of FONT_LINKS) {
+    let link = document.getElementById(id) as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+    if (link.href !== href) link.href = href;
+  }
+  const styleId = `osd-styles-${SLIDE_ID}`;
+  let style = document.getElementById(styleId);
+  if (!style) {
+    style = document.createElement('style');
+    style.id = styleId;
+    document.head.appendChild(style);
+  }
+  if (style.textContent !== css) style.textContent = css;
+}
+
+const EASE_IN = 'cubic-bezier(0.4, 0, 1, 1)';
+const EASE_OUT = 'cubic-bezier(0, 0, 0.2, 1)';
+const HOLD: Keyframe[] = [{ opacity: 1 }, { opacity: 1 }];
+const MORPH_MS = 880;
+
+export const transition: SlideTransition = {
+  duration: 260,
+  exit: { duration: 260, easing: EASE_IN, keyframes: HOLD },
+  enter: {
+    duration: 260,
+    easing: EASE_OUT,
+    keyframes: [
+      { opacity: 0, transform: 'translateY(6px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ],
+  },
+};
+
+const settle: SlideTransition = {
+  duration: 280,
+  exit: { duration: 280, easing: EASE_IN, keyframes: HOLD },
+  enter: {
+    duration: 280,
+    easing: EASE_OUT,
+    keyframes: [
+      { opacity: 0, transform: 'translateY(12px)', filter: 'blur(4px)' },
+      { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' },
+    ],
+  },
+};
+
+const morphTransition: SlideTransition = {
+  duration: 300,
+  exit: { duration: 320, easing: EASE_IN, keyframes: HOLD },
+  enter: { duration: 320, easing: EASE_OUT, keyframes: [{ opacity: 0 }, { opacity: 1 }] },
+  morph: { duration: MORPH_MS, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+};
+
 const fill: CSSProperties = {
   width: '100%',
   height: '100%',
   position: 'relative',
   overflow: 'hidden',
+  background: 'var(--osd-bg)',
+  color: 'var(--osd-text)',
   fontFamily: 'var(--osd-font-body)',
-  color: colors.text,
-  background: colors.bgGradient,
-  boxSizing: 'border-box',
-  padding: '64px 108px 110px 108px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
 };
 
-const keyframes = `
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700&display=swap');
+const glass: CSSProperties = {
+  background: 'rgba(255, 255, 255, 0.62)',
+  backdropFilter: 'blur(28px) saturate(180%)',
+  WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+  border: '1px solid rgba(255, 255, 255, 0.85)',
+  boxShadow:
+    'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 30px 60px -30px rgba(34, 87, 122, 0.28), 0 2px 6px rgba(15, 23, 42, 0.04)',
+  borderRadius: 'var(--osd-radius)',
+};
 
-h1, h2, h3, [data-heading] {
-  font-family: var(--osd-font-display), 'Playfair Display', 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', 'MingLiU', serif !important;
-}
+const brandGradient = `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`;
 
-@keyframes es-fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.es-fadeUp {
-  animation: es-fadeUp 0.42s cubic-bezier(0, 0, 0.2, 1) both;
-  will-change: transform, opacity;
-}
-@media (prefers-reduced-motion: reduce) {
-  .es-fadeUp {
-    animation-duration: 0.01ms;
-    animation-delay: 0ms !important;
-  }
-}
-`;
+const gradText: CSSProperties = {
+  background: brandGradient,
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  color: 'transparent',
+};
 
-const TextbookBg = () => (
+const eyebrow: CSSProperties = {
+  fontSize: 26,
+  fontWeight: 700,
+  letterSpacing: '0.14em',
+  color: 'var(--osd-accent)',
+};
+
+const h2: CSSProperties = {
+  fontFamily: 'var(--osd-font-display)',
+  fontSize: 68,
+  fontWeight: 900,
+  lineHeight: 1.15,
+  letterSpacing: '-0.01em',
+  margin: 0,
+};
+
+const Icon = ({
+  name,
+  size,
+  color = 'currentColor',
+}: {
+  name: string;
+  size: number;
+  color?: string;
+}) => (
+  <span
+    style={{
+      fontFamily: '"Material Symbols Rounded"',
+      fontSize: size,
+      lineHeight: 1,
+      color,
+      fontWeight: 'normal',
+      fontStyle: 'normal',
+      letterSpacing: 'normal',
+      whiteSpace: 'nowrap',
+      direction: 'ltr',
+      fontFeatureSettings: '"liga"',
+      WebkitFontSmoothing: 'antialiased',
+      display: 'inline-block',
+      userSelect: 'none',
+    }}
+  >
+    {name}
+  </span>
+);
+
+const Glow = ({ x, y, size, color }: { x: number; y: number; size: number; color: string }) => (
   <div
     style={{
       position: 'absolute',
-      inset: 0,
-      border: '14px solid rgba(255, 255, 255, 0.85)',
-      background: 'transparent',
-      overflow: 'hidden',
+      left: x - size / 2,
+      top: y - size / 2,
+      width: size,
+      height: size,
+      borderRadius: '50%',
+      background: `radial-gradient(circle, ${color} 0%, transparent 68%)`,
       pointerEvents: 'none',
     }}
-  >
-    <div
-      style={{
-        position: 'absolute',
-        top: '-15%',
-        right: '-8%',
-        width: 680,
-        height: 680,
-        borderRadius: '50%',
-        background:
-          'radial-gradient(circle, rgba(181, 141, 103, 0.20) 0%, rgba(197, 137, 85, 0.08) 50%, transparent 70%)',
-        filter: 'blur(50px)',
-      }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        bottom: '-20%',
-        left: '-8%',
-        width: 720,
-        height: 720,
-        borderRadius: '50%',
-        background:
-          'radial-gradient(circle, rgba(196, 93, 71, 0.12) 0%, rgba(181, 141, 103, 0.08) 50%, transparent 70%)',
-        filter: 'blur(60px)',
-      }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        inset: 0,
-        opacity: 0.35,
-        backgroundImage: 'radial-gradient(rgba(140, 120, 105, 0.35) 1.2px, transparent 1.2px)',
-        backgroundSize: '28px 28px',
-      }}
-    />
-    <style>{keyframes}</style>
-  </div>
+  />
 );
 
-const TextbookFooter = ({
-  subtitle,
-  inverse = false,
-}: {
-  subtitle?: string;
-  inverse?: boolean;
-}) => {
-  const { current, total } = useSlidePageNumber();
-  return (
-    <footer
-      style={{
-        position: 'absolute',
-        bottom: 20,
-        left: 120,
-        right: 120,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderTop: inverse
-          ? '1px solid rgba(255, 255, 255, 0.2)'
-          : '1px solid rgba(203, 213, 225, 0.6)',
-        paddingTop: 16,
-        fontSize: '24px',
-        color: inverse ? '#cbd5e1' : colors.muted,
-        fontWeight: 700,
-        zIndex: 10,
-        backdropFilter: 'blur(8px)',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <span
-          style={{
-            background: 'linear-gradient(90deg, #a66832, #c45d47)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            fontWeight: 950,
-          }}
-        >
-          特教語文適性教學工作流
-        </span>
-        <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>·</span>
-        <span style={{ color: inverse ? '#cbd5e1' : colors.muted, fontWeight: 750 }}>
-          {subtitle ?? '國文 ‧ 英文 ‧ 自製電子書'}
-        </span>
-      </div>
-      <div
-        style={{
-          fontVariantNumeric: 'tabular-nums',
-          letterSpacing: '0.08em',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-        }}
-      >
-        <span style={{ fontSize: '20px', color: inverse ? '#94a3b8' : '#94a3b8' }}>PAGE</span>
-        <span
-          style={{
-            padding: '2px 10px',
-            background: inverse ? 'rgba(255, 255, 255, 0.15)' : 'rgba(166, 104, 50, 0.12)',
-            color: inverse ? '#c7d2fe' : colors.accent,
-            borderRadius: 6,
-            fontWeight: 950,
-            fontSize: '26px',
-          }}
-        >
-          {String(current).padStart(2, '0')}
-        </span>
-        <span style={{ color: inverse ? 'rgba(255, 255, 255, 0.35)' : '#cbd5e1' }}>/</span>
-        <span style={{ color: inverse ? '#cbd5e1' : '#64748b' }}>
-          {String(total).padStart(2, '0')}
-        </span>
-      </div>
-    </footer>
-  );
-};
-
-const TextbookHeader = ({
-  unit,
-  title,
-  subtitle,
-}: {
-  unit: string;
-  title: string;
-  subtitle?: string;
-}) => (
-  <div style={{ zIndex: 2, marginBottom: 26 }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-      <span
-        style={{
-          color: colors.accent,
-          fontFamily: 'var(--osd-font-display)',
-          fontWeight: 900,
-          fontSize: '26px',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          background: 'rgba(166, 104, 50, 0.1)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(166, 104, 50, 0.2)',
-          padding: '6px 20px',
-          borderRadius: 10,
-          boxShadow: '0 2px 8px rgba(166, 104, 50, 0.08)',
-        }}
-      >
-        {unit}
-      </span>
-      {subtitle && (
-        <span style={{ color: colors.muted, fontSize: '26px', fontWeight: 700 }}>{subtitle}</span>
-      )}
-    </div>
-    <h2
-      style={{
-        fontFamily: 'var(--osd-font-display)',
-        fontSize: '80px',
-        fontWeight: 900,
-        margin: '8px 0 0 0',
-        color: colors.text,
-        letterSpacing: '-0.02em',
-        lineHeight: 1.15,
-      }}
-    >
-      {title}
-    </h2>
-  </div>
-);
-
-const PartHeaderPage = ({
-  partNum,
-  time,
-  title,
-  desc,
-}: {
-  partNum: string;
-  time: string;
-  title: string;
-  desc: string;
-}) => {
-  const accents: Record<string, string> = {
-    '1': '#d9822b', // 焦糖琥珀暖金 (PART 1)
-    '2': '#c45d47', // 暖陶珊瑚赤紅 (PART 2)
-    '3': '#385a73', // 北歐謐藍 (PART 3)
-  };
-  const accent = accents[partNum] ?? '#d9822b';
-
-  return (
-    <div
-      style={{
-        ...fill,
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        color: colors.white,
-        background: 'linear-gradient(135deg, #1c222b 0%, #242b35 52%, #2c3644 100%)',
-      }}
-    >
+const Stage = ({ children, dots = false }: { children: ReactNode; dots?: boolean }) => (
+  <div style={fill}>
+    <Glow x={1500} y={260} size={1300} color="rgba(56, 163, 165, 0.20)" />
+    <Glow x={260} y={900} size={1100} color="rgba(59, 130, 246, 0.10)" />
+    <Glow x={1100} y={1050} size={900} color="rgba(87, 204, 153, 0.12)" />
+    {dots && (
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.14) 1.2px, transparent 1.2px)',
-          backgroundSize: '28px 28px',
-          opacity: 0.3,
-          pointerEvents: 'none',
+          backgroundImage: 'radial-gradient(rgba(30, 41, 59, 0.10) 1.5px, transparent 1.5px)',
+          backgroundSize: '36px 36px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
         }}
       />
+    )}
+    {children}
+  </div>
+);
 
-      <div
-        style={{
-          position: 'absolute',
-          width: 850,
-          height: 850,
-          borderRadius: '50%',
-          background: `radial-gradient(circle, ${accent}55 0%, rgba(28, 34, 43, 0) 70%)`,
-          filter: 'blur(50px)',
-          top: '20%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          pointerEvents: 'none',
-        }}
-      />
+const Rise = ({
+  children,
+  delay = 0,
+  kind = 'rise',
+  motion = SOFT,
+  style,
+}: {
+  children: ReactNode;
+  delay?: number;
+  kind?: 'rise' | 'materialize' | 'pop' | 'fade';
+  motion?: Spring;
+  style?: CSSProperties;
+}) => {
+  const active = useIsActivePage();
+  return (
+    <div
+      className={active ? 'cew-anim' : undefined}
+      style={{
+        ...style,
+        animation: active
+          ? `cew-${kind} ${motion.ms}ms ${motion.easing} ${delay}ms both`
+          : undefined,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
-      <div
+const StepIn = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => {
+  const active = useIsActivePage();
+  return (
+    <div className={active ? 'cew-step' : undefined} style={style}>
+      {children}
+    </div>
+  );
+};
+
+const Tile = ({
+  icon,
+  size,
+  radius,
+  iconSize,
+  tone = 'brand',
+}: {
+  icon: string;
+  size: number;
+  radius: number;
+  iconSize: number;
+  tone?: 'brand' | 'soft';
+}) => (
+  <div
+    style={{
+      width: size,
+      height: size,
+      borderRadius: radius,
+      flexShrink: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background:
+        tone === 'brand'
+          ? `linear-gradient(145deg, #4FBDBE 0%, var(--osd-accent) 45%, ${deep} 100%)`
+          : 'rgba(56, 163, 165, 0.12)',
+      boxShadow:
+        tone === 'brand'
+          ? 'inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 18px 36px -16px rgba(34, 87, 122, 0.55)'
+          : 'none',
+    }}
+  >
+    <Icon name={icon} size={iconSize} color={tone === 'brand' ? '#ffffff' : 'var(--osd-accent)'} />
+  </div>
+);
+
+const Footer = () => {
+  const { current, total } = useSlidePageNumber();
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        bottom: 44,
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontSize: 22,
+        color: muted,
+        fontWeight: 500,
+      }}
+    >
+      <span>
+        米克師<span style={{ margin: '0 12px', opacity: 0.4 }}>|</span>一鍵搞定國英適性教材
+      </span>
+      <span style={{ fontFamily: 'var(--osd-font-display)', fontVariantNumeric: 'tabular-nums' }}>
+        {String(current).padStart(2, '0')} / {String(total).padStart(2, '0')}
+      </span>
+    </div>
+  );
+};
+
+const HeaderRow = ({
+  icon,
+  title,
+  morphId,
+}: {
+  icon: string;
+  title: ReactNode;
+  morphId?: string;
+}) => (
+  <>
+    <div style={{ position: 'absolute', left: 120, top: 100 }}>
+      {morphId ? (
+        <MorphElement id={morphId}>
+          <div>
+            <Tile icon={icon} size={104} radius={30} iconSize={56} />
+          </div>
+        </MorphElement>
+      ) : (
+        <Tile icon={icon} size={104} radius={30} iconSize={56} />
+      )}
+    </div>
+    <Rise delay={morphId ? 220 : 0} style={{ position: 'absolute', left: 256, top: 100 }}>
+      <h2 style={{ ...h2, lineHeight: '104px' }}>{title}</h2>
+    </Rise>
+  </>
+);
+
+const Chip = ({ children, strong = false }: { children: ReactNode; strong?: boolean }) => (
+  <span
+    style={{
+      ...glass,
+      borderRadius: 999,
+      padding: '12px 30px',
+      fontSize: 28,
+      fontWeight: 700,
+      color: strong ? 'var(--osd-accent)' : 'var(--osd-text)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 12,
+    }}
+  >
+    {children}
+  </span>
+);
+
+const Pill = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      alignSelf: 'flex-start',
+      fontSize: 24,
+      fontWeight: 700,
+      color: 'var(--osd-accent)',
+      background: 'rgba(56, 163, 165, 0.12)',
+      borderRadius: 999,
+      padding: '6px 20px',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const Dot = ({ color }: { color: string }) => (
+  <span style={{ width: 14, height: 14, borderRadius: '50%', background: color }} />
+);
+
+const BrowserFrame = ({ src, width, url }: { src: string; width: number; url: string }) => (
+  <div
+    style={{
+      ...glass,
+      width,
+      borderRadius: 28,
+      overflow: 'hidden',
+      background: 'rgba(255, 255, 255, 0.78)',
+    }}
+  >
+    <div
+      style={{
+        height: 52,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        padding: '0 22px',
+        borderBottom: '1px solid rgba(30, 41, 59, 0.06)',
+      }}
+    >
+      <Dot color="#ff5f57" />
+      <Dot color="#febc2e" />
+      <Dot color="#28c840" />
+      <span
         style={{
-          position: 'absolute',
-          fontSize: '340px',
-          fontWeight: 950,
-          color: colors.white,
-          opacity: 0.06,
-          top: '42%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          margin: '0 auto',
+          fontSize: 19,
+          color: muted,
+          background: 'rgba(240, 244, 248, 0.9)',
+          borderRadius: 999,
+          padding: '5px 26px',
           fontFamily: 'var(--osd-font-display)',
-          pointerEvents: 'none',
-          lineHeight: 1,
+          maxWidth: width - 220,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
         }}
       >
-        0{partNum}
-      </div>
+        {url}
+      </span>
+      <span style={{ width: 62 }} />
+    </div>
+    <img
+      src={src}
+      alt=""
+      style={{
+        display: 'block',
+        width,
+        height: Math.round(width * 0.625),
+        objectFit: 'cover',
+        objectPosition: 'top',
+      }}
+    />
+  </div>
+);
 
-      <div
-        style={{
-          zIndex: 2,
-          maxWidth: 1560,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+const shortUrl = (href: string) => href.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+// ============================================================
+// 開場
+// ============================================================
+
+const Cover: Page = () => (
+  <Stage dots>
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <Rise delay={0}>
+        <Chip strong>
+          <span
+            style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--osd-accent)' }}
+          />
+          從使用 AI 到打造適性教材
+        </Chip>
+      </Rise>
+      <Rise delay={120} kind="materialize" style={{ marginTop: 44 }}>
+        <h1
+          style={{
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 'var(--osd-size-hero)',
+            fontWeight: 900,
+            lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            margin: 0,
+          }}
+        >
+          一鍵搞定<span style={gradText}>國英適性教材</span>
+        </h1>
+      </Rise>
+      <Rise delay={260} style={{ marginTop: 28 }}>
+        <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1.2, letterSpacing: '0.02em' }}>
+          特教老師的隨身備課神器
+        </div>
+      </Rise>
+      <Rise delay={380} style={{ marginTop: 28 }}>
+        <p style={{ fontSize: 36, color: muted, margin: 0, lineHeight: 1.5 }}>
+          國文學習單 ‧ 英文資源班教材 ‧ 雙模式電子書
+        </p>
+      </Rise>
+      <Rise
+        delay={500}
+        motion={BOUNCY}
+        style={{ marginTop: 56, display: 'flex', alignItems: 'center', gap: 20 }}
       >
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 14,
-            fontSize: '28px',
-            fontFamily: 'var(--osd-font-display)',
-            fontWeight: 950,
+            gap: 16,
+            padding: '20px 48px',
+            borderRadius: 999,
+            background: brandGradient,
             color: '#ffffff',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(16px)',
-            border: `1.5px solid ${accent}99`,
-            padding: '10px 32px',
-            borderRadius: 999,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            marginBottom: 32,
-            boxShadow: `0 10px 28px ${accent}4d`,
+            fontSize: 34,
+            fontWeight: 700,
+            boxShadow: '0 24px 48px -20px rgba(34, 87, 122, 0.6)',
           }}
         >
-          <span>PART 0{partNum}</span>
-          <span>·</span>
-          <span>{time}</span>
+          主講人 ‧ 朱旆誼
         </div>
-
-        <h2
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '80px',
-            fontWeight: 950,
-            color: colors.white,
-            margin: '0 0 28px 0',
-            lineHeight: 1.15,
-            letterSpacing: '-0.025em',
-            whiteSpace: 'pre-line',
-          }}
-        >
-          {title}
-        </h2>
-
-        <p
-          style={{
-            fontSize: '40px',
-            color: '#d2d9e0',
-            lineHeight: 1.4,
-            margin: '0 0 64px 0',
-            fontWeight: 650,
-            maxWidth: 1280,
-          }}
-        >
-          {desc}
-        </p>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 32,
-            padding: '18px 42px',
-            background: 'rgba(28, 34, 43, 0.65)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: 999,
-            border: '1.5px solid rgba(255, 255, 255, 0.16)',
-            boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
-          }}
-        >
-          {[
-            { num: 1, name: '國語文適性教材' },
-            { num: 2, name: '英語文適性教材' },
-            { num: 3, name: '雙模式自製電子書' },
-          ].map((item) => {
-            const currentPart = Number.parseInt(partNum, 10);
-            const isActive = item.num === currentPart;
-            const isPassed = item.num < currentPart;
-            return (
-              <div
-                key={item.num}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  fontWeight: isActive ? 950 : 700,
-                  color: isActive ? '#ffffff' : isPassed ? '#f4eae0' : '#8c9aa8',
-                  fontSize: '28px',
-                }}
-              >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: '50%',
-                    background: isActive
-                      ? `linear-gradient(135deg, ${accent} 0%, #ffffff 180%)`
-                      : isPassed
-                        ? 'linear-gradient(135deg, #a66832 0%, #8c5222 100%)'
-                        : 'rgba(255, 255, 255, 0.18)',
-                    color: isActive ? colors.navy : '#ffffff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '22px',
-                    fontWeight: 950,
-                    boxShadow: isActive ? `0 4px 16px ${accent}66` : 'none',
-                  }}
-                >
-                  {isPassed ? '✓' : item.num}
-                </div>
-                <span>{item.name}</span>
-                {item.num < 3 && (
-                  <span style={{ color: 'rgba(255, 255, 255, 0.32)', marginLeft: 20 }}>➔</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <TextbookFooter subtitle={`PART 0${partNum}`} inverse />
+        <Chip>@spedmix2025</Chip>
+      </Rise>
     </div>
-  );
-};
+  </Stage>
+);
+Cover.transition = settle;
 
-// ==========================================
-// 實作計時器組件
-// ==========================================
-const TIMER_STORAGE_KEY = '__WORKSHOP_PRACTICE_TIMER_CE__';
-const TIMER_UPDATE_EVENT = 'workshop_timer_update_ce';
-
-function getStoredTimer(): {
-  totalSeconds: number;
-  remainingSeconds: number;
-  isRunning: boolean;
-  endTimestamp: number | null;
-  practiceNumber: string;
-} {
-  try {
-    const raw = typeof window !== 'undefined' ? localStorage.getItem(TIMER_STORAGE_KEY) : null;
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (parsed.isRunning && parsed.endTimestamp) {
-        const remaining = Math.max(0, Math.ceil((parsed.endTimestamp - Date.now()) / 1000));
-        return {
-          ...parsed,
-          remainingSeconds: remaining,
-          isRunning: parsed.isRunning,
-        };
-      }
-      return parsed;
-    }
-  } catch (e) {}
-  return {
-    totalSeconds: 300,
-    remainingSeconds: 300,
-    isRunning: false,
-    endTimestamp: null,
-    practiceNumber: '實作 1',
-  };
-}
-
-function saveStoredTimer(state: any) {
-  try {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(TIMER_STORAGE_KEY, JSON.stringify(state));
-      window.dispatchEvent(new Event(TIMER_UPDATE_EVENT));
-    }
-  } catch (e) {}
-}
-
-function formatTimerClock(totalSeconds: number): string {
-  const m = Math.floor(totalSeconds / 60);
-  const s = totalSeconds % 60;
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-}
-
-function playTimerChimeSound() {
-  try {
-    if (typeof window === 'undefined') return;
-    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = new AudioCtx();
-    const playTone = (freq: number, start: number, dur: number) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
-      gain.gain.setValueAtTime(0, ctx.currentTime + start);
-      gain.gain.linearRampToValueAtTime(0.22, ctx.currentTime + start + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(ctx.currentTime + start);
-      osc.stop(ctx.currentTime + start + dur);
-    };
-    playTone(523.25, 0, 0.4);
-    playTone(659.25, 0.15, 0.4);
-    playTone(783.99, 0.3, 0.6);
-  } catch (e) {}
-}
-
-const usePracticeTimer = (initialMinutes = 5, practiceNumber = '實作') => {
-  const [state, setState] = useState(() => {
-    const stored = getStoredTimer();
-    return {
-      totalSeconds: stored.totalSeconds || initialMinutes * 60,
-      remainingSeconds: stored.remainingSeconds !== undefined ? stored.remainingSeconds : initialMinutes * 60,
-      isRunning: stored.isRunning || false,
-      endTimestamp: stored.endTimestamp || null,
-      practiceNumber: stored.practiceNumber || practiceNumber,
-    };
-  });
-
-  useEffect(() => {
-    const sync = () => {
-      const current = getStoredTimer();
-      setState(current);
-    };
-    window.addEventListener(TIMER_UPDATE_EVENT, sync);
-    window.addEventListener('storage', sync);
-    return () => {
-      window.removeEventListener(TIMER_UPDATE_EVENT, sync);
-      window.removeEventListener('storage', sync);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!state.isRunning) return;
-    const timer = setInterval(() => {
-      const stored = getStoredTimer();
-      if (!stored.isRunning || !stored.endTimestamp) return;
-      const left = Math.max(0, Math.ceil((stored.endTimestamp - Date.now()) / 1000));
-      if (left <= 0) {
-        playTimerChimeSound();
-        const next = { ...stored, remainingSeconds: 0, isRunning: false, endTimestamp: null };
-        saveStoredTimer(next);
-        setState(next);
-      } else {
-        setState({ ...stored, remainingSeconds: left });
-      }
-    }, 250);
-    return () => clearInterval(timer);
-  }, [state.isRunning]);
-
-  const toggle = useCallback(() => {
-    const stored = getStoredTimer();
-    if (stored.isRunning) {
-      const left = stored.endTimestamp ? Math.max(0, Math.ceil((stored.endTimestamp - Date.now()) / 1000)) : stored.remainingSeconds;
-      const next = { ...stored, remainingSeconds: left, isRunning: false, endTimestamp: null };
-      saveStoredTimer(next);
-      setState(next);
-    } else {
-      const secs = stored.remainingSeconds > 0 ? stored.remainingSeconds : initialMinutes * 60;
-      const end = Date.now() + secs * 1000;
-      const next = { ...stored, totalSeconds: secs, remainingSeconds: secs, isRunning: true, endTimestamp: end, practiceNumber };
-      saveStoredTimer(next);
-      setState(next);
-    }
-  }, [initialMinutes, practiceNumber]);
-
-  const reset = useCallback((mins = initialMinutes, pNum = practiceNumber) => {
-    const secs = mins * 60;
-    const next = { totalSeconds: secs, remainingSeconds: secs, isRunning: false, endTimestamp: null, practiceNumber: pNum };
-    saveStoredTimer(next);
-    setState(next);
-  }, [initialMinutes, practiceNumber]);
-
-  const addSeconds = useCallback((sec: number) => {
-    const stored = getStoredTimer();
-    const curLeft = stored.isRunning && stored.endTimestamp ? Math.max(0, Math.ceil((stored.endTimestamp - Date.now()) / 1000)) : stored.remainingSeconds;
-    const newLeft = Math.max(0, curLeft + sec);
-    const newEnd = stored.isRunning ? Date.now() + newLeft * 1000 : null;
-    const next = { ...stored, totalSeconds: Math.max(stored.totalSeconds, newLeft), remainingSeconds: newLeft, endTimestamp: newEnd };
-    saveStoredTimer(next);
-    setState(next);
-  }, []);
-
-  return { ...state, toggle, reset, addSeconds };
-};
-
-const WorkshopPracticeTimer = ({
-  practiceNumber = '實作',
-  initialMinutes = 5,
+const ProfileList = ({
+  icon,
+  title,
+  items,
+  delay,
 }: {
-  practiceNumber?: string;
-  initialMinutes?: number;
-}) => {
-  const { totalSeconds, remainingSeconds, isRunning, toggle, reset, addSeconds } = usePracticeTimer(initialMinutes, practiceNumber);
-  const isFinished = remainingSeconds === 0;
+  icon: string;
+  title: string;
+  items: [string, string][];
+  delay: number;
+}) => (
+  <Rise
+    delay={delay}
+    style={{ ...glass, padding: '40px 48px', display: 'flex', gap: 36, alignItems: 'flex-start' }}
+  >
+    <Tile icon={icon} size={88} radius={26} iconSize={48} />
+    <div>
+      <div style={{ fontSize: 44, fontWeight: 900 }}>{title}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 20 }}>
+        {items.map(([org, role]) => (
+          <div key={org} style={{ fontSize: 32, lineHeight: 1.4 }}>
+            <strong style={{ fontWeight: 900 }}>{org}</strong>
+            <span style={{ color: muted }}> {role}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Rise>
+);
 
-  return (
-    <div
+const Speaker: Page = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 120, top: 110 }}>
+      <Rise>
+        <div style={eyebrow}>關於我</div>
+      </Rise>
+      <Rise delay={100} style={{ marginTop: 20 }}>
+        <h2 style={h2}>介紹</h2>
+      </Rise>
+    </div>
+    <Rise
+      delay={150}
+      kind="materialize"
       style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 300,
+        width: 520,
+        height: 620,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 16,
+        gap: 40,
       }}
     >
       <div
@@ -710,1653 +678,989 @@ const WorkshopPracticeTimer = ({
           width: 320,
           height: 320,
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #242b35 0%, #1e242d 100%)',
-          border: '8px solid rgba(255, 255, 255, 0.95)',
-          boxShadow: isRunning ? '0 16px 48px rgba(196, 93, 71, 0.35)' : '0 12px 36px rgba(15, 23, 42, 0.18)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: colors.white,
-          position: 'relative',
+          padding: 8,
+          background: `linear-gradient(145deg, #4FBDBE 0%, var(--osd-accent) 45%, ${deep} 100%)`,
+          boxShadow: '0 30px 60px -24px rgba(34, 87, 122, 0.55)',
         }}
       >
-        <div
+        <img
+          src={imgHeadshot}
+          alt="講師照片"
           style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '84px',
-            fontWeight: 950,
-            letterSpacing: '0.04em',
-            fontVariantNumeric: 'tabular-nums',
-            color: isFinished ? '#fb7185' : colors.white,
-            lineHeight: 1,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            display: 'block',
+            border: '6px solid #ffffff',
+            boxSizing: 'border-box',
           }}
-        >
-          {formatTimerClock(remainingSeconds)}
-        </div>
-        <div
-          style={{
-            fontSize: '20px',
-            fontWeight: 800,
-            color: isRunning ? '#86efac' : '#cbd5e1',
-            letterSpacing: '0.06em',
-            marginTop: 8,
-          }}
-        >
-          {isRunning ? '⏱ 實作進行中' : isFinished ? '🎉 時間到！' : '⏸ 待命中'}
-        </div>
+        />
       </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button
-          type="button"
-          onClick={() => addSeconds(-60)}
-          title="減少 1 分鐘"
-          style={{
-            padding: '10px 20px',
-            background: 'rgba(255, 255, 255, 0.90)',
-            color: colors.navy,
-            border: '1.5px solid rgba(255, 255, 255, 0.95)',
-            borderRadius: 14,
-            fontSize: '20px',
-            fontWeight: 900,
-            cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(15, 23, 42, 0.08)',
-          }}
-        >
-          -1 分
-        </button>
-
-        <button
-          type="button"
-          onClick={toggle}
-          style={{
-            padding: '12px 34px',
-            background: isRunning
-              ? 'linear-gradient(135deg, #64748b 0%, #475569 100%)'
-              : 'linear-gradient(135deg, #d9822b 0%, #c45d47 100%)',
-            color: colors.white,
-            border: 'none',
-            borderRadius: 16,
-            fontSize: '24px',
-            fontWeight: 950,
-            cursor: 'pointer',
-            boxShadow: isRunning ? 'none' : '0 8px 24px rgba(181, 110, 41, 0.32)',
-            transition: 'transform 0.15s ease, background 0.2s ease',
-          }}
-        >
-          {isRunning ? '⏸ 暫停計時' : isFinished ? '↺ 重新計時' : '▶ 開始計時'}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => reset(initialMinutes, practiceNumber)}
-          title="重設計時"
-          style={{
-            padding: '10px 20px',
-            background: 'rgba(255, 255, 255, 0.90)',
-            color: colors.navy,
-            border: '1.5px solid rgba(255, 255, 255, 0.95)',
-            borderRadius: 14,
-            fontSize: '20px',
-            fontWeight: 900,
-            cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(15, 23, 42, 0.08)',
-          }}
-        >
-          ↺ 重設
-        </button>
-
-        <button
-          type="button"
-          onClick={() => addSeconds(60)}
-          title="增加 1 分鐘"
-          style={{
-            padding: '10px 20px',
-            background: 'rgba(255, 255, 255, 0.90)',
-            color: colors.navy,
-            border: '1.5px solid rgba(255, 255, 255, 0.95)',
-            borderRadius: 14,
-            fontSize: '20px',
-            fontWeight: 900,
-            cursor: 'pointer',
-            boxShadow: '0 4px 14px rgba(15, 23, 42, 0.08)',
-          }}
-        >
-          +1 分
-        </button>
+      <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 64, fontWeight: 900 }}>
+        朱旆誼
       </div>
-    </div>
-  );
-};
-
-const PracticePage = ({
-  num,
-  toolName,
-  time = '5 分鐘',
-  task,
-  buttons,
-}: {
-  num: string;
-  toolName: string;
-  time?: string;
-  task?: string;
-  buttons?: Array<{
-    label: string;
-    href: string;
-    variant?: 'primary' | 'secondary' | 'accent' | 'dark';
-  }>;
-}) => {
-  const minNum = Number.parseInt(time, 10) || 5;
-  const practiceLabel = `實作 ${num}`;
-  const taskText = task || `請挑選上方任一工具試做教材。`;
-
-  const buttonItems = (buttons || []).map((b) => {
-    if (b.variant === 'accent') {
-      return {
-        label: b.label,
-        href: b.href,
-        bg: 'linear-gradient(135deg, #c45d47 0%, #a66832 100%)',
-        shadow: '0 12px 28px rgba(196, 93, 71, 0.32)',
-      };
-    }
-    if (b.variant === 'dark') {
-      return {
-        label: b.label,
-        href: b.href,
-        bg: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
-        shadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
-      };
-    }
-    return {
-      label: b.label,
-      href: b.href,
-      bg: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
-      shadow: '0 12px 28px rgba(166, 104, 50, 0.32)',
-    };
-  });
-
-  return (
+    </Rise>
     <div
       style={{
-        ...fill,
-        padding: '44px 100px 92px',
+        position: 'absolute',
+        left: 688,
+        top: 300,
+        width: 1112,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
+        gap: 28,
       }}
     >
-      <TextbookBg />
-
-      <div style={{ zIndex: 2, marginBottom: 16 }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
-            padding: '6px 22px',
-            borderRadius: 999,
-            background: 'rgba(196, 93, 71, 0.12)',
-            color: colors.orange,
-            fontSize: '22px',
-            fontWeight: 900,
-            letterSpacing: '0.08em',
-            marginBottom: 8,
-          }}
-        >
-          <span>
-            ⏱️ {practiceLabel} · 課堂實作 {time}
-          </span>
-        </div>
-        <h2
-          style={{
-            margin: 0,
-            fontSize: '80px',
-            fontWeight: 950,
-            color: colors.text,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.15,
-          }}
-        >
-          {toolName}
-        </h2>
-      </div>
-
-      <div style={{ zIndex: 2 }}>
-        <WorkshopPracticeTimer practiceNumber={practiceLabel} initialMinutes={minNum} />
-      </div>
-
-      <div
-        className="es-fadeUp"
-        style={{
-          zIndex: 2,
-          marginTop: 24,
-          maxWidth: 1200,
-          width: '100%',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(24px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.95)',
-          borderTop: `6px solid ${colors.orange}`,
-          borderRadius: 24,
-          padding: '28px 48px',
-          boxShadow: '0 20px 48px rgba(148, 163, 184, 0.16)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 18,
-        }}
-      >
-        <div
-          style={{
-            fontSize: '38px',
-            fontWeight: 850,
-            color: colors.text,
-            lineHeight: 1.45,
-          }}
-        >
-          {taskText}
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16 }}>
-          {buttonItems.map((btn, idx) => (
-            <a
-              key={idx}
-              href={btn.href}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 12,
-                background: btn.bg,
-                color: colors.white,
-                padding: '14px 34px',
-                borderRadius: 18,
-                fontSize: '26px',
-                fontWeight: 950,
-                textDecoration: 'none',
-                boxShadow: btn.shadow,
-                letterSpacing: '0.04em',
-                transition: 'transform 0.15s ease',
-              }}
-            >
-              <span>{btn.label}</span>
-              <span style={{ fontSize: '22px' }}>➔</span>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <TextbookFooter subtitle={`實作時間：${toolName}`} />
+      <ProfileList
+        icon="school"
+        title="學歷"
+        delay={250}
+        items={[
+          ['國立彰化師範大學', '特殊教育學系（資訊工程輔系）'],
+          ['國立東華大學', '資訊管理所'],
+          ['國立台灣師範大學', '資訊教育學系博士班（就讀中）'],
+        ]}
+      />
+      <ProfileList
+        icon="work"
+        title="經歷"
+        delay={350}
+        items={[
+          ['花蓮縣平和國中', '資源班教師（兼巡迴支援）'],
+          ['宜蘭縣凱旋國中', '資源班教師'],
+        ]}
+      />
     </div>
-  );
-};
-
-// 截圖外框
-const ToolScreenshotFrame = ({
-  label,
-  children,
-  delay = 0,
-  style,
-}: {
-  label: string;
-  children: ReactNode;
-  delay?: number;
-  style?: CSSProperties;
-}) => (
-  <div
-    className="es-fadeUp"
-    style={{
-      animationDelay: `${delay}s`,
-      background: 'rgba(255, 255, 255, 0.92)',
-      border: '2px solid rgba(255, 255, 255, 0.95)',
-      borderRadius: 24,
-      padding: '18px 20px 20px 20px',
-      boxShadow: '0 20px 48px rgba(15, 23, 42, 0.10)',
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: 0,
-      height: 580,
-      maxHeight: 580,
-      boxSizing: 'border-box',
-      ...style,
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingBottom: 12,
-        marginBottom: 12,
-        borderBottom: '1px solid rgba(203, 213, 225, 0.7)',
-        flexShrink: 0,
-      }}
-    >
-      <div style={{ display: 'flex', gap: 7 }}>
-        <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#f87171' }} />
-        <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#fbbf24' }} />
-        <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#34d399' }} />
-      </div>
-      <span style={{ fontSize: '18px', fontWeight: 800, color: colors.muted, letterSpacing: '0.04em' }}>
-        {label}
-      </span>
-      <span style={{ fontSize: '16px', fontWeight: 700, color: '#94a3b8' }}>介面預覽</span>
-    </div>
-    <div
-      style={{
-        flex: 1,
-        minHeight: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        background: '#f8fafc',
-        borderRadius: 14,
-        padding: 8,
-      }}
-    >
-      {children}
-    </div>
-  </div>
+    <Footer />
+  </Stage>
 );
 
-// 工具主題封面扉頁共用組件 (老師心聲 + 學生心聲)
-interface PainPointBubble {
-  tag?: string;
-  text: string;
-  status?: string;
-  color?: 'rose' | 'sky' | 'amber' | 'indigo' | 'emerald';
-}
-
-const ToolCoverSlide = ({
-  unit,
+const SiteColumn = ({
+  href,
+  label,
+  src,
+  icon,
   title,
-  painPoints,
+  desc,
+  delay,
 }: {
-  unit: string;
+  href: string;
+  label: string;
+  src: string;
+  icon: string;
   title: string;
-  painPoints?: Array<PainPointBubble | string>;
-}) => {
-  const defaultColors: Array<'rose' | 'sky'> = ['rose', 'sky'];
-  const defaultTags = ['👩‍🏫 老師心聲', '👦 學生心聲'];
-  const defaultStatuses = ['💬 備課日常', '😩 學習困擾'];
-
-  const formattedPoints: PainPointBubble[] = (painPoints || []).map((pt, idx) => {
-    if (typeof pt === 'string') {
-      return {
-        tag: defaultTags[idx % defaultTags.length],
-        text: pt,
-        status: defaultStatuses[idx % defaultStatuses.length],
-        color: defaultColors[idx % defaultColors.length],
-      };
-    }
-    return {
-      tag: pt.tag || defaultTags[idx % defaultTags.length],
-      text: pt.text,
-      status: pt.status || defaultStatuses[idx % defaultStatuses.length],
-      color: pt.color || defaultColors[idx % defaultColors.length],
-    };
-  });
-
-  const colorStyles = {
-    rose: {
-      bg: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-      border: 'rgba(251, 113, 133, 0.45)',
-      badgeBg: 'rgba(196, 93, 71, 0.15)',
-      badgeColor: '#c45d47',
-      shadow: '0 14px 32px rgba(196, 93, 71, 0.10)',
-    },
-    sky: {
-      bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-      border: 'rgba(56, 189, 248, 0.45)',
-      badgeBg: 'rgba(56, 90, 115, 0.15)',
-      badgeColor: '#385a73',
-      shadow: '0 14px 32px rgba(56, 90, 115, 0.10)',
-    },
-    amber: {
-      bg: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
-      border: 'rgba(245, 158, 11, 0.45)',
-      badgeBg: 'rgba(217, 130, 43, 0.15)',
-      badgeColor: '#d9822b',
-      shadow: '0 14px 32px rgba(217, 130, 43, 0.10)',
-    },
-    indigo: {
-      bg: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
-      border: 'rgba(99, 102, 241, 0.45)',
-      badgeBg: 'rgba(79, 70, 229, 0.15)',
-      badgeColor: '#4f46e5',
-      shadow: '0 14px 32px rgba(79, 70, 229, 0.10)',
-    },
-    emerald: {
-      bg: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-      border: 'rgba(16, 185, 129, 0.45)',
-      badgeBg: 'rgba(16, 185, 129, 0.15)',
-      badgeColor: '#059669',
-      shadow: '0 14px 32px rgba(16, 185, 129, 0.10)',
-    },
-  };
-
-  return (
-    <div
-      style={{
-        ...fill,
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '54px 108px 100px 108px',
-      }}
-    >
-      <TextbookBg />
-
-      <div
-        className="es-fadeUp"
-        style={{
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 16,
-          marginBottom: 32,
-        }}
-      >
-        <span
-          style={{
-            display: 'inline-block',
-            color: colors.accent,
-            fontFamily: 'var(--osd-font-display)',
-            fontWeight: 900,
-            fontSize: '28px',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
-            border: '1.5px solid rgba(166, 104, 50, 0.25)',
-            padding: '8px 28px',
-            borderRadius: 14,
-            boxShadow: '0 4px 14px rgba(166, 104, 50, 0.08)',
-          }}
-        >
-          {unit}
-        </span>
-
-        <h1
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: '92px',
-            fontWeight: 950,
-            margin: 0,
-            color: colors.text,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.12,
-          }}
-        >
-          {title}
-        </h1>
-      </div>
-
-      <div
-        style={{
-          zIndex: 2,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: 32,
-          width: '100%',
-          maxWidth: 1420,
-          boxSizing: 'border-box',
-        }}
-      >
-        {formattedPoints.map((pt, idx) => {
-          const cStyle = colorStyles[pt.color || (idx === 0 ? 'rose' : 'sky')];
-          return (
-            <div
-              key={idx}
-              className="es-fadeUp"
-              style={{
-                animationDelay: `${0.12 + idx * 0.1}s`,
-                background: cStyle.bg,
-                border: `2px solid ${cStyle.border}`,
-                borderRadius: 28,
-                padding: '36px 38px',
-                boxShadow: cStyle.shadow,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: 20,
-                textAlign: 'left',
-                position: 'relative',
-                boxSizing: 'border-box',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span
-                  style={{
-                    fontSize: '26px',
-                    fontWeight: 950,
-                    color: cStyle.badgeColor,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                  }}
-                >
-                  {pt.tag}
-                </span>
-                <span
-                  style={{
-                    background: cStyle.badgeBg,
-                    color: cStyle.badgeColor,
-                    padding: '6px 16px',
-                    borderRadius: 999,
-                    fontSize: '20px',
-                    fontWeight: 900,
-                  }}
-                >
-                  {pt.status}
-                </span>
-              </div>
-
-              <p
-                style={{
-                  fontSize: '40px',
-                  lineHeight: 1.35,
-                  fontWeight: 900,
-                  color: colors.text,
-                  margin: 0,
-                  letterSpacing: '-0.015em',
-                }}
-              >
-                「{pt.text}」
-              </p>
-            </div>
-          );
-        })}
-      </div>
-
-      <TextbookFooter subtitle="單元導覽 · 現場需求引導" />
-    </div>
-  );
-};
-
-// 工具功能特色介紹頁組件（簡潔列點 + 傳送門按鈕 + 截圖預覽）
-const ToolFeatureSlide = ({
-  unit,
-  title,
-  subtitle,
-  tag,
-  points,
-  btnHref,
-  btnText = '傳送門 ➔ 前往工具',
-  imgSrc,
-  imgAlt,
-  frameLabel,
-}: {
-  unit: string;
-  title: string;
-  subtitle?: string;
-  tag: string;
-  points: string[];
-  btnHref: string;
-  btnText?: string;
-  imgSrc: string;
-  imgAlt: string;
-  frameLabel: string;
+  desc: string;
+  delay: number;
 }) => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader unit={unit} title={title} subtitle={subtitle} />
-
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1.05fr 0.95fr',
-        gap: 36,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        height: 580,
-        maxHeight: 580,
-        alignItems: 'stretch',
-      }}
+  <Rise delay={delay} kind="materialize" style={{ width: 528 }}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="cew-link"
+      style={{ color: 'inherit', textDecoration: 'none', display: 'block' }}
     >
-      {/* 左側：特色列點與按鈕 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.98)',
-          borderTop: `8px solid ${colors.accent}`,
-          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-          borderRadius: 24,
-          padding: '28px 32px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              fontSize: '24px',
-              fontWeight: 900,
-              color: colors.accent,
-            }}
-          >
-            <span>✨ 特教鷹架核心亮點</span>
-          </div>
-          <span
-            style={{
-              background: 'rgba(166, 104, 50, 0.12)',
-              color: colors.accent,
-              padding: '6px 18px',
-              borderRadius: 999,
-              fontSize: '20px',
-              fontWeight: 900,
-            }}
-          >
-            {tag}
-          </span>
+      <BrowserFrame src={src} width={528} url={shortUrl(href)} />
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20, marginTop: 32 }}>
+        <Tile icon={icon} size={72} radius={22} iconSize={40} tone="soft" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <Pill>{label}</Pill>
+          <div style={{ fontSize: 40, fontWeight: 900 }}>{title}</div>
+          <div style={{ fontSize: 24, lineHeight: 1.55, color: muted }}>{desc}</div>
         </div>
+      </div>
+    </a>
+  </Rise>
+);
 
-        <div
+const MixerSites: Page = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 120, top: 110 }}>
+      <Rise>
+        <div style={eyebrow}>三個入口</div>
+      </Rise>
+      <Rise delay={100} style={{ marginTop: 20 }}>
+        <h2 style={h2}>本人相關網站</h2>
+      </Rise>
+    </div>
+    <div style={{ position: 'absolute', left: 120, top: 290, display: 'flex', gap: 48 }}>
+      <SiteColumn
+        href={mixerSiteUrls.prep}
+        label="備課入口"
+        src={imgMixerAiPrep}
+        icon="auto_awesome"
+        title="AI備課幫手"
+        desc="特教老師生成教材、學習單、課程素材與備課工具的主要入口。"
+        delay={150}
+      />
+      <SiteColumn
+        href={mixerSiteUrls.share}
+        label="共享入口"
+        src={imgMixerShare}
+        icon="folder_shared"
+        title="特教教材共享"
+        desc="整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。"
+        delay={250}
+      />
+      <SiteColumn
+        href={mixerSiteUrls.teaching}
+        label="學生入口"
+        src={imgMixerTeaching}
+        icon="stairs"
+        title="步步練"
+        desc="提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。"
+        delay={350}
+      />
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const parts = [
+  {
+    num: '01',
+    icon: 'menu_book',
+    module: '國語文模組',
+    name: '國語文適性教材',
+    sub: '課文鷹架與識字讀本',
+    items: ['國文課堂學習單', '文言文逐句翻譯', '字族文生成器'],
+  },
+  {
+    num: '02',
+    icon: 'translate',
+    module: '英語文模組',
+    name: '英語文適性教材',
+    sub: '分鏡故事與階梯單字',
+    items: ['英文資源班學習單', '階梯式單字學習單', '單字練習卷生成'],
+  },
+  {
+    num: '03',
+    icon: 'auto_stories',
+    module: '自製電子書',
+    name: '雙模式自製電子書',
+    sub: '大屏教學與一鍵白卷',
+    items: ['大屏互動教學 / 板書', '學生端一鍵 A4 乾淨列印', '一套教材兩種教學情境'],
+  },
+] as const;
+
+const Agenda: Page = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 120, top: 110 }}>
+      <Rise>
+        <div style={eyebrow}>今日大綱 ‧ 三大核心實踐 ‧ 模組化流程</div>
+      </Rise>
+      <Rise delay={100} style={{ marginTop: 20 }}>
+        <h2 style={h2}>特教語文適性教學工作流</h2>
+      </Rise>
+    </div>
+    <div style={{ position: 'absolute', left: 120, top: 320, display: 'flex', gap: 48 }}>
+      {parts.map((part, index) => (
+        <Rise
+          key={part.num}
+          delay={150 + index * 90}
+          motion={BOUNCY}
           style={{
+            ...glass,
+            width: 528,
+            height: 600,
+            padding: '44px 44px',
+            boxSizing: 'border-box',
             display: 'flex',
             flexDirection: 'column',
-            gap: 14,
-            flex: 1,
-            justifyContent: 'center',
-            margin: '12px 0',
           }}
         >
-          {points.map((pt, idx) => {
-            const accents = [
-              { bg: 'rgba(166, 104, 50, 0.12)', text: '#d9822b', border: 'rgba(166, 104, 50, 0.25)', num: `0${idx + 1}` },
-              { bg: 'rgba(196, 93, 71, 0.12)', text: '#c45d47', border: 'rgba(196, 93, 71, 0.25)', num: `0${idx + 1}` },
-              { bg: 'rgba(56, 90, 115, 0.12)', text: '#385a73', border: 'rgba(56, 90, 115, 0.25)', num: `0${idx + 1}` },
-              { bg: 'rgba(5, 150, 105, 0.12)', text: '#059669', border: 'rgba(5, 150, 105, 0.25)', num: `0${idx + 1}` },
-            ];
-            const acc = accents[idx % accents.length];
-            return (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Tile icon={part.icon} size={96} radius={28} iconSize={52} />
+            <span
+              style={{
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 56,
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                ...gradText,
+              }}
+            >
+              PART {part.num}
+            </span>
+          </div>
+          <div style={{ marginTop: 36 }}>
+            <Pill>{part.module}</Pill>
+          </div>
+          <div style={{ fontSize: 44, fontWeight: 900, marginTop: 18 }}>{part.name}</div>
+          <div style={{ fontSize: 28, color: muted, marginTop: 8 }}>{part.sub}</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 'auto' }}>
+            {part.items.map((item, i) => (
               <div
-                key={idx}
+                key={item}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: 16,
-                  background: 'rgba(255, 255, 255, 0.98)',
-                  border: '1.5px solid rgba(226, 232, 240, 0.9)',
-                  borderRadius: 18,
-                  padding: '16px 20px',
-                  boxShadow: '0 4px 14px rgba(148, 163, 184, 0.08)',
+                  fontSize: 27,
+                  fontWeight: 700,
                 }}
               >
-                <div
+                <span
                   style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 12,
-                    background: acc.bg,
-                    border: `1px solid ${acc.border}`,
-                    color: acc.text,
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
+                    flexShrink: 0,
+                    background: 'rgba(56, 163, 165, 0.12)',
+                    color: 'var(--osd-accent)',
+                    fontFamily: 'var(--osd-font-display)',
+                    fontSize: 20,
+                    fontWeight: 800,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '22px',
-                    fontWeight: 950,
-                    fontFamily: 'var(--osd-font-display)',
-                    flexShrink: 0,
                   }}
                 >
-                  {acc.num}
-                </div>
-                <div
-                  style={{
-                    fontSize: '32px',
-                    lineHeight: 1.35,
-                    fontWeight: 900,
-                    color: colors.text,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {pt}
-                </div>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {item}
               </div>
-            );
-          })}
-        </div>
-
-        <a
-          href={btnHref}
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 12,
-            background: 'linear-gradient(135deg, #d9822b 0%, #a66832 100%)',
-            color: colors.white,
-            padding: '14px 28px',
-            borderRadius: 16,
-            fontSize: '26px',
-            fontWeight: 950,
-            textDecoration: 'none',
-            boxShadow: '0 12px 28px rgba(196, 93, 71, 0.32)',
-            marginTop: 4,
-          }}
-        >
-          <span>{btnText}</span>
-          <span style={{ fontSize: '22px' }}>➔</span>
-        </a>
-      </div>
-
-      {/* 右側：截圖預覽框 */}
-      <ToolScreenshotFrame label={frameLabel} delay={0.15}>
-        <img
-          src={imgSrc}
-          alt={imgAlt}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-            borderRadius: 14,
-            border: '1px solid rgba(203, 213, 225, 0.6)',
-            boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
-            display: 'block',
-          }}
-        />
-      </ToolScreenshotFrame>
+            ))}
+          </div>
+        </Rise>
+      ))}
     </div>
-    <TextbookFooter subtitle={`工具導覽：${title}`} />
-  </div>
+    <Footer />
+  </Stage>
 );
 
-// 相關社群連結卡片
-const SocialLinkCard = ({
-  href,
-  label,
-  handle,
-  icon,
-  color,
-  children,
-  delay = 0,
+// ============================================================
+// 章節頁與工具頁
+// ============================================================
+
+const Divider = ({
+  partIndex,
+  module,
+  title,
+  sub,
+  desc,
 }: {
-  href: string;
-  label: string;
-  handle: string;
-  icon: ReactNode;
-  color: string;
-  children?: ReactNode;
-  delay?: number;
+  partIndex: 0 | 1 | 2;
+  module: string;
+  title: string;
+  sub: string;
+  desc: string;
+}) => {
+  const part = parts[partIndex];
+  return (
+    <Stage dots>
+      <div style={{ position: 'absolute', left: 200, top: 380 }}>
+        <MorphElement id={`tile-part${partIndex + 1}`}>
+          <div>
+            <Tile icon={part.icon} size={320} radius={88} iconSize={176} />
+          </div>
+        </MorphElement>
+      </div>
+      <div style={{ position: 'absolute', left: 620, right: 100, top: 0, bottom: 0 }}>
+        <div
+          style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <Rise delay={80}>
+            <div
+              style={{
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 40,
+                fontWeight: 800,
+                color: 'var(--osd-accent)',
+              }}
+            >
+              PART {part.num} · {module}
+            </div>
+          </Rise>
+          <Rise delay={160} style={{ marginTop: 12 }}>
+            <div
+              style={{
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 108,
+                fontWeight: 900,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {title}
+            </div>
+          </Rise>
+          <Rise delay={240} style={{ marginTop: 8 }}>
+            <div style={{ fontSize: 60, fontWeight: 900, lineHeight: 1.3, ...gradText }}>{sub}</div>
+          </Rise>
+          <Rise delay={320} style={{ marginTop: 28 }}>
+            <div style={{ fontSize: 32, lineHeight: 1.55, color: muted, maxWidth: 1080 }}>
+              {desc}
+            </div>
+          </Rise>
+          <Rise delay={420} style={{ marginTop: 48, display: 'flex', gap: 16 }}>
+            {parts.map((p, i) => {
+              const done = i < partIndex;
+              const current = i === partIndex;
+              return (
+                <span
+                  key={p.num}
+                  style={{
+                    ...glass,
+                    borderRadius: 999,
+                    padding: '12px 28px',
+                    fontSize: 26,
+                    fontWeight: 700,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    color: current ? '#ffffff' : done ? deep : muted,
+                    ...(current ? { background: brandGradient, border: 'none' } : {}),
+                  }}
+                >
+                  <Icon name={done ? 'check' : p.icon} size={30} />
+                  {p.name}
+                </span>
+              );
+            })}
+          </Rise>
+        </div>
+      </div>
+    </Stage>
+  );
+};
+
+type Voice = { text: string };
+
+const VoiceCard = ({
+  who,
+  icon,
+  status,
+  statusIcon,
+  text,
+  accent,
+}: {
+  who: string;
+  icon: string;
+  status: string;
+  statusIcon: string;
+  text: string;
+  accent: string;
 }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-    className="es-fadeUp"
+  <StepIn
     style={{
-      animationDelay: `${delay}s`,
-      background: 'rgba(255, 255, 255, 0.94)',
-      backdropFilter: 'blur(20px)',
-      border: '1.5px solid rgba(255, 255, 255, 0.98)',
-      borderRadius: 24,
-      padding: '36px 32px',
+      ...glass,
+      width: 828,
+      height: 560,
+      boxSizing: 'border-box',
+      padding: '52px 56px',
       display: 'flex',
-      alignItems: 'center',
-      gap: 24,
-      textDecoration: 'none',
-      color: colors.text,
-      boxShadow: '0 18px 44px rgba(78, 64, 53, 0.10)',
+      flexDirection: 'column',
       position: 'relative',
       overflow: 'hidden',
     }}
   >
-    <div
+    <span
       style={{
-        width: 96,
-        height: 96,
-        borderRadius: 24,
-        background: color,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: colors.white,
-        flexShrink: 0,
-        boxShadow: `0 12px 28px ${color}44`,
+        position: 'absolute',
+        right: 40,
+        top: -40,
+        fontFamily: 'var(--osd-font-display)',
+        fontSize: 320,
+        fontWeight: 800,
+        lineHeight: 1,
+        color: accent,
+        opacity: 0.1,
       }}
     >
-      {icon}
-    </div>
-    <div style={{ flex: 1, minWidth: 0 }}>
-      <div style={{ fontSize: '38px', fontWeight: 950, color: colors.text, marginBottom: 4 }}>{label}</div>
-      <div style={{ fontSize: '28px', color: colors.muted, fontWeight: 750, marginBottom: 8 }}>{handle}</div>
-      <div style={{ fontSize: '24px', color: color, fontWeight: 900 }}>{children || '點擊前往 ➔'}</div>
-    </div>
-  </a>
-);
-
-const InstagramIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
-
-const FacebookIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-
-const ThreadsIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M19 12a7 7 0 1 1-7-7c3.87 0 6 2.5 6 5.5 0 3-2 4.5-4 4.5s-3-1.5-3-3 1.5-3 3-3c1.5 0 2.5.8 2.8 1.8" />
-  </svg>
-);
-
-const MixerSiteCard = ({
-  href,
-  label,
-  screenshot,
-  screenshotAlt,
-  title,
-  children,
-  delay = 0,
-  accent = colors.accent,
-}: {
-  href: string;
-  label: string;
-  screenshot: string;
-  screenshotAlt: string;
-  title: string;
-  children: ReactNode;
-  delay?: number;
-  accent?: string;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-    className="es-fadeUp"
-    style={{
-      animationDelay: `${delay}s`,
-      background: 'rgba(255, 255, 255, 0.94)',
-      backdropFilter: 'blur(20px)',
-      border: '1.5px solid rgba(255, 255, 255, 0.98)',
-      borderTop: `7px solid ${accent}`,
-      boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-      borderRadius: 24,
-      padding: '24px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      textDecoration: 'none',
-      color: colors.text,
-      height: '100%',
-      boxSizing: 'border-box',
-    }}
-  >
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <span style={{ fontSize: '20px', fontWeight: 900, color: accent, background: `${accent}15`, padding: '4px 14px', borderRadius: 999 }}>
-          {label}
-        </span>
-        <span style={{ fontSize: '24px', color: accent, fontWeight: 900 }}>↗</span>
-      </div>
-      <h3 style={{ margin: '0 0 8px 0', fontSize: '38px', fontWeight: 950, color: colors.text }}>{title}</h3>
-      <p style={{ margin: '0 0 16px 0', fontSize: '24px', color: colors.muted, lineHeight: 1.4, fontWeight: 700 }}>
-        {children}
-      </p>
-    </div>
-    <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #e2e8f0', height: 210 }}>
-      <img src={screenshot} alt={screenshotAlt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  </a>
-);
-
-// ============================================================
-// 各頁投影片定義 (Pages)
-// ============================================================
-
-// Slide 01: 研習封面
-const Slide01_Title: Page = () => (
-  <div
-    style={{
-      ...fill,
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-    }}
-  >
-    <TextbookBg />
-
-    <div
-      className="es-fadeUp"
-      style={{
-        zIndex: 2,
-        maxWidth: 1540,
-        width: '100%',
-        background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(28px)',
-        border: '1.5px solid rgba(255, 255, 255, 0.98)',
-        borderRadius: 36,
-        padding: '52px 64px 44px',
-        boxShadow: '0 28px 64px rgba(78, 64, 53, 0.12), 0 6px 20px rgba(181, 141, 103, 0.08)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 20,
-        boxSizing: 'border-box',
-      }}
-    >
+      ”
+    </span>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
       <div
         style={{
-          display: 'inline-flex',
+          width: 88,
+          height: 88,
+          borderRadius: 26,
+          background: accent,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 18px 36px -16px ${accent}`,
+        }}
+      >
+        <Icon name={icon} size={48} color="#ffffff" />
+      </div>
+      <div>
+        <div style={{ fontSize: 40, fontWeight: 900 }}>{who}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 24,
+            color: muted,
+            marginTop: 4,
+          }}
+        >
+          <Icon name={statusIcon} size={26} color={accent} />
+          {status}
+        </div>
+      </div>
+    </div>
+    <div
+      style={{
+        fontSize: 44,
+        fontWeight: 700,
+        lineHeight: 1.6,
+        marginTop: 'auto',
+        marginBottom: 'auto',
+      }}
+    >
+      「{text}」
+    </div>
+  </StepIn>
+);
+
+const ToolCover = ({
+  unit,
+  icon,
+  morphId,
+  title,
+  teacher,
+  student,
+}: {
+  unit: string;
+  icon: string;
+  morphId: string;
+  title: string;
+  teacher: Voice;
+  student: Voice;
+}) => (
+  <Stage>
+    <HeaderRow icon={icon} morphId={morphId} title={title} />
+    <Rise delay={100} style={{ position: 'absolute', left: 256, top: 214 }}>
+      <p style={{ fontSize: 30, color: muted, margin: 0 }}>{unit} · 單元導覽 · 現場需求引導</p>
+    </Rise>
+    <div style={{ position: 'absolute', left: 120, top: 330, display: 'flex', gap: 24 }}>
+      <Steps>
+        <Step duration={1}>
+          <VoiceCard
+            who="老師心聲"
+            icon="school"
+            status="備課日常"
+            statusIcon="chat_bubble"
+            text={teacher.text}
+            accent={rose}
+          />
+        </Step>
+        <Step duration={1}>
+          <VoiceCard
+            who="學生心聲"
+            icon="face"
+            status="學習困擾"
+            statusIcon="sentiment_dissatisfied"
+            text={student.text}
+            accent="#3b82f6"
+          />
+        </Step>
+      </Steps>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const ToolFeature = ({
+  icon,
+  morphId,
+  title,
+  subtitle,
+  tag,
+  points,
+  href,
+  img,
+  imgLabel,
+}: {
+  icon: string;
+  morphId: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  points: string[];
+  href: string;
+  img: string;
+  imgLabel: string;
+}) => (
+  <Stage>
+    <HeaderRow icon={icon} morphId={morphId} title={title} />
+    <Rise delay={100} style={{ position: 'absolute', left: 256, top: 214 }}>
+      <p style={{ fontSize: 30, color: muted, margin: 0 }}>{subtitle}</p>
+    </Rise>
+    <div style={{ position: 'absolute', left: 120, top: 316, width: 700 }}>
+      <Rise delay={160} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <span style={{ ...eyebrow, fontSize: 24 }}>特教鷹架核心亮點</span>
+        <Pill>{tag}</Pill>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 24 }}>
+        {points.map((point, index) => (
+          <Rise
+            key={point}
+            delay={240 + index * 80}
+            style={{
+              ...glass,
+              height: 96,
+              borderRadius: 28,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 24,
+              padding: '0 32px',
+            }}
+          >
+            <span
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: brandGradient,
+                color: '#ffffff',
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 28,
+                fontWeight: 800,
+              }}
+            >
+              {index + 1}
+            </span>
+            <span style={{ fontSize: 32, fontWeight: 900 }}>{point}</span>
+          </Rise>
+        ))}
+      </div>
+      <Rise delay={600} motion={BOUNCY} style={{ marginTop: 32 }}>
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="cew-link"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 14,
+            padding: '18px 44px',
+            borderRadius: 999,
+            background: brandGradient,
+            color: '#ffffff',
+            fontSize: 32,
+            fontWeight: 700,
+            textDecoration: 'none',
+            boxShadow: '0 24px 48px -20px rgba(34, 87, 122, 0.6)',
+          }}
+        >
+          傳送門 · 前往工具
+          <Icon name="arrow_forward" size={36} />
+        </a>
+      </Rise>
+    </div>
+    <Rise delay={200} kind="materialize" style={{ position: 'absolute', left: 900, top: 300 }}>
+      <BrowserFrame src={img} width={900} url={shortUrl(href)} />
+      <div
+        style={{
+          display: 'flex',
           alignItems: 'center',
           gap: 12,
-          background: 'rgba(166, 104, 50, 0.12)',
-          border: '1.5px solid rgba(166, 104, 50, 0.28)',
-          borderRadius: 999,
-          padding: '10px 32px',
-          fontSize: '26px',
-          fontWeight: 950,
-          color: colors.accent,
-          letterSpacing: '0.08em',
+          marginTop: 22,
+          fontSize: 26,
+          color: muted,
         }}
       >
-        <span>從使用 AI 到打造適性教材</span>
+        <Icon name="photo_library" size={30} color="var(--osd-accent)" />
+        {imgLabel}
       </div>
+    </Rise>
+    <Footer />
+  </Stage>
+);
 
-      <div>
-        <h1
+// ============================================================
+// 實作計時器
+// ============================================================
+
+type TimerState = { total: number; remaining: number; endAt: number | null };
+
+const timerKey = (id: string) => `__CEW_PRACTICE_TIMER_${id}__`;
+
+const readTimer = (id: string, minutes: number): TimerState => {
+  const fallback = { total: minutes * 60, remaining: minutes * 60, endAt: null };
+  try {
+    const raw = localStorage.getItem(timerKey(id));
+    if (!raw) return fallback;
+    const saved = JSON.parse(raw) as TimerState;
+    if (saved.endAt) {
+      saved.remaining = Math.max(0, Math.ceil((saved.endAt - Date.now()) / 1000));
+      if (saved.remaining === 0) saved.endAt = null;
+    }
+    return saved;
+  } catch {
+    return fallback;
+  }
+};
+
+const writeTimer = (id: string, state: TimerState) => {
+  try {
+    localStorage.setItem(timerKey(id), JSON.stringify(state));
+  } catch {}
+};
+
+const playChime = () => {
+  try {
+    const Ctx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const ctx = new Ctx();
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.setValueAtTime(freq, now + i * 0.12);
+      gain.gain.setValueAtTime(0.25, now + i * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.85);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.12);
+      osc.stop(now + i * 0.12 + 0.85);
+    });
+  } catch {}
+};
+
+const usePracticeTimer = (id: string, minutes: number) => {
+  const [state, setState] = useState<TimerState>(() => readTimer(id, minutes));
+
+  const commit = useCallback(
+    (next: TimerState) => {
+      writeTimer(id, next);
+      setState(next);
+    },
+    [id],
+  );
+
+  useEffect(() => {
+    if (!state.endAt) return;
+    const endAt = state.endAt;
+    const tick = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
+      if (remaining === 0) {
+        playChime();
+        commit({ ...state, remaining: 0, endAt: null });
+      } else {
+        setState((s) => ({ ...s, remaining }));
+      }
+    }, 250);
+    return () => clearInterval(tick);
+  }, [state, commit]);
+
+  const running = state.endAt !== null;
+  return {
+    ...state,
+    running,
+    toggle: () => {
+      if (running) commit({ ...state, endAt: null });
+      else {
+        const remaining = state.remaining > 0 ? state.remaining : state.total;
+        commit({ ...state, remaining, endAt: Date.now() + remaining * 1000 });
+      }
+    },
+    reset: () => commit({ total: minutes * 60, remaining: minutes * 60, endAt: null }),
+    add: (sec: number) => {
+      const remaining = Math.max(10, state.remaining + sec);
+      commit({
+        total: Math.max(remaining, state.total),
+        remaining,
+        endAt: running ? Date.now() + remaining * 1000 : null,
+      });
+    },
+  };
+};
+
+const clock = (sec: number) =>
+  `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+
+const TimerButton = ({
+  icon,
+  label,
+  onClick,
+  primary = false,
+}: {
+  icon: string;
+  label: string;
+  onClick: () => void;
+  primary?: boolean;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="cew-link"
+    style={{
+      ...(primary ? {} : glass),
+      border: primary ? 'none' : glass.border,
+      background: primary ? brandGradient : glass.background,
+      color: primary ? '#ffffff' : 'var(--osd-text)',
+      borderRadius: 999,
+      padding: primary ? '16px 40px' : '14px 26px',
+      fontSize: primary ? 30 : 24,
+      fontWeight: 700,
+      fontFamily: 'var(--osd-font-body)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      cursor: 'pointer',
+      boxShadow: primary ? '0 24px 48px -20px rgba(34, 87, 122, 0.6)' : glass.boxShadow,
+    }}
+  >
+    <Icon name={icon} size={primary ? 36 : 28} />
+    {label}
+  </button>
+);
+
+const PracticeTimer = ({ id, minutes }: { id: string; minutes: number }) => {
+  const t = usePracticeTimer(id, minutes);
+  const radius = 240;
+  const circumference = 2 * Math.PI * radius;
+  const ratio = t.total > 0 ? t.remaining / t.total : 0;
+  const finished = t.remaining === 0;
+  const gradId = `cew-ring-${id}`;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div
+        style={{
+          ...glass,
+          width: 560,
+          height: 560,
+          borderRadius: '50%',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <svg
+          width="560"
+          height="560"
+          style={{ position: 'absolute', inset: 0, transform: 'rotate(-90deg)' }}
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#4FBDBE" />
+              <stop offset="100%" stopColor={deep} />
+            </linearGradient>
+          </defs>
+          <circle
+            cx="280"
+            cy="280"
+            r={radius}
+            fill="none"
+            stroke="rgba(56, 163, 165, 0.12)"
+            strokeWidth="22"
+          />
+          <circle
+            cx="280"
+            cy="280"
+            r={radius}
+            fill="none"
+            stroke={finished ? rose : `url(#${gradId})`}
+            strokeWidth="22"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference * (1 - ratio)}
+            style={{ transition: t.running ? 'stroke-dashoffset 1s linear' : 'none' }}
+          />
+        </svg>
+        <div
           style={{
             fontFamily: 'var(--osd-font-display)',
-            fontSize: '94px',
-            fontWeight: 950,
-            color: colors.text,
-            margin: '0 0 16px 0',
-            letterSpacing: '-0.03em',
-            lineHeight: 1.15,
-          }}
-        >
-          一鍵搞定國英適性教材<br />特教老師的隨身備課神器
-        </h1>
-        <p
-          style={{
-            fontSize: '44px',
+            fontSize: 150,
             fontWeight: 800,
-            color: colors.muted,
-            margin: 0,
-            letterSpacing: '0.04em',
-            lineHeight: 1.3,
+            lineHeight: 1,
+            letterSpacing: '-0.04em',
+            fontVariantNumeric: 'tabular-nums',
+            ...(finished ? { color: rose } : gradText),
           }}
         >
-          國文學習單 ‧ 英文資源班教材 ‧ 雙模式電子書
-        </p>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 20,
-          width: '100%',
-          flexWrap: 'wrap',
-          marginTop: 6,
-        }}
-      >
+          {clock(t.remaining)}
+        </div>
         <div
           style={{
+            marginTop: 16,
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 12,
-            background: colors.slate,
-            color: '#ffffff',
-            borderRadius: 999,
-            padding: '14px 40px',
-            fontSize: '32px',
-            fontWeight: 950,
-            letterSpacing: '0.06em',
-            boxShadow: '0 10px 24px rgba(36, 43, 53, 0.28)',
+            gap: 8,
+            fontSize: 26,
+            fontWeight: 700,
+            color: finished ? rose : t.running ? 'var(--osd-accent)' : muted,
           }}
         >
-          <span>主講人 ‧ 朱旆誼</span>
-        </div>
-
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
-            background: 'rgba(181, 141, 103, 0.12)',
-            color: colors.accent,
-            border: '1.5px solid rgba(181, 141, 103, 0.3)',
-            borderRadius: 999,
-            padding: '14px 32px',
-            fontSize: '28px',
-            fontWeight: 900,
-          }}
-        >
-          <span>@spedmix2025</span>
+          <Icon name={finished ? 'task_alt' : t.running ? 'timer' : 'pause'} size={30} />
+          {finished ? '時間到！' : t.running ? '實作進行中' : '待命中'}
         </div>
       </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 36 }}>
+        <TimerButton icon="remove" label="1 分" onClick={() => t.add(-60)} />
+        <TimerButton
+          primary
+          icon={t.running ? 'pause' : finished ? 'restart_alt' : 'play_arrow'}
+          label={t.running ? '暫停計時' : finished ? '重新計時' : '開始計時'}
+          onClick={finished ? t.reset : t.toggle}
+        />
+        <TimerButton icon="restart_alt" label="重設" onClick={t.reset} />
+        <TimerButton icon="add" label="1 分" onClick={() => t.add(60)} />
+      </div>
     </div>
+  );
+};
 
-    <TextbookFooter subtitle="研習封面" />
-  </div>
-);
-
-// Slide 02: 講師介紹
-const Slide02_Speaker: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="介紹" subtitle="關於我" unit="單元 1" />
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '0.82fr 1.18fr',
-        gap: 36,
-        flex: 1,
-        zIndex: 2,
-        minHeight: 0,
-        alignItems: 'center',
-        paddingBottom: 20,
-      }}
-    >
+const Practice = ({
+  num,
+  toolName,
+  minutes,
+  task,
+  links,
+}: {
+  num: string;
+  toolName: string;
+  minutes: number;
+  task: string;
+  links: { label: string; href: string }[];
+}) => (
+  <Stage dots>
+    <div style={{ position: 'absolute', left: 120, top: 0, bottom: 0, width: 860 }}>
       <div
-        className="es-fadeUp"
         style={{
-          animationDelay: '0.1s',
-          background: colors.white,
-          border: '2px solid #e2e8f0',
-          borderRadius: 24,
-          padding: '30px 34px',
-          boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
+          height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           justifyContent: 'center',
-          gap: 22,
-          minHeight: 0,
         }}
       >
-        <h3
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 54,
-            fontWeight: 900,
-            color: colors.text,
-            margin: 0,
-          }}
-        >
-          朱旆誼
-        </h3>
-        <div
-          style={{
-            width: 320,
-            height: 320,
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: `6px solid ${colors.accent}`,
-            boxShadow: '0 12px 28px rgba(13, 148, 136, 0.22)',
-            flexShrink: 0,
-          }}
-        >
-          <img
-            src={imgHeadshot}
-            alt="講師照片"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto auto',
-          gap: 20,
-          minHeight: 0,
-          alignContent: 'center',
-        }}
-      >
-        <div
-          className="es-fadeUp"
-          style={{
-            animationDelay: '0.2s',
-            background: colors.white,
-            border: '2px solid #e2e8f0',
-            borderRadius: 24,
-            padding: '22px 30px',
-            boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            minHeight: 0,
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: 'var(--osd-font-display)',
-              fontSize: 50,
-              lineHeight: 1.1,
-              fontWeight: 900,
-              color: colors.accent,
-              margin: '0 0 16px 0',
-            }}
-          >
-            學歷
-          </h3>
-          <ul
-            style={{
-              paddingLeft: '20px',
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              fontSize: '32px',
-              lineHeight: '1.42',
-              color: colors.text,
-            }}
-          >
-            <li>
-              <strong>國立彰化師範大學</strong> 特殊教育學系（資訊工程輔系）
-            </li>
-            <li>
-              <strong>國立東華大學</strong> 資訊管理所
-            </li>
-            <li>
-              <strong>國立台灣師範大學</strong> 資訊教育學系博士班（就讀中）
-            </li>
-          </ul>
-        </div>
-        <div
-          className="es-fadeUp"
-          style={{
-            animationDelay: '0.35s',
-            background: colors.white,
-            border: '2px solid #e2e8f0',
-            borderRadius: 24,
-            padding: '22px 30px',
-            boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            minHeight: 0,
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: 'var(--osd-font-display)',
-              fontSize: 50,
-              lineHeight: 1.1,
-              fontWeight: 900,
-              color: colors.accent,
-              margin: '0 0 16px 0',
-            }}
-          >
-            經歷
-          </h3>
-          <ul
-            style={{
-              paddingLeft: '20px',
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              fontSize: '32px',
-              lineHeight: '1.42',
-              color: colors.text,
-            }}
-          >
-            <li>
-              <strong>花蓮縣平和國中</strong> 資源班教師（兼巡迴支援）
-            </li>
-            <li>
-              <strong>宜蘭縣凱旋國中</strong> 資源班教師
-            </li>
-          </ul>
+        <Rise>
+          <div style={eyebrow}>
+            實作 {num} · 課堂實作 {minutes} 分鐘
+          </div>
+        </Rise>
+        <Rise delay={100} style={{ marginTop: 24 }}>
+          <h2 style={{ ...h2, fontSize: 92 }}>
+            <span style={gradText}>{toolName}</span>
+          </h2>
+        </Rise>
+        <Rise delay={200} style={{ marginTop: 32 }}>
+          <p style={{ fontSize: 36, lineHeight: 1.6, color: muted, margin: 0 }}>{task}</p>
+        </Rise>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 44 }}>
+          {links.map(({ label, href }, index) => (
+            <Rise key={href} delay={300 + index * 80} motion={BOUNCY}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="cew-link"
+                style={{
+                  ...glass,
+                  borderRadius: 28,
+                  height: 92,
+                  padding: '0 32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 22,
+                  color: 'var(--osd-text)',
+                  textDecoration: 'none',
+                  width: 640,
+                }}
+              >
+                <Tile icon="open_in_new" size={56} radius={18} iconSize={30} tone="soft" />
+                <span style={{ fontSize: 34, fontWeight: 900 }}>{label}</span>
+                <span style={{ marginLeft: 'auto', display: 'flex' }}>
+                  <Icon name="arrow_forward" size={36} color="var(--osd-accent)" />
+                </span>
+              </a>
+            </Rise>
+          ))}
         </div>
       </div>
     </div>
-    <TextbookFooter subtitle="講師介紹" />
-  </div>
-);
-
-// Slide 03: 米克師三大網站
-const Slide03_MixerIntro: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="本人相關網站" subtitle="三個入口" unit="單元 1" />
-    <div
-      style={{
-        zIndex: 2,
-        flex: 1,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 28,
-        minHeight: 0,
-        alignItems: 'stretch',
-      }}
+    <Rise
+      delay={150}
+      kind="materialize"
+      style={{ position: 'absolute', left: 1120, top: 0, bottom: 0, display: 'flex' }}
     >
-      <MixerSiteCard
-        href={mixerSiteUrls.prep}
-        label="備課入口"
-        screenshot={imgMixerAiPrep}
-        screenshotAlt="AI 備課幫手網站首頁畫面"
-        title="AI備課幫手"
-        delay={0.1}
-      >
-        特教老師生成教材、學習單、課程素材與備課工具的主要入口。
-      </MixerSiteCard>
-      <MixerSiteCard
-        href={mixerSiteUrls.share}
-        label="共享入口"
-        screenshot={imgMixerShare}
-        screenshotAlt="特教教材資源共享網站畫面"
-        title="特教教材共享"
-        delay={0.2}
-        accent={colors.orange}
-      >
-        整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。
-      </MixerSiteCard>
-      <MixerSiteCard
-        href={mixerSiteUrls.teaching}
-        label="學生入口"
-        screenshot={imgMixerTeaching}
-        screenshotAlt="步步練 網站畫面"
-        title="步步練"
-        delay={0.3}
-        accent={colors.blue}
-      >
-        提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。
-      </MixerSiteCard>
-    </div>
-    <TextbookFooter subtitle="米克師三大網站" />
-  </div>
-);
-
-// Slide 04: 本日研習簡報
-const Slide04_WorkshopSlides: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="本日研習簡報" subtitle="開啟今日簡報" unit="單元 1" />
-    <div
-      style={{
-        zIndex: 2,
-        height: 480,
-        maxHeight: 480,
-        minHeight: 0,
-        display: 'grid',
-        gridTemplateColumns: '0.88fr 1.12fr',
-        gap: 28,
-        alignItems: 'stretch',
-        alignSelf: 'center',
-        width: '100%',
-      }}
-    >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
-          gap: 14,
-          height: '100%',
-          minHeight: 0,
-          boxSizing: 'border-box',
-        }}
-      >
-        <div
-          className="es-fadeUp"
-          style={{
-            background: colors.white,
-            borderRadius: 18,
-            padding: '16px 20px',
-            border: '1.5px solid #e2e8f0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-          }}
-        >
-          <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(166,104,50,0.12)', color: colors.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 950 }}>01</div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: colors.text }}>搜尋「米克師」進入備課平台</div>
-        </div>
-        <div
-          className="es-fadeUp"
-          style={{
-            background: colors.white,
-            borderRadius: 18,
-            padding: '16px 20px',
-            border: '1.5px solid #e2e8f0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-          }}
-        >
-          <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(196,93,71,0.12)', color: colors.orange, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 950 }}>02</div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: colors.text }}>點選首頁右上角「研習簡報」</div>
-        </div>
-        <div
-          className="es-fadeUp"
-          style={{
-            background: colors.white,
-            borderRadius: 18,
-            padding: '16px 20px',
-            border: '1.5px solid #e2e8f0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-          }}
-        >
-          <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(56,90,115,0.12)', color: colors.blue, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: 950 }}>03</div>
-          <div style={{ fontSize: '28px', fontWeight: 900, color: colors.text }}>輸入密碼 <strong style={{ color: colors.orange }}>「米克師」</strong> 即可閱覽</div>
-        </div>
+      <div style={{ margin: 'auto 0' }}>
+        <PracticeTimer id={num} minutes={minutes} />
       </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'minmax(0, 0.82fr) minmax(0, 1.18fr)',
-          gap: 14,
-          height: '100%',
-          minHeight: 0,
-          boxSizing: 'border-box',
-        }}
-      >
-        <div
-          className="es-fadeUp"
-          style={{
-            background: colors.white,
-            border: '2px solid #dbe4ee',
-            borderRadius: 20,
-            padding: '12px 16px',
-            boxShadow: '0 12px 28px rgba(148, 163, 184, 0.12)',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-          }}
-        >
-          <img
-            src={imgWorkshopSearchResult}
-            alt="搜尋米克師並點擊 AI 備課幫手"
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-          />
-        </div>
-        <div
-          className="es-fadeUp"
-          style={{
-            background: colors.white,
-            border: '2px solid #dbe4ee',
-            borderRadius: 20,
-            padding: '12px 14px',
-            boxShadow: '0 12px 28px rgba(148, 163, 184, 0.12)',
-            overflow: 'hidden',
-            height: '100%',
-          }}
-        >
-          <img
-            src={imgWorkshopHomepage}
-            alt="米克師 AI 備課幫手首頁右上角研習簡報"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectViewBox: 'inset(0% 0% 46.21% 34.55%)',
-              borderRadius: 12,
-            }}
-          />
-        </div>
-      </div>
-    </div>
-    <TextbookFooter subtitle="開啟今日簡報" />
-  </div>
-);
-
-// Slide 05: 今日研習大綱
-const Slide05_Agenda: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="特教語文適性教學工作流" subtitle="三大核心實踐 ‧ 模組化流程" unit="今日大綱" />
-    <div
-      style={{
-        zIndex: 2,
-        flex: 1,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 28,
-        minHeight: 0,
-        height: 520,
-        maxHeight: 520,
-        alignItems: 'stretch',
-      }}
-    >
-      {/* PART 01 卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.98)',
-          borderTop: `7px solid ${colors.accent}`,
-          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-          borderRadius: 28,
-          padding: '32px 28px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <span style={{ fontSize: '32px', fontWeight: 950, color: colors.accent, fontFamily: 'var(--osd-font-display)' }}>
-              PART 01
-            </span>
-            <span style={{ background: 'rgba(166, 104, 50, 0.12)', color: colors.accent, borderRadius: 999, padding: '4px 14px', fontSize: '18px', fontWeight: 900 }}>
-              國語文模組
-            </span>
-          </div>
-          <h3 style={{ margin: '0 0 6px 0', fontSize: '36px', fontWeight: 950, color: colors.text }}>國語文適性教材</h3>
-          <div style={{ fontSize: '22px', color: colors.muted, fontWeight: 750 }}>課文鷹架與識字讀本</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            01 國文課堂學習單
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            02 文言文逐句翻譯
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            03 字族文生成器
-          </div>
-        </div>
-      </div>
-
-      {/* PART 02 卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.12s',
-          background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.98)',
-          borderTop: `7px solid ${colors.orange}`,
-          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-          borderRadius: 28,
-          padding: '32px 28px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <span style={{ fontSize: '32px', fontWeight: 950, color: colors.orange, fontFamily: 'var(--osd-font-display)' }}>
-              PART 02
-            </span>
-            <span style={{ background: 'rgba(196, 93, 71, 0.12)', color: colors.orange, borderRadius: 999, padding: '4px 14px', fontSize: '18px', fontWeight: 900 }}>
-              英語文模組
-            </span>
-          </div>
-          <h3 style={{ margin: '0 0 6px 0', fontSize: '36px', fontWeight: 950, color: colors.text }}>英語文適性教材</h3>
-          <div style={{ fontSize: '22px', color: colors.muted, fontWeight: 750 }}>分鏡故事與階梯單字</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            01 英文資源班學習單
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            02 階梯式單字學習單
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            03 單字練習卷生成
-          </div>
-        </div>
-      </div>
-
-      {/* PART 03 卡片 */}
-      <div
-        className="es-fadeUp"
-        style={{
-          animationDelay: '0.24s',
-          background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
-          border: '1.5px solid rgba(255, 255, 255, 0.98)',
-          borderTop: `7px solid ${colors.blue}`,
-          boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
-          borderRadius: 28,
-          padding: '32px 28px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          height: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <span style={{ fontSize: '32px', fontWeight: 950, color: colors.blue, fontFamily: 'var(--osd-font-display)' }}>
-              PART 03
-            </span>
-            <span style={{ background: 'rgba(56, 90, 115, 0.12)', color: colors.blue, borderRadius: 999, padding: '4px 14px', fontSize: '18px', fontWeight: 900 }}>
-              自製電子書
-            </span>
-          </div>
-          <h3 style={{ margin: '0 0 6px 0', fontSize: '36px', fontWeight: 950, color: colors.text }}>雙模式自製電子書</h3>
-          <div style={{ fontSize: '22px', color: colors.muted, fontWeight: 750 }}>大屏教學與一鍵白卷</div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            01 大屏互動教學 / 板書
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            02 學生端一鍵 A4 乾淨列印
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.95)', border: '1px solid #e2e8f0', borderRadius: 14, padding: '12px 16px', fontSize: '24px', fontWeight: 900 }}>
-            03 一套教材兩種教學情境
-          </div>
-        </div>
-      </div>
-    </div>
-    <TextbookFooter subtitle="今日研習大綱" />
-  </div>
+    </Rise>
+    <Footer />
+  </Stage>
 );
 
 // ============================================================
-// PART 01: 國語文適性教材 (3 工具 + 5 分鐘實作)
+// PART 01: 國語文適性教材
 // ============================================================
 
-// PART 01 過渡頁
-const Slide06_Part1Header: Page = () => (
-  <PartHeaderPage
-    partNum="1"
-    time="國語文適性模組"
-    title={'國語文適性教材備課\n課文鷹架與多層次讀本'}
+const Part1Divider: Page = () => (
+  <Divider
+    partIndex={0}
+    module="國語文適性模組"
+    title="國語文適性教材備課"
+    sub="課文鷹架與多層次讀本"
     desc="國文課堂學習單 ＋ 文言文逐句翻譯 ＋ 字族文生成器，AI 快速產出多層次適性國語文素材"
   />
 );
+Part1Divider.transition = morphTransition;
 
-// 國文工具 1: 國文課堂學習單 - 扉頁心聲
-const Slide07_ChineseLessonCover: Page = () => (
-  <ToolCoverSlide
+const ChineseLessonCover: Page = () => (
+  <ToolCover
     unit="國語文備課"
+    icon="menu_book"
+    morphId="tile-part1"
     title="國文課堂學習單"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '每課找圖配圖超花時間，還要手動排版修改各種注音與摘要版本…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '課文太長看不太懂，密密麻麻的字好想睡覺，考試又記不住…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '每課找圖配圖超花時間，還要手動排版修改各種注音與摘要版本…' }}
+    student={{ text: '課文太長看不太懂，密密麻麻的字好想睡覺，考試又記不住…' }}
   />
 );
+ChineseLessonCover.transition = morphTransition;
 
-// 國文工具 1: 國文課堂學習單 - 功能介紹頁
-const Slide08_ChineseLessonFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="國語文備課"
+const ChineseLessonFeature: Page = () => (
+  <ToolFeature
+    icon="menu_book"
+    morphId="tile-part1"
     title="國文課堂學習單"
     subtitle="課文雙軌與高結構鷹架"
     tag="高結構鷹架"
-    points={[
-      '原文與易讀雙軌排版',
-      '注音田字格生字練寫',
-      '隨段即時兩題檢核',
-      '課文脈絡表格整理',
-    ]}
-    btnHref={toolUrls.chineseLessonWorksheet}
-    imgSrc={imgChineseReading}
-    imgAlt="國文課堂學習單雙軌閱讀畫面"
-    frameLabel="雙軌閱讀 · 原文與易讀對照"
+    points={['原文與易讀雙軌排版', '注音田字格生字練寫', '隨段即時兩題檢核', '課文脈絡表格整理']}
+    href={toolUrls.chineseLessonWorksheet}
+    img={imgChineseReading}
+    imgLabel="雙軌閱讀 · 原文與易讀對照"
   />
 );
+ChineseLessonFeature.transition = morphTransition;
 
-// 國文工具 2: 文言文逐句翻譯 - 扉頁心聲
-const Slide09_ChineseTranslateCover: Page = () => (
-  <ToolCoverSlide
+const ChineseTranslateCover: Page = () => (
+  <ToolCover
     unit="國語文備課"
+    icon="history_edu"
+    morphId="tile-chinese-translate"
     title="文言文逐句翻譯"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '文言文對特教生如同天書，逐句解釋與手動查找注釋耗費大半節課…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '古文字分開認得、合在一起完全看不懂，上課聽不懂只想發呆…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '文言文對特教生如同天書，逐句解釋與手動查找注釋耗費大半節課…' }}
+    student={{ text: '古文字分開認得、合在一起完全看不懂，上課聽不懂只想發呆…' }}
   />
 );
+ChineseTranslateCover.transition = morphTransition;
 
-// 國文工具 2: 文言文逐句翻譯 - 功能介紹頁
-const Slide10_ChineseTranslateFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="國語文備課"
+const ChineseTranslateFeature: Page = () => (
+  <ToolFeature
+    icon="history_edu"
+    morphId="tile-chinese-translate"
     title="文言文逐句翻譯"
     subtitle="逐句白話對照與生難字詞註解"
     tag="語意理解鷹架"
@@ -2366,39 +1670,29 @@ const Slide10_ChineseTranslateFeature: Page = () => (
       '段落核心脈絡提煉',
       '一鍵輸出適性閱讀讀本',
     ]}
-    btnHref={toolUrls.chineseTranslate}
-    imgSrc={imgChineseTranslate}
-    imgAlt="文言文逐句翻譯水陸草木之花畫面"
-    frameLabel="白話逐句對照 · 句意註釋"
+    href={toolUrls.chineseTranslate}
+    img={imgChineseTranslate}
+    imgLabel="白話逐句對照 · 句意註釋"
   />
 );
+ChineseTranslateFeature.transition = morphTransition;
 
-// 國文工具 3: 字族文生成器 - 扉頁心聲
-const Slide11_CharacterFamilyCover: Page = () => (
-  <ToolCoverSlide
+const CharacterFamilyCover: Page = () => (
+  <ToolCover
     unit="識字備課"
+    icon="spellcheck"
+    morphId="tile-character-family"
     title="字族文生成器"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '形近字與同音字學生老是搞混，手動編寫趣味聯想故事非常燒腦…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '晴、睛、清、請長得都好像，考試每次都填錯部首和生字…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '形近字與同音字學生老是搞混，手動編寫趣味聯想故事非常燒腦…' }}
+    student={{ text: '晴、睛、清、請長得都好像，考試每次都填錯部首和生字…' }}
   />
 );
+CharacterFamilyCover.transition = morphTransition;
 
-// 國文工具 3: 字族文生成器 - 功能介紹頁
-const Slide12_CharacterFamilyFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="識字備課"
+const CharacterFamilyFeature: Page = () => (
+  <ToolFeature
+    icon="spellcheck"
+    morphId="tile-character-family"
     title="字族文生成器"
     subtitle="部件歸納與趣味韻文情境"
     tag="識字記憶鷹架"
@@ -2408,68 +1702,58 @@ const Slide12_CharacterFamilyFeature: Page = () => (
       '田字格手寫加深記憶',
       '一鍵產出字族識字學習單',
     ]}
-    btnHref={toolUrls.characterFamily}
-    imgSrc={imgCharacterFamily}
-    imgAlt="字族文故事與閃爍礫石情境畫面"
-    frameLabel="字族故事 · 語境辨字"
+    href={toolUrls.characterFamily}
+    img={imgCharacterFamily}
+    imgLabel="字族故事 · 語境辨字"
   />
 );
+CharacterFamilyFeature.transition = morphTransition;
 
-// 國文 5 分鐘選擇體驗
-const Slide13_Practice_Chinese: Page = () => (
-  <PracticePage
+const PracticeChinese: Page = () => (
+  <Practice
     num="01"
     toolName="國語文教材生成"
-    time="5 分鐘"
+    minutes={5}
     task="請挑選上方任一國文工具，輸入課文或字族試做一份適性教材。"
-    buttons={[
-      { label: '國文課堂學習單', href: toolUrls.chineseLessonWorksheet, variant: 'primary' },
-      { label: '文言文逐句翻譯', href: toolUrls.chineseTranslate, variant: 'accent' },
-      { label: '字族文生成器', href: toolUrls.characterFamily, variant: 'primary' },
+    links={[
+      { label: '國文課堂學習單', href: toolUrls.chineseLessonWorksheet },
+      { label: '文言文逐句翻譯', href: toolUrls.chineseTranslate },
+      { label: '字族文生成器', href: toolUrls.characterFamily },
     ]}
   />
 );
 
 // ============================================================
-// PART 02: 英語文適性教材 (3 工具 + 5 分鐘實作)
+// PART 02: 英語文適性教材
 // ============================================================
 
-// PART 02 過渡頁
-const Slide14_Part2Header: Page = () => (
-  <PartHeaderPage
-    partNum="2"
-    time="英語文適性模組"
-    title={'英語文適性教材備課\n情境分鏡與階梯記憶'}
+const Part2Divider: Page = () => (
+  <Divider
+    partIndex={1}
+    module="英語文適性模組"
+    title="英語文適性教材備課"
+    sub="情境分鏡與階梯記憶"
     desc="英文資源班學習單 ＋ 階梯式單字 ＋ 單字練習卷，打造低焦慮特教英文學習鷹架"
   />
 );
+Part2Divider.transition = morphTransition;
 
-// 英文工具 1: 英文資源班學習單 - 扉頁心聲
-const Slide15_SpecialEdEnglishCover: Page = () => (
-  <ToolCoverSlide
+const SpecialEdEnglishCover: Page = () => (
+  <ToolCover
     unit="英語文備課"
+    icon="translate"
+    morphId="tile-part2"
     title="英文資源班學習單"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '普通班英文課本句子太長太難，手動降階重畫分鏡排版耗時耗力…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '滿滿的英文字母不會唸也看不懂，整張考卷空白好挫折…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '普通班英文課本句子太長太難，手動降階重畫分鏡排版耗時耗力…' }}
+    student={{ text: '滿滿的英文字母不會唸也看不懂，整張考卷空白好挫折…' }}
   />
 );
+SpecialEdEnglishCover.transition = morphTransition;
 
-// 英文工具 1: 英文資源班學習單 - 功能介紹頁
-const Slide16_SpecialEdEnglishFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="英語文備課"
+const SpecialEdEnglishFeature: Page = () => (
+  <ToolFeature
+    icon="translate"
+    morphId="tile-part2"
     title="英文資源班學習單"
     subtitle="情境分鏡閱讀與四線格臨摹"
     tag="分鏡故事鷹架"
@@ -2479,39 +1763,29 @@ const Slide16_SpecialEdEnglishFeature: Page = () => (
       '隨課圖文重點單字檢核',
       '一鍵 A4 乾淨作業卷列印',
     ]}
-    btnHref={toolUrls.specialEdEnglish}
-    imgSrc={imgSpecialEdEnglish}
-    imgAlt="英文資源班學習單分鏡與單字認讀檢核畫面"
-    frameLabel="分鏡故事 · 單字認讀檢核"
+    href={toolUrls.specialEdEnglish}
+    img={imgSpecialEdEnglish}
+    imgLabel="分鏡故事 · 單字認讀檢核"
   />
 );
+SpecialEdEnglishFeature.transition = morphTransition;
 
-// 英文工具 2: 階梯式英文單字學習單 - 扉頁心聲
-const Slide17_SteppedVocabCover: Page = () => (
-  <ToolCoverSlide
+const SteppedVocabCover: Page = () => (
+  <ToolCover
     unit="英語文備課"
+    icon="stairs"
+    morphId="tile-stepped-vocab"
     title="階梯式英文單字學習單"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '死記硬背單字學生轉頭就忘，需要循序漸進的多層次拆解鷹架…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '英文字母順序老是記錯，背了好多次考試還是拼不出來…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '死記硬背單字學生轉頭就忘，需要循序漸進的多層次拆解鷹架…' }}
+    student={{ text: '英文字母順序老是記錯，背了好多次考試還是拼不出來…' }}
   />
 );
+SteppedVocabCover.transition = morphTransition;
 
-// 英文工具 2: 階梯式英文單字學習單 - 功能介紹頁
-const Slide18_SteppedVocabFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="英語文備課"
+const SteppedVocabFeature: Page = () => (
+  <ToolFeature
+    icon="stairs"
+    morphId="tile-stepped-vocab"
     title="階梯式英文單字學習單"
     subtitle="字母拆解與階梯式記憶鷹架"
     tag="階梯式鷹架"
@@ -2521,39 +1795,29 @@ const Slide18_SteppedVocabFeature: Page = () => (
       '音節拆解與自然發音提示',
       '依學生起點自選練習層級',
     ]}
-    btnHref={toolUrls.steppedVocab}
-    imgSrc={imgSteppedVocab}
-    imgAlt="階梯式英文單字看中文選英文三選一畫面"
-    frameLabel="階梯練習 · 中翻英三選一"
+    href={toolUrls.steppedVocab}
+    img={imgSteppedVocab}
+    imgLabel="階梯練習 · 中翻英三選一"
   />
 );
+SteppedVocabFeature.transition = morphTransition;
 
-// 英文工具 3: 單字練習卷生成 - 扉頁心聲
-const Slide19_VocabPracticeCover: Page = () => (
-  <ToolCoverSlide
+const VocabPracticeCover: Page = () => (
+  <ToolCover
     unit="英語評量"
+    icon="quiz"
+    morphId="tile-vocab-practice"
     title="單字練習卷生成器"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '每次小考都要手動拼湊不同題型，出題加排版排整晚超累…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '題目字太小太擠很容易看錯行，題型太複雜會直接慌張…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '每次小考都要手動拼湊不同題型，出題加排版排整晚超累…' }}
+    student={{ text: '題目字太小太擠很容易看錯行，題型太複雜會直接慌張…' }}
   />
 );
+VocabPracticeCover.transition = morphTransition;
 
-// 英文工具 3: 單字練習卷生成 - 功能介紹頁
-const Slide20_VocabPracticeFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="英語評量"
+const VocabPracticeFeature: Page = () => (
+  <ToolFeature
+    icon="quiz"
+    morphId="tile-vocab-practice"
     title="單字練習卷生成器"
     subtitle="多元題型組合與一鍵出卷"
     tag="多元評量組合"
@@ -2563,68 +1827,58 @@ const Slide20_VocabPracticeFeature: Page = () => (
       '同步產出學生卷與解答卷',
       '支援隨機打亂出 AB 卷',
     ]}
-    btnHref={toolUrls.vocabPractice}
-    imgSrc={imgVocabPractice}
-    imgAlt="單字練習卷看圖抄寫與四線格畫面"
-    frameLabel="單字練習卷 · 看圖抄寫與四線格"
+    href={toolUrls.vocabPractice}
+    img={imgVocabPractice}
+    imgLabel="單字練習卷 · 看圖抄寫與四線格"
   />
 );
+VocabPracticeFeature.transition = morphTransition;
 
-// 英文 5 分鐘選擇體驗
-const Slide21_Practice_English: Page = () => (
-  <PracticePage
+const PracticeEnglish: Page = () => (
+  <Practice
     num="02"
     toolName="英語文教材生成"
-    time="5 分鐘"
+    minutes={5}
     task="請挑選上方任一英文工具，輸入單字或課文試做一份適性學習單。"
-    buttons={[
-      { label: '英文資源班學習單', href: toolUrls.specialEdEnglish, variant: 'primary' },
-      { label: '階梯式英文單字', href: toolUrls.steppedVocab, variant: 'accent' },
-      { label: '單字練習卷生成', href: toolUrls.vocabPractice, variant: 'primary' },
+    links={[
+      { label: '英文資源班學習單', href: toolUrls.specialEdEnglish },
+      { label: '階梯式英文單字', href: toolUrls.steppedVocab },
+      { label: '單字練習卷生成', href: toolUrls.vocabPractice },
     ]}
   />
 );
 
 // ============================================================
-// PART 03: 雙模式自製電子書 (大屏教學 + 一鍵 A4 列印)
+// PART 03: 雙模式自製電子書
 // ============================================================
 
-// PART 03 過渡頁
-const Slide22_Part3Header: Page = () => (
-  <PartHeaderPage
-    partNum="3"
-    time="電子書模組"
-    title={'雙模式自製教學電子書\n大屏互動與純淨紙本'}
+const Part3Divider: Page = () => (
+  <Divider
+    partIndex={2}
+    module="電子書模組"
+    title="雙模式自製教學電子書"
+    sub="大屏互動與純淨紙本"
     desc="一套教材、兩種場景！教師端大屏投影即時教學，學生端一鍵 A4 乾淨無干擾列印"
   />
 );
+Part3Divider.transition = morphTransition;
 
-// 電子書扉頁心聲
-const Slide23_EbookCover: Page = () => (
-  <ToolCoverSlide
+const EbookCover: Page = () => (
+  <ToolCover
     unit="數位備課"
+    icon="auto_stories"
+    morphId="tile-part3"
     title="雙模式自製教學電子書"
-    painPoints={[
-      {
-        tag: '👩‍🏫 老師心聲',
-        status: '💬 備課日常',
-        text: '上課投影片跟印給學生的學習單格式不同，每次備課都要做好幾份…',
-        color: 'rose',
-      },
-      {
-        tag: '👦 學生心聲',
-        status: '😩 學習困擾',
-        text: '上課大螢幕跟手上紙本對不起來，常常找不到老師現在講到哪裡…',
-        color: 'sky',
-      },
-    ]}
+    teacher={{ text: '上課投影片跟印給學生的學習單格式不同，每次備課都要做好幾份…' }}
+    student={{ text: '上課大螢幕跟手上紙本對不起來，常常找不到老師現在講到哪裡…' }}
   />
 );
+EbookCover.transition = morphTransition;
 
-// 電子書功能介紹頁
-const Slide24_EbookFeature: Page = () => (
-  <ToolFeatureSlide
-    unit="數位備課"
+const EbookFeature: Page = () => (
+  <ToolFeature
+    icon="auto_stories"
+    morphId="tile-part3"
     title="雙模式自製教學電子書"
     subtitle="大屏教學與一鍵 A4 乾淨列印"
     tag="雙模式教學"
@@ -2634,175 +1888,264 @@ const Slide24_EbookFeature: Page = () => (
       '內建板書螢光筆圈記劃線',
       '單一 HTML 檔案隨開隨用',
     ]}
-    btnHref={toolUrls.ebookHome}
-    imgSrc={imgMathPrint}
-    imgAlt="雙模式自製電子書列印與大屏介面"
-    frameLabel="雙模式 · 大屏教學與 A4 列印"
+    href={toolUrls.ebookHome}
+    img={imgMathPrint}
+    imgLabel="雙模式 · 大屏教學與 A4 列印"
   />
 );
+EbookFeature.transition = morphTransition;
 
 // ============================================================
-// 結尾章節 (帶走一件事 + 社群追蹤 + 三大網站)
+// 結尾
 // ============================================================
 
-// 帶走一件事
-const Slide25_ClosingSummary: Page = () => (
-  <div
-    style={{
-      ...fill,
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      padding: '54px 108px 100px 108px',
-    }}
-  >
-    <TextbookBg />
+const takeaways = [
+  { icon: 'check', label: '不必全用', text: '工具很多，挑一個最上手的就好。' },
+  { icon: 'favorite', label: '不用追趕', text: '紙本、數位或自製 AI，適合你的就是好工具。' },
+  { icon: 'lightbulb', label: '回歸痛點', text: '看見每天重複的困擾，讓 AI 幫你少花一點力氣。' },
+] as const;
 
+const ClosingSummary: Page = () => (
+  <Stage dots>
     <div
-      className="es-fadeUp"
       style={{
-        zIndex: 2,
-        maxWidth: 1400,
-        width: '100%',
-        background: 'rgba(255, 255, 255, 0.94)',
-        backdropFilter: 'blur(28px)',
-        border: '1.5px solid rgba(255, 255, 255, 0.98)',
-        borderRadius: 36,
-        padding: '52px 64px 44px',
-        boxShadow: '0 28px 64px rgba(78, 64, 53, 0.12)',
+        position: 'absolute',
+        inset: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 24,
+        justifyContent: 'center',
+      }}
+    >
+      <Rise>
+        <Chip strong>今天的研習</Chip>
+      </Rise>
+      <Rise delay={120} kind="materialize" style={{ marginTop: 36 }}>
+        <h2 style={{ ...h2, fontSize: 112, lineHeight: 1.2 }}>
+          帶走一件事，<span style={gradText}>就夠了。</span>
+        </h2>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 52 }}>
+        {takeaways.map(({ icon, label, text }, index) => (
+          <Rise
+            key={label}
+            delay={260 + index * 100}
+            style={{
+              ...glass,
+              width: 1240,
+              height: 112,
+              borderRadius: 28,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 28,
+              padding: '0 40px',
+            }}
+          >
+            <Tile icon={icon} size={64} radius={20} iconSize={36} tone="soft" />
+            <span style={{ fontSize: 38, fontWeight: 900 }}>{label}</span>
+            <span style={{ fontSize: 34, color: muted }}>{text}</span>
+          </Rise>
+        ))}
+      </div>
+      <Rise delay={620} motion={BOUNCY} style={{ marginTop: 52 }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 16,
+            padding: '22px 56px',
+            borderRadius: 999,
+            background: brandGradient,
+            color: '#ffffff',
+            fontSize: 44,
+            fontWeight: 900,
+            boxShadow: '0 30px 60px -24px rgba(34, 87, 122, 0.6)',
+          }}
+        >
+          選擇自己最不排斥的！
+        </div>
+      </Rise>
+    </div>
+    <Footer />
+  </Stage>
+);
+ClosingSummary.transition = settle;
+
+const InstagramIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M19 12a7 7 0 1 1-7-7c3.87 0 6 2.5 6 5.5 0 3-2 4.5-4 4.5s-3-1.5-3-3 1.5-3 3-3c1.5 0 2.5.8 2.8 1.8" />
+  </svg>
+);
+
+const SocialCard = ({
+  href,
+  platform,
+  handle,
+  color,
+  icon,
+  delay,
+}: {
+  href: string;
+  platform: string;
+  handle: string;
+  color: string;
+  icon: ReactNode;
+  delay: number;
+}) => (
+  <Rise delay={delay} motion={BOUNCY}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="cew-link"
+      style={{
+        ...glass,
+        width: 500,
+        height: 240,
+        boxSizing: 'border-box',
+        padding: '0 40px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 32,
+        color: 'var(--osd-text)',
+        textDecoration: 'none',
       }}
     >
       <div
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 12,
-          background: 'rgba(196, 93, 71, 0.12)',
-          color: colors.orange,
-          borderRadius: 999,
-          padding: '8px 28px',
-          fontSize: '24px',
-          fontWeight: 900,
-        }}
-      >
-        <span>今天的研習</span>
-      </div>
-
-      <h1
-        style={{
-          fontFamily: 'var(--osd-font-display)',
-          fontSize: '90px',
-          fontWeight: 950,
-          color: colors.text,
-          margin: 0,
-          letterSpacing: '-0.03em',
-          lineHeight: 1.15,
-        }}
-      >
-        帶走一件事，就夠了。
-      </h1>
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 14,
-          fontSize: '36px',
-          fontWeight: 750,
-          color: colors.text,
-          lineHeight: 1.5,
-          textAlign: 'left',
-          marginTop: 8,
-        }}
-      >
-        <div>
-          <strong style={{ color: colors.accent }}>不必全用：</strong>工具很多，挑一個最上手的就好。
-        </div>
-        <div>
-          <strong style={{ color: colors.orange }}>不用追趕：</strong>紙本、數位或自製 AI，適合你的就是好工具。
-        </div>
-        <div>
-          <strong style={{ color: colors.blue }}>回歸痛點：</strong>看見每天重複的困擾，讓 AI 幫你少花一點力氣。
-        </div>
-      </div>
-
-      <div
-        style={{
-          marginTop: 12,
-          background: 'linear-gradient(135deg, #242b35 0%, #3a4758 100%)',
+          width: 112,
+          height: 112,
+          borderRadius: 32,
+          flexShrink: 0,
+          background: color,
           color: '#ffffff',
-          padding: '16px 48px',
-          borderRadius: 999,
-          fontSize: '34px',
-          fontWeight: 950,
-          boxShadow: '0 12px 28px rgba(36, 43, 53, 0.28)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 18px 36px -16px ${color}`,
         }}
       >
-        選擇自己最不排斥的！
+        {icon}
       </div>
-    </div>
-
-    <TextbookFooter subtitle="總結與賦歸" />
-  </div>
+      <div>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 800 }}>
+          {platform}
+        </div>
+        <div style={{ fontSize: 30, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 24,
+            color: muted,
+            marginTop: 8,
+          }}
+        >
+          點擊前往
+          <Icon name="arrow_forward" size={26} />
+        </div>
+      </div>
+    </a>
+  </Rise>
 );
 
-// 社群追蹤
-const Slide26_Social: Page = () => (
-  <div style={fill}>
-    <TextbookBg />
-    <TextbookHeader title="謝謝大家！歡迎追蹤看更多" subtitle="社群入口" unit="單元 1" />
+const Social: Page = () => (
+  <Stage dots>
     <div
       style={{
-        zIndex: 2,
-        flex: 1,
-        width: '100%',
-        maxWidth: 1580,
-        alignSelf: 'center',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 28,
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        minHeight: 0,
+        justifyContent: 'center',
+        textAlign: 'center',
       }}
     >
-      <SocialLinkCard
-        href={socialUrls.instagram}
-        label="Instagram"
-        handle="@spedmix2025"
-        icon={<InstagramIcon />}
-        color="#d62976"
-        delay={0.1}
-      >
-        點擊前往
-      </SocialLinkCard>
-      <SocialLinkCard
-        href={socialUrls.facebook}
-        label="Facebook"
-        handle="米克師"
-        icon={<FacebookIcon />}
-        color="#1877f2"
-        delay={0.2}
-      >
-        點擊前往
-      </SocialLinkCard>
-      <SocialLinkCard
-        href={socialUrls.threads}
-        label="Threads"
-        handle="@spedmix2025"
-        icon={<ThreadsIcon />}
-        color="#111827"
-        delay={0.3}
-      >
-        點擊前往
-      </SocialLinkCard>
+      <Rise>
+        <div style={eyebrow}>社群入口</div>
+      </Rise>
+      <Rise delay={100} kind="materialize" style={{ marginTop: 28 }}>
+        <h2 style={{ ...h2, fontSize: 112, lineHeight: 1.2 }}>
+          謝謝大家！<span style={gradText}>歡迎追蹤看更多</span>
+        </h2>
+      </Rise>
+      <div style={{ display: 'flex', gap: 40, marginTop: 80 }}>
+        <SocialCard
+          href={socialUrls.instagram}
+          platform="Instagram"
+          handle="@spedmix2025"
+          color="#d62976"
+          icon={<InstagramIcon />}
+          delay={250}
+        />
+        <SocialCard
+          href={socialUrls.facebook}
+          platform="Facebook"
+          handle="米克師"
+          color="#1877f2"
+          icon={<FacebookIcon />}
+          delay={350}
+        />
+        <SocialCard
+          href={socialUrls.threads}
+          platform="Threads"
+          handle="@spedmix2025"
+          color="#111827"
+          icon={<ThreadsIcon />}
+          delay={450}
+        />
+      </div>
     </div>
-    <TextbookFooter subtitle="社群連結" />
-  </div>
+    <Footer />
+  </Stage>
 );
+Social.transition = settle;
 
 export const meta: SlideMeta = {
   title: '一鍵搞定國英適性教材 特教老師的隨身備課神器',
@@ -2810,29 +2153,29 @@ export const meta: SlideMeta = {
 };
 
 export default [
-  Slide01_Title,
-  Slide02_Speaker,
-  Slide03_MixerIntro,
-  Slide05_Agenda,
-  Slide06_Part1Header,
-  Slide07_ChineseLessonCover,
-  Slide08_ChineseLessonFeature,
-  Slide09_ChineseTranslateCover,
-  Slide10_ChineseTranslateFeature,
-  Slide11_CharacterFamilyCover,
-  Slide12_CharacterFamilyFeature,
-  Slide13_Practice_Chinese,
-  Slide14_Part2Header,
-  Slide15_SpecialEdEnglishCover,
-  Slide16_SpecialEdEnglishFeature,
-  Slide17_SteppedVocabCover,
-  Slide18_SteppedVocabFeature,
-  Slide19_VocabPracticeCover,
-  Slide20_VocabPracticeFeature,
-  Slide21_Practice_English,
-  Slide22_Part3Header,
-  Slide23_EbookCover,
-  Slide24_EbookFeature,
-  Slide25_ClosingSummary,
-  Slide26_Social,
+  Cover,
+  Speaker,
+  MixerSites,
+  Agenda,
+  Part1Divider,
+  ChineseLessonCover,
+  ChineseLessonFeature,
+  ChineseTranslateCover,
+  ChineseTranslateFeature,
+  CharacterFamilyCover,
+  CharacterFamilyFeature,
+  PracticeChinese,
+  Part2Divider,
+  SpecialEdEnglishCover,
+  SpecialEdEnglishFeature,
+  SteppedVocabCover,
+  SteppedVocabFeature,
+  VocabPracticeCover,
+  VocabPracticeFeature,
+  PracticeEnglish,
+  Part3Divider,
+  EbookCover,
+  EbookFeature,
+  ClosingSummary,
+  Social,
 ] satisfies Page[];
