@@ -135,7 +135,6 @@ const TextbookBg = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(181, 141, 103, 0.20) 0%, rgba(197, 137, 85, 0.08) 50%, transparent 70%)',
-        filter: 'blur(50px)',
       }}
     />
     <div
@@ -148,7 +147,6 @@ const TextbookBg = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(196, 93, 71, 0.12) 0%, rgba(181, 141, 103, 0.08) 50%, transparent 70%)',
-        filter: 'blur(60px)',
       }}
     />
     <div
@@ -190,7 +188,6 @@ const TextbookFooter = ({
         color: inverse ? '#cbd5e1' : colors.muted,
         fontWeight: 700,
         zIndex: 10,
-        backdropFilter: 'blur(8px)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -260,7 +257,6 @@ const TextbookHeader = ({
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           background: 'rgba(166, 104, 50, 0.1)',
-          backdropFilter: 'blur(12px)',
           border: '1px solid rgba(166, 104, 50, 0.2)',
           padding: '6px 20px',
           borderRadius: 10,
@@ -337,7 +333,6 @@ const PartHeaderPage = ({
           height: 850,
           borderRadius: '50%',
           background: `radial-gradient(circle, ${accent}55 0%, rgba(28, 34, 43, 0) 70%)`,
-          filter: 'blur(50px)',
           top: '20%',
           left: '50%',
           transform: 'translateX(-50%)',
@@ -383,7 +378,6 @@ const PartHeaderPage = ({
             fontWeight: 950,
             color: '#ffffff',
             background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(16px)',
             border: `1.5px solid ${accent}99`,
             padding: '10px 32px',
             borderRadius: 999,
@@ -434,7 +428,6 @@ const PartHeaderPage = ({
             gap: 32,
             padding: '18px 42px',
             background: 'rgba(28, 34, 43, 0.65)',
-            backdropFilter: 'blur(20px)',
             borderRadius: 999,
             border: '1.5px solid rgba(255, 255, 255, 0.16)',
             boxShadow: '0 18px 44px rgba(2, 6, 23, 0.28)',
@@ -708,7 +701,6 @@ const GlobalTimerFloatingBar = () => {
         boxShadow: '0 14px 34px rgba(0,0,0,0.32)',
         border: `2px solid ${isFinished ? colors.orangeLight : 'rgba(204, 251, 241, 0.65)'}`,
         fontFamily: 'monospace',
-        backdropFilter: 'blur(8px)',
       }}
     >
       <span style={{ fontSize: 20 }}>⏱️</span>
@@ -1152,7 +1144,6 @@ const PracticePage = ({
           maxWidth: 1160,
           width: '100%',
           background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(24px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.orange}`,
           borderRadius: 24,
@@ -1226,7 +1217,6 @@ const ToolScreenshotFrame = ({
     style={{
       animationDelay: `${delay}s`,
       background: 'rgba(255, 255, 255, 0.90)',
-      backdropFilter: 'blur(20px)',
       border: '1.5px solid rgba(255, 255, 255, 0.95)',
       borderRadius: 24,
       boxShadow: '0 24px 60px rgba(148, 163, 184, 0.22), 0 4px 16px rgba(166, 104, 50, 0.08)',
@@ -1336,7 +1326,6 @@ const WorkshopStepCard = ({
       gap: 18,
       alignItems: 'center',
       background: 'rgba(255, 255, 255, 0.88)',
-      backdropFilter: 'blur(16px)',
       border: `1.5px solid rgba(255, 255, 255, 0.92)`,
       borderLeft: `7px solid ${accent}`,
       borderRadius: 20,
@@ -1452,7 +1441,6 @@ const SocialLinkCard = ({
       alignItems: 'center',
       minHeight: 172,
       background: 'rgba(255, 255, 255, 0.85)',
-      backdropFilter: 'blur(16px)',
       border: '1.5px solid rgba(255, 255, 255, 0.9)',
       borderRadius: 24,
       padding: '28px 34px',
@@ -1524,7 +1512,6 @@ const MixerSiteCard = ({
     style={{
       animationDelay: `${delay}s`,
       background: 'rgba(255, 255, 255, 0.85)',
-      backdropFilter: 'blur(16px)',
       border: `2px solid rgba(255, 255, 255, 0.9)`,
       borderTop: `6px solid ${accent}`,
       borderRadius: 22,
@@ -2209,7 +2196,6 @@ const Slide03_Agenda: Page = () => (
         className="es-fadeUp"
         style={{
           background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.98)',
           borderTop: `7px solid ${colors.accent}`,
           boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
@@ -2352,7 +2338,6 @@ const Slide03_Agenda: Page = () => (
         style={{
           animationDelay: '0.12s',
           background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.98)',
           borderTop: `7px solid ${colors.orange}`,
           boxShadow: '0 20px 48px rgba(78, 64, 53, 0.10)',
@@ -2545,7 +2530,6 @@ const Slide05_AdminIep: Page = () => {
           style={{
             height: '100%',
             background: 'rgba(255, 255, 255, 0.94)',
-            backdropFilter: 'blur(20px)',
             border: '1.5px solid rgba(254, 205, 211, 0.95)',
             borderTop: `8px solid ${colors.orange}`,
             borderRadius: 24,
@@ -2645,7 +2629,6 @@ const Slide05_AdminIep: Page = () => {
             animationDelay: '120ms',
             height: '100%',
             background: 'rgba(255, 255, 255, 0.94)',
-            backdropFilter: 'blur(20px)',
             border: '1.5px solid rgba(199, 210, 254, 0.95)',
             borderTop: '8px solid #4f46e5',
             borderRadius: 24,
@@ -2808,7 +2791,6 @@ const Slide05b_OtherIepTools: Page = () => {
               style={{
                 animationDelay: `${index * 0.08}s`,
                 background: 'rgba(255, 255, 255, 0.94)',
-                backdropFilter: 'blur(20px)',
                 border: '1.5px solid rgba(226, 232, 240, 0.9)',
                 borderLeft: `12px solid ${accent}`,
                 borderRadius: 24,
@@ -3139,7 +3121,6 @@ const Slide08_ChineseLessonTitle: Page = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
     />
@@ -3154,7 +3135,6 @@ const Slide08_ChineseLessonTitle: Page = () => (
         flexDirection: 'column',
         alignItems: 'center',
         background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
         border: '1.5px solid rgba(255, 255, 255, 0.95)',
         borderTop: `8px solid ${colors.accent}`,
         borderRadius: 36,
@@ -3327,7 +3307,6 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -3370,7 +3349,6 @@ const Slide08_ChineseLessonWorksheet1: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -3609,7 +3587,6 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -3652,7 +3629,6 @@ const Slide08_ChineseLessonWorksheet2: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -3848,7 +3824,6 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -3891,7 +3866,6 @@ const Slide08_ChineseLessonWorksheet3: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -4130,7 +4104,6 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -4173,7 +4146,6 @@ const Slide08_ChineseLessonWorksheet4: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -4412,7 +4384,6 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -4455,7 +4426,6 @@ const Slide08_ChineseLessonWorksheet5: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -4650,7 +4620,6 @@ const Slide10_MathScaffoldTitle: Page = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
     />
@@ -4665,7 +4634,6 @@ const Slide10_MathScaffoldTitle: Page = () => (
         flexDirection: 'column',
         alignItems: 'center',
         background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
         border: '1.5px solid rgba(255, 255, 255, 0.95)',
         borderTop: `8px solid ${colors.accent}`,
         borderRadius: 36,
@@ -4838,7 +4806,6 @@ const Slide10_MathScaffold1: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -4881,7 +4848,6 @@ const Slide10_MathScaffold1: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -5131,7 +5097,6 @@ const Slide10_MathScaffold2: Page = () => (
         style={{
           height: '100%',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.orange}`,
           borderRadius: 24,
@@ -5319,7 +5284,6 @@ const Slide10_MathScaffold2: Page = () => (
         style={{
           height: '100%',
           background: 'rgba(255, 255, 255, 0.94)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderRadius: 24,
           padding: '28px 32px',
@@ -5395,7 +5359,6 @@ const Slide10_MathScaffold3: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -5438,7 +5401,6 @@ const Slide10_MathScaffold3: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -5677,7 +5639,6 @@ const Slide10_MathScaffold4: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -5720,7 +5681,6 @@ const Slide10_MathScaffold4: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -5983,7 +5943,6 @@ const Slide14_WebTool1Title: Page = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
     />
@@ -5998,7 +5957,6 @@ const Slide14_WebTool1Title: Page = () => (
         flexDirection: 'column',
         alignItems: 'center',
         background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
         border: '1.5px solid rgba(255, 255, 255, 0.95)',
         borderTop: `8px solid ${colors.accent}`,
         borderRadius: 36,
@@ -6171,7 +6129,6 @@ const Slide14_WebTool1: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -6214,7 +6171,6 @@ const Slide14_WebTool1: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -6452,7 +6408,6 @@ const Slide15_InteractiveMathTitle: Page = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
     />
@@ -6467,7 +6422,6 @@ const Slide15_InteractiveMathTitle: Page = () => (
         flexDirection: 'column',
         alignItems: 'center',
         background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
         border: '1.5px solid rgba(255, 255, 255, 0.95)',
         borderTop: `8px solid ${colors.accent}`,
         borderRadius: 36,
@@ -6640,7 +6594,6 @@ const Slide15_InteractiveMath: Page = () => (
             letterSpacing: '0.08em',
             color: colors.accent,
             background: 'rgba(166, 104, 50, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(166, 104, 50, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -6683,7 +6636,6 @@ const Slide15_InteractiveMath: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -6936,7 +6888,6 @@ const Slide16_EbookTitle: Page = () => (
         borderRadius: '50%',
         background:
           'radial-gradient(circle, rgba(166, 104, 50, 0.15) 0%, rgba(196, 93, 71, 0.06) 50%, transparent 70%)',
-        filter: 'blur(50px)',
         pointerEvents: 'none',
       }}
     />
@@ -6951,7 +6902,6 @@ const Slide16_EbookTitle: Page = () => (
         flexDirection: 'column',
         alignItems: 'center',
         background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(20px)',
         border: '1.5px solid rgba(255, 255, 255, 0.95)',
         borderTop: `8px solid ${colors.orange}`,
         borderRadius: 36,
@@ -7124,7 +7074,6 @@ const Slide16_EbookDualMode: Page = () => (
             letterSpacing: '0.08em',
             color: colors.orange,
             background: 'rgba(196, 93, 71, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(196, 93, 71, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -7169,7 +7118,6 @@ const Slide16_EbookDualMode: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.90)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.orange}`,
           borderRadius: 28,
@@ -7408,7 +7356,6 @@ const Slide16_EbookScenarios: Page = () => (
             letterSpacing: '0.08em',
             color: colors.orange,
             background: 'rgba(196, 93, 71, 0.1)',
-            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(196, 93, 71, 0.2)',
             padding: '8px 22px',
             borderRadius: 12,
@@ -7451,7 +7398,6 @@ const Slide16_EbookScenarios: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.accent}`,
           borderRadius: 28,
@@ -7527,7 +7473,6 @@ const Slide16_EbookScenarios: Page = () => (
           height: '100%',
           boxSizing: 'border-box',
           background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(20px)',
           border: '1.5px solid rgba(255, 255, 255, 0.95)',
           borderTop: `6px solid ${colors.orange}`,
           borderRadius: 28,
