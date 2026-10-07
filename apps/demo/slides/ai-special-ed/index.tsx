@@ -75,6 +75,7 @@ const toolUrls = {
 const uploadFileUrls = {
   language: 'https://forms.gle/wnMPK8xJXCwQ6VNh8',
   general: 'https://forms.gle/wUPvUAkE7PoFVdEFA',
+  chineseMath: 'https://forms.gle/EYWo9CuWQ8TJQd2h6',
 } as const;
 
 const socialUrls = {
@@ -5954,7 +5955,7 @@ const Slide10_Practice_ChineseMath: Page = () => (
     buttons={[
       { label: '國語文學習單', href: toolUrls.chineseLessonWorksheet, variant: 'primary' },
       { label: '數學簡化學習單', href: toolUrls.mathScaffold, variant: 'accent' },
-      { label: '上傳檔案', href: uploadFileUrls.general, variant: 'dark' },
+      { label: '上傳檔案', href: uploadFileUrls.chineseMath, variant: 'dark' },
     ]}
   />
 );
