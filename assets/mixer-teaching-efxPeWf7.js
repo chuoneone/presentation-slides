@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/mixer-teaching-BlNyLdWP.webp`;export{e as t};
