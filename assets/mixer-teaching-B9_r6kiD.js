@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/headshot-DErJL9Ia.webp`,t=`/presentation-slides/assets/mixer-teaching-BlNyLdWP.webp`;export{e as n,t};
