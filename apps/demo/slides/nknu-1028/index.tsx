@@ -12,7 +12,7 @@ import {
   useIsActivePage,
   useSlidePageNumber,
 } from '@open-slide/core';
-import type { CSSProperties, ReactNode } from 'react';
+import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgLibraryHome from './assets/ebook-library-home.png';
 import imgEbookToolbar from './assets/ebook-toolbar.png';
@@ -87,15 +87,19 @@ const ICONS = [
   'link',
   'menu_book',
   'open_in_new',
+  'pause',
   'person',
+  'play_arrow',
   'psychology',
   'reorder',
+  'restart_alt',
   'school',
   'smart_toy',
   'sports_esports',
   'stairs',
   'sync',
   'terminal',
+  'timer',
   'touch_app',
   'visibility',
   'volume_up',
@@ -3066,9 +3070,119 @@ const LinkCard = ({ tool, delay }: { tool: ToolLink; delay: number }) => (
   </Rise>
 );
 
-const ToolLinks = ({ part, title, tools }: { part: string; title: string; tools: ToolLink[] }) => (
+const TRY_SECONDS = 5 * 60;
+
+const timerButton: CSSProperties = {
+  width: 56,
+  height: 56,
+  borderRadius: '50%',
+  border: 'none',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'rgba(56, 163, 165, 0.12)',
+  color: 'var(--osd-accent)',
+};
+
+// Kept outside React so the countdown survives the page unmounting when the
+// presenter moves to another slide and comes back.
+type TimerState = { endAt: number | null; left: number };
+const timers = new Map<string, TimerState>();
+
+const remaining = (t: TimerState) =>
+  t.endAt === null ? t.left : Math.max(0, Math.ceil((t.endAt - Date.now()) / 1000));
+
+const CountdownTimer = ({ id, seconds }: { id: string; seconds: number }) => {
+  const state = timers.get(id) ?? { endAt: null, left: seconds };
+  timers.set(id, state);
+  const [, rerender] = useState(0);
+
+  useEffect(() => {
+    const tick = window.setInterval(() => {
+      const t = timers.get(id);
+      if (t && t.endAt !== null && remaining(t) === 0) timers.set(id, { endAt: null, left: 0 });
+      rerender((n) => n + 1);
+    }, 250);
+    return () => window.clearInterval(tick);
+  }, [id]);
+
+  const left = remaining(state);
+  const running = state.endAt !== null && left > 0;
+  const done = left === 0;
+  const toggle = () => {
+    if (running) {
+      timers.set(id, { endAt: null, left });
+    } else {
+      const start = done ? seconds : left;
+      timers.set(id, { endAt: Date.now() + start * 1000, left: start });
+    }
+    rerender((n) => n + 1);
+  };
+  const reset = () => {
+    timers.set(id, { endAt: null, left: seconds });
+    rerender((n) => n + 1);
+  };
+  const mm = String(Math.floor(left / 60)).padStart(2, '0');
+  const ss = String(left % 60).padStart(2, '0');
+
+  return (
+    <Rise
+      delay={300}
+      style={{
+        ...glass,
+        position: 'absolute',
+        right: 120,
+        top: 110,
+        borderRadius: 999,
+        padding: '10px 12px 10px 28px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 14,
+      }}
+    >
+      <Icon name="timer" size={36} color={done ? warn : 'var(--osd-accent)'} />
+      <span
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontVariantNumeric: 'tabular-nums',
+          fontSize: 40,
+          fontWeight: 800,
+          minWidth: 110,
+          color: done ? warn : 'var(--osd-text)',
+        }}
+      >
+        {done ? '時間到' : `${mm}:${ss}`}
+      </span>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={running ? '暫停計時' : '開始計時'}
+        style={timerButton}
+      >
+        <Icon name={running ? 'pause' : 'play_arrow'} size={34} />
+      </button>
+      <button type="button" onClick={reset} aria-label="重設計時" style={timerButton}>
+        <Icon name="restart_alt" size={30} />
+      </button>
+    </Rise>
+  );
+};
+
+const ToolLinks = ({
+  part,
+  title,
+  tools,
+  timer = false,
+}: {
+  part: string;
+  title: string;
+  tools: ToolLink[];
+  timer?: boolean;
+}) => (
   <Stage>
     <HeaderRow icon="link" title={`${part} 工具連結`} />
+    {timer && <CountdownTimer id={part} seconds={TRY_SECONDS} />}
     <SubLine>{title} ‧ 掃描 QR code 或點擊卡片開啟</SubLine>
     <div
       style={{
@@ -3092,6 +3206,7 @@ const Part1Links: Page = () => (
   <ToolLinks
     part="PART 01"
     title="紙本教材"
+    timer
     tools={[
       {
         icon: 'menu_book',
@@ -3113,6 +3228,7 @@ const Part2Links: Page = () => (
   <ToolLinks
     part="PART 02"
     title="互動網頁"
+    timer
     tools={[
       {
         icon: 'reorder',
@@ -3334,7 +3450,7 @@ export const notes: (string | undefined)[] = [
   '動機：AI 讓內容變快了，但貼到 Word、排版、調字級還是手工。工具要解決的是最後一哩。',
   '國語文學習單：一個工具，產出雙軌閱讀、田字格、隨段檢核等版面，直接可以印。',
   '數學簡化學習單：輸入題型就好，先懂再練，一鍵列印。',
-  'PART 1 工具連結：兩個工具都可以直接掃 QR code 試用。',
+  'PART 1 工具連結：請大家掃 QR code 試用，按右上角計時器開始 5 分鐘。',
   '14:55 PART 2 互動網頁，約 25 分鐘。',
   '先肯定現成工具，再講四個限制。重點是「選擇就等於檢核」對 ADHD 學生的影響。',
   '對照：點了就判 vs 先選再檢核。多一個停頓，學生就有思考與修正的空間。',
@@ -3342,7 +3458,7 @@ export const notes: (string | undefined)[] = [
   '互動步驟數學：一次一步、每步各自檢核，錯在哪就停在哪。',
   '視覺設計：一次亮一題、亮點提示作答位置。這需要老師了解學生，沒有標準答案。',
   '整理：自己做就沒有這些限制，但前提是老師懂學生，這就是那 30 分。逐列點開。',
-  'PART 2 工具連結：句型排列、互動步驟數學，都可以直接掃 QR code 試用。',
+  'PART 2 工具連結：句型排列、互動步驟數學，按右上角計時器給大家 5 分鐘試用。',
   '15:20 PART 3 電子書模式，約 20 分鐘。',
   '思維轉換：我們一直想加速做學習單、做簡報；但簡報的本質只是方便呈現。電子書做一次就有兩種用法。',
   '國中教材庫：依年級科目整理，每一課是一份電子書。順帶提一句：都在同一個資料夾，後面會用到。',
