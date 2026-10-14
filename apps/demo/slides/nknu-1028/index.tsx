@@ -1,4 +1,7 @@
 import imgHeadshot from '@assets/headshot.webp';
+import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
+import imgMixerShare from '@assets/mixer-share.webp';
+import imgMixerTeaching from '@assets/mixer-teaching.webp';
 import {
   type DesignSystem,
   type Page,
@@ -42,10 +45,30 @@ const socialUrls = {
   threads: 'https://www.threads.com/@spedmix2025',
 } as const;
 
+const mixerSiteUrls = {
+  prep: 'https://spedmix.pages.dev/',
+  share: 'https://spedmixshare.pages.dev/',
+  teaching: 'https://spedmixteaching.pages.dev/',
+} as const;
+
+const toolUrls = {
+  chineseLessonWorksheet: 'https://spedmix.pages.dev/chinese-lesson-worksheet',
+  mathScaffold: 'https://spedmix.pages.dev/math-scaffold',
+  unscramble: 'https://spedmix.pages.dev/unscramble',
+  interactiveMath: 'https://spedmix.pages.dev/interativemath',
+  ebookLibrary: 'https://spedmixteaching.pages.dev/ebook/',
+  ebookSample: 'https://spedmixteaching.pages.dev/ebook/english/english-u2.html',
+  ebookMaker: 'https://spedmix.pages.dev/interactive-lesson-worksheet',
+  ebookSkill: 'https://github.com/chuoneone/self-made-ebook',
+} as const;
+
+const shortUrl = (href: string) => href.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
 const ICONS = [
   'ads_click',
   'arrow_downward',
   'arrow_forward',
+  'auto_awesome',
   'auto_stories',
   'bolt',
   'calculate',
@@ -57,10 +80,13 @@ const ICONS = [
   'co_present',
   'description',
   'folder',
+  'folder_shared',
   'folder_open',
   'handyman',
   'lightbulb',
+  'link',
   'menu_book',
+  'open_in_new',
   'person',
   'psychology',
   'reorder',
@@ -472,6 +498,34 @@ const Chip = ({ children, strong = false }: { children: ReactNode; strong?: bool
   </span>
 );
 
+const LinkPill = ({ href, text, delay = 0 }: { href: string; text?: string; delay?: number }) => (
+  <Rise delay={delay}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 12,
+        padding: '12px 28px',
+        borderRadius: 999,
+        fontSize: 26,
+        fontWeight: 700,
+        fontFamily: 'var(--osd-font-display)',
+        whiteSpace: 'nowrap',
+        background: `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`,
+        color: '#ffffff',
+        boxShadow: '0 16px 32px -18px rgba(34, 87, 122, 0.6)',
+      }}
+    >
+      <Icon name="open_in_new" size={28} />
+      {text ?? shortUrl(href)}
+    </a>
+  </Rise>
+);
+
 const Dot = ({ color }: { color: string }) => (
   <span style={{ width: 14, height: 14, borderRadius: '50%', background: color }} />
 );
@@ -776,6 +830,8 @@ const Feature = ({
   imgLabel,
   imgWidth = 940,
   imgHeight = 720,
+  href,
+  linkText,
   children,
 }: {
   unit: string;
@@ -789,6 +845,8 @@ const Feature = ({
   imgLabel: string;
   imgWidth?: number;
   imgHeight?: number;
+  href: string;
+  linkText?: string;
   children: ReactNode;
 }) => (
   <Stage>
@@ -839,6 +897,9 @@ const Feature = ({
           {highlight}
         </span>
       </Rise>
+      <div style={{ marginTop: 24 }}>
+        <LinkPill href={href} text={linkText} delay={640} />
+      </div>
     </div>
     <Rise
       delay={180}
@@ -1049,7 +1110,7 @@ const BioLabel = ({ icon, children }: { icon: string; children: ReactNode }) => 
 
 const Speaker: Page = () => (
   <Stage>
-    <HeaderRow icon="person" title="講師介紹" />
+    <HeaderRow icon="person" title="介紹" />
     <Rise
       delay={120}
       kind="materialize"
@@ -1110,6 +1171,319 @@ const Speaker: Page = () => (
         <BioRow school="花蓮縣平和國中" dept="資源班教師（兼巡迴支援）" delay={260} />
         <BioRow school="宜蘭縣凱旋國中" dept="資源班教師" delay={320} />
       </div>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const Pill = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      alignSelf: 'flex-start',
+      fontSize: 24,
+      fontWeight: 700,
+      color: 'var(--osd-accent)',
+      background: 'rgba(56, 163, 165, 0.12)',
+      borderRadius: 999,
+      padding: '6px 20px',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const BrowserFrame = ({ src, width, url }: { src: string; width: number; url: string }) => (
+  <div
+    style={{
+      ...glass,
+      width,
+      borderRadius: 28,
+      overflow: 'hidden',
+      background: 'rgba(255, 255, 255, 0.78)',
+    }}
+  >
+    <div
+      style={{
+        height: 52,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        padding: '0 22px',
+        borderBottom: '1px solid rgba(30, 41, 59, 0.06)',
+      }}
+    >
+      <Dot color="#ff5f57" />
+      <Dot color="#febc2e" />
+      <Dot color="#28c840" />
+      <span
+        style={{
+          margin: '0 auto',
+          fontSize: 19,
+          color: muted,
+          background: 'rgba(240, 244, 248, 0.9)',
+          borderRadius: 999,
+          padding: '5px 26px',
+          fontFamily: 'var(--osd-font-display)',
+          maxWidth: width - 220,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {url}
+      </span>
+      <span style={{ width: 62 }} />
+    </div>
+    <img
+      src={src}
+      alt=""
+      style={{
+        display: 'block',
+        width,
+        height: Math.round(width * 0.625),
+        objectFit: 'cover',
+        objectPosition: 'top',
+      }}
+    />
+  </div>
+);
+
+const InstagramIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M19 12a7 7 0 1 1-7-7c3.87 0 6 2.5 6 5.5 0 3-2 4.5-4 4.5s-3-1.5-3-3 1.5-3 3-3c1.5 0 2.5.8 2.8 1.8" />
+  </svg>
+);
+
+const SocialCard = ({
+  href,
+  platform,
+  handle,
+  color,
+  icon,
+  delay,
+}: {
+  href: string;
+  platform: string;
+  handle: string;
+  color: string;
+  icon: ReactNode;
+  delay: number;
+}) => (
+  <Rise delay={delay} motion={BOUNCY}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        ...glass,
+        width: 500,
+        height: 240,
+        boxSizing: 'border-box',
+        padding: '0 40px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 32,
+        color: 'var(--osd-text)',
+      }}
+    >
+      <div
+        style={{
+          width: 112,
+          height: 112,
+          borderRadius: 32,
+          flexShrink: 0,
+          background: color,
+          color: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 18px 36px -16px ${color}`,
+        }}
+      >
+        {icon}
+      </div>
+      <div>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 800 }}>
+          {platform}
+        </div>
+        <div style={{ fontSize: 30, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 24,
+            color: muted,
+            marginTop: 8,
+          }}
+        >
+          點擊前往
+          <Icon name="arrow_forward" size={26} />
+        </div>
+      </div>
+    </a>
+  </Rise>
+);
+
+const SocialLinks: Page = () => (
+  <Stage dots>
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 40 }}>
+        <SocialCard
+          href={socialUrls.instagram}
+          platform="Instagram"
+          handle="@spedmix2025"
+          color="#d62976"
+          icon={<InstagramIcon />}
+          delay={250}
+        />
+        <SocialCard
+          href={socialUrls.facebook}
+          platform="Facebook"
+          handle="米克師"
+          color="#1877f2"
+          icon={<FacebookIcon />}
+          delay={350}
+        />
+        <SocialCard
+          href={socialUrls.threads}
+          platform="Threads"
+          handle="@spedmix2025"
+          color="#111827"
+          icon={<ThreadsIcon />}
+          delay={450}
+        />
+      </div>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const SiteColumn = ({
+  href,
+  label,
+  src,
+  icon,
+  title,
+  desc,
+  delay,
+}: {
+  href: string;
+  label: string;
+  src: string;
+  icon: string;
+  title: string;
+  desc: string;
+  delay: number;
+}) => (
+  <Rise delay={delay} kind="materialize" style={{ width: 528 }}>
+    <a href={href} target="_blank" rel="noreferrer" style={{ ...linkReset, display: 'block' }}>
+      <BrowserFrame src={src} width={528} url={shortUrl(href)} />
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20, marginTop: 32 }}>
+        <Tile icon={icon} size={72} radius={22} iconSize={40} tone="soft" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <Pill>{label}</Pill>
+          <div style={{ fontSize: 40, fontWeight: 900 }}>{title}</div>
+          <div style={{ fontSize: 24, lineHeight: 1.55, color: muted }}>{desc}</div>
+        </div>
+      </div>
+    </a>
+  </Rise>
+);
+
+const MixerSites: Page = () => (
+  <Stage>
+    <div style={{ position: 'absolute', left: 120, top: 110 }}>
+      <Rise>
+        <div style={eyebrow}>三個入口</div>
+      </Rise>
+      <Rise delay={100} style={{ marginTop: 20 }}>
+        <h2 style={h2}>本人相關網站</h2>
+      </Rise>
+    </div>
+    <div style={{ position: 'absolute', left: 120, top: 290, display: 'flex', gap: 48 }}>
+      <SiteColumn
+        href={mixerSiteUrls.prep}
+        label="備課入口"
+        src={imgMixerAiPrep}
+        icon="auto_awesome"
+        title="AI備課幫手"
+        desc="特教老師生成教材、學習單、課程素材與備課工具的主要入口。"
+        delay={150}
+      />
+      <SiteColumn
+        href={mixerSiteUrls.share}
+        label="共享入口"
+        src={imgMixerShare}
+        icon="folder_shared"
+        title="特教教材共享"
+        desc="整理可分享的特教教材、工具與教學資源，方便快速找到可改用的素材。"
+        delay={250}
+      />
+      <SiteColumn
+        href={mixerSiteUrls.teaching}
+        label="學生入口"
+        src={imgMixerTeaching}
+        icon="stairs"
+        title="步步練"
+        desc="提供學生端使用的學習活動與互動教材，讓自學與課堂練習更容易進入。"
+        delay={350}
+      />
     </div>
     <Footer />
   </Stage>
@@ -1376,6 +1750,7 @@ const ChineseTool: Page = () => (
     unit="紙本教材"
     tag="工具 1"
     title="國語文學習單"
+    href={toolUrls.chineseLessonWorksheet}
     highlight="依學生閱讀能力，原文與易讀版本並排對照"
     img={imgChineseReading}
     imgAlt="國語文學習單：課文雙軌對照"
@@ -1401,6 +1776,7 @@ const MathTool: Page = () => (
     unit="紙本教材"
     tag="工具 2"
     title="數學簡化學習單"
+    href={toolUrls.mathScaffold}
     highlight="先懂再練、微步驟引導，降低學生面對題目的焦慮"
     img={imgMathConcept}
     imgAlt="數學簡化學習單：概念說明"
@@ -1801,6 +2177,7 @@ const SentenceTool: Page = () => (
     unit="互動網頁"
     tag="工具 3"
     title="句型排列"
+    href={toolUrls.unscramble}
     label="設計重點"
     highlight="選擇與檢核分開，衝動的學生也有修正的機會"
     img={imgSentence}
@@ -1827,6 +2204,7 @@ const StepMathTool: Page = () => (
     unit="互動網頁"
     tag="工具 4"
     title="互動步驟數學"
+    href={toolUrls.interactiveMath}
     label="設計重點"
     highlight="一次只處理一個步驟，降低認知負荷"
     img={imgInteractiveStepMath}
@@ -2248,6 +2626,7 @@ const LibraryTool: Page = () => (
     unit="電子書模式"
     tag="實例"
     title="國中教材庫"
+    href={toolUrls.ebookLibrary}
     label="怎麼整理"
     highlightTitle="延伸"
     highlight="所有教材集中在同一個資料夾，之後 agent 也讀得到"
@@ -2272,6 +2651,8 @@ const ToolbarTool: Page = () => (
     unit="電子書模式"
     tag="教師端"
     title="投影上課的工具列"
+    href={toolUrls.ebookSample}
+    linkText="範例：七上英語 Unit 2（點開試用）"
     label="右上角膠囊工具列"
     highlight="不需要觸控大螢幕，一般投影就能用"
     img={imgEbookToolbar}
@@ -2636,6 +3017,140 @@ const AgentFolder: Page = () => (
   </Stage>
 );
 
+type ToolLink = { icon: string; name: string; desc: string; href: string };
+
+const qrSrc = (href: string) =>
+  `https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=12&data=${encodeURIComponent(href)}`;
+
+const LinkCard = ({ tool, delay }: { tool: ToolLink; delay: number }) => (
+  <Rise delay={delay} kind="materialize" style={{ flex: 1, minWidth: 0 }}>
+    <a
+      href={tool.href}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        ...glass,
+        height: 560,
+        boxSizing: 'border-box',
+        padding: '40px 36px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <img
+        src={qrSrc(tool.href)}
+        alt={`${tool.name} QR code`}
+        style={{ width: 240, height: 240, borderRadius: 20, background: '#ffffff' }}
+      />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 30 }}>
+        <Icon name={tool.icon} size={40} color="var(--osd-accent)" />
+        <span style={{ fontSize: 40, fontWeight: 900 }}>{tool.name}</span>
+      </div>
+      <div style={{ fontSize: 26, color: muted, marginTop: 12, lineHeight: 1.45 }}>{tool.desc}</div>
+      <div
+        style={{
+          marginTop: 'auto',
+          fontSize: 24,
+          fontWeight: 700,
+          fontFamily: 'var(--osd-font-display)',
+          color: deep,
+          wordBreak: 'break-all',
+        }}
+      >
+        {shortUrl(tool.href)}
+      </div>
+    </a>
+  </Rise>
+);
+
+const ToolLinks = ({ part, title, tools }: { part: string; title: string; tools: ToolLink[] }) => (
+  <Stage>
+    <HeaderRow icon="link" title={`${part} 工具連結`} />
+    <SubLine>{title} ‧ 掃描 QR code 或點擊卡片開啟</SubLine>
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 320,
+        display: 'flex',
+        gap: 40,
+      }}
+    >
+      {tools.map((tool, i) => (
+        <LinkCard key={tool.href} tool={tool} delay={200 + i * 100} />
+      ))}
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const Part1Links: Page = () => (
+  <ToolLinks
+    part="PART 01"
+    title="紙本教材"
+    tools={[
+      {
+        icon: 'menu_book',
+        name: '國語文學習單',
+        desc: '雙軌閱讀、田字格、隨段檢核',
+        href: toolUrls.chineseLessonWorksheet,
+      },
+      {
+        icon: 'calculate',
+        name: '數學簡化學習單',
+        desc: '先懂再練、微步驟引導',
+        href: toolUrls.mathScaffold,
+      },
+    ]}
+  />
+);
+
+const Part2Links: Page = () => (
+  <ToolLinks
+    part="PART 02"
+    title="互動網頁"
+    tools={[
+      {
+        icon: 'reorder',
+        name: '句型排列',
+        desc: '選擇與檢核分開、語音報讀',
+        href: toolUrls.unscramble,
+      },
+      {
+        icon: 'stairs',
+        name: '互動步驟數學',
+        desc: '一次一步、每步各自檢核',
+        href: toolUrls.interactiveMath,
+      },
+    ]}
+  />
+);
+
+const Part3Links: Page = () => (
+  <ToolLinks
+    part="PART 03"
+    title="電子書模式"
+    tools={[
+      {
+        icon: 'auto_stories',
+        name: '自製電子書系統',
+        desc: '貼上教材，生成雙模式電子書',
+        href: toolUrls.ebookMaker,
+      },
+      {
+        icon: 'handyman',
+        name: '電子書 skill',
+        desc: '給 AI agent 用，批次做電子書',
+        href: toolUrls.ebookSkill,
+      },
+    ]}
+  />
+);
+
 /* ─────────────────────────── Wrap-up ─────────────────────────── */
 
 const TakeawayRow = ({ icon, title, detail }: { icon: string; title: string; detail: string }) => (
@@ -2778,12 +3293,15 @@ export const meta: SlideMeta = {
 export default [
   Cover,
   Speaker,
+  SocialLinks,
+  MixerSites,
   Stance,
   Route,
   Part1,
   PaperWhy,
   ChineseTool,
   MathTool,
+  Part1Links,
   Part2,
   InteractiveWhy,
   Principle,
@@ -2791,11 +3309,13 @@ export default [
   StepMathTool,
   VisualDesign,
   WhySelfMade,
+  Part2Links,
   Part3,
   EbookWhy,
   LibraryTool,
   ToolbarTool,
   DualMode,
+  Part3Links,
   Part4,
   Loop,
   AgentFolder,
@@ -2806,12 +3326,15 @@ export default [
 export const notes: (string | undefined)[] = [
   '14:30 開場。感謝邀請，今天的主題是用 AI 製作特教教材與學習單，以分享現有成果為主。',
   '簡短自我介紹，帶過特教與資訊的雙背景。',
+  '社群：Instagram、Facebook、Threads，歡迎追蹤。',
+  '三個網站：AI 備課幫手（老師）、特教教材共享、步步練（學生）。今天的工具都在這裡。',
   '先講立場：AI 對我只能完成 70 分，剩下 30 分要靠老師判斷。後面每個工具都會回到這件事。',
   '今天的路線：四段，每一段都先講「要解決什麼問題」，再看工具。',
   '14:38 PART 1 紙本教材，約 17 分鐘。',
   '動機：AI 讓內容變快了，但貼到 Word、排版、調字級還是手工。工具要解決的是最後一哩。',
   '國語文學習單：一個工具，產出雙軌閱讀、田字格、隨段檢核等版面，直接可以印。',
   '數學簡化學習單：輸入題型就好，先懂再練，一鍵列印。',
+  'PART 1 工具連結：兩個工具都可以直接掃 QR code 試用。',
   '14:55 PART 2 互動網頁，約 25 分鐘。',
   '先肯定現成工具，再講四個限制。重點是「選擇就等於檢核」對 ADHD 學生的影響。',
   '對照：點了就判 vs 先選再檢核。多一個停頓，學生就有思考與修正的空間。',
@@ -2819,11 +3342,13 @@ export const notes: (string | undefined)[] = [
   '互動步驟數學：一次一步、每步各自檢核，錯在哪就停在哪。',
   '視覺設計：一次亮一題、亮點提示作答位置。這需要老師了解學生，沒有標準答案。',
   '整理：自己做就沒有這些限制，但前提是老師懂學生，這就是那 30 分。逐列點開。',
+  'PART 2 工具連結：句型排列、互動步驟數學，都可以直接掃 QR code 試用。',
   '15:20 PART 3 電子書模式，約 20 分鐘。',
   '思維轉換：我們一直想加速做學習單、做簡報；但簡報的本質只是方便呈現。電子書做一次就有兩種用法。',
   '國中教材庫：依年級科目整理，每一課是一份電子書。順帶提一句：都在同一個資料夾，後面會用到。',
   '工具列：逐題顯答、螢光筆、放大、列印。一般投影就能用。（可現場開一份示範）',
   '同一份檔案的兩種輸出：投影講解與 A4 白卷。',
+  'PART 3 工具連結：自製電子書系統（網頁版），以及 GitHub 上的電子書 skill。',
   '15:40 PART 4 教材閉環，約 15 分鐘。',
   '閉環：上課 → 觀察 → 跟 agent 說一句話 → 下一份自動調整。教學內容在 AI 裡是連貫的。',
   '關鍵是讓 agent 讀得到教材庫資料夾；Codex、Antigravity、Claude Code 都可以。備課從每次重來變成接著做。',
