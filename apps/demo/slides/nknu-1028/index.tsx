@@ -14,6 +14,7 @@ import {
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
+import imgDeidWeb from './assets/deid-web-preview.webp';
 import imgLibraryHome from './assets/ebook-library-home.png';
 import imgEbookToolbar from './assets/ebook-toolbar.png';
 import imgInteractiveStepMath from './assets/interactive-step-math.webp';
@@ -60,6 +61,7 @@ const toolUrls = {
   ebookSample: 'https://spedmixteaching.pages.dev/ebook/english/english-u2.html',
   ebookMaker: 'https://spedmix.pages.dev/interactive-lesson-worksheet',
   ebookSkill: 'https://github.com/chuoneone/self-made-ebook',
+  deidWeb: 'https://chuoneone.github.io/sped-deidentification/',
   deidPrompt:
     'https://docs.google.com/document/d/e/2PACX-1vSWoFxjoELO5zuNgrNIJ9U4_ywr_FDM-P0MVdqR0Ul-PwMDJBQ2UpZsT78jYMSmaoj8VoBWTrxd180t/pub',
 } as const;
@@ -87,6 +89,7 @@ const ICONS = [
   'folder_open',
   'handyman',
   'lightbulb',
+  'language',
   'link',
   'lock',
   'menu_book',
@@ -840,6 +843,7 @@ const Feature = ({
   imgLabel,
   imgWidth = 940,
   imgHeight = 720,
+  visual,
   href,
   linkText,
   children,
@@ -850,12 +854,13 @@ const Feature = ({
   label?: string;
   highlightTitle?: string;
   highlight: ReactNode;
-  img: string;
-  imgAlt: string;
-  imgLabel: string;
+  img?: string;
+  imgAlt?: string;
+  imgLabel?: string;
   imgWidth?: number;
   imgHeight?: number;
-  href: string;
+  visual?: ReactNode;
+  href?: string;
   linkText?: string;
   children: ReactNode;
 }) => (
@@ -907,9 +912,11 @@ const Feature = ({
           {highlight}
         </span>
       </Rise>
-      <div style={{ marginTop: 24 }}>
-        <LinkPill href={href} text={linkText} delay={640} />
-      </div>
+      {href && (
+        <div style={{ marginTop: 24 }}>
+          <LinkPill href={href} text={linkText} delay={640} />
+        </div>
+      )}
     </div>
     <Rise
       delay={180}
@@ -925,13 +932,16 @@ const Feature = ({
         justifyContent: 'center',
       }}
     >
-      <ShotFrame
-        src={img}
-        alt={imgAlt}
-        label={imgLabel}
-        maxWidth={imgWidth}
-        maxHeight={imgHeight}
-      />
+      {visual ??
+        (img && (
+          <ShotFrame
+            src={img}
+            alt={imgAlt ?? ''}
+            label={imgLabel ?? ''}
+            maxWidth={imgWidth}
+            maxHeight={imgHeight}
+          />
+        ))}
     </Rise>
     <Footer />
   </Stage>
@@ -1592,9 +1602,9 @@ const RouteCard = ({
     motion={BOUNCY}
     style={{
       ...glass,
-      width: 396,
+      width: 316,
       height: 480,
-      padding: 44,
+      padding: 30,
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
@@ -1613,11 +1623,11 @@ const RouteCard = ({
         {n}
       </span>
     </div>
-    <div style={{ fontSize: 44, fontWeight: 900, marginTop: 40 }}>{title}</div>
+    <div style={{ fontSize: 40, fontWeight: 900, marginTop: 40 }}>{title}</div>
     <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--osd-accent)', marginTop: 'auto' }}>
       要解決的問題
     </div>
-    <div style={{ fontSize: 28, lineHeight: 1.5, color: muted, marginTop: 8 }}>{solve}</div>
+    <div style={{ fontSize: 26, lineHeight: 1.5, color: muted, marginTop: 8 }}>{solve}</div>
   </Rise>
 );
 
@@ -1631,7 +1641,7 @@ const Route: Page = () => (
         <h2 style={h2}>從紙本到教材閉環</h2>
       </Rise>
     </div>
-    <div style={{ position: 'absolute', left: 120, top: 380, display: 'flex', gap: 32 }}>
+    <div style={{ position: 'absolute', left: 120, top: 380, display: 'flex', gap: 25 }}>
       <RouteCard
         n="01"
         icon="description"
@@ -1659,6 +1669,13 @@ const Route: Page = () => (
         title="教材閉環"
         solve="每一份教材都要從頭交代學生程度"
         delay={390}
+      />
+      <RouteCard
+        n="05"
+        icon="lock"
+        title="去識別化"
+        solve="想請 AI 幫忙，又不能交出學生個資"
+        delay={470}
       />
     </div>
     <Footer />
@@ -2764,7 +2781,7 @@ const Part4: Page = () => (
   <PartDivider
     part="PART 04"
     num="04"
-    time="15:40 – 15:55"
+    time="15:40 – 15:50"
     icon="sync"
     line1="教材閉環"
     line2="接著做下一份"
@@ -3027,6 +3044,203 @@ const AgentFolder: Page = () => (
   </Stage>
 );
 
+/* ─────────────────────────── Part 5 · 去識別化 ─────────────────────────── */
+
+const Part5: Page = () => (
+  <PartDivider
+    part="PART 05"
+    num="05"
+    time="15:50 – 15:57"
+    icon="lock"
+    line1="學生資料"
+    line2="先去識別化"
+    sub="AI 只拿到代號版，真實資料留在自己電腦"
+    detail="兩種方式：網頁版、Word 巨集"
+  >
+    <PartTool icon="language" label="網頁版" delay={760} />
+    <PartTool icon="description" label="Word 巨集" delay={840} />
+  </PartDivider>
+);
+Part5.transition = partReveal;
+
+const DeidWeb: Page = () => (
+  <Feature
+    unit="去識別化"
+    tag="方式一"
+    title="網頁版去識別化"
+    href={toolUrls.deidWeb}
+    linkText="網頁版去識別化工具"
+    highlightTitle="特教版調整"
+    highlight="改編自 Dean Lin 的開源工具，加入 IEP、會議紀錄的偵測規則"
+    img={imgDeidWeb}
+    imgAlt="網頁版去識別化工具：IEP 預覽，姓名、電話、地址已標記"
+    imgLabel="學生資料去識別化工具 · 預覽（假資料）"
+  >
+    <Point n="01" delay={240}>
+      開網頁就能用，檔案不離開電腦
+    </Point>
+    <Point n="02" delay={320}>
+      Word、Excel、PDF、掃描檔都能讀
+    </Point>
+    <Point n="03" delay={400}>
+      預覽時點一下取消、圈選補遮
+    </Point>
+    <Point n="04" delay={480}>
+      下載文件加編碼表，可以還原
+    </Point>
+  </Feature>
+);
+
+const MapRow = ({ token, value }: { token: string; value: string }) => (
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: '240px 1fr',
+      alignItems: 'center',
+      height: 66,
+      borderTop: '1px solid rgba(100, 116, 139, 0.15)',
+      fontSize: 28,
+    }}
+  >
+    <span style={{ color: 'var(--osd-accent)', fontWeight: 900 }}>{token}</span>
+    <span style={{ color: muted, fontWeight: 600 }}>{value}</span>
+  </div>
+);
+
+const MappingCard = () => (
+  <div
+    style={{
+      ...glass,
+      width: 820,
+      borderRadius: 28,
+      overflow: 'hidden',
+      background: 'rgba(255, 255, 255, 0.9)',
+    }}
+  >
+    <FrameBar label="去識別對照表.txt（只留在自己電腦）" />
+    <div style={{ padding: '22px 44px 30px' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '240px 1fr',
+          height: 48,
+          alignItems: 'center',
+          fontSize: 22,
+          fontWeight: 800,
+          color: muted,
+          letterSpacing: '0.1em',
+        }}
+      >
+        <span>給 AI 的代號</span>
+        <span>真實資料（示意，假資料）</span>
+      </div>
+      <MapRow token="【學生】" value="林小安" />
+      <MapRow token="【學生名】" value="小安" />
+      <MapRow token="【母親】" value="陳美玲" />
+      <MapRow token="【聯絡電話】" value="0912-345-678" />
+      <MapRow token="【地址】" value="宜蘭縣羅東鎮測試路100號" />
+      <MapRow token="【個管教師】" value="張雅婷" />
+    </div>
+  </div>
+);
+
+const DeidMacro: Page = () => (
+  <Feature
+    unit="去識別化"
+    tag="方式二"
+    title="Word 巨集去識別化"
+    highlightTitle="限制"
+    highlight="只能處理 Word；第一次要在 Windows 版 Word 匯入巨集"
+    visual={<MappingCard />}
+  >
+    <Point n="01" delay={240}>
+      在 Word 裡按一下，原檔不會被改
+    </Point>
+    <Point n="02" delay={320}>
+      依 IEP 表格，自動抓姓名、電話、地址
+    </Point>
+    <Point n="03" delay={400}>
+      代號看得出角色：【學生】【母親】
+    </Point>
+    <Point n="04" delay={480}>
+      AI 改完，選對照表一鍵還原
+    </Point>
+  </Feature>
+);
+
+const DeidRow = ({ item, web, macro }: { item: string; web: string; macro: string }) => (
+  <StepIn
+    style={{
+      ...glass,
+      height: 92,
+      borderRadius: 26,
+      display: 'grid',
+      gridTemplateColumns: '280px 1fr 1fr',
+    }}
+  >
+    <CompareCell strong>{item}</CompareCell>
+    <CompareCell>{web}</CompareCell>
+    <CompareCell>{macro}</CompareCell>
+  </StepIn>
+);
+
+const DeidCompare: Page = () => (
+  <Stage>
+    <HeaderRow icon="call_split" title="兩種方式，怎麼選？" />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 270,
+        width: 1680,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+      }}
+    >
+      <Rise
+        delay={100}
+        style={{ height: 56, display: 'grid', gridTemplateColumns: '280px 1fr 1fr' }}
+      >
+        <CompareCell head>項目</CompareCell>
+        <CompareCell head>方式一：網頁版</CompareCell>
+        <CompareCell head>方式二：Word 巨集</CompareCell>
+      </Rise>
+      <Steps>
+        <Step duration={1}>
+          <DeidRow item="使用方式" web="開網頁就能用，免安裝" macro="先在 Word 匯入一次巨集" />
+        </Step>
+        <Step duration={1}>
+          <DeidRow item="檔案類型" web="Word、Excel、PDF、掃描檔" macro="只有 Word" />
+        </Step>
+        <Step duration={1}>
+          <DeidRow item="找出個資" web="偵測規則＋預覽時圈選補遮" macro="依 IEP 表格欄位自動讀出" />
+        </Step>
+        <Step duration={1}>
+          <DeidRow
+            item="代號長相"
+            web="[姓名:6e679d] 隨機編碼"
+            macro="【學生】【母親】看得出角色"
+          />
+        </Step>
+        <Step duration={1}>
+          <DeidRow
+            item="適合情境"
+            web="各種文件、一次處理多個檔案"
+            macro="固定 IEP 版面、常跟 AI 來回修改"
+          />
+        </Step>
+      </Steps>
+    </div>
+    <Rise delay={300} style={{ position: 'absolute', left: 120, right: 120, top: 896 }}>
+      <p style={{ fontSize: 36, fontWeight: 700, textAlign: 'center', margin: 0 }}>
+        兩種都只在自己電腦處理，<span style={gradText}>AI 拿到的只有代號版</span>
+      </p>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
 const P_STEP_W = 288;
 const P_STEP_GAP = 60;
 const pStepX = (i: number) => 120 + i * (P_STEP_W + P_STEP_GAP);
@@ -3157,17 +3371,17 @@ const SampleBox = ({
 
 const StudentData: Page = () => (
   <Stage>
-    <HeaderRow icon="lock" title="但學生資料，不交給 AI" />
+    <HeaderRow icon="lock" title="學生資料，不直接交給 AI" />
     <SubLine>IEP 有姓名、生日、電話、家庭狀況：先在自己電腦換成代號</SubLine>
     <PrivacyStep i={0} icon="description" title="原始 IEP" desc="真實資料不外流" />
     <PrivacyArrow i={0} />
-    <PrivacyStep i={1} icon="lock" title="巨集去識別化" desc="姓名電話換成代號" />
+    <PrivacyStep i={1} icon="lock" title="去識別化" desc="網頁或巨集換代號" />
     <PrivacyArrow i={1} />
     <PrivacyStep i={2} icon="smart_toy" title="代號版給 AI" desc="只看得到【學生】" ai />
     <PrivacyArrow i={2} />
     <PrivacyStep i={3} icon="edit_note" title="AI 修改" desc="寫目標、改課表" ai />
     <PrivacyArrow i={3} />
-    <PrivacyStep i={4} icon="restore" title="巨集還原" desc="用對照表換回來" />
+    <PrivacyStep i={4} icon="restore" title="還原" desc="用對照表換回來" />
     <SampleBox label="原始（示意，假資料）" left={120} delay={760}>
       林小安與母親陳美玲同住，手機 0912-345-678
     </SampleBox>
@@ -3283,7 +3497,7 @@ const MakeYourOwn: Page = () => (
   </Stage>
 );
 
-type ToolLink = { icon: string; name: string; desc: string; href: string };
+type ToolLink = { icon: string; name: string; desc: string; href: string; linkText?: string };
 
 const qrSrc = (href: string) =>
   `https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=12&data=${encodeURIComponent(href)}`;
@@ -3326,7 +3540,7 @@ const LinkCard = ({ tool, delay }: { tool: ToolLink; delay: number }) => (
           wordBreak: 'break-all',
         }}
       >
-        {shortUrl(tool.href)}
+        {tool.linkText ?? shortUrl(tool.href)}
       </div>
     </a>
   </Rise>
@@ -3529,6 +3743,28 @@ const Part3Links: Page = () => (
   />
 );
 
+const Part5Links: Page = () => (
+  <ToolLinks
+    part="PART 05"
+    title="學生資料去識別化"
+    tools={[
+      {
+        icon: 'language',
+        name: '網頁版去識別化',
+        desc: '開網頁就能用，資料不上傳',
+        href: toolUrls.deidWeb,
+      },
+      {
+        icon: 'description',
+        name: '巨集提示詞',
+        desc: '貼給 AI，寫出自己學校的巨集',
+        href: toolUrls.deidPrompt,
+        linkText: 'Google 文件：去識別化巨集指令',
+      },
+    ]}
+  />
+);
+
 /* ─────────────────────────── Wrap-up ─────────────────────────── */
 
 const TakeawayRow = ({ icon, title, detail }: { icon: string; title: string; detail: string }) => (
@@ -3579,6 +3815,9 @@ const Takeaway: Page = () => (
           </Step>
           <Step duration={1}>
             <TakeawayRow icon="sync" title="電子書閉環" detail="做一次就夠，下一份接著改" />
+          </Step>
+          <Step duration={1}>
+            <TakeawayRow icon="lock" title="學生資料" detail="先去識別化，AI 只拿到代號版" />
           </Step>
         </Steps>
       </div>
@@ -3697,8 +3936,13 @@ export default [
   Part4,
   Loop,
   AgentFolder,
+  Part5,
   StudentData,
+  DeidWeb,
+  DeidMacro,
   MakeYourOwn,
+  DeidCompare,
+  Part5Links,
   Takeaway,
   Closing,
 ] satisfies Page[];
@@ -3709,7 +3953,7 @@ export const notes: (string | undefined)[] = [
   '社群：Instagram、Facebook、Threads，歡迎追蹤。',
   '三個網站：AI 備課幫手（老師）、特教教材共享、步步練（學生）。今天的工具都在這裡。',
   '先講立場：AI 對我只能完成 70 分，剩下 30 分要靠老師判斷。後面每個工具都會回到這件事。',
-  '今天的路線：四段，每一段都先講「要解決什麼問題」，再看工具。',
+  '今天的路線：五段，每一段都先講「要解決什麼問題」，再看工具。',
   '14:38 PART 1 紙本教材，約 17 分鐘。',
   '動機：AI 讓內容變快了，但貼到 Word、排版、調字級還是手工。工具要解決的是最後一哩。',
   '國語文學習單：一個工具，產出雙軌閱讀、田字格、隨段檢核等版面，直接可以印。',
@@ -3729,11 +3973,16 @@ export const notes: (string | undefined)[] = [
   '工具列：逐題顯答、螢光筆、放大、列印。一般投影就能用。（可現場開一份示範）',
   '同一份檔案的兩種輸出：投影講解與 A4 白卷。',
   'PART 3 工具連結：自製電子書系統（網頁版），以及 GitHub 上的電子書 skill。',
-  '15:40 PART 4 教材閉環，約 15 分鐘。',
+  '15:40 PART 4 教材閉環，約 10 分鐘。',
   '閉環：上課 → 觀察 → 跟 agent 說一句話 → 下一份自動調整。教學內容在 AI 裡是連貫的。',
   '關鍵是讓 agent 讀得到教材庫資料夾；Codex、Antigravity、Claude Code 都可以。備課從每次重來變成接著做。',
-  '但有一個例外：學生資料不能讓 agent 讀。我的做法是用 Word 巨集，在自己電腦把 IEP 的姓名、生日、電話換成【學生】【母親】這類代號，只把代號版交給 AI；AI 改完，再用留在自己電腦的對照表換回來。AI 從頭到尾看不到真實資料。（例子是假資料）',
+  '15:50 PART 5 學生資料去識別化，約 7 分鐘。前面都在讓 AI 讀得到更多；這一段反過來：學生個資不能讓 AI 讀到。',
+  '想請 AI 幫忙寫 IEP、整理會議紀錄，但裡面有姓名、生日、電話、家庭狀況。做法是先在自己電腦把個資換成代號，只把代號版交給 AI；改完再用留在自己電腦的對照表換回來。AI 從頭到尾看不到真實資料。（例子是假資料）',
+  '方式一：網頁版。改編自 Dean Lin 的開源去識別化工具，所有處理都在瀏覽器裡，檔案不會上傳。Word、Excel、PDF 甚至掃描檔都能讀；預覽時點標記可取消，名單外的名字圈選一次就全文遮蔽。下載時附編碼表，之後可以還原。（截圖是假資料）',
+  '方式二：Word 巨集。在 Word 裡按一下，依 IEP 表格自動抓出姓名、生日、電話、地址，換成【學生】【母親】這種看得出角色的代號，AI 讀起來比較順。AI 改完，選對照表一鍵換回來。限制是只能處理 Word，第一次要匯入巨集。',
   '巨集不用自己會寫：把學校的 IEP 空白表格給 AI，說清楚要遮哪些欄位，請它寫，再用假資料試跑。完整提示詞在左下按鈕的文件裡，可以直接複製。三個提醒：只給空白表格與代號版；換完自己看一遍；代號版不等於匿名，障礙類別加上家庭狀況仍可能被認出，要依學校規定使用。',
-  '15:55 收尾：AI 給速度，老師給判斷。逐列點開三個重點。',
+  '兩種怎麼選：檔案種類多、一次處理很多份，用網頁版；固定的 IEP 版面、常常跟 AI 來回修改，用巨集。兩種都只在自己電腦處理。逐列點開。',
+  'PART 5 連結：網頁版去識別化工具，以及寫巨集用的提示詞文件。',
+  '15:57 收尾：AI 給速度，老師給判斷。逐列點開四個重點。',
   '致謝，結束。',
 ];
