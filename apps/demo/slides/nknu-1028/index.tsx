@@ -77,6 +77,7 @@ const ICONS = [
   'bolt',
   'calculate',
   'call_split',
+  'cancel',
   'center_focus_strong',
   'chat',
   'check_circle',
@@ -88,6 +89,7 @@ const ICONS = [
   'folder_shared',
   'folder_open',
   'handyman',
+  'history_edu',
   'lightbulb',
   'language',
   'link',
@@ -109,6 +111,8 @@ const ICONS = [
   'terminal',
   'timer',
   'touch_app',
+  'tune',
+  'verified_user',
   'visibility',
   'warning',
   'volume_up',
@@ -3497,6 +3501,250 @@ const MakeYourOwn: Page = () => (
   </Stage>
 );
 
+const Tag = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      fontSize: 22,
+      fontWeight: 800,
+      color: 'var(--osd-accent)',
+      background: 'rgba(56, 163, 165, 0.12)',
+      borderRadius: 999,
+      padding: '4px 18px',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const RecordEntry = ({
+  icon,
+  file,
+  subject,
+  detail,
+  tags,
+  delay,
+}: {
+  icon: string;
+  file: string;
+  subject: string;
+  detail: string;
+  tags: ReactNode;
+  delay: number;
+}) => (
+  <Rise
+    delay={delay}
+    style={{
+      background: '#ffffff',
+      border: '1px solid rgba(56, 163, 165, 0.18)',
+      borderRadius: 24,
+      padding: '24px 30px',
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <Icon name={icon} size={32} color="var(--osd-accent)" />
+      <span
+        style={{
+          fontSize: 24,
+          fontWeight: 800,
+          fontFamily: 'var(--osd-font-display)',
+          color: deep,
+        }}
+      >
+        {file}
+      </span>
+    </div>
+    <div style={{ fontSize: 30, fontWeight: 800, marginTop: 14 }}>{subject}</div>
+    <div style={{ fontSize: 26, color: muted, marginTop: 6, lineHeight: 1.5 }}>{detail}</div>
+    <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>{tags}</div>
+  </Rise>
+);
+
+const Records: Page = () => (
+  <Stage>
+    <HeaderRow icon="history_edu" title="每轉一圈，都留下紀錄" />
+    <SubLine>調整教材的同時，順手記下來</SubLine>
+    <Rise
+      delay={150}
+      kind="materialize"
+      style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 290,
+        width: 820,
+        borderRadius: 28,
+        overflow: 'hidden',
+        background: 'rgba(255, 255, 255, 0.9)',
+      }}
+    >
+      <FrameBar label="notes/ 教學紀錄（示意）" />
+      <div style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <RecordEntry
+          icon="tune"
+          file="教材調整紀錄.md"
+          subject="七上數學 2-1｜判別 3 的倍數卡住"
+          detail="每題先填「各位數加起來＝？」，再判斷"
+          tags={
+            <>
+              <Tag>分解</Tag>
+              <Tag>提示</Tag>
+            </>
+          }
+          delay={260}
+        />
+        <RecordEntry
+          icon="edit_note"
+          file="學生觀察紀錄.md"
+          subject="S03｜有圖示時，正確率較高"
+          detail="拆成三步驟能獨立完成，長文字題會放棄"
+          tags={
+            <>
+              <Tag>有效：圖示</Tag>
+              <Tag>有效：分解</Tag>
+            </>
+          }
+          delay={360}
+        />
+      </div>
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1000,
+        top: 290,
+        width: 800,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Rise delay={200}>
+        <div style={eyebrow}>直接接上 IEP</div>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 28 }}>
+        <Point n="01" delay={440}>
+          期末檢討有具體內容，不靠印象
+        </Point>
+        <Point n="02" delay={520}>
+          課程調整有佐證：簡化、減量、分解、提示
+        </Point>
+        <Point n="03" delay={600}>
+          換老師交接，不用從零摸索
+        </Point>
+      </div>
+      <Rise
+        delay={720}
+        style={{
+          ...brandFill,
+          marginTop: 32,
+          borderRadius: 28,
+          padding: '26px 36px',
+          fontSize: 32,
+          fontWeight: 800,
+        }}
+      >
+        不只多一份教材，也多懂學生一點
+      </Rise>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const BoundaryCard = ({
+  icon,
+  title,
+  delay,
+  children,
+}: {
+  icon: string;
+  title: string;
+  delay: number;
+  children: ReactNode;
+}) => (
+  <Rise
+    delay={delay}
+    motion={BOUNCY}
+    style={{
+      ...glass,
+      width: 800,
+      height: 480,
+      padding: 48,
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+      <Tile icon={icon} size={72} radius={22} iconSize={40} tone="soft" />
+      <span style={{ fontSize: 40, fontWeight: 900 }}>{title}</span>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, marginTop: 44 }}>
+      {children}
+    </div>
+  </Rise>
+);
+
+const BoundaryLine = ({
+  icon = 'check_circle',
+  color = 'var(--osd-accent)',
+  strike = false,
+  children,
+}: {
+  icon?: string;
+  color?: string;
+  strike?: boolean;
+  children: ReactNode;
+}) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+    <Icon name={icon} size={36} color={color} />
+    <span
+      style={{
+        fontSize: 34,
+        fontWeight: 700,
+        textDecoration: strike ? 'line-through' : undefined,
+        color: strike ? muted : undefined,
+      }}
+    >
+      {children}
+    </span>
+  </div>
+);
+
+const Boundary: Page = () => (
+  <Stage>
+    <HeaderRow icon="verified_user" title="紀錄的界線" />
+    <SubLine>學生資料，比教材更需要保護</SubLine>
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 330,
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
+      <BoundaryCard icon="lock" title="保護隱私" delay={150}>
+        <BoundaryLine>只用代號：S01、S02…</BoundaryLine>
+        <BoundaryLine>不寫姓名、診斷、家庭</BoundaryLine>
+        <BoundaryLine>只放私人資料夾，不上公開網站</BoundaryLine>
+      </BoundaryCard>
+      <BoundaryCard icon="edit_note" title="記策略，不貼標籤" delay={270}>
+        <BoundaryLine icon="cancel" color={warn} strike>
+          他是視覺型學習者
+        </BoundaryLine>
+        <BoundaryLine>有圖示時，正確率較高</BoundaryLine>
+        <div style={{ fontSize: 26, color: muted, lineHeight: 1.6, marginTop: 8 }}>
+          學習風格配對教學，研究證據薄弱
+          <br />
+          輪廓是工作假設，隨觀察更新
+        </div>
+      </BoundaryCard>
+    </div>
+    <Footer />
+  </Stage>
+);
+
 type ToolLink = { icon: string; name: string; desc: string; href: string; linkText?: string };
 
 const qrSrc = (href: string) =>
@@ -3814,7 +4062,7 @@ const Takeaway: Page = () => (
             />
           </Step>
           <Step duration={1}>
-            <TakeawayRow icon="sync" title="電子書閉環" detail="做一次就夠，下一份接著改" />
+            <TakeawayRow icon="sync" title="教材閉環" detail="每轉一圈，都留下紀錄" />
           </Step>
           <Step duration={1}>
             <TakeawayRow icon="lock" title="學生資料" detail="先去識別化，AI 只拿到代號版" />
@@ -3936,6 +4184,8 @@ export default [
   Part4,
   Loop,
   AgentFolder,
+  Records,
+  Boundary,
   Part5,
   StudentData,
   DeidWeb,
@@ -3976,6 +4226,8 @@ export const notes: (string | undefined)[] = [
   '15:40 PART 4 教材閉環，約 10 分鐘。',
   '閉環：上課 → 觀察 → 跟 agent 說一句話 → 下一份自動調整。教學內容在 AI 裡是連貫的。',
   '關鍵是讓 agent 讀得到教材庫資料夾；Codex、Antigravity、Claude Code 都可以。備課從每次重來變成接著做。',
+  '閉環不只讓下一份更快，還會留下紀錄：教材調整紀錄記哪份卡在哪、用了哪種調整；學生觀察紀錄累積成學習輪廓。這兩份直接接上 IEP：期末檢討、課程調整佐證、交接。',
+  '紀錄的界線：只用代號、不寫診斷、不上公開網站。記「哪些策略有效」，不貼「視覺型」標籤；學習風格配對的研究證據很薄弱，輪廓是工作假設，隨觀察更新。',
   '15:50 PART 5 學生資料去識別化，約 7 分鐘。前面都在讓 AI 讀得到更多；這一段反過來：學生個資不能讓 AI 讀到。',
   '想請 AI 幫忙寫 IEP、整理會議紀錄，但裡面有姓名、生日、電話、家庭狀況。做法是先在自己電腦把個資換成代號，只把代號版交給 AI；改完再用留在自己電腦的對照表換回來。AI 從頭到尾看不到真實資料。（例子是假資料）',
   '方式一：網頁版。改編自 Dean Lin 的開源去識別化工具，所有處理都在瀏覽器裡，檔案不會上傳。Word、Excel、PDF 甚至掃描檔都能讀；預覽時點標記可取消，名單外的名字圈選一次就全文遮蔽。下載時附編碼表，之後可以還原。（截圖是假資料）',
