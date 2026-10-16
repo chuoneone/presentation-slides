@@ -60,6 +60,8 @@ const toolUrls = {
   ebookSample: 'https://spedmixteaching.pages.dev/ebook/english/english-u2.html',
   ebookMaker: 'https://spedmix.pages.dev/interactive-lesson-worksheet',
   ebookSkill: 'https://github.com/chuoneone/self-made-ebook',
+  deidPrompt:
+    'https://docs.google.com/document/d/e/2PACX-1vSWoFxjoELO5zuNgrNIJ9U4_ywr_FDM-P0MVdqR0Ul-PwMDJBQ2UpZsT78jYMSmaoj8VoBWTrxd180t/pub',
 } as const;
 
 const shortUrl = (href: string) => href.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -3233,6 +3235,9 @@ const MakeYourOwn: Page = () => (
           用假資料試跑，沒問題再用在真實檔案
         </Point>
       </div>
+      <div style={{ marginTop: 28 }}>
+        <LinkPill href={toolUrls.deidPrompt} text="怎麼做：看完整提示詞" delay={460} />
+      </div>
     </div>
     <div
       style={{
@@ -3264,7 +3269,7 @@ const MakeYourOwn: Page = () => (
         position: 'absolute',
         left: 120,
         right: 120,
-        top: 760,
+        top: 800,
         borderRadius: 28,
         padding: '30px 40px',
         fontSize: 36,
@@ -3728,7 +3733,7 @@ export const notes: (string | undefined)[] = [
   '閉環：上課 → 觀察 → 跟 agent 說一句話 → 下一份自動調整。教學內容在 AI 裡是連貫的。',
   '關鍵是讓 agent 讀得到教材庫資料夾；Codex、Antigravity、Claude Code 都可以。備課從每次重來變成接著做。',
   '但有一個例外：學生資料不能讓 agent 讀。我的做法是用 Word 巨集，在自己電腦把 IEP 的姓名、生日、電話換成【學生】【母親】這類代號，只把代號版交給 AI；AI 改完，再用留在自己電腦的對照表換回來。AI 從頭到尾看不到真實資料。（例子是假資料）',
-  '巨集不用自己會寫：把學校的 IEP 空白表格給 AI，說清楚要遮哪些欄位，請它寫，再用假資料試跑。三個提醒：只給空白表格與代號版；換完自己看一遍；代號版不等於匿名，障礙類別加上家庭狀況仍可能被認出，要依學校規定使用。',
+  '巨集不用自己會寫：把學校的 IEP 空白表格給 AI，說清楚要遮哪些欄位，請它寫，再用假資料試跑。完整提示詞在左下按鈕的文件裡，可以直接複製。三個提醒：只給空白表格與代號版；換完自己看一遍；代號版不等於匿名，障礙類別加上家庭狀況仍可能被認出，要依學校規定使用。',
   '15:55 收尾：AI 給速度，老師給判斷。逐列點開三個重點。',
   '致謝，結束。',
 ];
