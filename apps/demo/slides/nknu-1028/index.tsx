@@ -79,12 +79,14 @@ const ICONS = [
   'close',
   'co_present',
   'description',
+  'edit_note',
   'folder',
   'folder_shared',
   'folder_open',
   'handyman',
   'lightbulb',
   'link',
+  'lock',
   'menu_book',
   'open_in_new',
   'pause',
@@ -93,6 +95,7 @@ const ICONS = [
   'psychology',
   'reorder',
   'restart_alt',
+  'restore',
   'school',
   'smart_toy',
   'sports_esports',
@@ -102,6 +105,7 @@ const ICONS = [
   'timer',
   'touch_app',
   'visibility',
+  'warning',
   'volume_up',
   'work',
 ].sort();
@@ -3021,6 +3025,259 @@ const AgentFolder: Page = () => (
   </Stage>
 );
 
+const P_STEP_W = 288;
+const P_STEP_GAP = 60;
+const pStepX = (i: number) => 120 + i * (P_STEP_W + P_STEP_GAP);
+
+const PrivacyStep = ({
+  i,
+  icon,
+  title,
+  desc,
+  ai = false,
+}: {
+  i: number;
+  icon: string;
+  title: string;
+  desc: string;
+  ai?: boolean;
+}) => (
+  <Rise
+    delay={150 + i * 120}
+    motion={BOUNCY}
+    style={{
+      ...glass,
+      ...(ai ? brandFill : {}),
+      position: 'absolute',
+      left: pStepX(i),
+      top: 280,
+      width: P_STEP_W,
+      height: 280,
+      padding: '28px 30px',
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+  >
+    <span
+      style={{
+        ...softPill,
+        fontSize: 22,
+        ...(ai
+          ? { color: '#ffffff', background: 'rgba(255, 255, 255, 0.2)' }
+          : { color: deep, background: 'rgba(34, 87, 122, 0.10)' }),
+      }}
+    >
+      {ai ? '交給 AI' : '在自己電腦'}
+    </span>
+    <div style={{ marginTop: 22 }}>
+      {ai ? (
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: 20,
+            background: 'rgba(255, 255, 255, 0.18)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon name={icon} size={36} color="#ffffff" />
+        </div>
+      ) : (
+        <Tile icon={icon} size={64} radius={20} iconSize={36} tone="soft" />
+      )}
+    </div>
+    <div style={{ fontSize: 32, fontWeight: 900, marginTop: 20 }}>{title}</div>
+    <div
+      style={{
+        fontSize: 24,
+        lineHeight: 1.5,
+        marginTop: 10,
+        color: ai ? 'rgba(255, 255, 255, 0.92)' : muted,
+      }}
+    >
+      {desc}
+    </div>
+  </Rise>
+);
+
+const PrivacyArrow = ({ i }: { i: number }) => (
+  <Rise
+    delay={240 + i * 120}
+    kind="fade"
+    style={{
+      position: 'absolute',
+      left: pStepX(i) + P_STEP_W + (P_STEP_GAP - 44) / 2,
+      top: 398,
+    }}
+  >
+    <Icon name="arrow_forward" size={44} color="var(--osd-accent)" />
+  </Rise>
+);
+
+const Tok = ({ children }: { children: ReactNode }) => (
+  <span style={{ color: 'var(--osd-accent)', fontWeight: 900 }}>{children}</span>
+);
+
+const SampleBox = ({
+  label,
+  left,
+  delay,
+  children,
+}: {
+  label: string;
+  left: number;
+  delay: number;
+  children: ReactNode;
+}) => (
+  <Rise
+    delay={delay}
+    style={{
+      ...glass,
+      position: 'absolute',
+      left,
+      top: 640,
+      width: 760,
+      height: 150,
+      padding: '22px 36px',
+      boxSizing: 'border-box',
+      borderRadius: 28,
+    }}
+  >
+    <div style={{ fontSize: 22, fontWeight: 700, color: muted }}>{label}</div>
+    <div style={{ fontSize: 30, fontWeight: 700, marginTop: 12, whiteSpace: 'nowrap' }}>
+      {children}
+    </div>
+  </Rise>
+);
+
+const StudentData: Page = () => (
+  <Stage>
+    <HeaderRow icon="lock" title="但學生資料，不交給 AI" />
+    <SubLine>IEP 有姓名、生日、電話、家庭狀況：先在自己電腦換成代號</SubLine>
+    <PrivacyStep i={0} icon="description" title="原始 IEP" desc="真實資料不外流" />
+    <PrivacyArrow i={0} />
+    <PrivacyStep i={1} icon="lock" title="巨集去識別化" desc="姓名電話換成代號" />
+    <PrivacyArrow i={1} />
+    <PrivacyStep i={2} icon="smart_toy" title="代號版給 AI" desc="只看得到【學生】" ai />
+    <PrivacyArrow i={2} />
+    <PrivacyStep i={3} icon="edit_note" title="AI 修改" desc="寫目標、改課表" ai />
+    <PrivacyArrow i={3} />
+    <PrivacyStep i={4} icon="restore" title="巨集還原" desc="用對照表換回來" />
+    <SampleBox label="原始（示意，假資料）" left={120} delay={760}>
+      林小安與母親陳美玲同住，手機 0912-345-678
+    </SampleBox>
+    <Rise delay={840} kind="fade" style={{ position: 'absolute', left: 936, top: 691 }}>
+      <Icon name="arrow_forward" size={48} color="var(--osd-accent)" />
+    </Rise>
+    <SampleBox label="交給 AI 的代號版" left={1040} delay={900}>
+      <Tok>【學生】</Tok>與母親<Tok>【母親】</Tok>同住，手機<Tok>【電話】</Tok>
+    </SampleBox>
+    <Rise delay={1000} style={{ position: 'absolute', left: 120, right: 120, top: 856 }}>
+      <p style={{ fontSize: 36, fontWeight: 700, textAlign: 'center', margin: 0 }}>
+        AI 從頭到尾，<span style={gradText}>看不到真實的學生資料</span>
+      </p>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const Caution = ({ title, detail, delay }: { title: string; detail: string; delay: number }) => (
+  <Rise
+    delay={delay}
+    style={{
+      ...glass,
+      minHeight: 96,
+      borderRadius: 26,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 22,
+      padding: '10px 28px',
+      boxSizing: 'border-box',
+    }}
+  >
+    <Tile icon="warning" size={52} radius={16} iconSize={30} tone="warn" />
+    <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.25 }}>
+      <span style={{ fontSize: 28, fontWeight: 800 }}>{title}</span>
+      <span style={{ fontSize: 22, color: muted, marginTop: 2 }}>{detail}</span>
+    </span>
+  </Rise>
+);
+
+const MakeYourOwn: Page = () => (
+  <Stage>
+    <HeaderRow icon="smart_toy" title="巨集不用會寫：請 AI 寫給你" />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 270,
+        width: 800,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Rise delay={150}>
+        <div style={eyebrow}>三個步驟</div>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 24 }}>
+        <Point n="01" delay={240}>
+          給 AI 學校的 IEP「空白表格」
+        </Point>
+        <Point n="02" delay={320}>
+          說清楚要遮哪些欄位、代號長什麼樣
+        </Point>
+        <Point n="03" delay={400}>
+          用假資料試跑，沒問題再用在真實檔案
+        </Point>
+      </div>
+    </div>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1000,
+        top: 270,
+        width: 800,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Rise delay={480}>
+        <div style={{ ...eyebrow, color: warn }}>三個提醒</div>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 24 }}>
+        <Caution title="只給空白表格和代號版" detail="寫巨集時也不給真實 IEP 當例子" delay={560} />
+        <Caution title="換完自己看一遍" detail="內文隨口提到的同學、親戚要自己補" delay={640} />
+        <Caution
+          title="代號版不等於匿名"
+          detail="障礙類別加家庭狀況仍可能被認出，依學校規定"
+          delay={720}
+        />
+      </div>
+    </div>
+    <Rise
+      delay={840}
+      style={{
+        ...brandFill,
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 760,
+        borderRadius: 28,
+        padding: '30px 40px',
+        fontSize: 36,
+        fontWeight: 800,
+        textAlign: 'center',
+      }}
+    >
+      AI 幫忙寫工具，老師守住學生資料
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
 type ToolLink = { icon: string; name: string; desc: string; href: string };
 
 const qrSrc = (href: string) =>
@@ -3435,6 +3692,8 @@ export default [
   Part4,
   Loop,
   AgentFolder,
+  StudentData,
+  MakeYourOwn,
   Takeaway,
   Closing,
 ] satisfies Page[];
@@ -3468,6 +3727,8 @@ export const notes: (string | undefined)[] = [
   '15:40 PART 4 教材閉環，約 15 分鐘。',
   '閉環：上課 → 觀察 → 跟 agent 說一句話 → 下一份自動調整。教學內容在 AI 裡是連貫的。',
   '關鍵是讓 agent 讀得到教材庫資料夾；Codex、Antigravity、Claude Code 都可以。備課從每次重來變成接著做。',
+  '但有一個例外：學生資料不能讓 agent 讀。我的做法是用 Word 巨集，在自己電腦把 IEP 的姓名、生日、電話換成【學生】【母親】這類代號，只把代號版交給 AI；AI 改完，再用留在自己電腦的對照表換回來。AI 從頭到尾看不到真實資料。（例子是假資料）',
+  '巨集不用自己會寫：把學校的 IEP 空白表格給 AI，說清楚要遮哪些欄位，請它寫，再用假資料試跑。三個提醒：只給空白表格與代號版；換完自己看一遍；代號版不等於匿名，障礙類別加上家庭狀況仍可能被認出，要依學校規定使用。',
   '15:55 收尾：AI 給速度，老師給判斷。逐列點開三個重點。',
   '致謝，結束。',
 ];
