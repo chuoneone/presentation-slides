@@ -20,6 +20,7 @@ import imgChineseQuiz from './assets/chinese-paragraph-quiz.webp';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgChineseTable from './assets/chinese-structure-table.webp';
 import imgChineseTianzi from './assets/chinese-tianzi-grid.webp';
+import imgDeidWeb from './assets/deid-web-preview.webp';
 import imgEbookConcept from './assets/ebook-concept-input.png';
 import imgEbookDraft from './assets/ebook-draft-input.png';
 import imgInteractiveStepMath from './assets/interactive-step-math.webp';
@@ -54,6 +55,7 @@ const toolUrls = {
   unscramble: 'https://spedmix.pages.dev/unscramble',
   interactiveMath: 'https://spedmix.pages.dev/interativemath',
   ebookGem: 'https://gemini.google.com/',
+  deidWeb: 'https://chuoneone.github.io/sped-deidentification/',
 } as const;
 
 const uploadFileUrls = {
@@ -88,6 +90,7 @@ const ICONS = [
   'face',
   'key',
   'lightbulb',
+  'lock',
   'menu_book',
   'open_in_new',
   'pause',
@@ -1162,6 +1165,172 @@ const SiteColumn = ({
   </Rise>
 );
 
+const InstagramIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M19 12a7 7 0 1 1-7-7c3.87 0 6 2.5 6 5.5 0 3-2 4.5-4 4.5s-3-1.5-3-3 1.5-3 3-3c1.5 0 2.5.8 2.8 1.8" />
+  </svg>
+);
+
+const SocialCard = ({
+  href,
+  platform,
+  handle,
+  color,
+  icon,
+  delay,
+}: {
+  href: string;
+  platform: string;
+  handle: string;
+  color: string;
+  icon: ReactNode;
+  delay: number;
+}) => (
+  <Rise delay={delay} motion={BOUNCY}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        ...glass,
+        width: 500,
+        height: 240,
+        boxSizing: 'border-box',
+        padding: '0 40px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 32,
+        color: 'var(--osd-text)',
+      }}
+    >
+      <div
+        style={{
+          width: 112,
+          height: 112,
+          borderRadius: 32,
+          flexShrink: 0,
+          background: color,
+          color: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 18px 36px -16px ${color}`,
+        }}
+      >
+        {icon}
+      </div>
+      <div>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 800 }}>
+          {platform}
+        </div>
+        <div style={{ fontSize: 30, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 24,
+            color: muted,
+            marginTop: 8,
+          }}
+        >
+          點擊前往
+          <Icon name="arrow_forward" size={26} />
+        </div>
+      </div>
+    </a>
+  </Rise>
+);
+
+const SocialLinks: Page = () => (
+  <Stage dots>
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 40 }}>
+        <SocialCard
+          href={socialUrls.instagram}
+          platform="Instagram"
+          handle="@spedmix2025"
+          color="#d62976"
+          icon={<InstagramIcon />}
+          delay={250}
+        />
+        <SocialCard
+          href={socialUrls.facebook}
+          platform="Facebook"
+          handle="米克師"
+          color="#1877f2"
+          icon={<FacebookIcon />}
+          delay={350}
+        />
+        <SocialCard
+          href={socialUrls.threads}
+          platform="Threads"
+          handle="@spedmix2025"
+          color="#111827"
+          icon={<ThreadsIcon />}
+          delay={450}
+        />
+      </div>
+    </div>
+    <Footer />
+  </Stage>
+);
+
 const MixerSites: Page = () => (
   <Stage>
     <HeaderRow icon="travel_explore" title="米克師的三個網站" />
@@ -2060,6 +2229,141 @@ const PracticeIep: Page = () => (
   </Practice>
 );
 
+const ChapterDeid: Page = () => (
+  <Divider
+    index="PART 01 · 個資提醒"
+    icon="lock"
+    morphId="tile-deid"
+    title={
+      <>
+        學生資料
+        <br />
+        去識別化
+      </>
+    }
+    sub="個資保護"
+    detail="先換成代號再交給 AI，用完再還原"
+  />
+);
+
+const DeidWeb: Page = () => (
+  <Stage>
+    <HeaderRow icon="lock" morphId="tile-deid" title="學生資料去識別化" />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 270,
+        width: 780,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14,
+      }}
+    >
+      <Point n="01" delay={240}>
+        開網頁就能用，檔案不離開電腦
+      </Point>
+      <Point n="02" delay={320}>
+        Word、Excel、PDF、掃描檔都能讀
+      </Point>
+      <Point n="03" delay={400}>
+        預覽時點一下取消、圈選補遮
+      </Point>
+      <Point n="04" delay={480}>
+        下載文件加編碼表，可以還原
+      </Point>
+      <Rise
+        delay={560}
+        style={{
+          marginTop: 14,
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: 14,
+          fontSize: 26,
+          lineHeight: 1.5,
+          color: deep,
+          background: 'rgba(56, 163, 165, 0.10)',
+          borderRadius: 22,
+          padding: '18px 24px',
+        }}
+      >
+        <Icon name="lightbulb" size={32} color={deep} />
+        <span>
+          <b>特教版調整：</b>
+          改編自 Dean Lin 的開源工具，加入 IEP、會議紀錄的偵測規則
+        </span>
+      </Rise>
+    </div>
+    <Rise
+      delay={180}
+      kind="materialize"
+      style={{
+        position: 'absolute',
+        left: 960,
+        right: 120,
+        top: 270,
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <ShotFrame
+        src={imgDeidWeb}
+        alt="學生資料去識別化工具：IEP 預覽，姓名、電話、地址已標記"
+        label="學生資料去識別化工具 · 預覽（假資料）"
+        maxWidth={840}
+        maxHeight={640}
+      />
+    </Rise>
+    <Footer />
+  </Stage>
+);
+DeidWeb.transition = morphTransition;
+
+const DeidLink: Page = () => (
+  <Stage>
+    <HeaderRow icon="lock" title="去識別化工具連結" />
+    <Rise
+      delay={200}
+      kind="materialize"
+      style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 290,
+        width: 1680,
+        height: 560,
+        borderRadius: 36,
+        padding: '48px 64px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 72,
+      }}
+    >
+      <img
+        src={`https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=12&data=${encodeURIComponent(toolUrls.deidWeb)}`}
+        alt="去識別化工具 QR code"
+        style={{ width: 360, height: 360, borderRadius: 24, background: '#ffffff' }}
+      />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div style={{ fontSize: 56, fontWeight: 900 }}>學生資料去識別化工具</div>
+        <div style={{ fontSize: 32, lineHeight: 1.55, color: muted }}>
+          掃描 QR code 或點擊按鈕開啟
+          <br />
+          資料留在自己的電腦，不會上傳
+        </div>
+        <div>
+          <LinkButton href={toolUrls.deidWeb} icon="open_in_new">
+            開啟去識別化工具
+          </LinkButton>
+        </div>
+        <div style={{ fontSize: 26, color: muted }}>chuoneone.github.io/sped-deidentification</div>
+      </div>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
 /* ─────────────────────── Unit intro (voices) ─────────────────────── */
 
 const VoiceCard = ({
@@ -2213,6 +2517,7 @@ const Feature = ({
   title,
   label = '特教鷹架核心亮點',
   highlight = '降低書寫挫折，提供高結構鷹架支持',
+  highlightTitle = '特教適性亮點',
   img,
   imgAlt,
   imgLabel,
@@ -2225,6 +2530,7 @@ const Feature = ({
   title: ReactNode;
   label?: string;
   highlight?: ReactNode;
+  highlightTitle?: string;
   img: string;
   imgAlt: string;
   imgLabel: string;
@@ -2276,7 +2582,7 @@ const Feature = ({
       >
         <Icon name="lightbulb" size={32} color={deep} />
         <span>
-          <b>特教適性亮點：</b>
+          <b>{highlightTitle}：</b>
           {highlight}
         </span>
       </Rise>
@@ -3071,14 +3377,17 @@ export const meta: SlideMeta = {
 export default [
   Cover,
   Speaker,
+  SocialLinks,
   MixerSites,
-  OpenSlides,
   Agenda,
   Part1,
   ChapterIep,
   IepProblem,
   IepReminder,
   PracticeIep,
+  ChapterDeid,
+  DeidWeb,
+  DeidLink,
   ChapterChinese,
   ChineseIntro,
   Chinese1,
