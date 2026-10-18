@@ -1036,7 +1036,7 @@ const Cover: Page = () => (
           <span
             style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--osd-accent)' }}
           />
-          <span>臺北市立大學特教研習 · 2026.10.30</span>
+          <span>特教輔導員與教師研習 · 2026.10.30</span>
         </Chip>
       </Rise>
       <Rise delay={100} kind="materialize" style={{ marginTop: 40 }}>
@@ -1050,11 +1050,11 @@ const Cover: Page = () => (
             margin: 0,
           }}
         >
-          用 AI 製作
+          特教教師的
           <br />
-          <span style={gradText}>特教教材</span>
+          <span style={gradText}>AI 備課</span>
           <br />
-          與學習單
+          工具實務
         </h1>
       </Rise>
       <Rise delay={240} style={{ marginTop: 36, display: 'flex', alignItems: 'center', gap: 20 }}>
@@ -1067,7 +1067,7 @@ const Cover: Page = () => (
           }}
         />
         <span style={{ fontSize: 36, color: muted, fontWeight: 500 }}>
-          紙本 ‧ 互動網頁 ‧ 電子書 ‧ 教材閉環
+          IEP ‧ 國數學習單 ‧ 互動網頁 ‧ 電子書
         </span>
       </Rise>
       <Rise
@@ -4068,7 +4068,7 @@ const Closing: Page = () => (
 Closing.transition = settle;
 
 export const meta: SlideMeta = {
-  title: '用 AI 製作特教教材與學習單（臺北市大 10/30）',
+  title: '特教教師的AI備課工具實務（10/30）',
   createdAt: '2026-10-18T10:25:48.000Z',
 };
 
