@@ -39,7 +39,7 @@ const muted = '#64748b';
 const warn = '#c2410c';
 const bad = '#dc2626';
 
-const SLIDE_ID = 'utaipei-1030';
+const SLIDE_ID = '1030';
 
 const socialUrls = {
   instagram: 'https://www.instagram.com/spedmix2025/',
