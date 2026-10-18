@@ -17,6 +17,7 @@ import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgDeidWeb from './assets/deid-web-preview.webp';
 import imgLibraryHome from './assets/ebook-library-home.png';
 import imgEbookToolbar from './assets/ebook-toolbar.png';
+import imgIepGenerator from './assets/iep-generator.webp';
 import imgInteractiveStepMath from './assets/interactive-step-math.webp';
 import imgMathConcept from './assets/math-ebook-concept.webp';
 import imgMathPrint from './assets/math-print-preview.webp';
@@ -1597,9 +1598,9 @@ const RouteCard = ({
     motion={BOUNCY}
     style={{
       ...glass,
-      width: 316,
+      width: 268,
       height: 480,
-      padding: 30,
+      padding: 26,
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
@@ -1618,11 +1619,11 @@ const RouteCard = ({
         {n}
       </span>
     </div>
-    <div style={{ fontSize: 40, fontWeight: 900, marginTop: 40 }}>{title}</div>
+    <div style={{ fontSize: 38, fontWeight: 900, marginTop: 40 }}>{title}</div>
     <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--osd-accent)', marginTop: 'auto' }}>
       要解決的問題
     </div>
-    <div style={{ fontSize: 26, lineHeight: 1.5, color: muted, marginTop: 8 }}>{solve}</div>
+    <div style={{ fontSize: 25, lineHeight: 1.5, color: muted, marginTop: 8 }}>{solve}</div>
   </Rise>
 );
 
@@ -1633,69 +1634,93 @@ const Route: Page = () => (
         <div style={eyebrow}>今天的路線</div>
       </Rise>
       <Rise delay={100} style={{ marginTop: 24 }}>
-        <h2 style={h2}>從紙本到教材閉環</h2>
+        <h2 style={h2}>從 IEP 到教材閉環</h2>
       </Rise>
     </div>
-    <div style={{ position: 'absolute', left: 120, top: 380, display: 'flex', gap: 25 }}>
+    <div style={{ position: 'absolute', left: 120, top: 380, display: 'flex', gap: 14 }}>
       <RouteCard
         n="01"
-        icon="description"
-        title="紙本教材"
-        solve="IEP 寫得慢；學習單 AI 產得快，排版仍靠手工"
+        icon="edit_note"
+        title="IEP 目標"
+        solve="IEP 要寫得具體，每學期卻耗費大量時間"
         delay={150}
       />
       <RouteCard
         n="02"
-        icon="touch_app"
-        title="互動網頁"
-        solve="現成工具精采，卻不是為特教生設計"
+        icon="description"
+        title="國數學習單"
+        solve="AI 產得快，但排版與複製貼上仍靠手工"
         delay={230}
       />
       <RouteCard
         n="03"
-        icon="auto_stories"
-        title="電子書模式"
-        solve="同一份內容，學習單和簡報要做兩次"
+        icon="touch_app"
+        title="互動網頁"
+        solve="現成工具精采，卻不是為特教生設計"
         delay={310}
       />
       <RouteCard
         n="04"
-        icon="sync"
-        title="教材閉環"
-        solve="每一份教材都要從頭交代學生程度"
+        icon="auto_stories"
+        title="電子書模式"
+        solve="同一份內容，學習單和簡報要做兩次"
         delay={390}
       />
       <RouteCard
         n="05"
+        icon="sync"
+        title="教材閉環"
+        solve="每一份教材都要從頭交代學生程度"
+        delay={470}
+      />
+      <RouteCard
+        n="06"
         icon="lock"
         title="去識別化"
         solve="想請 AI 幫忙，又不能交出學生個資"
-        delay={470}
+        delay={550}
       />
     </div>
     <Footer />
   </Stage>
 );
 
-/* ─────────────────────────── Part 1 · 紙本 ─────────────────────────── */
+/* ─────────────────────────── Part 1 · IEP ─────────────────────────── */
 
 const Part1: Page = () => (
   <PartDivider
     part="PART 01"
     num="01"
-    time="08:30 – 09:30"
-    icon="description"
-    line1="行政減量與"
-    line2="紙本教材"
-    sub="AI 加速產出，工具接手最後一哩"
-    detail="IEP 目標 ‧ 國語文學習單 ‧ 數學簡化學習單"
+    time="08:30 – 08:55"
+    icon="edit_note"
+    line1="IEP 目標撰寫"
+    line2="與行政減量"
+    sub="AI 先出草稿，老師依觀察修正"
+    detail="IEP 目標產生器 ‧ 學生現況貼文字或貼圖"
   >
-    <PartTool icon="edit_note" label="IEP 目標生成器" delay={700} />
-    <PartTool icon="menu_book" label="國語文學習單" delay={780} />
-    <PartTool icon="calculate" label="數學簡化學習單" delay={860} />
+    <PartTool icon="edit_note" label="IEP 目標產生器" delay={760} />
   </PartDivider>
 );
 Part1.transition = partReveal;
+
+/* ─────────────────────────── Part 2 · 國數適性學習單 ─────────────────────────── */
+
+const PartPaper: Page = () => (
+  <PartDivider
+    part="PART 02"
+    num="02"
+    time="08:55 – 09:30"
+    icon="description"
+    line1="國數適性"
+    line2="學習單"
+    sub="AI 加速產出，工具接手最後一哩"
+    detail="國語文學習單 ‧ 數學簡化學習單"
+  >
+    <PartTool icon="menu_book" label="國語文學習單" delay={760} />
+    <PartTool icon="calculate" label="數學簡化學習單" delay={840} />
+  </PartDivider>
+);
+PartPaper.transition = partReveal;
 
 const ContrastRow = ({
   icon,
@@ -1792,6 +1817,33 @@ const IepProblem: Page = () => (
     </div>
     <Footer />
   </Stage>
+);
+
+const IepTool: Page = () => (
+  <Feature
+    unit="IEP 目標撰寫"
+    tag="工具"
+    title="IEP 目標產生器"
+    highlightTitle="使用提醒"
+    highlight="草稿只是起點，貼上實際教學內容，才不會偏離課綱"
+    href={toolUrls.iep}
+    img={imgIepGenerator}
+    imgAlt="IEP 目標產生器首頁"
+    imgLabel="IEP 目標產生器"
+  >
+    <Point n="01" delay={240}>
+      選年級、領域，產生目標建議
+    </Point>
+    <Point n="02" delay={320}>
+      學生現況可貼文字，或貼圖擷取
+    </Point>
+    <Point n="03" delay={400}>
+      上下學期教學內容也能貼圖帶入
+    </Point>
+    <Point n="04" delay={480}>
+      一鍵匯出 Word，格式先設好
+    </Point>
+  </Feature>
 );
 
 const PrivacyTag = ({ children }: { children: ReactNode }) => (
@@ -2140,8 +2192,8 @@ const TeacherThirty: Page = () => (
 
 const Part2: Page = () => (
   <PartDivider
-    part="PART 02"
-    num="02"
+    part="PART 03"
+    num="03"
     time="09:30 – 09:55"
     icon="touch_app"
     line1="互動網頁"
@@ -2710,8 +2762,8 @@ const WhySelfMade: Page = () => (
 
 const Part3: Page = () => (
   <PartDivider
-    part="PART 03"
-    num="03"
+    part="PART 04"
+    num="04"
     time="09:55 – 10:15"
     icon="auto_stories"
     line1="電子書模式"
@@ -2980,8 +3032,8 @@ const DualMode: Page = () => (
 
 const Part4: Page = () => (
   <PartDivider
-    part="PART 04"
-    num="04"
+    part="PART 05"
+    num="05"
     time="10:15 – 10:25"
     icon="sync"
     line1="教材閉環"
@@ -3249,8 +3301,8 @@ const AgentFolder: Page = () => (
 
 const Part5: Page = () => (
   <PartDivider
-    part="PART 05"
-    num="05"
+    part="PART 06"
+    num="06"
     time="10:25 – 10:30"
     icon="lock"
     line1="學生資料"
@@ -3652,8 +3704,6 @@ const LinkCard = ({ tool, delay }: { tool: ToolLink; delay: number }) => (
   </Rise>
 );
 
-const TRY_SECONDS = 5 * 60;
-
 const timerButton: CSSProperties = {
   width: 56,
   height: 56,
@@ -3755,16 +3805,16 @@ const ToolLinks = ({
   part,
   title,
   tools,
-  timer = false,
+  timer = 0,
 }: {
   part: string;
   title: string;
   tools: ToolLink[];
-  timer?: boolean;
+  timer?: number;
 }) => (
   <Stage>
     <HeaderRow icon="link" title={`${part} 工具連結`} />
-    {timer && <CountdownTimer id={part} seconds={TRY_SECONDS} />}
+    {timer > 0 && <CountdownTimer id={part} seconds={timer * 60} />}
     <SubLine>{title} ‧ 掃描 QR code 或點擊卡片開啟</SubLine>
     <div
       style={{
@@ -3787,15 +3837,25 @@ const ToolLinks = ({
 const Part1Links: Page = () => (
   <ToolLinks
     part="PART 01"
-    title="IEP 與紙本教材"
-    timer
+    title="IEP 目標撰寫"
+    timer={5}
     tools={[
       {
         icon: 'edit_note',
-        name: 'IEP 目標生成器',
+        name: 'IEP 目標產生器',
         desc: '貼入學生現況，產出個別化目標',
         href: toolUrls.iep,
       },
+    ]}
+  />
+);
+
+const PaperLinks: Page = () => (
+  <ToolLinks
+    part="PART 02"
+    title="國數適性學習單"
+    timer={5}
+    tools={[
       {
         icon: 'menu_book',
         name: '國語文學習單',
@@ -3814,9 +3874,9 @@ const Part1Links: Page = () => (
 
 const Part2Links: Page = () => (
   <ToolLinks
-    part="PART 02"
+    part="PART 03"
     title="互動網頁"
-    timer
+    timer={5}
     tools={[
       {
         icon: 'reorder',
@@ -3836,7 +3896,7 @@ const Part2Links: Page = () => (
 
 const Part3Links: Page = () => (
   <ToolLinks
-    part="PART 03"
+    part="PART 04"
     title="電子書模式"
     tools={[
       {
@@ -3857,7 +3917,7 @@ const Part3Links: Page = () => (
 
 const Part5Links: Page = () => (
   <ToolLinks
-    part="PART 05"
+    part="PART 06"
     title="學生資料去識別化"
     tools={[
       {
@@ -4021,11 +4081,14 @@ export default [
   Route,
   Part1,
   IepProblem,
+  IepTool,
   IepReminder,
+  Part1Links,
+  PartPaper,
   PaperWhy,
   ChineseTool,
   MathTool,
-  Part1Links,
+  PaperLinks,
   Part2,
   InteractiveWhy,
   Principle,
