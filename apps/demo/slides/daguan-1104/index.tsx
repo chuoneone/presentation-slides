@@ -1129,6 +1129,172 @@ const Speaker: Page = () => (
   </Stage>
 );
 
+const InstagramIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg
+    width="52"
+    height="52"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M19 12a7 7 0 1 1-7-7c3.87 0 6 2.5 6 5.5 0 3-2 4.5-4 4.5s-3-1.5-3-3 1.5-3 3-3c1.5 0 2.5.8 2.8 1.8" />
+  </svg>
+);
+
+const SocialCard = ({
+  href,
+  platform,
+  handle,
+  color,
+  icon,
+  delay,
+}: {
+  href: string;
+  platform: string;
+  handle: string;
+  color: string;
+  icon: ReactNode;
+  delay: number;
+}) => (
+  <Rise delay={delay} motion={BOUNCY}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        ...glass,
+        width: 500,
+        height: 240,
+        boxSizing: 'border-box',
+        padding: '0 40px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 32,
+        color: 'var(--osd-text)',
+      }}
+    >
+      <div
+        style={{
+          width: 112,
+          height: 112,
+          borderRadius: 32,
+          flexShrink: 0,
+          background: color,
+          color: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 18px 36px -16px ${color}`,
+        }}
+      >
+        {icon}
+      </div>
+      <div>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 800 }}>
+          {platform}
+        </div>
+        <div style={{ fontSize: 30, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontSize: 24,
+            color: muted,
+            marginTop: 8,
+          }}
+        >
+          點擊前往
+          <Icon name="arrow_forward" size={26} />
+        </div>
+      </div>
+    </a>
+  </Rise>
+);
+
+const SocialLinks: Page = () => (
+  <Stage dots>
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 40 }}>
+        <SocialCard
+          href={socialUrls.instagram}
+          platform="Instagram"
+          handle="@spedmix2025"
+          color="#d62976"
+          icon={<InstagramIcon />}
+          delay={250}
+        />
+        <SocialCard
+          href={socialUrls.facebook}
+          platform="Facebook"
+          handle="米克師"
+          color="#1877f2"
+          icon={<FacebookIcon />}
+          delay={350}
+        />
+        <SocialCard
+          href={socialUrls.threads}
+          platform="Threads"
+          handle="@spedmix2025"
+          color="#111827"
+          icon={<ThreadsIcon />}
+          delay={450}
+        />
+      </div>
+    </div>
+    <Footer />
+  </Stage>
+);
+
 const SiteColumn = ({
   src,
   href,
@@ -2794,6 +2960,7 @@ export const meta: SlideMeta = {
 export default [
   Cover,
   Speaker,
+  SocialLinks,
   MixerSites,
   Agenda,
   Stance,
