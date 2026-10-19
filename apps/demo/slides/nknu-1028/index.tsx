@@ -3084,8 +3084,8 @@ const DeidWeb: Page = () => (
   </Feature>
 );
 
-const P_STEP_W = 288;
-const P_STEP_GAP = 60;
+const P_STEP_W = 296;
+const P_STEP_GAP = 50;
 const pStepX = (i: number) => 120 + i * (P_STEP_W + P_STEP_GAP);
 
 const PrivacyStep = ({
@@ -3111,8 +3111,8 @@ const PrivacyStep = ({
       left: pStepX(i),
       top: 280,
       width: P_STEP_W,
-      height: 280,
-      padding: '28px 30px',
+      height: 320,
+      padding: '28px 24px',
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
@@ -3121,7 +3121,7 @@ const PrivacyStep = ({
     <span
       style={{
         ...softPill,
-        fontSize: 22,
+        fontSize: 24,
         ...(ai
           ? { color: '#ffffff', background: 'rgba(255, 255, 255, 0.2)' }
           : { color: deep, background: 'rgba(34, 87, 122, 0.10)' }),
@@ -3148,10 +3148,10 @@ const PrivacyStep = ({
         <Tile icon={icon} size={64} radius={20} iconSize={36} tone="soft" />
       )}
     </div>
-    <div style={{ fontSize: 32, fontWeight: 900, marginTop: 20 }}>{title}</div>
+    <div style={{ fontSize: 38, fontWeight: 900, marginTop: 20 }}>{title}</div>
     <div
       style={{
-        fontSize: 24,
+        fontSize: 28,
         lineHeight: 1.5,
         marginTop: 10,
         color: ai ? 'rgba(255, 255, 255, 0.92)' : muted,
@@ -3169,7 +3169,7 @@ const PrivacyArrow = ({ i }: { i: number }) => (
     style={{
       position: 'absolute',
       left: pStepX(i) + P_STEP_W + (P_STEP_GAP - 44) / 2,
-      top: 398,
+      top: 418,
     }}
   >
     <Icon name="arrow_forward" size={44} color="var(--osd-accent)" />
@@ -3197,16 +3197,16 @@ const SampleBox = ({
       ...glass,
       position: 'absolute',
       left,
-      top: 640,
+      top: 650,
       width: 760,
-      height: 150,
+      height: 175,
       padding: '22px 36px',
       boxSizing: 'border-box',
       borderRadius: 28,
     }}
   >
-    <div style={{ fontSize: 22, fontWeight: 700, color: muted }}>{label}</div>
-    <div style={{ fontSize: 30, fontWeight: 700, marginTop: 12, whiteSpace: 'nowrap' }}>
+    <div style={{ fontSize: 26, fontWeight: 700, color: muted }}>{label}</div>
+    <div style={{ fontSize: 34, fontWeight: 700, marginTop: 12, whiteSpace: 'nowrap' }}>
       {children}
     </div>
   </Rise>
@@ -3215,7 +3215,11 @@ const SampleBox = ({
 const StudentData: Page = () => (
   <Stage>
     <HeaderRow icon="lock" title="學生資料，不直接交給 AI" />
-    <SubLine>IEP 有姓名、生日、電話、家庭狀況：先在自己電腦換成代號</SubLine>
+    <Rise delay={100} style={{ position: 'absolute', left: 256, top: 208 }}>
+      <p style={{ fontSize: 36, color: muted, margin: 0 }}>
+        IEP 有姓名、生日、電話、家庭狀況：先在自己電腦換成代號
+      </p>
+    </Rise>
     <PrivacyStep i={0} icon="description" title="原始 IEP" desc="真實資料不外流" />
     <PrivacyArrow i={0} />
     <PrivacyStep i={1} icon="lock" title="去識別化" desc="網頁工具換成代號" />
@@ -3228,14 +3232,14 @@ const StudentData: Page = () => (
     <SampleBox label="原始（示意，假資料）" left={120} delay={760}>
       林小安與母親陳美玲同住
     </SampleBox>
-    <Rise delay={840} kind="fade" style={{ position: 'absolute', left: 936, top: 691 }}>
+    <Rise delay={840} kind="fade" style={{ position: 'absolute', left: 936, top: 716 }}>
       <Icon name="arrow_forward" size={48} color="var(--osd-accent)" />
     </Rise>
     <SampleBox label="交給 AI 的代號版" left={1040} delay={900}>
       <Tok>[姓名:6e679d]</Tok>與母親<Tok>[姓名:a3f9c2]</Tok>同住
     </SampleBox>
-    <Rise delay={1000} style={{ position: 'absolute', left: 120, right: 120, top: 856 }}>
-      <p style={{ fontSize: 36, fontWeight: 700, textAlign: 'center', margin: 0 }}>
+    <Rise delay={1000} style={{ position: 'absolute', left: 120, right: 120, top: 870 }}>
+      <p style={{ fontSize: 44, fontWeight: 700, textAlign: 'center', margin: 0 }}>
         AI 從頭到尾，<span style={gradText}>看不到真實的學生資料</span>
       </p>
     </Rise>
@@ -3387,101 +3391,6 @@ const Records: Page = () => (
       >
         不只多一份教材，也多懂學生一點
       </Rise>
-    </div>
-    <Footer />
-  </Stage>
-);
-
-const BoundaryCard = ({
-  icon,
-  title,
-  delay,
-  children,
-}: {
-  icon: string;
-  title: string;
-  delay: number;
-  children: ReactNode;
-}) => (
-  <Rise
-    delay={delay}
-    motion={BOUNCY}
-    style={{
-      ...glass,
-      width: 800,
-      height: 480,
-      padding: 48,
-      boxSizing: 'border-box',
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-  >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-      <Tile icon={icon} size={72} radius={22} iconSize={40} tone="soft" />
-      <span style={{ fontSize: 40, fontWeight: 900 }}>{title}</span>
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, marginTop: 44 }}>
-      {children}
-    </div>
-  </Rise>
-);
-
-const BoundaryLine = ({
-  icon = 'check_circle',
-  color = 'var(--osd-accent)',
-  strike = false,
-  children,
-}: {
-  icon?: string;
-  color?: string;
-  strike?: boolean;
-  children: ReactNode;
-}) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-    <Icon name={icon} size={36} color={color} />
-    <span
-      style={{
-        fontSize: 34,
-        fontWeight: 700,
-        textDecoration: strike ? 'line-through' : undefined,
-        color: strike ? muted : undefined,
-      }}
-    >
-      {children}
-    </span>
-  </div>
-);
-
-const Boundary: Page = () => (
-  <Stage>
-    <HeaderRow icon="verified_user" title="紀錄的界線" />
-    <SubLine>學生資料，比教材更需要保護</SubLine>
-    <div
-      style={{
-        position: 'absolute',
-        left: 120,
-        right: 120,
-        top: 330,
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
-      <BoundaryCard icon="lock" title="保護隱私" delay={150}>
-        <BoundaryLine>只用代號：S01、S02…</BoundaryLine>
-        <BoundaryLine>不寫姓名、診斷、家庭</BoundaryLine>
-        <BoundaryLine>只放私人資料夾，不上公開網站</BoundaryLine>
-      </BoundaryCard>
-      <BoundaryCard icon="edit_note" title="記策略，不貼標籤" delay={270}>
-        <BoundaryLine icon="cancel" color={warn} strike>
-          他是視覺型學習者
-        </BoundaryLine>
-        <BoundaryLine>有圖示時，正確率較高</BoundaryLine>
-        <div style={{ fontSize: 26, color: muted, lineHeight: 1.6, marginTop: 8 }}>
-          學習風格配對教學，研究證據薄弱
-          <br />
-          輪廓是工作假設，隨觀察更新
-        </div>
-      </BoundaryCard>
     </div>
     <Footer />
   </Stage>
@@ -3754,8 +3663,8 @@ const TakeawayRow = ({ icon, title, detail }: { icon: string; title: string; det
   <StepIn
     style={{
       ...glass,
-      width: 1400,
-      height: 112,
+      width: 1560,
+      height: 116,
       display: 'flex',
       alignItems: 'center',
       gap: 28,
@@ -3764,8 +3673,8 @@ const TakeawayRow = ({ icon, title, detail }: { icon: string; title: string; det
     }}
   >
     <Tile icon={icon} size={64} radius={20} iconSize={36} tone="soft" />
-    <span style={{ fontSize: 38, fontWeight: 900, width: 220 }}>{title}</span>
-    <span style={{ fontSize: 32, color: muted }}>{detail}</span>
+    <span style={{ fontSize: 46, fontWeight: 900, width: 270 }}>{title}</span>
+    <span style={{ fontSize: 40, color: muted }}>{detail}</span>
   </StepIn>
 );
 
@@ -3780,7 +3689,7 @@ const Takeaway: Page = () => (
           AI 給速度，<span style={gradText}>老師給判斷。</span>
         </h2>
       </Rise>
-      <div style={{ marginTop: 64, display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div style={{ marginTop: 56, display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Steps>
           <Step duration={1}>
             <TakeawayRow
@@ -3920,7 +3829,6 @@ export default [
   Loop,
   AgentFolder,
   Records,
-  Boundary,
   Part5,
   StudentData,
   DeidWeb,
