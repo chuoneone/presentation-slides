@@ -83,11 +83,16 @@ const ICONS = [
   'auto_stories',
   'business_center',
   'calculate',
+  'chat',
   'check_circle',
   'close',
   'co_present',
+  'description',
   'edit_note',
   'face',
+  'folder',
+  'folder_open',
+  'history_edu',
   'key',
   'lightbulb',
   'lock',
@@ -108,10 +113,13 @@ const ICONS = [
   'search',
   'smart_toy',
   'stairs',
+  'sync',
   'timer',
   'touch_app',
   'travel_explore',
+  'tune',
   'upload',
+  'visibility',
   'work',
 ].sort();
 
@@ -270,6 +278,11 @@ const glass: CSSProperties = {
   boxShadow:
     'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 30px 60px -30px rgba(34, 87, 122, 0.28), 0 2px 6px rgba(15, 23, 42, 0.04)',
   borderRadius: 'var(--osd-radius)',
+};
+
+const brandFill: CSSProperties = {
+  background: `linear-gradient(150deg, rgba(56, 163, 165, 0.94), ${deep})`,
+  color: '#ffffff',
 };
 
 const gradText: CSSProperties = {
@@ -3179,6 +3192,406 @@ const RecoCard = ({
   </Rise>
 );
 
+/* ─────────────────────────── 教材閉環 ─────────────────────────── */
+
+const LOOP_W = 360;
+const LOOP_GAP = 80;
+const loopX = (i: number) => 120 + i * (LOOP_W + LOOP_GAP);
+
+const LoopCard = ({
+  i,
+  icon,
+  title,
+  children,
+  strong = false,
+}: {
+  i: number;
+  icon: string;
+  title: string;
+  children: ReactNode;
+  strong?: boolean;
+}) => (
+  <Rise
+    delay={150 + i * 120}
+    motion={BOUNCY}
+    style={{
+      ...glass,
+      ...(strong ? brandFill : {}),
+      position: 'absolute',
+      left: loopX(i),
+      top: 290,
+      width: LOOP_W,
+      height: 400,
+      padding: 36,
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+  >
+    {strong ? (
+      <div
+        style={{
+          width: 72,
+          height: 72,
+          borderRadius: 22,
+          background: 'rgba(255, 255, 255, 0.18)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Icon name={icon} size={40} color="#ffffff" />
+      </div>
+    ) : (
+      <Tile icon={icon} size={72} radius={22} iconSize={40} tone="soft" />
+    )}
+    <div style={{ fontSize: 36, fontWeight: 900, marginTop: 24 }}>{title}</div>
+    <div style={{ fontSize: 26, lineHeight: 1.55, marginTop: 12, opacity: strong ? 0.95 : 1 }}>
+      {children}
+    </div>
+  </Rise>
+);
+
+const Loop: Page = () => (
+  <Stage>
+    <HeaderRow icon="sync" title="教材閉環：接著做，不重來" />
+    <LoopCard i={0} icon="co_present" title="上課使用">
+      <span style={{ color: muted }}>投影講解，加上紙本練習</span>
+    </LoopCard>
+    <LoopCard i={1} icon="visibility" title="觀察學生">
+      <span style={{ color: muted }}>哪裡卡住？完成度多少？</span>
+    </LoopCard>
+    <LoopCard i={2} icon="chat" title="跟 agent 說" strong>
+      「上次這份內容有些難，學生完成度低，下一份簡化一點。」
+    </LoopCard>
+    <LoopCard i={3} icon="description" title="產出下一份">
+      <span style={{ color: muted }}>agent 讀過上一份，直接調整難度與題量</span>
+    </LoopCard>
+    {[0, 1, 2].map((i) => (
+      <Rise
+        key={i}
+        delay={240 + i * 120}
+        kind="fade"
+        style={{
+          position: 'absolute',
+          left: loopX(i) + LOOP_W + (LOOP_GAP - 48) / 2,
+          top: 466,
+        }}
+      >
+        <Icon name="arrow_forward" size={48} color="var(--osd-accent)" />
+      </Rise>
+    ))}
+    <Rise delay={760} kind="fade" style={{ position: 'absolute', left: 0, top: 0 }}>
+      <svg
+        width={1920}
+        height={1080}
+        style={{ position: 'absolute', left: 0, top: 0, overflow: 'visible' }}
+        aria-hidden="true"
+      >
+        <path
+          d={`M ${loopX(3) + LOOP_W / 2} 700 V 790 H ${loopX(0) + LOOP_W / 2} V 712`}
+          fill="none"
+          stroke="#38A3A5"
+          strokeWidth={4}
+          strokeDasharray="12 10"
+        />
+        <path
+          d={`M ${loopX(0) + LOOP_W / 2 - 16} 724 L ${loopX(0) + LOOP_W / 2} 702 L ${loopX(0) + LOOP_W / 2 + 16} 724`}
+          fill="none"
+          stroke="#38A3A5"
+          strokeWidth={4}
+          strokeLinejoin="round"
+        />
+      </svg>
+    </Rise>
+    <Rise delay={820} style={{ position: 'absolute', left: 0, right: 0, top: 766 }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <span style={{ ...softPill, background: '#e6f4f4', fontSize: 26 }}>下一輪</span>
+      </div>
+    </Rise>
+    <Rise delay={900} style={{ position: 'absolute', left: 120, right: 120, top: 870 }}>
+      <p style={{ fontSize: 36, fontWeight: 700, textAlign: 'center', margin: 0 }}>
+        關鍵只有一個：<span style={gradText}>agent 讀得到上一份教材</span>
+      </p>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const TreeLine = ({
+  depth,
+  name,
+  folder = false,
+  mark,
+}: {
+  depth: number;
+  name: string;
+  folder?: boolean;
+  mark?: string;
+}) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      height: 50,
+      paddingLeft: depth * 40,
+      fontSize: 27,
+      fontWeight: folder ? 800 : 500,
+      fontFamily: 'var(--osd-font-display)',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    <Icon
+      name={folder ? 'folder' : 'description'}
+      size={30}
+      color={folder ? '#e0a526' : mark ? 'var(--osd-accent)' : '#94a3b8'}
+    />
+    <span style={mark ? { color: deep, fontWeight: 800 } : undefined}>{name}</span>
+    {mark && (
+      <span
+        style={{
+          fontSize: 22,
+          fontWeight: 800,
+          color: warn,
+          background: 'rgba(234, 88, 12, 0.10)',
+          borderRadius: 999,
+          padding: '4px 16px',
+        }}
+      >
+        {mark}
+      </span>
+    )}
+  </div>
+);
+
+const AgentFolder: Page = () => (
+  <Stage>
+    <HeaderRow icon="folder_open" title="讓 agent 讀得到你的教材庫" />
+    <Rise
+      delay={150}
+      kind="materialize"
+      style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 270,
+        width: 720,
+        borderRadius: 28,
+        overflow: 'hidden',
+        background: 'rgba(255, 255, 255, 0.9)',
+      }}
+    >
+      <FrameBar label="國中教材庫（示意）" />
+      <div style={{ padding: '24px 36px 32px' }}>
+        <TreeLine depth={0} name="國中教材庫" folder />
+        <TreeLine depth={1} name="七年級" folder />
+        <TreeLine depth={2} name="英語" folder />
+        <TreeLine depth={3} name="unit1-文法.html" />
+        <TreeLine depth={3} name="unit1-單字.html" />
+        <TreeLine depth={3} name="unit2-文法.html" mark="上次：完成度低" />
+        <TreeLine depth={3} name="unit2-單字.html" />
+        <TreeLine depth={3} name="段考複習-U1-U2.html" />
+        <TreeLine depth={2} name="國文" folder />
+        <TreeLine depth={1} name="八年級" folder />
+      </div>
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 920,
+        top: 270,
+        width: 880,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Rise delay={200}>
+        <div style={eyebrow}>用哪一個 agent 都可以</div>
+      </Rise>
+      <Rise delay={260} style={{ display: 'flex', gap: 16, marginTop: 18 }}>
+        <Chip>Codex</Chip>
+        <Chip>Antigravity</Chip>
+        <Chip>Claude Code</Chip>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 40 }}>
+        <Point n="01" delay={340}>
+          教材都放在同一個資料夾
+        </Point>
+        <Point n="02" delay={420}>
+          agent 看得到每一份的難度與版型
+        </Point>
+        <Point n="03" delay={500}>
+          一句話調整，不用重新交代學生程度
+        </Point>
+      </div>
+      <Rise
+        delay={620}
+        style={{
+          ...brandFill,
+          marginTop: 32,
+          borderRadius: 28,
+          padding: '26px 36px',
+          fontSize: 32,
+          fontWeight: 800,
+        }}
+      >
+        備課從「每次重來」，變成「接著做」
+      </Rise>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const Tag = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      fontSize: 22,
+      fontWeight: 800,
+      color: 'var(--osd-accent)',
+      background: 'rgba(56, 163, 165, 0.12)',
+      borderRadius: 999,
+      padding: '4px 18px',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const RecordEntry = ({
+  icon,
+  file,
+  subject,
+  detail,
+  tags,
+  delay,
+}: {
+  icon: string;
+  file: string;
+  subject: string;
+  detail: string;
+  tags: ReactNode;
+  delay: number;
+}) => (
+  <Rise
+    delay={delay}
+    style={{
+      background: '#ffffff',
+      border: '1px solid rgba(56, 163, 165, 0.18)',
+      borderRadius: 24,
+      padding: '24px 30px',
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <Icon name={icon} size={32} color="var(--osd-accent)" />
+      <span
+        style={{
+          fontSize: 24,
+          fontWeight: 800,
+          fontFamily: 'var(--osd-font-display)',
+          color: deep,
+        }}
+      >
+        {file}
+      </span>
+    </div>
+    <div style={{ fontSize: 30, fontWeight: 800, marginTop: 14 }}>{subject}</div>
+    <div style={{ fontSize: 26, color: muted, marginTop: 6, lineHeight: 1.5 }}>{detail}</div>
+    <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>{tags}</div>
+  </Rise>
+);
+
+const Records: Page = () => (
+  <Stage>
+    <HeaderRow icon="history_edu" title="每轉一圈，都留下紀錄" />
+    <SubLine>調整教材的同時，順手記下來</SubLine>
+    <Rise
+      delay={150}
+      kind="materialize"
+      style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 290,
+        width: 820,
+        borderRadius: 28,
+        overflow: 'hidden',
+        background: 'rgba(255, 255, 255, 0.9)',
+      }}
+    >
+      <FrameBar label="notes/ 教學紀錄（示意）" />
+      <div style={{ padding: '24px 28px 28px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <RecordEntry
+          icon="tune"
+          file="教材調整紀錄.md"
+          subject="七上數學 2-1｜判別 3 的倍數卡住"
+          detail="每題先填「各位數加起來＝？」，再判斷"
+          tags={
+            <>
+              <Tag>分解</Tag>
+              <Tag>提示</Tag>
+            </>
+          }
+          delay={260}
+        />
+        <RecordEntry
+          icon="edit_note"
+          file="學生觀察紀錄.md"
+          subject="S03｜有圖示時，正確率較高"
+          detail="拆成三步驟能獨立完成，長文字題會放棄"
+          tags={
+            <>
+              <Tag>有效：圖示</Tag>
+              <Tag>有效：分解</Tag>
+            </>
+          }
+          delay={360}
+        />
+      </div>
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1000,
+        top: 290,
+        width: 800,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Rise delay={200}>
+        <div style={eyebrow}>直接接上 IEP</div>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 28 }}>
+        <Point n="01" delay={440}>
+          期末檢討有具體內容，不靠印象
+        </Point>
+        <Point n="02" delay={520}>
+          課程調整有佐證：簡化、減量、分解、提示
+        </Point>
+        <Point n="03" delay={600}>
+          換老師交接，不用從零摸索
+        </Point>
+      </div>
+      <Rise
+        delay={720}
+        style={{
+          ...brandFill,
+          marginTop: 32,
+          borderRadius: 28,
+          padding: '26px 36px',
+          fontSize: 32,
+          fontWeight: 800,
+        }}
+      >
+        不只多一份教材，也多懂學生一點
+      </Rise>
+    </div>
+    <Footer />
+  </Stage>
+);
+
 const MoreTools: Page = () => (
   <Stage>
     <HeaderRow icon="lightbulb" title="還有這些工具，也很好用" />
@@ -3415,6 +3828,9 @@ export default [
   EbookDual,
   EbookModes,
   PracticeEbook,
+  Loop,
+  AgentFolder,
+  Records,
   MoreTools,
   Takeaway,
   Closing,
