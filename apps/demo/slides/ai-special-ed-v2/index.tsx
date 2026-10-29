@@ -56,6 +56,7 @@ const toolUrls = {
   interactiveMath: 'https://spedmix.pages.dev/interativemath',
   ebookGem: 'https://gemini.google.com/',
   deidWeb: 'https://chuoneone.github.io/sped-deidentification/',
+  deidVideo: 'https://youtu.be/Mx7d0nSF61k',
 } as const;
 
 const uploadFileUrls = {
@@ -1581,7 +1582,7 @@ const Agenda: Page = () => (
     <div style={{ position: 'absolute', left: 120, top: 360, display: 'flex', gap: 48 }}>
       <PartCard
         part="PART 01"
-        time="14:30 – 15:20"
+        time="08:30 – 09:30"
         icon="business_center"
         title="行政與教材備課"
         sub="先求快速產出第一版"
@@ -1592,7 +1593,7 @@ const Agenda: Page = () => (
       </PartCard>
       <PartCard
         part="PART 02"
-        time="15:20 – 16:20"
+        time="09:30 – 10:30"
         icon="touch_app"
         title="自製互動教學網頁"
         sub="打造適性特教學習鷹架"
@@ -1612,7 +1613,7 @@ const Part1: Page = () => (
   <PartDivider
     part="PART 01"
     num="01"
-    time="14:30 – 15:20"
+    time="08:30 – 09:30"
     icon="business_center"
     line1="行政減量與"
     line2="教材備課"
@@ -2365,9 +2366,12 @@ const DeidLink: Page = () => (
           <br />
           資料留在自己的電腦，不會上傳
         </div>
-        <div>
+        <div style={{ display: 'flex', gap: 20 }}>
           <LinkButton href={toolUrls.deidWeb} icon="open_in_new">
             開啟去識別化工具
+          </LinkButton>
+          <LinkButton href={toolUrls.deidVideo} icon="play_arrow" tone="ghost">
+            推薦影片：有空可以看
           </LinkButton>
         </div>
         <div style={{ fontSize: 26, color: muted }}>chuoneone.github.io/sped-deidentification</div>
@@ -2868,7 +2872,7 @@ const Part2: Page = () => (
   <PartDivider
     part="PART 02"
     num="02"
-    time="15:20 – 16:20"
+    time="09:30 – 10:30"
     icon="touch_app"
     line1="自製互動"
     line2="教學網頁"
