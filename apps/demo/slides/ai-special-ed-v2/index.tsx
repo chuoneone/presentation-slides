@@ -57,6 +57,7 @@ const toolUrls = {
   ebookGem: 'https://gemini.google.com/',
   deidWeb: 'https://chuoneone.github.io/sped-deidentification/',
   deidVideo: 'https://youtu.be/Mx7d0nSF61k',
+  mathScaffoldVideo: 'https://youtu.be/5JHjBHxQGNI',
 } as const;
 
 const uploadFileUrls = {
@@ -2863,6 +2864,26 @@ const PracticeChineseMath: Page = () => (
     <LinkButton href={uploadFileUrls.chineseMath} icon="upload" tone="ghost">
       上傳檔案
     </LinkButton>
+    <a
+      href={toolUrls.mathScaffoldVideo}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        flexBasis: '100%',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        marginTop: 4,
+        fontSize: 24,
+        color: muted,
+        textDecoration: 'underline',
+        textUnderlineOffset: 6,
+      }}
+    >
+      <Icon name="play_arrow" size={26} />
+      忘記數學學習單怎麼用？看影片複習
+    </a>
   </Practice>
 );
 
