@@ -3151,6 +3151,111 @@ const PracticeEbook: Page = () => (
   </Practice>
 );
 
+const ChoiceCard = ({
+  tag,
+  title,
+  delay,
+  strong = false,
+  children,
+}: {
+  tag: string;
+  title: ReactNode;
+  delay: number;
+  strong?: boolean;
+  children: ReactNode;
+}) => (
+  <Rise
+    delay={delay}
+    kind="materialize"
+    style={{
+      ...glass,
+      width: 820,
+      height: 600,
+      borderRadius: 36,
+      padding: '48px 56px',
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 22,
+      ...(strong ? { border: '3px solid var(--osd-accent)' } : {}),
+    }}
+  >
+    <div style={softPill}>{tag}</div>
+    <div style={{ fontSize: 50, fontWeight: 900, lineHeight: 1.25 }}>{title}</div>
+    {children}
+  </Rise>
+);
+
+const AgentChip = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      ...glass,
+      borderRadius: 999,
+      padding: '12px 28px',
+      fontSize: 30,
+      fontWeight: 800,
+      fontFamily: 'var(--osd-font-display)',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const Bonus: Page = () => (
+  <Stage>
+    <HeaderRow icon="lightbulb" title="補充：回家之後，可以怎麼走？" />
+    <SubLine>依你的預算與興趣，二選一就好</SubLine>
+    <div style={{ position: 'absolute', left: 120, top: 300, display: 'flex', gap: 40 }}>
+      <ChoiceCard tag="有付費買 AI" title="試試 AI agent" delay={160}>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <AgentChip>Codex</AgentChip>
+          <AgentChip>Antigravity</AgentChip>
+          <AgentChip>Claude Code</AgentChip>
+        </div>
+        <div style={{ fontSize: 32, lineHeight: 1.6, color: muted, marginTop: 8 }}>
+          完全不同的備課模式。
+          <br />
+          會真正感受到
+          <span style={{ ...gradText, fontWeight: 800 }}>行政文書與教材</span>
+          <br />
+          之間的關係與意義。
+        </div>
+      </ChoiceCard>
+      <ChoiceCard
+        tag="沒付費，對資訊工具也沒太大興趣"
+        title={
+          <>
+            務必收藏
+            <span style={gradText}>米克師的 AI 備課幫手</span>
+          </>
+        }
+        delay={280}
+        strong
+      >
+        <div style={{ fontSize: 30, lineHeight: 1.55, color: muted }}>
+          特教現場誕生的各種工具，免費！
+          <br />
+          品質保證！<span style={{ fontSize: 24 }}>（應該）</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 32, marginTop: 'auto' }}>
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=10&data=${encodeURIComponent(mixerSiteUrls.prep)}`}
+            alt="米克師的 AI 備課幫手 QR code"
+            style={{ width: 160, height: 160, borderRadius: 18, background: '#ffffff' }}
+          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <LinkButton href={mixerSiteUrls.prep} icon="open_in_new">
+              spedmix.pages.dev
+            </LinkButton>
+            <div style={{ fontSize: 26, color: muted }}>把它當蝦皮逛，有助身心健康</div>
+          </div>
+        </div>
+      </ChoiceCard>
+    </div>
+    <Footer />
+  </Stage>
+);
+
 /* ─────────────────────────── Wrap-up ─────────────────────────── */
 
 const RecoCard = ({
@@ -3832,6 +3937,7 @@ export default [
   EbookDual,
   EbookModes,
   PracticeEbook,
+  Bonus,
   Loop,
   AgentFolder,
   Records,
