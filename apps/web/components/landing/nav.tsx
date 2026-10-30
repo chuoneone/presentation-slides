@@ -18,12 +18,12 @@ export function Nav({ githubStars }: { githubStars?: string | null }) {
           className="flex items-center gap-2.5 text-[14px] font-medium tracking-[-0.01em]"
         >
           <Image
-            src="/open-slide.png"
+            src="/open-slide.svg"
             alt="open-slide logo"
             width={24}
             height={24}
             priority
-            className="block h-6 w-6 rounded-[4px]"
+            className="block h-6 w-6"
           />
           <span className="text-[color:var(--color-text)]">open-slide</span>
         </Link>
@@ -31,6 +31,9 @@ export function Nav({ githubStars }: { githubStars?: string | null }) {
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
           <Link href="/docs" className={linkClass}>
             Docs
+          </Link>
+          <Link href="/changelog" className={linkClass}>
+            Changelog
           </Link>
           <a
             href="https://demo.open-slide.dev/"

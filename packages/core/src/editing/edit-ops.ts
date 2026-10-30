@@ -1004,7 +1004,7 @@ function decodeMapPassthrough(
   return null;
 }
 
-function collectArrayMapCandidates(ast: t.Node, element: t.JSXElement): TextCandidate[] {
+function collectArrayMapCandidates(ast: t.File, element: t.JSXElement): TextCandidate[] {
   const ctx = findEnclosingMapCallback(ast, element);
   if (!ctx) return [];
   const fieldName = decodeMapPassthrough(element, ctx.fn.params[0]);
