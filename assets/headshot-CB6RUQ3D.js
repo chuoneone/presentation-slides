@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/headshot-DErJL9Ia.webp`;export{e as t};

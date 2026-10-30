@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/mixer-share-DHkoTfPU.webp`;export{e as t};

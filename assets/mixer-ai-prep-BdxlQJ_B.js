@@ -1,0 +1,1 @@
+var e=`/presentation-slides/assets/mixer-ai-prep-DcgSP0tJ.webp`;export{e as t};
