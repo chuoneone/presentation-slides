@@ -32,19 +32,23 @@ import imgToolboxResult from './assets/toolbox-result.png';
 import imgTryCanvas from './assets/try-canvas-button.png';
 
 export const design: DesignSystem = {
-  palette: { bg: '#F0F4F8', text: '#1e293b', accent: '#38A3A5' },
+  palette: { bg: '#FFF3DF', text: '#151313', accent: '#FF5A2C' },
   fonts: {
     display:
-      '"Outfit", "Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
-    body: '"Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
+      '"Gabarito", "Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
+    body: '"Gabarito", "Chiron GoRound TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
   },
   typeScale: { hero: 150, body: 37 },
   radius: 36,
 };
 
-const deep = '#22577A';
-const muted = '#64748b';
-const warn = '#c2410c';
+const ink = '#151313';
+const paper = '#FFFCF6';
+const butter = '#FFD23F';
+const peri = '#98A6FF';
+const muted = '#736D65';
+const warn = '#E0401A';
+const hard = (n: number) => `${n}px ${n}px 0 ${ink}`;
 
 const SLIDE_ID = 'vibe-coding-canvas';
 
@@ -143,7 +147,7 @@ const ICONS = [
 const FONT_LINKS: [string, string][] = [
   [
     `osd-webfont-${SLIDE_ID}`,
-    'https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap',
+    'https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;500;700;900&family=Gabarito:wght@500;700;800;900&display=swap',
   ],
   [
     `osd-icons-${SLIDE_ID}`,
@@ -189,7 +193,7 @@ const css = `
 @keyframes asx-line { from { transform: translateY(110%); } to { transform: none; } }
 @keyframes asx-track { from { opacity: 0; letter-spacing: 0.6em; } to { opacity: 1; letter-spacing: 0.04em; } }
 @keyframes asx-grow { from { transform: scaleX(0); } to { transform: none; } }
-@keyframes asx-ring { 0%, 100% { box-shadow: 0 0 0 0 rgba(194, 65, 12, 0.45); } 50% { box-shadow: 0 0 0 16px rgba(194, 65, 12, 0); } }
+@keyframes asx-ring { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 90, 44, 0.5); } 50% { box-shadow: 0 0 0 16px rgba(255, 90, 44, 0); } }
 @keyframes asx-spin { from { opacity: 0; transform: scale(0.4) rotate(-24deg); } to { opacity: 1; transform: none; } }
 [data-osd-step="revealed"] > .asx-step { animation: asx-rise ${SOFT.ms}ms ${SOFT.easing} both; }
 @media (prefers-reduced-motion: reduce) {
@@ -273,30 +277,27 @@ const fill: CSSProperties = {
 // Frosted look without backdrop-filter: the stage behind is only soft glows,
 // so a near-opaque white reads the same and keeps page turns cheap.
 const glass: CSSProperties = {
-  background: 'rgba(255, 255, 255, 0.78)',
-  border: '1px solid rgba(255, 255, 255, 0.9)',
-  boxShadow:
-    'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 30px 60px -30px rgba(34, 87, 122, 0.28), 0 2px 6px rgba(15, 23, 42, 0.04)',
+  background: paper,
+  border: `4px solid ${ink}`,
+  boxShadow: hard(8),
   borderRadius: 'var(--osd-radius)',
+  boxSizing: 'border-box',
 };
 
 const brandFill: CSSProperties = {
-  background: `linear-gradient(150deg, rgba(56, 163, 165, 0.94), ${deep})`,
-  color: '#ffffff',
+  background: 'var(--osd-accent)',
+  color: ink,
 };
 
 const gradText: CSSProperties = {
-  background: `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`,
-  WebkitBackgroundClip: 'text',
-  backgroundClip: 'text',
-  color: 'transparent',
+  color: 'var(--osd-accent)',
 };
 
 const eyebrow: CSSProperties = {
   fontSize: 33,
   fontWeight: 700,
   letterSpacing: '0.14em',
-  color: 'var(--osd-accent)',
+  color: warn,
 };
 
 const h2: CSSProperties = {
@@ -304,7 +305,7 @@ const h2: CSSProperties = {
   fontSize: 75,
   fontWeight: 900,
   lineHeight: 1.15,
-  letterSpacing: '-0.01em',
+  letterSpacing: '-0.03em',
   margin: 0,
 };
 
@@ -312,8 +313,10 @@ const softPill: CSSProperties = {
   alignSelf: 'flex-start',
   fontSize: 31,
   fontWeight: 700,
-  color: 'var(--osd-accent)',
-  background: 'rgba(56, 163, 165, 0.12)',
+  color: ink,
+  background: butter,
+  border: `3px solid ${ink}`,
+  boxShadow: hard(4),
   borderRadius: 999,
   padding: '6px 20px',
 };
@@ -350,32 +353,14 @@ const Icon = ({
   </span>
 );
 
-const Glow = ({ x, y, size, color }: { x: number; y: number; size: number; color: string }) => (
-  <div
-    style={{
-      position: 'absolute',
-      left: x - size / 2,
-      top: y - size / 2,
-      width: size,
-      height: size,
-      borderRadius: '50%',
-      background: `radial-gradient(circle, ${color} 0%, transparent 68%)`,
-      pointerEvents: 'none',
-    }}
-  />
-);
-
 const Stage = ({ children, dots = false }: { children: ReactNode; dots?: boolean }) => (
   <div style={fill}>
-    <Glow x={1500} y={260} size={1300} color="rgba(56, 163, 165, 0.20)" />
-    <Glow x={260} y={900} size={1100} color="rgba(59, 130, 246, 0.10)" />
-    <Glow x={1100} y={1050} size={900} color="rgba(87, 204, 153, 0.12)" />
     {dots && (
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'radial-gradient(rgba(30, 41, 59, 0.10) 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(rgba(21, 19, 19, 0.16) 2px, transparent 1.5px)',
           backgroundSize: '36px 36px',
           maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
           WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 75%)',
@@ -446,23 +431,13 @@ const Tile = ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background:
-        tone === 'brand'
-          ? `linear-gradient(145deg, #4FBDBE 0%, var(--osd-accent) 45%, ${deep} 100%)`
-          : tone === 'warn'
-            ? 'rgba(234, 88, 12, 0.12)'
-            : 'rgba(56, 163, 165, 0.12)',
-      boxShadow:
-        tone === 'brand'
-          ? 'inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 18px 36px -16px rgba(34, 87, 122, 0.55)'
-          : 'none',
+      background: tone === 'brand' ? 'var(--osd-accent)' : tone === 'warn' ? '#FFB0D0' : butter,
+      border: `${Math.max(3, Math.round(size / 28))}px solid ${ink}`,
+      boxSizing: 'border-box',
+      boxShadow: hard(Math.max(4, Math.round(size / 18))),
     }}
   >
-    <Icon
-      name={icon}
-      size={iconSize}
-      color={tone === 'brand' ? '#ffffff' : tone === 'warn' ? warn : 'var(--osd-accent)'}
-    />
+    <Icon name={icon} size={iconSize} color={ink} />
   </div>
 );
 
@@ -555,7 +530,7 @@ const FrameBar = ({ label }: { label: string }) => (
       alignItems: 'center',
       gap: 10,
       padding: '0 22px',
-      borderBottom: '1px solid rgba(30, 41, 59, 0.06)',
+      borderBottom: `3px solid ${ink}`,
       flexShrink: 0,
     }}
   >
@@ -567,7 +542,8 @@ const FrameBar = ({ label }: { label: string }) => (
         margin: '0 auto',
         fontSize: 24,
         color: muted,
-        background: 'rgba(240, 244, 248, 0.9)',
+        background: '#FFF3DF',
+        border: `2.5px solid ${ink}`,
         borderRadius: 999,
         padding: '5px 26px',
         fontFamily: 'var(--osd-font-display)',
@@ -598,7 +574,7 @@ const BrowserFrame = ({
       width,
       borderRadius: 28,
       overflow: 'hidden',
-      background: 'rgba(255, 255, 255, 0.86)',
+      background: paper,
     }}
   >
     <FrameBar label={url} />
@@ -620,16 +596,16 @@ const LineReveal = ({ children, delay }: { children: ReactNode; delay: number })
 );
 
 // PART pages switch to a dark stage so a new section reads at a glance.
-const night = '#0f2a3d';
-const mint = '#8ee3df';
+const night = '#151313';
+const mint = butter;
 
 const partTitle: CSSProperties = {
   fontFamily: 'var(--osd-font-display)',
   fontSize: 154,
   fontWeight: 900,
   lineHeight: 1.1,
-  letterSpacing: '-0.02em',
-  color: '#ffffff',
+  letterSpacing: '-0.03em',
+  color: ink,
 };
 
 const PartDivider = ({
@@ -652,17 +628,15 @@ const PartDivider = ({
   <div
     style={{
       ...fill,
-      background: `linear-gradient(135deg, ${night} 0%, #163d52 55%, #1d5a63 100%)`,
-      color: '#ffffff',
+      background: peri,
+      color: ink,
     }}
   >
-    <Glow x={1500} y={300} size={1300} color="rgba(56, 163, 165, 0.30)" />
-    <Glow x={200} y={1000} size={1000} color="rgba(59, 130, 246, 0.16)" />
     <div
       style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.10) 1.5px, transparent 1.5px)',
+        backgroundImage: 'radial-gradient(rgba(21, 19, 19, 0.18) 2px, transparent 1.5px)',
         backgroundSize: '36px 36px',
         maskImage: 'linear-gradient(90deg, transparent 0%, black 55%, black 100%)',
         WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 55%, black 100%)',
@@ -677,7 +651,7 @@ const PartDivider = ({
           lineHeight: 1,
           letterSpacing: '-0.04em',
           color: 'transparent',
-          WebkitTextStroke: '3px rgba(142, 227, 223, 0.32)',
+          WebkitTextStroke: '5px rgba(21, 19, 19, 0.22)',
         }}
       >
         {num}
@@ -708,7 +682,7 @@ const PartDivider = ({
               fontFamily: 'var(--osd-font-display)',
               fontSize: 51,
               fontWeight: 800,
-              color: mint,
+              color: ink,
               whiteSpace: 'nowrap',
             }}
           >
@@ -716,7 +690,7 @@ const PartDivider = ({
           </div>
         </Rise>
         <Rise delay={420} kind="grow" motion={SOFT} style={{ transformOrigin: 'left center' }}>
-          <div style={{ width: 96, height: 4, borderRadius: 999, background: mint }} />
+          <div style={{ width: 96, height: 6, borderRadius: 999, background: ink }} />
         </Rise>
         <Rise delay={520} kind="fade">
           <div
@@ -724,7 +698,7 @@ const PartDivider = ({
               fontFamily: 'var(--osd-font-display)',
               fontSize: 43,
               fontWeight: 700,
-              color: 'rgba(255, 255, 255, 0.6)',
+              color: 'rgba(21, 19, 19, 0.6)',
               fontVariantNumeric: 'tabular-nums',
             }}
           >
@@ -740,10 +714,9 @@ const PartDivider = ({
           <div
             style={{
               ...partTitle,
-              background: `linear-gradient(90deg, ${mint} 0%, #e3fbf9 100%)`,
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
+              color: paper,
+              WebkitTextStroke: `5px ${ink}`,
+              paintOrder: 'stroke fill',
             }}
           >
             {line2}
@@ -813,7 +786,17 @@ const Speaker: Page = () => (
       >
         朱旆誼
       </div>
-      <span style={{ ...softPill, alignSelf: 'center', marginTop: 16 }}>米克師 · @spedmix2025</span>
+      <span
+        style={{
+          ...softPill,
+          alignSelf: 'center',
+          marginTop: 16,
+          fontSize: 25,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        米克師 · @spedmix2025
+      </span>
     </Rise>
     <div
       style={{
@@ -965,7 +948,7 @@ const SocialCard = ({
           borderRadius: 32,
           flexShrink: 0,
           background: color,
-          color: '#ffffff',
+          color: ink,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -1094,10 +1077,12 @@ const ContrastRow = ({
       height: 84,
       padding: '0 26px',
       borderRadius: 22,
-      background: tone === 'pain' ? 'rgba(240, 244, 248, 0.9)' : 'rgba(255, 255, 255, 0.16)',
+      background: tone === 'pain' ? '#FFF3DF' : paper,
+      border: tone === 'pain' ? '3px dashed rgba(21, 19, 19, 0.16)' : `3px solid ${ink}`,
+      color: ink,
     }}
   >
-    <Icon name={icon} size={36} color={tone === 'pain' ? '#94a3b8' : '#ffffff'} />
+    <Icon name={icon} size={36} color={tone === 'pain' ? muted : ink} />
     <span style={{ fontSize: 37, fontWeight: 700 }}>{text}</span>
   </div>
 );
@@ -1107,7 +1092,8 @@ const PrivacyTag = ({ children }: { children: ReactNode }) => (
       fontSize: 33,
       fontWeight: 700,
       color: warn,
-      background: 'rgba(234, 88, 12, 0.10)',
+      background: '#FFB0D0',
+      border: `3px solid ${ink}`,
       borderRadius: 999,
       padding: '8px 22px',
     }}
@@ -1249,16 +1235,15 @@ const TimerButton = ({
       width: primary ? 112 : 84,
       height: primary ? 112 : 84,
       borderRadius: '50%',
-      border: 'none',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: primary
-        ? `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`
-        : 'rgba(56, 163, 165, 0.12)',
-      color: primary ? '#ffffff' : 'var(--osd-accent)',
-      boxShadow: primary ? '0 18px 36px -16px rgba(34, 87, 122, 0.6)' : 'none',
+      background: primary ? 'var(--osd-accent)' : butter,
+      color: ink,
+      border: `${primary ? 4 : 3}px solid ${ink}`,
+      boxSizing: 'border-box',
+      boxShadow: hard(primary ? 6 : 4),
     }}
   >
     <Icon name={icon} size={primary ? 60 : 44} />
@@ -1317,7 +1302,7 @@ const PracticeTimer = ({
           width: '100%',
           height: 12,
           borderRadius: 999,
-          background: 'rgba(56, 163, 165, 0.12)',
+          background: 'rgba(255, 90, 44, 0.12)',
           marginTop: 16,
           overflow: 'hidden',
         }}
@@ -1327,7 +1312,7 @@ const PracticeTimer = ({
             width: `${progress * 100}%`,
             height: '100%',
             borderRadius: 999,
-            background: `linear-gradient(90deg, var(--osd-accent), ${deep})`,
+            background: 'var(--osd-accent)',
           }}
         />
       </div>
@@ -1372,9 +1357,10 @@ const LinkButton = ({
       fontWeight: 700,
       ...(tone === 'brand'
         ? {
-            background: `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`,
-            color: '#ffffff',
-            boxShadow: '0 20px 40px -20px rgba(34, 87, 122, 0.6)',
+            background: 'var(--osd-accent)',
+            color: ink,
+            border: `4px solid ${ink}`,
+            boxShadow: hard(6),
           }
         : { ...glass, borderRadius: 999, color: 'var(--osd-text)' }),
     }}
@@ -1510,13 +1496,14 @@ const Closing: Page = () => (
             gap: 20,
             padding: '26px 60px',
             borderRadius: 999,
-            background: `linear-gradient(135deg, var(--osd-accent) 0%, ${deep} 100%)`,
-            color: '#ffffff',
+            background: 'var(--osd-accent)',
+            border: `4px solid ${ink}`,
+            color: ink,
             fontSize: 70,
             fontWeight: 800,
             fontFamily: 'var(--osd-font-display)',
             letterSpacing: '-0.01em',
-            boxShadow: '0 30px 60px -24px rgba(34, 87, 122, 0.6)',
+            boxShadow: hard(10),
           }}
         >
           spedmix.pages.dev
@@ -1569,7 +1556,7 @@ const AnnotatedShot = ({
         ...glass,
         width,
         borderRadius: 28,
-        background: '#ffffff',
+        background: paper,
       }}
     >
       {label && <FrameBar label={label} />}
@@ -1609,12 +1596,13 @@ const AnnotatedShot = ({
                     : { bottom: '100%', marginBottom: 12 }),
                   whiteSpace: 'nowrap',
                   background: warn,
-                  color: '#ffffff',
+                  color: ink,
                   fontSize: 33,
                   fontWeight: 800,
                   borderRadius: 999,
                   padding: '8px 22px',
-                  boxShadow: '0 12px 24px -12px rgba(194, 65, 12, 0.7)',
+                  border: `3px solid ${ink}`,
+                  boxShadow: hard(4),
                 }}
               >
                 {m.tag}
@@ -1663,8 +1651,10 @@ const NumRow = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: `linear-gradient(135deg, var(--osd-accent), ${deep})`,
-        color: '#ffffff',
+        background: 'var(--osd-accent)',
+        border: `3px solid ${ink}`,
+        boxSizing: 'border-box',
+        color: ink,
         fontFamily: 'var(--osd-font-display)',
         fontSize: 41,
         fontWeight: 800,
@@ -1791,7 +1781,7 @@ const StepCard = ({
         fontSize: 123,
         fontWeight: 800,
         lineHeight: 1,
-        color: 'rgba(56, 163, 165, 0.16)',
+        color: 'rgba(255, 90, 44, 0.16)',
       }}
     >
       {n}
@@ -1849,7 +1839,7 @@ const Blank = ({ children }: { children: ReactNode }) => (
     style={{
       color: 'var(--osd-accent)',
       fontWeight: 900,
-      borderBottom: '4px solid rgba(56, 163, 165, 0.45)',
+      borderBottom: '4px solid rgba(255, 90, 44, 0.45)',
       padding: '0 6px',
     }}
   >
@@ -1871,9 +1861,7 @@ const OrbitRing = ({ r, dashed = false }: { r: number; dashed?: boolean }) => (
       width: r * 2,
       height: r * 2,
       borderRadius: '50%',
-      border: dashed
-        ? '2px dashed rgba(56, 163, 165, 0.35)'
-        : '1.5px solid rgba(56, 163, 165, 0.18)',
+      border: dashed ? '2px dashed rgba(255, 90, 44, 0.35)' : '1.5px solid rgba(255, 90, 44, 0.18)',
       boxSizing: 'border-box',
     }}
   />
@@ -1905,7 +1893,7 @@ const OrbitCard = ({
         alignItems: 'center',
         gap: 16,
         whiteSpace: 'nowrap',
-        background: 'rgba(255, 255, 255, 0.9)',
+        background: paper,
       }}
     >
       <Tile icon={icon} size={56} radius={18} iconSize={32} tone="soft" />
@@ -1975,7 +1963,7 @@ const Cover: Page = () => (
             width: 64,
             height: 6,
             borderRadius: 999,
-            background: `linear-gradient(90deg, var(--osd-accent), ${deep})`,
+            background: 'var(--osd-accent)',
           }}
         />
         <span style={{ fontSize: 41, color: muted, fontWeight: 500 }}>
@@ -2048,19 +2036,20 @@ const AgendaSlot = ({
         fontSize: 48,
         fontWeight: 800,
         fontVariantNumeric: 'tabular-nums',
-        color: hot ? '#ffffff' : 'var(--osd-accent)',
+        color: hot ? ink : 'var(--osd-accent)',
       }}
     >
       {time}
     </span>
-    <Icon name={icon} size={72} color={hot ? '#ffffff' : muted} />
+    <Icon name={icon} size={72} color={hot ? ink : muted} />
     <span style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.3 }}>{title}</span>
     {hot && (
       <span
         style={{
           fontSize: 31,
           fontWeight: 800,
-          background: 'rgba(255, 255, 255, 0.2)',
+          background: butter,
+          border: `3px solid ${ink}`,
           borderRadius: 999,
           padding: '6px 18px',
         }}
@@ -2192,9 +2181,7 @@ const KnowStudents: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 12 }}>
-          <span style={{ ...softPill, color: '#ffffff', background: 'rgba(255, 255, 255, 0.18)' }}>
-            老師
-          </span>
+          <span style={{ ...softPill, background: paper }}>老師</span>
           <span style={{ fontSize: 43, fontWeight: 900 }}>最懂學生</span>
         </div>
         <ContrastRow icon="check_circle" tone="fix" text="知道學生卡在哪一步" />
@@ -2215,7 +2202,7 @@ const RoleList = ({ items, light = false }: { items: string[]; light?: boolean }
   <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 28 }}>
     {items.map((t) => (
       <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 43 }}>
-        <Icon name="check_circle" size={36} color={light ? '#ffffff' : 'var(--osd-accent)'} />
+        <Icon name="check_circle" size={36} color={light ? ink : 'var(--osd-accent)'} />
         <span style={{ fontWeight: 700 }}>{t}</span>
       </div>
     ))}
@@ -2594,9 +2581,7 @@ const RemixWhy: Page = () => (
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 12 }}>
-          <span style={{ ...softPill, color: '#ffffff', background: 'rgba(255, 255, 255, 0.18)' }}>
-            改編
-          </span>
+          <span style={{ ...softPill, background: paper }}>改編</span>
           <span style={{ fontSize: 43, fontWeight: 900 }}>站在現成作品上</span>
         </div>
         <ContrastRow icon="check_circle" tone="fix" text="工具已經能用，直接看到成果" />
@@ -2957,7 +2942,7 @@ const RuleCard = ({
         fontWeight: 800,
       }}
     >
-      <Icon name="check_circle" size={38} color="#ffffff" />
+      <Icon name="check_circle" size={38} color={ink} />
       {good}
     </div>
     <div
@@ -2970,11 +2955,12 @@ const RuleCard = ({
         fontSize: 35,
         fontWeight: 700,
         color: muted,
-        background: 'rgba(240, 244, 248, 0.9)',
+        background: '#FFF3DF',
+        border: '3px dashed rgba(21, 19, 19, 0.16)',
         textDecoration: 'line-through',
       }}
     >
-      <Icon name="close" size={38} color="#94a3b8" />
+      <Icon name="close" size={38} color={muted} />
       {bad}
     </div>
   </Rise>
@@ -3019,7 +3005,7 @@ const SayCard = ({
       <Icon
         name={tone === 'good' ? 'check_circle' : 'cancel'}
         size={56}
-        color={tone === 'good' ? '#ffffff' : '#94a3b8'}
+        color={tone === 'good' ? ink : muted}
       />
       <span style={{ fontSize: 45, fontWeight: 900 }}>
         {tone === 'good' ? '這樣說' : '不要這樣說'}
@@ -3145,7 +3131,7 @@ const ErrorPopup = () => (
             marginTop: 26,
             whiteSpace: 'nowrap',
             background: warn,
-            color: '#ffffff',
+            color: ink,
             fontSize: 31,
             fontWeight: 800,
             borderRadius: 999,
@@ -3318,7 +3304,7 @@ const NameFirst: Page = () => (
 const MockField = ({ children }: { children: ReactNode }) => (
   <div
     style={{
-      background: '#ffffff',
+      background: paper,
       border: '2px solid rgba(100, 116, 139, 0.25)',
       borderRadius: 18,
       padding: '18px 24px',
@@ -3340,7 +3326,7 @@ const MockOption = ({ on = false, children }: { on?: boolean; children: ReactNod
       fontWeight: 700,
       ...(on
         ? { ...brandFill }
-        : { background: '#ffffff', border: '2px solid rgba(100, 116, 139, 0.25)', color: muted }),
+        : { background: paper, border: '2px solid rgba(100, 116, 139, 0.25)', color: muted }),
     }}
   >
     {children}
@@ -3485,10 +3471,10 @@ const CopyPromptButton = ({ text }: { text: string }) => {
         fontFamily: 'var(--osd-font-body)',
         fontSize: 44,
         fontWeight: 900,
-        boxShadow: '0 18px 36px -18px rgba(34, 87, 122, 0.6)',
+        boxShadow: '0 18px 36px -18px rgba(21, 19, 19, 0.6)',
       }}
     >
-      <Icon name={copied ? 'check_circle' : 'content_copy'} size={52} color="#ffffff" />
+      <Icon name={copied ? 'check_circle' : 'content_copy'} size={52} color={ink} />
       {copied ? '已複製！' : '一鍵複製咒語'}
     </button>
   );
@@ -3509,7 +3495,7 @@ const CopyPrompt: Page = () => (
         top: 300,
         padding: '52px 64px',
         boxSizing: 'border-box',
-        background: '#ffffff',
+        background: paper,
         fontSize: 46,
         fontWeight: 700,
         lineHeight: 1.75,
@@ -3935,7 +3921,7 @@ const LostLinks: Page = () => (
         height: 560,
         borderRadius: 28,
         overflow: 'hidden',
-        background: '#ffffff',
+        background: paper,
       }}
     >
       <FrameBar label="我的教學工具箱" />
