@@ -14,14 +14,21 @@ import {
   useSlidePageNumber,
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useCallback, useEffect, useState } from 'react';
+import imgCanvasCode from './assets/canvas-code.png';
+import imgCanvasCodeEmpty from './assets/canvas-code-empty.png';
+import imgCanvasPreview from './assets/canvas-preview.png';
 import imgChineseTextComic from './assets/chinese-text-comic.webp';
+import imgExportDownload from './assets/export-download.png';
 import imgGeminiHome from './assets/gemini-home.png';
+import imgOpenLocal from './assets/open-local.png';
 import imgPromptInput from './assets/prompt-input.png';
 import imgRemixAsk from './assets/remix-ask.png';
 import imgRemixCopied from './assets/remix-code-copied.png';
 import imgRemixResult from './assets/remix-result.png';
 import imgResultFull from './assets/result-fullscreen.png';
 import imgResultWindow from './assets/result-window.png';
+import imgSaveDialog from './assets/save-dialog.png';
+import imgSavedFile from './assets/saved-file.png';
 import imgShareDialog from './assets/share-dialog.png';
 import imgShareMenu from './assets/share-menu.png';
 import imgToolQuestion from './assets/tool-question.jpg';
@@ -30,6 +37,8 @@ import imgToolboxNotepad from './assets/toolbox-notepad.png';
 import imgToolboxPrompt from './assets/toolbox-prompt.png';
 import imgToolboxResult from './assets/toolbox-result.png';
 import imgTryCanvas from './assets/try-canvas-button.png';
+import imgViewSourceMenu from './assets/view-source-menu.png';
+import imgViewSourcePage from './assets/view-source-page.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#FFF3DF', text: '#151313', accent: '#FF5A2C' },
@@ -142,6 +151,10 @@ const ICONS = [
   'undo',
   'visibility',
   'work',
+  'code',
+  'content_paste',
+  'download',
+  'folder_open',
 ].sort();
 
 const FONT_LINKS: [string, string][] = [
@@ -4171,6 +4184,372 @@ const ShareBack: Page = () => (
   </Stage>
 );
 
+const Key = ({ children }: { children: ReactNode }) => (
+  <span
+    style={{
+      display: 'inline-block',
+      fontFamily: 'var(--osd-font-display)',
+      fontSize: 34,
+      fontWeight: 800,
+      background: paper,
+      border: `3px solid ${ink}`,
+      boxShadow: hard(4),
+      borderRadius: 14,
+      padding: '4px 18px',
+      margin: '0 4px',
+    }}
+  >
+    {children}
+  </span>
+);
+
+const BonusPart: Page = () => (
+  <PartDivider
+    part="BONUS"
+    num="+"
+    time="加碼"
+    icon="smart_toy"
+    morphId="tile-bonus"
+    line1="Gemini 改不動？"
+    line2="換個 AI 來改"
+  />
+);
+
+const BonusFlow: Page = () => (
+  <Stage>
+    <HeaderRow icon="smart_toy" morphId="tile-bonus" title="用其他 AI 修改 Canvas 程式碼" />
+    <SubLine delay={300}>Gemini 寫程式偶爾不如預期，就請別的 AI 改好，再貼回 Canvas</SubLine>
+    <div style={{ position: 'absolute', left: 120, top: 330, display: 'flex', gap: 40 }}>
+      <StepCard
+        n="1"
+        icon="download"
+        title="下載程式碼"
+        desc="匯出 → 下載程式碼，存成 HTML 檔"
+        delay={350}
+      />
+      <StepCard
+        n="2"
+        icon="smart_toy"
+        title="交給其他 AI 修改"
+        desc="把檔案丟給它，說出想改的地方"
+        delay={450}
+      />
+      <StepCard
+        n="3"
+        icon="code"
+        title="打開檔案、複製原始碼"
+        desc="雙擊看成果，再複製全部程式碼"
+        delay={550}
+      />
+      <StepCard
+        n="4"
+        icon="content_paste"
+        title="貼回 Canvas 預覽"
+        desc="刪掉舊程式碼、貼上新的，按預覽"
+        delay={650}
+      />
+    </div>
+    <Footer />
+  </Stage>
+);
+BonusFlow.transition = morphTransition;
+
+const BonusDownload: Page = () => (
+  <Stage>
+    <HeaderRow icon="download" title="步驟 1：匯出 → 下載程式碼" />
+    <SubLine>在 Canvas 右上角按「匯出」，選「下載程式碼」</SubLine>
+    <Rise delay={200} kind="materialize" style={{ position: 'absolute', left: 120, top: 300 }}>
+      <AnnotatedShot
+        src={imgExportDownload}
+        alt="Canvas 右上角匯出選單中的下載程式碼"
+        natW={1860}
+        width={1120}
+        label="gemini.google.com"
+        marks={[
+          { x: 1572, y: 14, w: 110, h: 40, tag: '① 匯出', tagLeft: true },
+          { x: 1492, y: 104, w: 180, h: 40, tag: '② 下載程式碼', tagBelow: true },
+        ]}
+      />
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1300,
+        top: 300,
+        width: 500,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 28,
+      }}
+    >
+      <Rise delay={400} kind="materialize">
+        <AnnotatedShot
+          src={imgSaveDialog}
+          alt="存檔視窗，檔名為 code_artifact.html"
+          natW={603}
+          width={500}
+          marks={[{ x: 135, y: 150, w: 142, h: 24 }]}
+        />
+      </Rise>
+      <Rise delay={520} kind="materialize">
+        <AnnotatedShot
+          src={imgSavedFile}
+          alt="資料夾中的 code_artifact.html"
+          natW={226}
+          width={340}
+        />
+      </Rise>
+      <Rise delay={620}>
+        <div style={{ fontSize: 35, fontWeight: 800, lineHeight: 1.5 }}>
+          存成 <span style={gradText}>.html</span> 檔，
+          <br />
+          記住存在哪個資料夾
+        </div>
+      </Rise>
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const AskOtherAi: Page = () => (
+  <Stage>
+    <HeaderRow icon="smart_toy" title="步驟 2：用另一個 AI 打開並下指令" />
+    <SubLine>把剛剛的 HTML 檔加進對話框，再說出想改的地方</SubLine>
+    <Rise
+      delay={200}
+      kind="materialize"
+      style={{
+        ...glass,
+        position: 'absolute',
+        left: 120,
+        top: 310,
+        width: 1000,
+        borderRadius: 36,
+        padding: '40px 44px 36px',
+      }}
+    >
+      <div
+        style={{
+          width: 240,
+          height: 210,
+          borderRadius: 20,
+          border: `3px solid ${ink}`,
+          background: '#FFF3DF',
+          padding: '20px 22px',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          outline: `5px solid ${warn}`,
+          outlineOffset: 8,
+        }}
+      >
+        <div style={{ fontSize: 28, lineHeight: 1.35, wordBreak: 'break-all' }}>
+          C:\dev\code_artifact.html
+        </div>
+        <span
+          style={{
+            alignSelf: 'flex-start',
+            fontSize: 22,
+            color: muted,
+            border: `2px solid ${muted}`,
+            borderRadius: 999,
+            padding: '2px 12px',
+          }}
+        >
+          HTML
+        </span>
+      </div>
+      <div
+        style={{
+          marginTop: 44,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 20,
+          fontSize: 38,
+          fontWeight: 700,
+        }}
+      >
+        <Icon name="add" size={44} color={muted} />
+        <span>
+          這是我的 Gemini Canvas 程式碼，
+          <br />
+          請你幫我修改
+          <span style={{ color: muted }}>……</span>
+        </span>
+      </div>
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1180,
+        top: 310,
+        width: 620,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+      }}
+    >
+      <NumRow n="1" title="打開另一個 AI" desc="例如 Claude、ChatGPT" delay={300} />
+      <NumRow n="2" title="把 HTML 檔加進對話" desc="拖進對話框，或按「＋」上傳" delay={400} />
+      <NumRow n="3" title="說明這是 Canvas 程式碼" desc="再具體說出要改哪裡" delay={500} />
+    </div>
+    <Rise delay={620} style={{ position: 'absolute', left: 120, right: 120, top: 860 }}>
+      <div style={{ fontSize: 43, fontWeight: 900, textAlign: 'center' }}>
+        請它<span style={gradText}>直接改好這個檔案</span>，或給你完整的新程式碼
+      </div>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const OpenLocal: Page = () => (
+  <Stage>
+    <HeaderRow icon="folder_open" title="步驟 3：雙擊打開檔案，看修改成果" />
+    <SubLine>回到剛剛下載的資料夾，雙擊 code_artifact.html，用瀏覽器打開</SubLine>
+    <Rise delay={200} kind="materialize" style={{ position: 'absolute', left: 370, top: 290 }}>
+      <AnnotatedShot
+        src={imgOpenLocal}
+        alt="用瀏覽器打開本機的 code_artifact.html"
+        natW={1919}
+        width={1180}
+        marks={[
+          { x: 285, y: 62, w: 245, h: 42, tag: '這是電腦裡的檔案', tagBelow: true, tagLeft: true },
+        ]}
+      />
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const CopySource: Page = () => (
+  <Stage>
+    <HeaderRow icon="content_copy" title="步驟 4：檢視原始碼，全部複製" />
+    <SubLine>在打開的網頁上按右鍵，選「檢視網頁原始碼」</SubLine>
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 300,
+        width: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+      }}
+    >
+      <Rise delay={200} kind="materialize">
+        <AnnotatedShot
+          src={imgViewSourceMenu}
+          alt="按右鍵選單中的檢視網頁原始碼"
+          natW={970}
+          width={560}
+          marks={[{ x: 495, y: 244, w: 380, h: 34, tag: '檢視網頁原始碼' }]}
+        />
+      </Rise>
+      <NumRow
+        n="1"
+        title={
+          <>
+            <Key>Ctrl</Key>+<Key>A</Key> 全選
+          </>
+        }
+        delay={400}
+      />
+      <NumRow
+        n="2"
+        title={
+          <>
+            <Key>Ctrl</Key>+<Key>C</Key> 複製
+          </>
+        }
+        delay={500}
+      />
+    </div>
+    <Rise delay={350} kind="materialize" style={{ position: 'absolute', left: 800, top: 300 }}>
+      <AnnotatedShot
+        src={imgViewSourcePage}
+        alt="網頁原始碼頁面"
+        natW={1919}
+        width={1000}
+        label="view-source"
+      />
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const PasteBack: Page = () => (
+  <Stage>
+    <HeaderRow icon="content_paste" title="步驟 5：回 Canvas，換掉舊程式碼" />
+    <SubLine>切到「程式碼」，把原本的程式碼全部刪掉，再貼上新的</SubLine>
+    <Rise delay={200} kind="materialize" style={{ position: 'absolute', left: 120, top: 330 }}>
+      <AnnotatedShot
+        src={imgCanvasCode}
+        alt="Canvas 的程式碼分頁"
+        natW={1865}
+        width={780}
+        marks={[{ x: 1428, y: 18, w: 80, h: 34, tag: '程式碼', tagBelow: true, tagLeft: true }]}
+      />
+      <div style={{ fontSize: 37, fontWeight: 800, marginTop: 32 }}>
+        <Key>Ctrl</Key>+<Key>A</Key>→<Key>Delete</Key> 刪光舊的
+      </div>
+    </Rise>
+    <Rise
+      delay={360}
+      kind="pop"
+      motion={BOUNCY}
+      style={{ position: 'absolute', left: 924, top: 450 }}
+    >
+      <Icon name="arrow_forward" size={72} color="var(--osd-accent)" />
+    </Rise>
+    <Rise delay={460} kind="materialize" style={{ position: 'absolute', left: 1020, top: 330 }}>
+      <AnnotatedShot
+        src={imgCanvasCodeEmpty}
+        alt="清空後的 Canvas 程式碼區"
+        natW={1872}
+        width={780}
+        marks={[{ x: 50, y: 112, w: 420, h: 40, tag: '在這裡貼上', tagBelow: true, tagLeft: true }]}
+      />
+      <div style={{ fontSize: 37, fontWeight: 800, marginTop: 32 }}>
+        <Key>Ctrl</Key>+<Key>V</Key> 貼上新程式碼
+      </div>
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const PreviewResult: Page = () => (
+  <Stage>
+    <HeaderRow icon="visibility" title="步驟 6：按「預覽」，成果就回來了" />
+    <Rise delay={200} kind="materialize" style={{ position: 'absolute', left: 120, top: 280 }}>
+      <AnnotatedShot
+        src={imgCanvasPreview}
+        alt="貼上新程式碼後按預覽，Canvas 顯示修改後的工具"
+        natW={1588}
+        width={1080}
+        label="gemini.google.com"
+        marks={[{ x: 1442, y: 22, w: 64, h: 34, tag: '預覽', tagBelow: true, tagLeft: true }]}
+      />
+    </Rise>
+    <div
+      style={{
+        position: 'absolute',
+        left: 1260,
+        top: 280,
+        width: 540,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+      }}
+    >
+      <NumRow n="1" title="新版本回來了" delay={350} />
+      <NumRow n="2" title="可再請 Gemini 微調" delay={450} />
+      <NumRow n="3" title="記得分享存連結" delay={550} />
+    </div>
+    <Footer />
+  </Stage>
+);
+
 export const meta: SlideMeta = {
   title: 'Vibe Coding 自製個人 AI 工具',
   createdAt: '2026-10-30T00:00:00.000Z',
@@ -4226,4 +4605,12 @@ export default [
   Takeaway,
   ShareBack,
   Closing,
+  BonusPart,
+  BonusFlow,
+  BonusDownload,
+  AskOtherAi,
+  OpenLocal,
+  CopySource,
+  PasteBack,
+  PreviewResult,
 ] satisfies Page[];
