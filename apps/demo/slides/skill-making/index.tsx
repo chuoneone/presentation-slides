@@ -9,6 +9,12 @@ import {
   useSlidePageNumber,
 } from '@open-slide/core';
 import { type CSSProperties, type ReactNode, useId } from 'react';
+import imgPrompt from './assets/prompt.jpg';
+import imgSkillMd from './assets/skill-md.jpg';
+import imgSkillPrompt from './assets/skill-prompt.jpg';
+import imgSkillRules from './assets/skill-rules.jpg';
+import imgWebpage from './assets/webpage.jpg';
+import imgWord from './assets/word.jpg';
 
 const FONT_HREF =
   'https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap';
@@ -477,17 +483,6 @@ const HandbookArt = () => (
   </Ink>
 );
 
-const DraftArt = () => (
-  <Ink width={460} height={520} style={abs(1300, 340)}>
-    <circle cx="230" cy="250" r="200" fill={GREEN} stroke="none" />
-    <g transform="translate(100 80) rotate(4 130 165)">
-      <Worksheet head={YELLOW} />
-    </g>
-    <Sparkle x={400} y={90} s={0.9} />
-    <path d="M30 480Q230 475 430 479" />
-  </Ink>
-);
-
 const Cover: Page = () => (
   <div style={root}>
     <div style={{ ...abs(X0, 100), display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -626,10 +621,9 @@ const WhatIs: Page = () => (
   </div>
 );
 
-const Bubble = ({ who, tint, children }: { who: string; tint: string; children: ReactNode }) => (
-  <TintCard tint={tint} style={{ padding: '28px 40px' }}>
-    <div style={{ fontSize: 22, fontWeight: 700, color: SOFT }}>{who}</div>
-    <div style={{ marginTop: 8, fontSize: 34, lineHeight: 1.5 }}>{children}</div>
+const Shot = ({ src, style }: { src: string; style: CSSProperties }) => (
+  <TintCard tint="#F1EFEA" style={{ padding: 14, ...style }}>
+    <img src={src} alt="" style={{ display: 'block', width: '100%', borderRadius: 12 }} />
   </TintCard>
 );
 
@@ -641,21 +635,13 @@ const Step1: Page = () => (
     <div style={abs(X0, 160)}>
       <Heading>把教材交給 agent</Heading>
     </div>
-    <div style={{ ...abs(X0, 340, 1080), display: 'flex', flexDirection: 'column', gap: 24 }}>
-      <Bubble who="我" tint={TINT_BLUE}>
-        （附上課文）把這篇文做成一份
-        <Highlight>上課用的學習單</Highlight>。
-      </Bubble>
-      <Bubble who="AI" tint={TINT_GREEN}>
-        好的！這是學習單初稿，包含生字、詞語和閱讀理解題。
-      </Bubble>
+    <Shot src={imgPrompt} style={abs(X0, 320, 1000)} />
+    <div style={{ ...abs(X0, 830, 1000), fontSize: 28, lineHeight: 1.5, color: BODY }}>
+      貼上課文，<Highlight>說清楚對象和格式</Highlight>：學障生、國一程度、做成 Word 放桌面。
     </div>
-    <div style={{ ...abs(X0, 800, 1080), fontSize: 28, lineHeight: 1.5, color: BODY }}>
-      第一版很快就出來了，但通常還不是你心中的樣子。
-    </div>
-    <DraftArt />
-    <div style={{ ...abs(1300, 870, 460), textAlign: 'center', fontSize: 26, color: SOFT }}>
-      學習單 v1
+    <Shot src={imgWord} style={abs(1180, 320, 620)} />
+    <div style={{ ...abs(1180, 830, 620), textAlign: 'center', fontSize: 26, color: SOFT }}>
+      學習單 v1：一關一頁、故事一句話
     </div>
     <Footer />
   </div>
@@ -703,7 +689,7 @@ const Step2: Page = () => {
       <div style={abs(X0, 330, 1040)}>
         <Steps>
           <Step>
-            <Exchange ask="字再大一點，生字加上注音。" reply="AI：已調整 ✓" />
+            <Exchange ask="以後字體統一用標楷體，頁尾附上米克師。" reply="AI：我記下了 ✓" />
           </Step>
           <Step>
             <Exchange ask="題型改成先選擇、再填空。" reply="AI：已調整 ✓" />
@@ -733,58 +719,6 @@ const Step2: Page = () => {
   );
 };
 
-const Chip = ({ x, w, label, fill }: { x: number; w: number; label: string; fill: string }) => (
-  <g transform={`translate(${x} 0)`}>
-    <rect x="0" y="0" width={w} height="96" rx="14" fill={fill} />
-    <text
-      x={w / 2}
-      y="62"
-      textAnchor="middle"
-      fill={INK}
-      stroke="none"
-      fontSize="42"
-      fontWeight="700"
-      fontFamily={SANS}
-    >
-      {label}
-    </text>
-  </g>
-);
-
-const Slot = ({ x, w }: { x: number; w: number }) => (
-  <rect x={x} y="0" width={w} height="96" rx="14" fill="#FFFFFF" strokeDasharray="10 12" />
-);
-
-const SentenceArt = () => (
-  <Ink width={1680} height={500} style={abs(X0, 400)}>
-    <rect x="4" y="4" width="1672" height="490" rx="20" fill="#FFFFFF" />
-    <path d="M4 74H1676" />
-    <circle cx="48" cy="40" r="10" fill={PINK} />
-    <circle cx="82" cy="40" r="10" fill={YELLOW} />
-    <circle cx="116" cy="40" r="10" fill={GREEN} />
-    <text x="70" y="146" fill={BODY} stroke="none" fontSize="32" fontWeight="500" fontFamily={SANS}>
-      把詞卡拖到下面，排成正確的句子：
-    </text>
-    <g transform="translate(70 196)">
-      <Chip x={0} w={180} label="看書" fill={BLUE} />
-      <Chip x={210} w={180} label="小明" fill={YELLOW} />
-      <Chip x={420} w={220} label="安靜地" fill={GREEN} />
-      <Chip x={670} w={220} label="圖書館" fill={PINK} />
-      <Chip x={920} w={120} label="在" fill={BLUE} />
-    </g>
-    <g transform="translate(70 344)">
-      <Slot x={0} w={180} />
-      <Slot x={210} w={120} />
-      <Slot x={360} w={220} />
-      <Slot x={610} w={220} />
-      <Slot x={860} w={180} />
-    </g>
-    <path d="M1250 250Q1330 200 1400 260" stroke={CORAL} />
-    <path d="M1384 236L1402 262L1374 268" stroke={CORAL} />
-    <Sparkle x={1500} y={330} s={1.2} />
-  </Ink>
-);
-
 const Step3: Page = () => (
   <div style={root}>
     <div style={abs(X0, 116)}>
@@ -793,10 +727,11 @@ const Step3: Page = () => (
     <div style={abs(X0, 160)}>
       <Heading>句型排列互動網頁</Heading>
     </div>
-    <div style={{ ...abs(1080, 196, 720), fontSize: 30, lineHeight: 1.5, color: BODY }}>
-      「再幫我做一個<Highlight>句型排列</Highlight>的互動網頁。」
+    <div style={{ ...abs(1060, 150, 740), fontSize: 28, lineHeight: 1.5, color: BODY }}>
+      「再來請你製作課文的<Highlight>句型排列網頁</Highlight>
+      練習，一樣放桌面，七題，且要報讀的功能。」
     </div>
-    <SentenceArt />
+    <Shot src={imgWebpage} style={abs(260, 340, 1400)} />
     <Footer />
   </div>
 );
@@ -898,6 +833,50 @@ const Step5: Page = () => {
     </div>
   );
 };
+
+const DemoSkill: Page = () => (
+  <div style={root}>
+    <div style={abs(X0, 116)}>
+      <Eyebrow>實際操作</Eyebrow>
+    </div>
+    <div style={abs(X0, 160)}>
+      <Heading>一句話，skill 就建好了</Heading>
+    </div>
+    <Shot src={imgSkillPrompt} style={abs(X0, 320, 840)} />
+    <Shot src={imgSkillRules} style={abs(1000, 320, 800)} />
+    <div style={{ ...abs(X0, 760, 1680), fontSize: 30, lineHeight: 1.5, color: BODY }}>
+      Claude 先看現有 skill 怎麼寫，再把學習單程式、網頁模板和 SKILL.md 整理好，
+      <Highlight>還用孔乙己重跑一次比對</Highlight>。
+    </div>
+    <div style={{ ...abs(X0, 880), fontSize: 24, color: SOFT }}>
+      存在 C:\Users\pppch\.claude\skills\lesson-worksheet
+    </div>
+    <Footer />
+  </div>
+);
+
+const MdRow = ({ top, title, body }: { top: number; title: string; body: string }) => (
+  <div style={{ ...abs(1200, top, 600), borderTop: `1.5px solid ${RULE}`, paddingTop: 22 }}>
+    <div style={{ fontSize: 34, fontWeight: 760 }}>{title}</div>
+    <div style={{ marginTop: 10, fontSize: 26, lineHeight: 1.5, color: BODY }}>{body}</div>
+  </div>
+);
+
+const SkillMd: Page = () => (
+  <div style={root}>
+    <div style={abs(X0, 116)}>
+      <Eyebrow>打開來看</Eyebrow>
+    </div>
+    <div style={abs(X0, 160)}>
+      <Heading>SKILL.md 長這樣</Heading>
+    </div>
+    <Shot src={imgSkillMd} style={abs(X0, 320, 1000)} />
+    <MdRow top={330} title="什麼時候用" body="開頭的 description 寫好觸發條件" />
+    <MdRow top={510} title="照步驟做" body="產生 Word → 檢查跑版 → 產生網頁 → 回報" />
+    <MdRow top={690} title="每課只換內容" body="資料檔規格固定，版面就不會跑掉" />
+    <Footer />
+  </div>
+);
 
 const PartCard = ({
   x,
@@ -1179,11 +1158,13 @@ export const notes: (string | undefined)[] = [
   '今天分享我怎麼把自己的備課流程，變成 AI 會記住的 Skill。',
   '先問大家：用 AI 備課時，是不是每一課都要重新講一次格式？改好幾輪才滿意，下一課又重來？',
   'Skill 說穿了，就是一份寫給 AI 的 SOP。像代課老師的交接本：什麼時候用、做什麼、做成什麼樣、放哪裡。',
-  '我的第一步很普通：把課文交給 agent，請它做一份上課用的學習單。',
-  '第一版通常不會完全滿意。我一輪一輪地改：字體、注音、題型順序……改到第五版，終於是我要的。',
-  '學習單滿意後，我又請它做句型排列的互動網頁，學生可以拖曳詞卡排句子。',
+  '我的第一步很普通：從維基文庫貼上課文，說清楚是學障生、國一程度、做成 Word 放桌面。右邊就是出來的第一版。',
+  '第一版通常不會完全滿意。我一輪一輪地改，例如這次就補了一句：以後字體統一用標楷體、頁尾附上米克師。改到滿意為止。',
+  '學習單滿意後，我又請它做句型排列網頁：一樣放桌面、七題、要有報讀。學生點卡片排句子，答對變綠色。',
   '做完才發現問題：每一課我都想要學習單加網頁，但每次都要重新溝通一遍，四課下來就是四十幾次。',
   '所以我跟 AI 說了這句話。就這樣，這套備課做法變成了一個 Skill。',
+  '這是實際畫面：一句話送出，Claude 自己列出步驟，最後告訴我 skill 存在哪裡、寫了哪些規則。',
+  '打開 SKILL.md 看：開頭寫什麼時候用，下面是一步一步的做法，每一課只要換內容。',
   '仔細看這句話，它剛好包含 Skill 的四個要素：觸發條件、產出物、格式標準、存放位置。',
   '之後備課就簡單了：貼上課文，AI 照著 Skill 一次做完，直接出現在桌面資料夾。',
   '想自己做 Skill，記得三件事：先磨出定稿、請 AI 寫成 Skill、用了不順就叫它修。',
@@ -1205,6 +1186,8 @@ export default [
   Step3,
   Step4,
   Step5,
+  DemoSkill,
+  SkillMd,
   Breakdown,
   Compare,
   TryIt,
