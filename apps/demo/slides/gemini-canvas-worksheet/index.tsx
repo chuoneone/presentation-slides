@@ -15,6 +15,10 @@ import imgA4Result from './assets/a4-result.png';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
 import imgDraftCanvas from './assets/draft-canvas.png';
 import imgDraftPrompt from './assets/draft-prompt.png';
+import imgLotusAncient from './assets/lotus-ancient-meaning.png';
+import imgLotusMainIdea from './assets/lotus-main-idea.png';
+import imgLotusSymbol from './assets/lotus-symbol-match.png';
+import imgLotusVocab from './assets/lotus-vocab-match.png';
 import imgMathConcept from './assets/math-ebook-concept.webp';
 import imgPrintDialog from './assets/print-dialog.png';
 import imgRemixAsk from './assets/remix-ask.png';
@@ -164,20 +168,20 @@ const Heading = ({ children, size = 88 }: { children: ReactNode; size?: number }
   </h2>
 );
 
-const Eyebrow = ({ children }: { children: ReactNode }) => {
+const Eyebrow = ({ children, big = false }: { children: ReactNode; big?: boolean }) => {
   if (typeof children === 'string' && !children.trim()) return null;
   return (
     <div
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        height: 50,
-        padding: '0 24px',
-        border: `3px solid ${ink}`,
+        height: big ? 96 : 50,
+        padding: big ? '0 44px' : '0 24px',
+        border: `${big ? 4 : 3}px solid ${ink}`,
         borderRadius: 999,
         background: yellow,
-        boxShadow: hard(4),
-        fontSize: 28,
+        boxShadow: hard(big ? 6 : 4),
+        fontSize: big ? 56 : 32,
         fontWeight: 800,
         color: ink,
         whiteSpace: 'nowrap',
@@ -276,13 +280,13 @@ const Footer = ({ label = 'Gemini Canvas 學習單研習' }: { label?: string })
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        fontSize: 24,
+        fontSize: 28,
         color: muted,
       }}
     >
       <span style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <Mark size={34} />
-        <span style={{ color: ink, fontSize: 26, fontWeight: 900, letterSpacing: '-0.02em' }}>
+        <span style={{ color: ink, fontSize: 30, fontWeight: 900, letterSpacing: '-0.02em' }}>
           米克師
         </span>
         <span style={{ marginLeft: 12, fontWeight: 600 }}>{label}</span>
@@ -290,7 +294,7 @@ const Footer = ({ label = 'Gemini Canvas 學習單研習' }: { label?: string })
       <span
         style={{
           fontFamily: MONO,
-          fontSize: 17,
+          fontSize: 20,
           letterSpacing: '0.06em',
           height: 38,
           padding: '0 16px',
@@ -461,7 +465,7 @@ const Shot = ({
 );
 
 const Caption = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => (
-  <div style={{ position: 'absolute', fontSize: 34, fontWeight: 700, color: body, ...style }}>
+  <div style={{ position: 'absolute', fontSize: 38, fontWeight: 700, color: body, ...style }}>
     {children}
   </div>
 );
@@ -523,7 +527,7 @@ const CopyButton = ({
         color: ink,
         boxShadow: hard(4),
         fontFamily: FONT,
-        fontSize: 28,
+        fontSize: 32,
         fontWeight: 800,
         whiteSpace: 'nowrap',
         ...style,
@@ -550,7 +554,7 @@ const PromptCard = ({
     <div
       style={{
         fontFamily: MONO,
-        fontSize: 20,
+        fontSize: 24,
         letterSpacing: '0.06em',
         color: muted,
       }}
@@ -577,7 +581,7 @@ const NumBadge = ({ n, fill }: { n: string; fill: string }) => (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: 38,
+      fontSize: 42,
       fontWeight: 900,
       flexShrink: 0,
     }}
@@ -592,7 +596,7 @@ const Bullet = ({ children }: { children: ReactNode }) => (
       display: 'flex',
       gap: 18,
       alignItems: 'baseline',
-      fontSize: 32,
+      fontSize: 36,
       lineHeight: 1.5,
       color: body,
     }}
@@ -736,7 +740,7 @@ const PageHead = ({
         style={{
           ...abs(1300, 204, 500),
           textAlign: 'right',
-          fontSize: 26,
+          fontSize: 30,
           fontWeight: 700,
           color: muted,
         }}
@@ -781,7 +785,7 @@ const Cover: Page = () => (
   <div style={root}>
     <div style={{ ...abs(120, 100), display: 'flex', alignItems: 'center', gap: 14 }}>
       <Mark size={32} />
-      <span style={{ fontSize: 30, fontWeight: 760, letterSpacing: '-0.02em' }}>Gemini Canvas</span>
+      <span style={{ fontSize: 34, fontWeight: 760, letterSpacing: '-0.02em' }}>Gemini Canvas</span>
     </div>
     <div style={abs(120, 250)}>
       <Title>
@@ -792,10 +796,10 @@ const Cover: Page = () => (
         印得漂亮的學習單
       </Title>
     </div>
-    <p style={{ ...abs(120, 760, 1040), margin: 0, fontSize: 40, lineHeight: 1.5, color: body }}>
+    <p style={{ ...abs(120, 760, 1040), margin: 0, fontSize: 44, lineHeight: 1.5, color: body }}>
       從打草稿、仿 A4 排版到列印，最後用生成器<Highlight>幾乎不用下指令</Highlight>。
     </p>
-    <div style={{ ...abs(120, 900), fontSize: 28, color: muted }}>特教教師研習 · 米克師</div>
+    <div style={{ ...abs(120, 900), fontSize: 32, color: muted }}>特教教師研習 · 米克師</div>
     <Ink width={560} height={600} style={abs(1200, 250)}>
       <circle cx="290" cy="300" r="250" fill={tintYellow} stroke="none" />
       <rect
@@ -842,8 +846,8 @@ const linkReset: CSSProperties = { color: 'inherit', textDecoration: 'none' };
 
 const BioItem = ({ school, dept }: { school: string; dept: string }) => (
   <div style={{ padding: '20px 0', borderTop: `3px dashed ${rule}` }}>
-    <div style={{ fontSize: 38, fontWeight: 900, letterSpacing: '-0.02em' }}>{school}</div>
-    <div style={{ fontSize: 32, color: body, marginTop: 6 }}>{dept}</div>
+    <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-0.02em' }}>{school}</div>
+    <div style={{ fontSize: 36, color: body, marginTop: 6 }}>{dept}</div>
   </div>
 );
 
@@ -878,7 +882,7 @@ const Speaker: Page = () => (
       </div>
       <div
         style={{
-          fontSize: 25,
+          fontSize: 29,
           fontWeight: 800,
           marginTop: 10,
           padding: '6px 20px',
@@ -1013,8 +1017,8 @@ const SocialLinks: Page = () => (
             <div style={{ fontSize: 60, fontWeight: 900, letterSpacing: '-0.035em' }}>
               {s.platform}
             </div>
-            <div style={{ fontSize: 36, fontWeight: 800, marginTop: 6 }}>{s.handle}</div>
-            <div style={{ fontSize: 30, fontWeight: 700, color: body, marginTop: 14 }}>
+            <div style={{ fontSize: 40, fontWeight: 800, marginTop: 6 }}>{s.handle}</div>
+            <div style={{ fontSize: 34, fontWeight: 700, color: body, marginTop: 14 }}>
               點擊前往 →
             </div>
           </div>
@@ -1064,12 +1068,12 @@ const MixerSites: Page = () => (
         />
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 18, marginTop: 30 }}>
           <Eyebrow>{s.label}</Eyebrow>
-          <span style={{ fontFamily: MONO, fontSize: 22, color: muted }}>{s.url}</span>
+          <span style={{ fontFamily: MONO, fontSize: 26, color: muted }}>{s.url}</span>
         </div>
         <div style={{ fontSize: 52, fontWeight: 900, marginTop: 14, letterSpacing: '-0.03em' }}>
           {s.title}
         </div>
-        <div style={{ fontSize: 34, lineHeight: 1.5, color: body, marginTop: 8 }}>{s.desc}</div>
+        <div style={{ fontSize: 38, lineHeight: 1.5, color: body, marginTop: 8 }}>{s.desc}</div>
       </a>
     ))}
     <Footer />
@@ -1102,7 +1106,7 @@ const SplitLabel = ({ title, desc }: { title: string; desc: string }) => (
   <div style={{ padding: '0 48px' }}>
     <div style={{ fontSize: 50, fontWeight: 900, letterSpacing: '-0.03em' }}>{title}</div>
     <div
-      style={{ fontSize: 34, fontWeight: 700, marginTop: 10, color: body, whiteSpace: 'nowrap' }}
+      style={{ fontSize: 38, fontWeight: 700, marginTop: 10, color: body, whiteSpace: 'nowrap' }}
     >
       {desc}
     </div>
@@ -1181,7 +1185,7 @@ const Principle: Page = () => {
           key={o.n}
           tint={o.tint}
           style={{
-            ...abs(120 + i * 573, 450, 500, 300),
+            ...abs(120 + i * 573, 440, 500, 350),
             display: 'flex',
             flexDirection: 'column',
             gap: 22,
@@ -1189,13 +1193,13 @@ const Principle: Page = () => {
         >
           <NumBadge n={o.n} fill={o.fill} />
           <div style={{ fontSize: 50, fontWeight: 900, letterSpacing: '-0.03em' }}>{o.text}</div>
-          <div style={{ fontSize: 34, lineHeight: 1.5, color: body }}>{o.sub}</div>
+          <div style={{ fontSize: 38, lineHeight: 1.5, color: body }}>{o.sub}</div>
         </TintCard>
       ))}
       <FlowArrow x={630} y={580} live={live} delay={0.4} />
       <FlowArrow x={1203} y={580} live={live} delay={0.7} />
       <CircleDoodle x={1300} y={548} w={330} h={86} live={live} delay={1.0} />
-      <p style={{ ...abs(120, 820, 1680), margin: 0, fontSize: 40, lineHeight: 1.5, color: body }}>
+      <p style={{ ...abs(120, 820, 1680), margin: 0, fontSize: 44, lineHeight: 1.5, color: body }}>
         AI 是教學上的助力，<Highlight>不取代老師的專業判斷</Highlight>。
       </p>
       <Footer />
@@ -1270,8 +1274,8 @@ const Pipeline: Page = () => {
               gap: 8,
             }}
           >
-            <div style={{ fontSize: 26, fontWeight: 700, color: muted }}>今天在這裡</div>
-            <div style={{ fontSize: 34, fontWeight: 700, lineHeight: 1.4 }}>{s.today}</div>
+            <div style={{ fontSize: 30, fontWeight: 700, color: muted }}>今天在這裡</div>
+            <div style={{ fontSize: 38, fontWeight: 700, lineHeight: 1.4 }}>{s.today}</div>
           </div>
         </TintCard>
       ))}
@@ -1289,7 +1293,7 @@ const StudentFirst: Page = () => {
     <div style={root}>
       <PageHead eyebrow="Step 1 之前" title="指令好不好，看老師先想了多少" />
       <TintCard tint={tintBlue} style={{ ...abs(120, 320, 760, 450) }}>
-        <div style={{ fontSize: 28, fontWeight: 700, color: muted }}>老師先做 · AI 替不了</div>
+        <div style={{ fontSize: 32, fontWeight: 700, color: muted }}>老師先做 · AI 替不了</div>
         <div style={{ fontSize: 44, fontWeight: 800, marginTop: 10 }}>分析學生</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 24 }}>
           <Bullet>
@@ -1305,7 +1309,7 @@ const StudentFirst: Page = () => {
       </TintCard>
       <FlowArrow x={922} y={520} live={live} delay={0.4} />
       <TintCard tint={tintGreen} style={{ ...abs(1040, 320, 760, 450) }}>
-        <div style={{ fontSize: 28, fontWeight: 700, color: muted }}>再交給 AI</div>
+        <div style={{ fontSize: 32, fontWeight: 700, color: muted }}>再交給 AI</div>
         <div style={{ fontSize: 44, fontWeight: 800, marginTop: 10 }}>設計教材</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 24 }}>
           <Bullet>寫字困難 → 圈選、連連看取代抄寫</Bullet>
@@ -1320,7 +1324,7 @@ const StudentFirst: Page = () => {
           padding: '0 40px',
           display: 'flex',
           alignItems: 'center',
-          fontSize: 32,
+          fontSize: 36,
           color: body,
         }}
       >
@@ -1331,59 +1335,6 @@ const StudentFirst: Page = () => {
     </div>
   );
 };
-
-const tiers = [
-  {
-    n: '1',
-    title: '第一層 · 支持最多',
-    desc: '逐句白話對照，圈選、連連看為主',
-    tint: tintBlue,
-    fill: blue,
-  },
-  {
-    n: '2',
-    title: '第二層 · 部分提示',
-    desc: '只給部分白話，加入關鍵詞填空',
-    tint: tintGreen,
-    fill: green,
-  },
-  {
-    n: '3',
-    title: '第三層 · 挑戰',
-    desc: '只附注釋，加入簡答寫出主旨',
-    tint: tintPink,
-    fill: pink,
-  },
-];
-
-const Tiered: Page = () => (
-  <div style={root}>
-    <PageHead eyebrow="多層次" title="同一課，做出三個層次" aside="目標相同，只調整鷹架多寡" />
-    {tiers.map((t, i) => (
-      <TintCard
-        key={t.n}
-        tint={t.tint}
-        style={{
-          ...abs(120 + i * 572, 300, 536, 300),
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 18,
-        }}
-      >
-        <NumBadge n={t.n} fill={t.fill} />
-        <div style={{ fontSize: 38, fontWeight: 900, letterSpacing: '-0.03em' }}>{t.title}</div>
-        <div style={{ fontSize: 32, lineHeight: 1.5, color: body }}>{t.desc}</div>
-      </TintCard>
-    ))}
-    <PromptCard
-      text={tieredPrompt}
-      tint={tintYellow}
-      fontSize={32}
-      style={abs(120, 636, 1680, 330)}
-    />
-    <Footer />
-  </div>
-);
 
 const loop = [
   { n: '1', title: '上課使用', desc: '學生實際作答', tint: tintBlue, fill: blue },
@@ -1402,15 +1353,15 @@ const AdjustLoop: Page = () => {
           key={s.n}
           tint={s.tint}
           style={{
-            ...abs(120 + i * 432, 300, 384, 300),
+            ...abs(120 + i * 432, 300, 384, 316),
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
           }}
         >
           <NumBadge n={s.n} fill={s.fill} />
-          <div style={{ fontSize: 40, fontWeight: 900, letterSpacing: '-0.03em' }}>{s.title}</div>
-          <div style={{ fontSize: 30, lineHeight: 1.5, color: body }}>{s.desc}</div>
+          <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.03em' }}>{s.title}</div>
+          <div style={{ fontSize: 34, lineHeight: 1.5, color: body }}>{s.desc}</div>
         </TintCard>
       ))}
       {[0, 1, 2].map((i) => (
@@ -1479,7 +1430,7 @@ const Route: Page = () => (
         <div style={{ fontSize: 46, fontWeight: 900, lineHeight: 1.2, letterSpacing: '-0.03em' }}>
           {p.title}
         </div>
-        <div style={{ fontSize: 34, lineHeight: 1.5, color: body }}>{p.desc}</div>
+        <div style={{ fontSize: 38, lineHeight: 1.5, color: body }}>{p.desc}</div>
         <div
           style={{
             marginTop: 'auto',
@@ -1518,7 +1469,7 @@ const DraftPrompt: Page = () => (
       </Bullet>
       <TintCard
         tint={tintGreen}
-        style={{ marginTop: 18, padding: '26px 32px', fontSize: 32, lineHeight: 1.5, color: body }}
+        style={{ marginTop: 18, padding: '26px 32px', fontSize: 36, lineHeight: 1.5, color: body }}
       >
         記得點下方的 <b style={{ color: ink }}>Canvas</b>，結果才會開成可編輯的文件。
       </TintCard>
@@ -1544,7 +1495,7 @@ const CopyDraftPrompt: Page = () => (
       style={{
         ...abs(120, 300, 1680, 670),
         padding: '30px 40px',
-        fontSize: 22,
+        fontSize: 26,
         lineHeight: 1.5,
         color: ink,
         whiteSpace: 'pre-wrap',
@@ -1570,6 +1521,232 @@ const DraftResult: Page = () => (
     <Caption style={{ left: 120, top: 944 }}>草稿：《愛蓮說》結構化鷹架版</Caption>
     <Footer />
   </div>
+);
+
+const iepMap = [
+  {
+    goal: '生字與詞彙',
+    goalDesc: '配對詞義，正確 80%',
+    level: '第一關 · 核心詞彙連連看',
+    levelDesc: '5 個詞附注音，用直尺連線',
+    tint: tintBlue,
+    fill: blue,
+  },
+  {
+    goal: '文言文基礎閱讀',
+    goalDesc: '指出 3 個字詞的古今異義',
+    level: '第二關 · 古今意思大不同',
+    levelDesc: '剛好 3 題，二選一圈起來',
+    tint: tintGreen,
+    fill: green,
+  },
+  {
+    goal: '白話文理解',
+    goalDesc: '在鷹架下說出人物與行動',
+    level: '第三關 · 人物、花卉與象徵',
+    levelDesc: '人物卡當鷹架，只填代號',
+    tint: tintPink,
+    fill: pink,
+  },
+  {
+    goal: '段落主旨提取',
+    goalDesc: '挑出最佳核心主旨句',
+    level: '第四關 · 抓出主旨核心句',
+    levelDesc: '三選一，在框內打勾',
+    tint: tintYellow,
+    fill: yellow,
+  },
+];
+
+const IepMap: Page = () => (
+  <div style={root}>
+    <PageHead
+      eyebrow="Step 1 · 對照成果"
+      title="四個 IEP 目標 → 四個關卡"
+      aside="目標寫進指令，關卡就照著出"
+    />
+    <div style={{ ...abs(120, 288), fontSize: 32, fontWeight: 800, color: muted }}>IEP 目標</div>
+    <div style={{ ...abs(980, 288), fontSize: 32, fontWeight: 800, color: muted }}>
+      Canvas 生成的關卡
+    </div>
+    {iepMap.map((m, i) => {
+      const top = 340 + i * 160;
+      return (
+        <div key={m.goal}>
+          <TintCard
+            tint={paper}
+            style={{
+              ...abs(120, top, 700, 136),
+              display: 'flex',
+              alignItems: 'center',
+              gap: 28,
+              padding: '0 36px',
+            }}
+          >
+            <NumBadge n={String(i + 1)} fill={m.fill} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.02em' }}>
+                {m.goal}
+              </div>
+              <div style={{ fontSize: 32, color: body }}>{m.goalDesc}</div>
+            </div>
+          </TintCard>
+          <div
+            style={{
+              ...abs(820, top, 160, 136),
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 64,
+              fontWeight: 900,
+              color: coral,
+            }}
+          >
+            →
+          </div>
+          <TintCard
+            tint={m.tint}
+            style={{
+              ...abs(980, top, 820, 136),
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: 6,
+              padding: '0 40px',
+            }}
+          >
+            <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.02em' }}>{m.level}</div>
+            <div style={{ fontSize: 34, color: body }}>{m.levelDesc}</div>
+          </TintCard>
+        </div>
+      );
+    })}
+    <Footer />
+  </div>
+);
+
+type IepPair = {
+  area: string;
+  goal: string;
+  assess: string;
+  level: string;
+  img: string;
+  ratio: number;
+  tint: string;
+};
+
+const iepPairs: IepPair[] = [
+  {
+    area: '生字與詞彙',
+    goal: '給予每課精選之 10 個核心生詞，學生能運用部首拆解或詞境配對，正確認讀並配對詞義達 8 個（80%）。',
+    assess: '紙筆測驗、口頭問答',
+    level: '第一關 · 核心詞彙連連看',
+    img: imgLotusVocab,
+    ratio: 1222 / 486,
+    tint: tintBlue,
+  },
+  {
+    area: '文言文基礎閱讀',
+    goal: '八年級基礎文言選文（如《兒時記趣》等長度短篇），在課本文意注釋提示下，能正確指出 3 個關鍵單詞的古今異義，正確率達 70%。',
+    assess: '學習單、課堂配對',
+    level: '第二關 · 古今意思大不同',
+    img: imgLotusAncient,
+    ratio: 1207 / 418,
+    tint: tintGreen,
+  },
+  {
+    area: '白話文理解',
+    goal: '閱讀八年級記敘或抒情課文後，在提供「起承轉合情節表」鷹架下，能填出主要事件、人物行動與結果，正確率達 75%。',
+    assess: '學習單、作業評量',
+    level: '第三關 · 人物、花卉與象徵配對',
+    img: imgLotusSymbol,
+    ratio: 1186 / 670,
+    tint: tintPink,
+  },
+  {
+    area: '段落主旨提取',
+    goal: '給予標註段落重點關鍵詞的課文，學生能挑選出該段落的最佳核心主旨句，連續 3 次評量正確率達 80%。',
+    assess: '紙筆測驗、課堂提問',
+    level: '第四關 · 抓出主旨核心句',
+    img: imgLotusMainIdea,
+    ratio: 1200 / 655,
+    tint: tintYellow,
+  },
+];
+
+const ROW_H = 334;
+const SHOT_MAX_W = 820;
+
+const IepRow = ({ pair, top }: { pair: IepPair; top: number }) => {
+  const w = Math.round(Math.min(SHOT_MAX_W, ROW_H * pair.ratio));
+  const h = Math.round(w / pair.ratio);
+  const cardW = 1680 - w - 48;
+  return (
+    <>
+      <TintCard
+        tint={pair.tint}
+        style={{
+          ...abs(120, top, cardW, ROW_H),
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14,
+          padding: '22px 32px',
+        }}
+      >
+        <div style={{ fontSize: 30, fontWeight: 800, color: muted }}>IEP 目標 · {pair.area}</div>
+        <div style={{ fontSize: 30, lineHeight: 1.45, color: ink, fontWeight: 600 }}>
+          {pair.goal}
+        </div>
+        <div
+          style={{
+            marginTop: 'auto',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 16,
+          }}
+        >
+          <div style={{ fontSize: 28, color: body }}>評量：{pair.assess}</div>
+          <div
+            style={{
+              fontSize: 32,
+              fontWeight: 900,
+              padding: '6px 20px',
+              borderRadius: 999,
+              border: `3px solid ${ink}`,
+              background: paper,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            → {pair.level}
+          </div>
+        </div>
+      </TintCard>
+      <Shot
+        src={pair.img}
+        alt={`愛蓮說學習單${pair.level}`}
+        style={abs(120 + cardW + 48, top + (ROW_H - h) / 2, w, h)}
+      />
+    </>
+  );
+};
+
+const IepPairPage = ({ pairs, title }: { pairs: IepPair[]; title: string }) => (
+  <div style={root}>
+    <PageHead eyebrow="Step 1 · 對照成果" title={title} />
+    {pairs.map((p, i) => (
+      <IepRow key={p.area} pair={p} top={280 + i * (ROW_H + 20)} />
+    ))}
+    <Footer />
+  </div>
+);
+
+const IepMatchA: Page = () => (
+  <IepPairPage pairs={iepPairs.slice(0, 2)} title="IEP 目標 → 第一、二關" />
+);
+
+const IepMatchB: Page = () => (
+  <IepPairPage pairs={iepPairs.slice(2)} title="IEP 目標 → 第三、四關" />
 );
 
 const SelectEdit: Page = () => {
@@ -1634,10 +1811,10 @@ const PrintButtonFix: Page = () => (
   <div style={root}>
     <PageHead eyebrow="遇到問題" title="列印按鈕按了沒反應？" />
     <div style={{ ...abs(120, 320, 1680), display: 'flex', flexDirection: 'column', gap: 28 }}>
-      <div style={{ fontSize: 40, lineHeight: 1.5, color: body, width: 1503 }}>
+      <div style={{ fontSize: 44, lineHeight: 1.5, color: body, width: 1503 }}>
         Canvas 的預覽被關在一個安全的小框框裡，網頁自己的列印按鈕常常會被擋住。
       </div>
-      <div style={{ fontSize: 40, lineHeight: 1.5, color: body }}>
+      <div style={{ fontSize: 44, lineHeight: 1.5, color: body }}>
         請它<Highlight>另外開一個分頁</Highlight>再列印就好：
       </div>
       <PromptCard
@@ -1651,19 +1828,278 @@ const PrintButtonFix: Page = () => (
   </div>
 );
 
+const UPLOAD_URL = 'https://forms.gle/V6FiYqJpLFWko3EL7';
+
+type TimerState = { total: number; remaining: number; endAt: number | null };
+
+const TIMER_KEY = '__GEMINI_CANVAS_WORKSHEET_TIMER__';
+const TIMER_EVENT = 'gemini-canvas-worksheet-timer';
+
+const readTimer = (): TimerState | null => {
+  try {
+    const raw = localStorage.getItem(TIMER_KEY);
+    return raw ? (JSON.parse(raw) as TimerState) : null;
+  } catch {
+    return null;
+  }
+};
+
+const writeTimer = (state: TimerState) => {
+  try {
+    localStorage.setItem(TIMER_KEY, JSON.stringify(state));
+    window.dispatchEvent(new Event(TIMER_EVENT));
+  } catch {}
+};
+
+const remainingOf = (s: TimerState) =>
+  s.endAt ? Math.max(0, Math.ceil((s.endAt - Date.now()) / 1000)) : s.remaining;
+
+const chime = () => {
+  try {
+    const ctx = new AudioContext();
+    const now = ctx.currentTime;
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.setValueAtTime(freq, now + i * 0.12);
+      gain.gain.setValueAtTime(0.25, now + i * 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.85);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + i * 0.12);
+      osc.stop(now + i * 0.12 + 0.85);
+    });
+  } catch {}
+};
+
+// Shared through localStorage so the countdown keeps running while the
+// presenter flips pages and stays in sync with the presenter view.
+const usePracticeTimer = (minutes: number) => {
+  const fresh = useCallback(
+    (): TimerState => ({ total: minutes * 60, remaining: minutes * 60, endAt: null }),
+    [minutes],
+  );
+  const load = useCallback(
+    () => (typeof window === 'undefined' ? null : readTimer()) ?? fresh(),
+    [fresh],
+  );
+  const [state, setState] = useState<TimerState>(load);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const sync = () => setState(load());
+    window.addEventListener(TIMER_EVENT, sync);
+    window.addEventListener('storage', sync);
+    return () => {
+      window.removeEventListener(TIMER_EVENT, sync);
+      window.removeEventListener('storage', sync);
+    };
+  }, [load]);
+
+  useEffect(() => {
+    if (!state.endAt) return;
+    const id = window.setInterval(() => {
+      setNow(Date.now());
+      if (state.endAt && Date.now() >= state.endAt) {
+        const stored = readTimer();
+        // Only the instance that still sees it running ends it, so it chimes once.
+        if (stored?.endAt) {
+          chime();
+          writeTimer({ ...stored, remaining: 0, endAt: null });
+        }
+      }
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [state.endAt]);
+
+  const remaining = state.endAt
+    ? Math.max(0, Math.ceil((state.endAt - now) / 1000))
+    : state.remaining;
+  const running = state.endAt !== null;
+
+  const start = () => {
+    const rem = remainingOf(state) || state.total;
+    writeTimer({ ...state, remaining: rem, endAt: Date.now() + rem * 1000 });
+  };
+  const pause = () => writeTimer({ ...state, remaining: remainingOf(state), endAt: null });
+  const reset = () => writeTimer(fresh());
+  const adjust = (delta: number) => {
+    const rem = Math.max(0, remainingOf(state) + delta);
+    writeTimer({
+      total: Math.max(60, state.total + delta),
+      remaining: rem,
+      endAt: running ? Date.now() + rem * 1000 : null,
+    });
+  };
+
+  return { remaining, total: state.total, running, start, pause, reset, adjust };
+};
+
+const TimerButton = ({
+  glyph,
+  label,
+  onClick,
+  primary = false,
+}: {
+  glyph: string;
+  label: string;
+  onClick: () => void;
+  primary?: boolean;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    title={label}
+    aria-label={label}
+    style={{
+      width: primary ? 112 : 84,
+      height: primary ? 112 : 84,
+      borderRadius: '50%',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: primary ? coral : paper,
+      color: ink,
+      border: `${primary ? 4 : 3}px solid ${ink}`,
+      boxSizing: 'border-box',
+      boxShadow: hard(primary ? 6 : 4),
+      fontFamily: FONT,
+      fontSize: primary ? 44 : 40,
+      fontWeight: 900,
+      lineHeight: 1,
+      padding: 0,
+    }}
+  >
+    {glyph}
+  </button>
+);
+
+const PracticeTimer = ({ minutes }: { minutes: number }) => {
+  const { remaining, total, running, start, pause, reset, adjust } = usePracticeTimer(minutes);
+  const mm = String(Math.floor(remaining / 60)).padStart(2, '0');
+  const ss = String(remaining % 60).padStart(2, '0');
+  const progress = total > 0 ? remaining / total : 0;
+  return (
+    <TintCard
+      tint={paper}
+      style={{
+        width: 620,
+        padding: '40px 48px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ fontSize: 34, fontWeight: 800, color: muted }}>實作倒數</div>
+      <div
+        style={{
+          fontFamily: MONO,
+          fontSize: 168,
+          fontWeight: 500,
+          lineHeight: 1.1,
+          letterSpacing: '-0.04em',
+          fontVariantNumeric: 'tabular-nums',
+          marginTop: 8,
+          color: remaining === 0 ? coral : ink,
+        }}
+      >
+        {mm}:{ss}
+      </div>
+      <div
+        style={{
+          width: '100%',
+          height: 18,
+          borderRadius: 999,
+          border: `3px solid ${ink}`,
+          background: cream,
+          marginTop: 16,
+          overflow: 'hidden',
+          boxSizing: 'border-box',
+        }}
+      >
+        <div style={{ width: `${progress * 100}%`, height: '100%', background: yellow }} />
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginTop: 36 }}>
+        <TimerButton glyph="−" label="減少 1 分鐘" onClick={() => adjust(-60)} />
+        <TimerButton
+          glyph={running ? '❚❚' : '▶'}
+          label={running ? '暫停' : '開始'}
+          onClick={running ? pause : start}
+          primary
+        />
+        <TimerButton glyph="+" label="增加 1 分鐘" onClick={() => adjust(60)} />
+        <TimerButton glyph="↺" label="重設" onClick={reset} />
+      </div>
+    </TintCard>
+  );
+};
+
+const CanvasPractice: Page = () => (
+  <div style={root}>
+    <PageHead eyebrow="實作時間 · 7 分鐘" title="換你做：用 Canvas 做一份" />
+    <div style={{ ...abs(120, 320, 920), display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Bullet>寫下學生的困難與 IEP 目標，貼上課文，打草稿</Bullet>
+      <Bullet>反白一段，只改那一段</Bullet>
+      <Bullet>轉成仿 A4，題目不跨頁</Bullet>
+      <Bullet>有餘力：再做一份多層次版本</Bullet>
+    </div>
+    <TintCard
+      tint={tintGreen}
+      style={{
+        ...abs(120, 640, 920, 320),
+        display: 'flex',
+        alignItems: 'center',
+        gap: 40,
+        padding: '30px 40px',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 46, fontWeight: 900, letterSpacing: '-0.03em' }}>
+          做完，上傳成果
+        </div>
+        <div style={{ fontSize: 34, lineHeight: 1.5, color: body }}>點下方按鈕，把成果交到表單</div>
+        <a
+          href={UPLOAD_URL}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            ...linkReset,
+            alignSelf: 'flex-start',
+            fontSize: 32,
+            fontWeight: 800,
+            padding: '12px 26px',
+            borderRadius: 999,
+            border: `3px solid ${ink}`,
+            background: coral,
+            boxShadow: hard(5),
+            whiteSpace: 'nowrap',
+          }}
+        >
+          開啟上傳表單 ↗
+        </a>
+      </div>
+    </TintCard>
+    <div style={abs(1180, 320)}>
+      <PracticeTimer minutes={7} />
+    </div>
+    <Footer />
+  </div>
+);
+
 const PracticeSection: Page = () => (
   <div style={slabRoot}>
     <div style={abs(120, 116)}>
-      <Eyebrow>實作練習</Eyebrow>
+      <Eyebrow big>Part 2</Eyebrow>
     </div>
     <div style={abs(120, 300, 1000)}>
       <Heading size={120}>
-        換你做：
+        用生成器
         <br />
-        用生成器出一份
+        做學習單
       </Heading>
     </div>
-    <p style={{ ...abs(120, 640, 900), margin: 0, fontSize: 40, lineHeight: 1.5, color: body }}>
+    <p style={{ ...abs(120, 640, 900), margin: 0, fontSize: 44, lineHeight: 1.5, color: body }}>
       米克師用 Gemini Canvas 做的學習單生成器，選一選、貼課文，
       <Highlight>幾乎不用下指令</Highlight>就有精美排版。
     </p>
@@ -1731,7 +2167,7 @@ const ToolPage = ({
       {pain && (
         <TintCard
           tint={tintPink}
-          style={{ padding: '20px 30px', fontSize: 32, lineHeight: 1.45, color: body }}
+          style={{ padding: '20px 30px', fontSize: 36, lineHeight: 1.45, color: body }}
         >
           <b style={{ color: ink, marginRight: 12 }}>教學痛點</b>
           {pain}
@@ -1739,7 +2175,7 @@ const ToolPage = ({
       )}
       <TintCard
         tint={tintYellow}
-        style={{ padding: '20px 30px', fontSize: 32, lineHeight: 1.45, color: body }}
+        style={{ padding: '20px 30px', fontSize: 36, lineHeight: 1.45, color: body }}
       >
         <b style={{ color: ink, marginRight: 12 }}>特教適性亮點</b>
         {highlight}
@@ -1770,7 +2206,7 @@ const ToolPage = ({
               position: 'absolute',
               right: 24,
               bottom: 24,
-              fontSize: 28,
+              fontSize: 32,
               fontWeight: 800,
               color: ink,
               padding: '12px 26px',
@@ -1905,18 +2341,35 @@ const VocabPracticeTool: Page = () => (
   />
 );
 
+const PART2_UPLOAD_URL = 'https://forms.gle/xGqgVPVs4cqzvMsu5';
+
 const toolLinks = [
-  { name: '國語文學習單', href: toolUrls.chineseWorksheet, tint: tintBlue },
-  { name: '詞彙教材生成器', href: toolUrls.vocabMaker, tint: tintBlue },
-  { name: '字族學習單', href: toolUrls.similarCharacters, tint: tintBlue },
-  { name: '數學簡化學習單', href: toolUrls.mathScaffold, tint: tintGreen },
-  { name: '英文資源班學習單', href: toolUrls.specialEdEnglish, tint: tintPink },
-  { name: '單字練習卷生成器', href: toolUrls.vocabPractice, tint: tintPink },
+  {
+    subject: '國文',
+    name: '國語文學習單',
+    href: toolUrls.chineseWorksheet,
+    tint: tintBlue,
+    fill: blue,
+  },
+  {
+    subject: '數學',
+    name: '數學簡化學習單',
+    href: toolUrls.mathScaffold,
+    tint: tintGreen,
+    fill: green,
+  },
+  {
+    subject: '英文',
+    name: '英文文法學習單',
+    href: 'https://spedmix.pages.dev/english-grammar-worksheet',
+    tint: tintPink,
+    fill: pink,
+  },
 ];
 
 const ToolLinks: Page = () => (
   <div style={root}>
-    <PageHead eyebrow="實作時間" title="挑一個，做一份給你的學生" aside="點卡片直接開啟" />
+    <PageHead eyebrow="實作時間" title="三選一，做一份給你的學生" aside="點卡片直接開啟" />
     {toolLinks.map((t, i) => (
       <a
         key={t.href}
@@ -1924,29 +2377,66 @@ const ToolLinks: Page = () => (
         target="_blank"
         rel="noreferrer"
         style={{
-          ...abs(120 + (i % 3) * 572, 300 + Math.floor(i / 3) * 330, 536, 300),
+          ...abs(120 + i * 572, 300, 536, 340),
           boxSizing: 'border-box',
           borderRadius: 28,
           background: t.tint,
           border,
           boxShadow: hard(8),
-          padding: '28px 40px',
+          padding: '36px 40px',
           display: 'flex',
-          alignItems: 'center',
-          gap: 32,
+          flexDirection: 'column',
+          gap: 18,
           color: ink,
           textDecoration: 'none',
         }}
       >
-        <NumBadge n={String(i + 1)} fill={paper} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.2, letterSpacing: '-0.02em' }}>
-            {t.name}
-          </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: body }}>點擊開啟 ↗</div>
+        <NumBadge n={String(i + 1)} fill={t.fill} />
+        <div style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.03em' }}>
+          {t.subject}
+        </div>
+        <div style={{ fontSize: 38, fontWeight: 800, color: body }}>{t.name}</div>
+        <div style={{ marginTop: 'auto', fontSize: 32, fontWeight: 800, color: ink }}>
+          點擊開啟 ↗
         </div>
       </a>
     ))}
+    <TintCard
+      tint={tintYellow}
+      style={{
+        ...abs(120, 700, 1680, 240),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 40,
+        padding: '0 56px',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ fontSize: 50, fontWeight: 900, letterSpacing: '-0.03em' }}>
+          做完，上傳成果
+        </div>
+        <div style={{ fontSize: 34, color: body }}>點右邊按鈕，把成果交到第二章的表單</div>
+      </div>
+      <a
+        href={PART2_UPLOAD_URL}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          ...linkReset,
+          fontSize: 36,
+          fontWeight: 900,
+          padding: '20px 40px',
+          borderRadius: 999,
+          border,
+          background: coral,
+          boxShadow: hard(6),
+          whiteSpace: 'nowrap',
+        }}
+      >
+        開啟上傳表單 ↗
+      </a>
+    </TintCard>
     <Footer />
   </div>
 );
@@ -1997,7 +2487,7 @@ const MarkedShot = ({
               color: ink,
               border: `3px solid ${ink}`,
               boxShadow: hard(4),
-              fontSize: 28,
+              fontSize: 32,
               fontWeight: 800,
               whiteSpace: 'nowrap',
             }}
@@ -2013,7 +2503,7 @@ const MarkedShot = ({
 const RemixSection: Page = () => (
   <div style={slabRoot}>
     <div style={abs(120, 116)}>
-      <Eyebrow>Part 3</Eyebrow>
+      <Eyebrow big>Part 3</Eyebrow>
     </div>
     <div style={abs(120, 300, 1100)}>
       <Heading size={120}>
@@ -2022,7 +2512,7 @@ const RemixSection: Page = () => (
         自己的生成器
       </Heading>
     </div>
-    <p style={{ ...abs(120, 640, 900), margin: 0, fontSize: 40, lineHeight: 1.5, color: body }}>
+    <p style={{ ...abs(120, 640, 900), margin: 0, fontSize: 44, lineHeight: 1.5, color: body }}>
       不用從頭做起，拿米克師的 Canvas 來改，
       <Highlight>說出想改哪裡</Highlight>就有你的版本。
     </p>
@@ -2077,7 +2567,7 @@ const RemixSteps: Page = () => (
         <div style={{ fontSize: 46, fontWeight: 900, lineHeight: 1.2, letterSpacing: '-0.03em' }}>
           {s.title}
         </div>
-        <div style={{ fontSize: 34, lineHeight: 1.5, color: body }}>{s.desc}</div>
+        <div style={{ fontSize: 38, lineHeight: 1.5, color: body }}>{s.desc}</div>
       </TintCard>
     ))}
     <Footer />
@@ -2119,7 +2609,7 @@ const RemixCopied: Page = () => (
       {['原作品不會被改到', '上方可切換程式碼／預覽', '改壞了可以按復原箭頭'].map((t, i) => (
         <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <NumBadge n={String(i + 1)} fill={[blue, green, pink][i]} />
-          <div style={{ fontSize: 36, fontWeight: 700, lineHeight: 1.35 }}>{t}</div>
+          <div style={{ fontSize: 40, fontWeight: 700, lineHeight: 1.35 }}>{t}</div>
         </div>
       ))}
     </div>
@@ -2142,7 +2632,7 @@ const RemixDemo: Page = () => {
         width={800}
         marks={[{ x: 1116, y: 500, w: 390, h: 93, tag: '說出想改的地方' }]}
       />
-      <div style={{ ...abs(120, 780, 800), fontSize: 38, fontWeight: 800, lineHeight: 1.5 }}>
+      <div style={{ ...abs(120, 780, 800), fontSize: 42, fontWeight: 800, lineHeight: 1.5 }}>
         「改一下主題色，刪掉進階認知的欄位」
       </div>
       <Ink width={60} height={40} style={abs(950, 520)}>
@@ -2163,7 +2653,7 @@ const RemixDemo: Page = () => {
         top={340}
         width={760}
       />
-      <div style={{ ...abs(1040, 840, 760), fontSize: 38, fontWeight: 800, lineHeight: 1.5 }}>
+      <div style={{ ...abs(1040, 840, 760), fontSize: 42, fontWeight: 800, lineHeight: 1.5 }}>
         主題色換了、欄位刪掉了，<Highlight>就改完了</Highlight>
       </div>
       <Footer />
@@ -2201,8 +2691,8 @@ const Recap: Page = () => (
           gap: 36,
         }}
       >
-        <div style={{ width: 200, fontSize: 34, fontWeight: 900 }}>{r.step}</div>
-        <div style={{ flex: 1, fontSize: 34, lineHeight: 1.4, color: body }}>{r.text}</div>
+        <div style={{ width: 200, fontSize: 38, fontWeight: 900 }}>{r.step}</div>
+        <div style={{ flex: 1, fontSize: 38, lineHeight: 1.4, color: body }}>{r.text}</div>
         <CopyButton text={r.copy} label="複製" />
       </div>
     ))}
@@ -2252,7 +2742,7 @@ const Conclusion: Page = () => {
           <span style={{ fontSize: 46, fontWeight: 900, width: 280, letterSpacing: '-0.02em' }}>
             {t.title}
           </span>
-          <span style={{ fontSize: 40, fontWeight: 700, color: body }}>{t.detail}</span>
+          <span style={{ fontSize: 44, fontWeight: 700, color: body }}>{t.detail}</span>
         </div>
       ))}
       <a
@@ -2270,7 +2760,7 @@ const Conclusion: Page = () => {
           background: coral,
           border,
           boxShadow: hard(6),
-          fontSize: 36,
+          fontSize: 40,
           fontWeight: 900,
           whiteSpace: 'nowrap',
         }}
@@ -2293,7 +2783,7 @@ const chip: CSSProperties = {
   background: paper,
   border: `3px solid ${ink}`,
   boxShadow: hard(5),
-  fontSize: 30,
+  fontSize: 34,
   fontWeight: 700,
   whiteSpace: 'nowrap',
 };
@@ -2399,11 +2889,15 @@ export default [
   DraftPrompt,
   CopyDraftPrompt,
   DraftResult,
+  IepMap,
+  IepMatchA,
+  IepMatchB,
   SelectEdit,
   A4Step,
   PrintStep,
   PrintButtonFix,
-  Tiered,
+  CanvasPractice,
+  AdjustLoop,
   PracticeSection,
   ChineseTool,
   VocabMakerTool,
@@ -2417,7 +2911,6 @@ export default [
   TryButton,
   RemixCopied,
   RemixDemo,
-  AdjustLoop,
   Recap,
   Conclusion,
   Closing,
@@ -2436,25 +2929,28 @@ export const notes: (string | undefined)[] = [
   '第一段指令的四個要素：對象、困難、IEP 目標、課文。前一小時已介紹過 Canvas，這裡帶過即可。',
   '完整指令可以一鍵複製，貼進 Gemini 就能跟著做。',
   'Canvas 產出的是可編輯文件，小地方直接改，不用再下指令。',
+  '總覽：指令裡四個 IEP 目標，Canvas 各做成一關。目標寫得清楚，關卡就照著出。',
+  '對照指令：生字與詞彙 → 連連看配對詞義；文言文古今異義要 3 個 → 剛好出 3 題二選一。題型都是連線、圈選，避開書寫困難。',
+  '白話文理解 → 人物、花卉與象徵配對，人物卡當鷹架、只填代號；段落主旨 → 三選一挑核心句、打勾。一關一關拆開，照顧不專心。',
   '反白一段文字會跳出輸入框，只針對那一段修改。示範加白話翻譯。',
   '一句話轉成仿 A4 的 HTML，題目不會跨頁被切開。',
   '列印：在預覽上全選、右鍵列印，或 Ctrl + P。提醒勾選背景圖形。',
   '如果頁面上的列印按鈕沒反應，請它另開 blob 分頁再列印。',
-  '多層次：同一課、同一組目標，只調整鷹架。一句指令做出三個層次，班上不同程度的學生都有一份。（可現場示範）',
-  '實作：米克師的生成器，幾乎不用下指令。',
+  '實作時間 7 分鐘：用自己的課文和學生描述，在 Canvas 做一份學習單。按開始倒數，做完點按鈕把成果上傳到表單。',
+  '評量與調整：上完課看學生卡在哪，回 Canvas 反白那一段調整。這就是閉環，判斷永遠在老師身上。',
+  '第二部分：米克師的生成器，幾乎不用下指令。',
   '國語文學習單生成器：掃 QR code 開啟，跟著選項做一份。',
   '詞彙教材生成器：每個詞語配圖、田字格練寫、造句填空。配圖和排版都交給它。',
   '字族學習單：以中心字串起字族，用部首提示與拆解分辨形近字。例子是「青」字族。',
   '數學簡化學習單：輸入題型或貼課本截圖，概念說明 → 例題拆解 → 分步練習。',
   '英文資源班學習單：情境分鏡故事、四線格練寫、單字檢核，一鍵 A4 列印。',
   '單字練習卷生成器：拼英、克漏、連連看自由組合，同步產出解答卷，可出 AB 卷。',
-  '實作時間：六個生成器的 QR code 都在這頁，請老師挑一個做一份給自己的學生。',
+  '實作時間：國文、數學、英文三個生成器選一個，做一份給自己的學生，做完點按鈕上傳到第二章表單。',
   '第三部分：不用從頭做，拿米克師的 Canvas 來改。',
   '改編四步：開連結、按試用、打一句話、看預覽。',
   '分享頁右下角的「試用 Gemini Canvas」。',
   '按下後整份程式複製成自己的副本，原作品不會被改到。',
   '示範：改主題色、刪欄位，一句話就改完。',
-  '評量與調整：上完課看學生卡在哪，回 Canvas 反白那一段調整。這就是閉環，判斷永遠在老師身上。',
   '回顧五句指令，每句都能複製帶回去用。',
   '結論：AI 給速度，老師給判斷。四個重點帶回去：先懂學生、一段一改、用生成器、改成自己的。',
   '謝謝大家，歡迎追蹤米克師。',
