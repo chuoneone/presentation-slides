@@ -130,7 +130,6 @@ const root: CSSProperties = {
   WebkitFontSmoothing: 'antialiased',
 };
 
-
 const Title = ({ children }: { children: ReactNode }) => (
   <h1
     style={{
@@ -811,13 +810,25 @@ const Cover: Page = () => (
       <Title>
         用 Gemini Canvas
         <br />
-        做出一份
-        <br />
-        印得漂亮的學習單
+        做學習單
       </Title>
     </div>
+    <div
+      style={{
+        ...abs(120, 556),
+        fontSize: 96,
+        fontWeight: 900,
+        lineHeight: 1.1,
+        letterSpacing: '-0.035em',
+        color: coral,
+      }}
+    >
+      對準目標，輕鬆上手
+    </div>
     <p style={{ ...abs(120, 760, 1040), margin: 0, fontSize: 44, lineHeight: 1.5, color: body }}>
-      從打草稿、仿 A4 排版到列印，最後用生成器<Highlight>幾乎不用下指令</Highlight>。
+      從打草稿、仿 A4 排版到列印，
+      <br />
+      最後用生成器<Highlight>幾乎不用下指令</Highlight>。
     </p>
     <Ink width={560} height={600} style={abs(1200, 250)}>
       <circle cx="290" cy="300" r="250" fill={tintYellow} stroke="none" />
@@ -1354,9 +1365,6 @@ const StudentFirst: Page = () => {
           </Bullet>
           <Bullet>
             <b style={{ color: ink }}>學習特質</b>：上課容易不專心
-          </Bullet>
-          <Bullet>
-            <b style={{ color: ink }}>{''}<br />{''}</b>{''}
           </Bullet>
         </div>
         <a
