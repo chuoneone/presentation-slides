@@ -27,6 +27,9 @@ import imgEmbedPreview from './assets/embed-preview.png';
 import imgFabMenu from './assets/fab-menu.png';
 import imgGeminiExport from './assets/gemini-export-sites.webp';
 import imgGeminiSites from './assets/gemini-sites-editor.webp';
+import imgGptShare from './assets/gpt-share-public.png';
+import imgGptBuilt from './assets/gpt-site-built.png';
+import imgGptMenu from './assets/gpt-sites-menu.png';
 import imgInsertButton from './assets/insert-button.png';
 import imgInsertPanel from './assets/insert-panel.png';
 import imgStepMath from './assets/interactive-step-math.webp';
@@ -78,6 +81,8 @@ const urls = {
 
 const exampleUrl =
   'https://sites.google.com/view/centralteachers/%E4%B8%AD%E5%8D%80%E8%81%AF%E7%9B%9F';
+
+const gptSiteUrl = 'https://alliance-ai-learning-hub.dicedphlox3.chatgpt.site';
 
 const qr = (url: string) =>
   `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data=${encodeURIComponent(url)}`;
@@ -1589,10 +1594,10 @@ const RouteCard = ({
     delay={delay}
     style={{
       ...card,
-      width: 816,
-      height: 560,
+      width: 533,
+      height: 580,
       boxSizing: 'border-box',
-      padding: 52,
+      padding: 44,
       display: 'flex',
       flexDirection: 'column',
     }}
@@ -1600,13 +1605,13 @@ const RouteCard = ({
     <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
       <Tile icon={icon} size={96} />
       <div>
-        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 52, fontWeight: 900 }}>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 40, fontWeight: 900 }}>
           {name}
         </div>
         <span style={{ ...pill, display: 'inline-block', marginTop: 8 }}>{badge}</span>
       </div>
     </div>
-    <div style={{ fontSize: 38, fontWeight: 900, marginTop: 56, lineHeight: 1.45, color: deep }}>
+    <div style={{ fontSize: 34, fontWeight: 900, marginTop: 48, lineHeight: 1.45, color: deep }}>
       {flow}
     </div>
     <div
@@ -1627,8 +1632,8 @@ const RouteCard = ({
 
 const Routes: Page = () => (
   <Stage>
-    <Header tag="兩條路" title="用哪個 AI 整理？" />
-    <div style={{ position: 'absolute', left: 120, top: 290, display: 'flex', gap: 48 }}>
+    <Header tag="三條路" title="用哪個 AI 整理？" />
+    <div style={{ position: 'absolute', left: 120, top: 290, display: 'flex', gap: 40 }}>
       <RouteCard
         icon="auto_awesome"
         name="Gemini"
@@ -1644,6 +1649,14 @@ const Routes: Page = () => (
         flow="做好網頁 → 公開分享 → 複製連結"
         good="連結不變，用說的就更新"
         delay={260}
+      />
+      <RouteCard
+        icon="web"
+        name="ChatGPT 付費版"
+        badge="需要付費方案"
+        flow="＋ 選「網站」→ 分享 → 改成公開"
+        good="一句話就生出網站"
+        delay={360}
       />
     </div>
     <Footer />
@@ -1716,6 +1729,60 @@ const ClaudeOrg3: Page = () => (
           delay={220}
         />
         <Shot src={imgClaudeUpdate} alt="確認更新公開網頁" maxW={980} maxH={330} delay={340} />
+      </div>
+    }
+  />
+);
+
+const Gpt1: Page = () => (
+  <SkillStep
+    tag="CHATGPT 付費版"
+    n="1"
+    total="3"
+    title="選「網站」，貼咒語"
+    desc="新對話按 ＋ 選「網站」（或輸入 @Sites），再貼上同一段咒語和清單。"
+    img={imgGptMenu}
+    alt="ChatGPT ＋ 選單裡的網站"
+    maxW={900}
+  />
+);
+
+const Gpt2: Page = () => (
+  <SkillStep
+    tag="CHATGPT 付費版"
+    n="2"
+    total="3"
+    title="網站直接做好"
+    desc="右邊馬上出現網站。想改就按「要求修改」，或直接用說的。"
+    img={imgGptBuilt}
+    alt="ChatGPT 做好的策略聯盟網站"
+  />
+);
+
+const Gpt3: Page = () => (
+  <SkillStep
+    tag="CHATGPT 付費版"
+    n="3"
+    total="3"
+    title="分享 → 改成公開"
+    desc="按右上「分享」，連結存取權限改成「公開」，再按「複製連結」。"
+    visual={
+      <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+        <Shot
+          src={imgGptShare}
+          alt="分享視窗：連結存取權限改成公開"
+          maxW={600}
+          maxH={560}
+          delay={220}
+        />
+        <QrCard
+          url={gptSiteUrl}
+          shown="…chatgpt.site"
+          label="掃我看範例"
+          title="GPT 版範例"
+          delay={340}
+          size={200}
+        />
       </div>
     }
   />
@@ -3223,6 +3290,9 @@ export default [
   ClaudeOrg1,
   ClaudeOrg2,
   ClaudeOrg3,
+  Gpt1,
+  Gpt2,
+  Gpt3,
   WhatSites,
   TwoPaths,
   EditorTour,
@@ -3309,9 +3379,10 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 做好後再說一句「要有分類功能」，它就會依字、詞、句、篇章分好，還加上搜尋框。
 這段咒語 Gemini 和 Claude 都能用。`,
   // Routes
-  `那要用哪個 AI？分兩種老師：
+  `那要用哪個 AI？看你有沒有付費：
 完全沒付費的老師，用 Gemini，免費、付費都可以，做好直接匯出到 Google 協作平台。
 有付費 Claude 的老師，可以直接公開分享連結，之後用說的就更新，連結都不變。
+有付費 ChatGPT 的老師，用「網站」功能，一句話就生出網站，一樣能公開分享。
 今天實作以 Gemini 為主。`,
   // Gemini1
   `Gemini 的做法：把咒語和清單貼上，Canvas 會做出入口網頁。
@@ -3326,6 +3397,13 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   // ClaudeOrg3
   `付費版最方便的地方：按匯出選公開分享連結，確認「任何人都可以開啟此連結」，複製連結就能分享，不用經過 Google Sites。
 之後改內容，說「確認更新公開網頁」，同一個連結打開就是新版。`,
+  // Gpt1
+  `有付費 ChatGPT 的老師：新對話按 ＋，選「網站」，或直接輸入 @Sites，再貼上同一段咒語和清單。`,
+  // Gpt2
+  `右邊會直接出現做好的網站。要改就按上方「要求修改」，或在左邊用說的。`,
+  // Gpt3
+  `分享：按右上「分享」，連結存取權限從「只有我」改成「公開」，再複製連結。
+這是我做的 GPT 版範例，大家可以掃 QR code 看看，跟 Gemini、Claude 做的比一比。`,
   // WhatSites
   `Google Sites 是 Google 的免費建站工具，用學校帳號就能用。
 操作像在排簡報，拖拉就好，也能直接放雲端檔案。
@@ -3385,7 +3463,7 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `實作 15 分鐘。這頁會一直留在螢幕上，照步驟做。
 按播放鍵開始倒數。
 沒有自己清單的老師，可以先用策略聯盟這 7 個網址練習。
-有付費 Claude 的老師，也可以改走 Claude，直接分享連結。
+有付費 Claude 或 ChatGPT 的老師，也可以改走那兩條路，直接分享連結。
 提醒：先做出一頁就好，不求完美。
 做完把網址貼到群組，最後成果分享會用到。
 （巡場看大家卡在哪一步。）`,
