@@ -15,8 +15,6 @@ import { type CSSProperties, type ReactNode, useEffect, useState } from 'react';
 import imgAddPage from './assets/add-page.png';
 import imgBannerTitle from './assets/banner-title.png';
 import imgChineseReading from './assets/chinese-scaffold-reading.webp';
-import imgClaudeCategory from './assets/claude-add-category.png';
-import imgClaudeLinks from './assets/claude-project-links.png';
 import imgClaudeShare from './assets/claude-share.png';
 import imgClaudeUpdate from './assets/claude-update-public.png';
 import imgContentBlock from './assets/content-block.png';
@@ -24,12 +22,14 @@ import imgEmbedCode from './assets/embed-code.png';
 import imgEmbedEmpty from './assets/embed-empty.png';
 import imgEmbedPlaced from './assets/embed-placed.png';
 import imgEmbedPreview from './assets/embed-preview.png';
+import imgEnglishGrammar from './assets/english-grammar.png';
+import imgEntryHome from './assets/entry-home.jpg';
+import imgEntryUnlock from './assets/entry-unlock.jpg';
+import imgExampleSite from './assets/example-site.jpg';
 import imgFabMenu from './assets/fab-menu.png';
 import imgGeminiExport from './assets/gemini-export-sites.webp';
 import imgGeminiSites from './assets/gemini-sites-editor.webp';
 import imgGptShare from './assets/gpt-share-public.png';
-import imgGptBuilt from './assets/gpt-site-built.png';
-import imgGptMenu from './assets/gpt-sites-menu.png';
 import imgInsertButton from './assets/insert-button.png';
 import imgInsertPanel from './assets/insert-panel.png';
 import imgStepMath from './assets/interactive-step-math.webp';
@@ -42,12 +42,11 @@ import imgSkillChatWord from './assets/skill-chat-word.png';
 import imgSkillGame from './assets/skill-game.png';
 import imgSkillMake from './assets/skill-make.png';
 import imgSkillTest from './assets/skill-test.png';
-import imgEnglish from './assets/special-ed-english-screenshot.png';
 import imgTheme from './assets/theme.png';
 import imgUnscramble from './assets/unscramble.webp';
 
 export const design: DesignSystem = {
-  palette: { bg: '#FCFBFF', text: '#1F2937', accent: '#7C3AED' },
+  palette: { bg: '#F8FAFC', text: '#0F172A', accent: '#0D9488' },
   fonts: {
     display: '"Outfit", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
     body: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
@@ -56,10 +55,10 @@ export const design: DesignSystem = {
   radius: 32,
 };
 
-const deep = '#4C1D95';
-const pink = '#EC4899';
-const sky = '#0EA5E9';
-const muted = '#6B7280';
+const deep = '#115E59';
+const coral = '#F97316';
+const sky = '#0284C7';
+const muted = '#64748B';
 
 const SLIDE_ID = 'google-sites-materials';
 
@@ -74,13 +73,12 @@ const urls = {
   threads: 'https://www.threads.com/@spedmix2025',
   chineseLessonWorksheet: 'https://spedmix.pages.dev/chinese-lesson-worksheet',
   mathScaffold: 'https://spedmix.pages.dev/math-scaffold',
-  specialEdEnglish: 'https://spedmix.pages.dev/special-ed-english-worksheet',
+  englishGrammar: 'https://spedmix.pages.dev/english-grammar-worksheet',
   unscramble: 'https://spedmix.pages.dev/unscramble',
   interactiveMath: 'https://spedmix.pages.dev/interativemath',
 } as const;
 
-const exampleUrl =
-  'https://sites.google.com/view/centralteachers/%E4%B8%AD%E5%8D%80%E8%81%AF%E7%9B%9F';
+const exampleUrl = 'https://sites.google.com/view/centralteachers2/full-page-embed';
 
 const gptSiteUrl = 'https://alliance-ai-learning-hub.dicedphlox3.chatgpt.site';
 
@@ -211,20 +209,20 @@ const fill: CSSProperties = {
 };
 
 const card: CSSProperties = {
-  background: 'rgba(255, 255, 255, 0.86)',
-  border: '1px solid rgba(124, 58, 237, 0.10)',
+  background: 'rgba(255, 255, 255, 0.88)',
+  border: '1px solid rgba(13, 148, 136, 0.14)',
   borderRadius: 'var(--osd-radius)',
-  boxShadow: '0 28px 60px -34px rgba(76, 29, 149, 0.30), 0 2px 6px rgba(31, 41, 55, 0.04)',
+  boxShadow: '0 28px 60px -34px rgba(15, 23, 42, 0.16), 0 2px 6px rgba(15, 23, 42, 0.04)',
 };
 
 const gradText: CSSProperties = {
-  background: `linear-gradient(120deg, var(--osd-accent) 0%, ${pink} 55%, ${sky} 100%)`,
+  background: `linear-gradient(120deg, var(--osd-accent) 0%, ${sky} 60%, ${coral} 100%)`,
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   color: 'transparent',
 };
 
-const gradFill = `linear-gradient(135deg, var(--osd-accent) 0%, ${pink} 100%)`;
+const gradFill = `linear-gradient(135deg, var(--osd-accent) 0%, ${sky} 100%)`;
 
 const eyebrow: CSSProperties = {
   fontFamily: 'var(--osd-font-display)',
@@ -248,7 +246,7 @@ const pill: CSSProperties = {
   fontSize: 24,
   fontWeight: 700,
   color: 'var(--osd-accent)',
-  background: 'rgba(124, 58, 237, 0.10)',
+  background: 'rgba(13, 148, 136, 0.10)',
   borderRadius: 999,
   padding: '6px 22px',
 };
@@ -302,9 +300,9 @@ const Blob = ({ x, y, size, color }: { x: number; y: number; size: number; color
 
 const Stage = ({ children, bold = false }: { children: ReactNode; bold?: boolean }) => (
   <div style={fill}>
-    <Blob x={160} y={120} size={bold ? 1300 : 1000} color="rgba(244, 114, 182, 0.24)" />
-    <Blob x={1780} y={1000} size={bold ? 1400 : 1100} color="rgba(56, 189, 248, 0.24)" />
-    <Blob x={1520} y={140} size={bold ? 1000 : 760} color="rgba(167, 139, 250, 0.20)" />
+    <Blob x={160} y={120} size={bold ? 1300 : 1000} color="rgba(13, 148, 136, 0.18)" />
+    <Blob x={1780} y={1000} size={bold ? 1400 : 1100} color="rgba(2, 132, 199, 0.18)" />
+    <Blob x={1520} y={140} size={bold ? 1000 : 760} color="rgba(249, 115, 22, 0.14)" />
     {children}
   </div>
 );
@@ -394,8 +392,8 @@ const Tile = ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: soft ? 'rgba(124, 58, 237, 0.10)' : gradFill,
-      boxShadow: soft ? 'none' : '0 16px 32px -14px rgba(124, 58, 237, 0.6)',
+      background: soft ? 'rgba(13, 148, 136, 0.10)' : gradFill,
+      boxShadow: soft ? 'none' : '0 16px 32px -14px rgba(13, 148, 136, 0.6)',
     }}
   >
     <Icon name={icon} size={size * 0.55} color={soft ? 'var(--osd-accent)' : '#ffffff'} />
@@ -486,7 +484,7 @@ const Tip = ({ children, delay = 500 }: { children: ReactNode; delay?: number })
       fontSize: 28,
       lineHeight: 1.5,
       color: deep,
-      background: 'rgba(124, 58, 237, 0.08)',
+      background: 'rgba(13, 148, 136, 0.08)',
       borderRadius: 22,
       padding: '18px 24px',
     }}
@@ -639,7 +637,7 @@ const Countdown = ({ minutes, size = 160 }: { minutes: number; size?: number }) 
           fontWeight: 800,
           lineHeight: 1,
           fontVariantNumeric: 'tabular-nums',
-          color: left === 0 ? pink : 'var(--osd-text)',
+          color: left === 0 ? coral : 'var(--osd-text)',
         }}
       >
         {mm}:{ss}
@@ -664,7 +662,7 @@ const Countdown = ({ minutes, size = 160 }: { minutes: number; size?: number }) 
             setRunning(false);
             setLeft(minutes * 60);
           }}
-          style={{ ...btn, background: 'rgba(124, 58, 237, 0.10)' }}
+          style={{ ...btn, background: 'rgba(13, 148, 136, 0.10)' }}
         >
           <Icon name="restart_alt" size={40} color="var(--osd-accent)" />
         </button>
@@ -712,92 +710,310 @@ const QrCard = ({
 
 /* 開場 */
 
-const Cover: Page = () => (
-  <Stage bold>
+const WorkshopEntry: Page = () => (
+  <Stage>
     <div
       style={{
         position: 'absolute',
-        left: 140,
+        left: 120,
         top: 0,
-        bottom: 0,
-        width: 940,
+        bottom: 110,
+        width: 640,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
       <Rise>
-        <span style={{ ...pill, fontSize: 28, padding: '10px 28px' }}>
+        <div style={eyebrow}>WORKSHOP ENTRY</div>
+      </Rise>
+      <Rise delay={80} style={{ marginTop: 18 }}>
+        <h2 style={{ ...h2, fontSize: 68 }}>本日研習入口</h2>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 44 }}>
+        {[
+          '搜尋「米克師」進入 AI 備課幫手',
+          '點選右上角「研習簡報」',
+          '輸入代碼「中區聯盟」解鎖進入',
+        ].map((step, i) => (
+          <Rise
+            key={step}
+            delay={180 + i * 80}
+            style={{
+              ...card,
+              borderRadius: 24,
+              padding: '20px 26px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+            }}
+          >
+            <NumBadge n={String(i + 1)} size={50} />
+            <span style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.4 }}>{step}</span>
+          </Rise>
+        ))}
+      </div>
+    </div>
+    <div
+      style={{
+        position: 'absolute',
+        left: 820,
+        right: 120,
+        top: 80,
+        bottom: 100,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 24,
+      }}
+    >
+      <Shot
+        src={imgEntryHome}
+        alt="搜尋米克師，點選右上角研習簡報"
+        maxW={940}
+        maxH={360}
+        delay={200}
+      />
+      <Shot src={imgEntryUnlock} alt="輸入中區聯盟解鎖簡報" maxW={720} maxH={380} delay={320} />
+    </div>
+    <Footer />
+  </Stage>
+);
+
+const Cover: Page = () => (
+  <Stage bold>
+    <div
+      style={{
+        position: 'absolute',
+        left: 130,
+        top: 120,
+        bottom: 110,
+        width: 960,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Rise style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <span style={{ ...pill, fontSize: 26, padding: '10px 26px' }}>
           中區聯盟特教教材 · 實作工作坊
         </span>
-      </Rise>
-      <Rise delay={100} style={{ marginTop: 40 }}>
-        <h1
+        <span
           style={{
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 'var(--osd-size-hero)',
-            fontWeight: 900,
-            lineHeight: 1.15,
-            letterSpacing: '-0.02em',
-            margin: 0,
+            fontSize: 24,
+            fontWeight: 700,
+            color: muted,
+            letterSpacing: '0.06em',
           }}
         >
-          用 Google Sites
-          <br />
-          <span style={gradText}>打造特教教材共享站</span>
-        </h1>
-      </Rise>
-      <Rise delay={200} style={{ marginTop: 28 }}>
-        <p style={{ fontSize: 40, color: muted, margin: 0, fontWeight: 500 }}>
-          用 AI 整理教材，用 Google Sites 上架
-        </p>
-      </Rise>
-      <Rise
-        delay={300}
-        style={{
-          ...card,
-          marginTop: 56,
-          alignSelf: 'flex-start',
-          borderRadius: 999,
-          padding: '12px 40px 12px 12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 22,
-        }}
-      >
-        <img
-          src={imgHeadshot}
-          alt="講師照片"
-          style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }}
-        />
-        <div>
-          <div style={{ fontSize: 34, fontWeight: 900 }}>米克師 朱旆誼</div>
-          <div style={{ fontSize: 24, color: muted }}>宜蘭縣凱旋國中特教教師 · SPEDMIX</div>
-        </div>
-      </Rise>
-      <Rise delay={380} style={{ marginTop: 28 }}>
-        <span style={{ fontFamily: 'var(--osd-font-display)', fontSize: 28, color: muted }}>
           2026.11.21
         </span>
       </Rise>
+
+      <div>
+        <Rise delay={100}>
+          <h1
+            style={{
+              fontFamily: 'var(--osd-font-display)',
+              fontSize: 98,
+              fontWeight: 900,
+              lineHeight: 1.16,
+              letterSpacing: '-0.025em',
+              margin: 0,
+            }}
+          >
+            把散落的教材與網址
+            <br />
+            <span style={gradText}>整理成找得到的入口站</span>
+          </h1>
+        </Rise>
+        <Rise delay={200} style={{ marginTop: 32 }}>
+          <p style={{ fontSize: 36, color: muted, margin: 0, fontWeight: 500, lineHeight: 1.45 }}>
+            用 AI 打包分類清單 × Google Sites 實作上架
+          </p>
+        </Rise>
+      </div>
+
+      <Rise
+        delay={300}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 28,
+          paddingTop: 28,
+          borderTop: '1px solid rgba(13, 148, 136, 0.18)',
+        }}
+      >
+        <div
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 16,
+            background: gradFill,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 26,
+            fontWeight: 900,
+          }}
+        >
+          米
+        </div>
+        <div>
+          <div style={{ fontSize: 32, fontWeight: 900 }}>米克師 朱旆誼</div>
+          <div style={{ fontSize: 24, color: muted, marginTop: 2 }}>
+            宜蘭縣凱旋國中特教教師 · SPEDMIX
+          </div>
+        </div>
+      </Rise>
     </div>
-    <Rise
-      delay={260}
+
+    <div
       style={{
         position: 'absolute',
-        left: 1120,
-        top: 250,
-        transform: 'rotate(3deg)',
+        left: 1160,
+        right: 120,
+        top: 120,
+        bottom: 110,
+        borderRadius: 40,
+        border: '1px solid rgba(13, 148, 136, 0.14)',
+        backgroundColor: 'rgba(255, 255, 255, 0.52)',
+        backgroundImage: 'radial-gradient(rgba(13, 148, 136, 0.18) 1.5px, transparent 1.5px)',
+        backgroundSize: '28px 28px',
+        padding: 44,
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: 24,
       }}
     >
-      <div style={{ ...card, padding: 14, borderRadius: 28 }}>
-        <img
-          src={imgEmbedPlaced}
-          alt="Google Sites 編輯畫面"
-          style={{ display: 'block', width: 660, borderRadius: 16 }}
-        />
-      </div>
-    </Rise>
+      <Rise delay={180} style={{ ...card, padding: '24px 28px', borderRadius: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 22, fontWeight: 800, color: muted, letterSpacing: '0.06em' }}>
+            01 · 原本散落各處
+          </span>
+          <Icon name="folder_open" size={28} color={muted} />
+        </div>
+        <div style={{ display: 'flex', gap: 12, marginTop: 16, flexWrap: 'wrap' }}>
+          {['雲端資料夾', 'Gem 連結', 'LINE 群組網址'].map((t) => (
+            <span
+              key={t}
+              style={{
+                fontSize: 22,
+                fontWeight: 600,
+                color: muted,
+                background: 'rgba(15, 23, 42, 0.05)',
+                borderRadius: 12,
+                padding: '8px 16px',
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </Rise>
+
+      <Rise
+        delay={280}
+        style={{
+          ...card,
+          padding: '26px 28px',
+          borderRadius: 24,
+          border: '2px solid rgba(13, 148, 136, 0.28)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span
+            style={{
+              fontSize: 22,
+              fontWeight: 800,
+              color: 'var(--osd-accent)',
+              letterSpacing: '0.06em',
+            }}
+          >
+            02 · AI 整理分類入口
+          </span>
+          <Icon name="auto_awesome" size={28} color="var(--osd-accent)" />
+        </div>
+        <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
+          {['全部', '字詞', '句型', '閱讀'].map((t, i) => (
+            <span
+              key={t}
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                color: i === 0 ? '#ffffff' : deep,
+                background: i === 0 ? 'var(--osd-accent)' : 'rgba(13, 148, 136, 0.10)',
+                borderRadius: 999,
+                padding: '6px 16px',
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+        <div
+          style={{
+            marginTop: 14,
+            borderRadius: 14,
+            background: 'rgba(15, 23, 42, 0.04)',
+            padding: '10px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 20,
+            color: muted,
+          }}
+        >
+          <Icon name="search" size={22} color={muted} />
+          搜尋教材名稱或關鍵字…
+        </div>
+      </Rise>
+
+      <Rise
+        delay={380}
+        style={{
+          borderRadius: 24,
+          padding: '26px 28px',
+          background: '#0F172A',
+          color: '#ffffff',
+          boxShadow: '0 24px 48px -24px rgba(15, 23, 42, 0.45)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span
+            style={{
+              fontSize: 22,
+              fontWeight: 800,
+              color: '#5EEAD4',
+              letterSpacing: '0.06em',
+            }}
+          >
+            03 · Google Sites 公開上架
+          </span>
+          <Icon name="check_circle" size={28} color="#5EEAD4" />
+        </div>
+        <div
+          style={{
+            marginTop: 14,
+            fontFamily: 'var(--osd-font-display)',
+            fontSize: 24,
+            fontWeight: 700,
+            color: '#E2E8F0',
+          }}
+        >
+          sites.google.com/view/…
+        </div>
+        <div style={{ marginTop: 6, fontSize: 22, color: '#94A3B8' }}>
+          找得到 · 點得開 · 可持續交接
+        </div>
+      </Rise>
+    </div>
   </Stage>
 );
 
@@ -1303,23 +1519,33 @@ const ExampleSite: Page = () => (
     <div style={{ position: 'absolute', left: 120, top: 340, width: 420 }}>
       <QrCard
         url={exampleUrl}
-        shown="…/view/centralteachers"
+        shown="…/view/centralteachers2"
         label="掃我看範例"
         title="中區聯盟"
         delay={160}
         size={260}
       />
     </div>
-    <Rise
-      delay={240}
-      style={{ position: 'absolute', left: 600, top: 340, width: 1200, height: 600 }}
+    <div
+      style={{
+        position: 'absolute',
+        left: 600,
+        top: 320,
+        width: 1200,
+        height: 620,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
-      <ImagePlaceholder
-        hint="範例站截圖（sites.google.com/view/centralteachers 中區聯盟頁）"
-        width={1200}
-        height={600}
+      <Shot
+        src={imgExampleSite}
+        alt="策略聯盟 AI 研發教材範例站"
+        maxW={1160}
+        maxH={590}
+        delay={240}
       />
-    </Rise>
+    </div>
     <Footer />
   </Stage>
 );
@@ -1419,7 +1645,7 @@ const ListRow = ({
       alignItems: 'center',
       height: 74,
       padding: '0 32px',
-      borderTop: '1px solid rgba(124, 58, 237, 0.08)',
+      borderTop: '1px solid rgba(13, 148, 136, 0.08)',
       fontSize: 30,
     }}
   >
@@ -1575,19 +1801,52 @@ const PromptPage: Page = () => (
   </Stage>
 );
 
+const RouteMetric = ({
+  label,
+  ok,
+  text,
+}: {
+  label: string;
+  ok: 'yes' | 'no' | 'mid';
+  text: string;
+}) => {
+  const color = ok === 'yes' ? '#10B981' : ok === 'no' ? '#EF4444' : coral;
+  const icon = ok === 'yes' ? 'check_circle' : ok === 'no' ? 'cancel' : 'lightbulb';
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+        padding: '18px 20px',
+        borderRadius: 18,
+        background: 'rgba(15, 23, 42, 0.035)',
+      }}
+    >
+      <span style={{ fontSize: 22, fontWeight: 700, color: muted }}>{label}</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Icon name={icon} size={28} color={color} />
+        <span style={{ fontSize: 28, fontWeight: 800, color: 'var(--osd-text)' }}>{text}</span>
+      </div>
+    </div>
+  );
+};
+
 const RouteCard = ({
   icon,
   name,
   badge,
-  flow,
-  good,
+  freeShare,
+  cleanliness,
+  fixedUrl,
   delay,
 }: {
   icon: string;
   name: string;
   badge: string;
-  flow: string;
-  good: string;
+  freeShare: { ok: 'yes' | 'no' | 'mid'; text: string };
+  cleanliness: { ok: 'yes' | 'no' | 'mid'; text: string };
+  fixedUrl: { ok: 'yes' | 'no' | 'mid'; text: string };
   delay: number;
 }) => (
   <Rise
@@ -1595,70 +1854,180 @@ const RouteCard = ({
     style={{
       ...card,
       width: 533,
-      height: 580,
+      height: 620,
       boxSizing: 'border-box',
-      padding: 44,
+      padding: 40,
       display: 'flex',
       flexDirection: 'column',
+      gap: 20,
     }}
   >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-      <Tile icon={icon} size={96} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 22, marginBottom: 4 }}>
+      <Tile icon={icon} size={84} />
       <div>
-        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 40, fontWeight: 900 }}>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 38, fontWeight: 900 }}>
           {name}
         </div>
-        <span style={{ ...pill, display: 'inline-block', marginTop: 8 }}>{badge}</span>
+        <span style={{ ...pill, display: 'inline-block', marginTop: 6 }}>{badge}</span>
       </div>
     </div>
-    <div style={{ fontSize: 34, fontWeight: 900, marginTop: 48, lineHeight: 1.45, color: deep }}>
-      {flow}
-    </div>
-    <div
-      style={{
-        marginTop: 'auto',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 14,
-        fontSize: 30,
-        fontWeight: 700,
-      }}
-    >
-      <Icon name="check_circle" size={38} color="#10B981" />
-      {good}
-    </div>
+    <RouteMetric label="免費版直接公開分享" ok={freeShare.ok} text={freeShare.text} />
+    <RouteMetric label="一鍵生成畫面乾淨度" ok={cleanliness.ok} text={cleanliness.text} />
+    <RouteMetric label="修改後維持同一個網址" ok={fixedUrl.ok} text={fixedUrl.text} />
   </Rise>
 );
 
 const Routes: Page = () => (
   <Stage>
-    <Header tag="三條路" title="用哪個 AI 整理？" />
-    <div style={{ position: 'absolute', left: 120, top: 290, display: 'flex', gap: 40 }}>
+    <Header
+      tag="三種 AI 直接分享連結比較"
+      title="都能生出連結，但差在這三件事"
+      sub="免費能不能用、畫面乾不乾淨、改完網址會不會變"
+    />
+    <div style={{ position: 'absolute', left: 120, top: 300, display: 'flex', gap: 40 }}>
       <RouteCard
-        icon="auto_awesome"
-        name="Gemini"
-        badge="免費、付費都可以"
-        flow="Canvas 做網頁 → 匯出 → Google 協作平台"
-        good="沒付費的老師用這條"
-        delay={160}
+        icon="web"
+        name="ChatGPT"
+        badge="畫面最乾淨 · 第 1 名"
+        freeShare={{ ok: 'no', text: '需付費才能公開分享' }}
+        cleanliness={{ ok: 'yes', text: '最乾淨，像獨立網站' }}
+        fixedUrl={{ ok: 'yes', text: '修改後同連結不變' }}
+        delay={140}
       />
       <RouteCard
         icon="link"
-        name="Claude 付費版"
-        badge="需要付費方案"
-        flow="做好網頁 → 公開分享 → 複製連結"
-        good="連結不變，用說的就更新"
-        delay={260}
+        name="Claude"
+        badge="乾淨度 · 第 2 名"
+        freeShare={{ ok: 'no', text: '需付費才能公開分享' }}
+        cleanliness={{ ok: 'yes', text: '乾淨清爽，體驗佳' }}
+        fixedUrl={{ ok: 'yes', text: '修改後同連結不變' }}
+        delay={240}
       />
       <RouteCard
-        icon="web"
-        name="ChatGPT 付費版"
-        badge="需要付費方案"
-        flow="＋ 選「網站」→ 分享 → 改成公開"
-        good="一句話就生出網站"
-        delay={360}
+        icon="auto_awesome"
+        name="Gemini"
+        badge="唯一免費可公開"
+        freeShare={{ ok: 'yes', text: '免費版就能公開分享' }}
+        cleanliness={{ ok: 'mid', text: '第 3 名，帶工具外框' }}
+        fixedUrl={{ ok: 'no', text: '修改再分享會換網址' }}
+        delay={340}
       />
     </div>
+    <Footer />
+  </Stage>
+);
+
+const BestRoute: Page = () => (
+  <Stage>
+    <Header
+      tag="最佳解法"
+      title="為什麼選 Gemini ＋ Google 協作平台？"
+      sub="兼顧「免費人人可用」、「固定網址」、「畫面乾淨」三件事"
+    />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 320,
+        width: 780,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 28,
+      }}
+    >
+      <Rise delay={140} style={{ ...card, padding: '32px 36px', borderRadius: 28 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <Tile icon="code" size={64} soft />
+          <div>
+            <div style={{ fontSize: 22, fontWeight: 700, color: muted }}>進階方案參考</div>
+            <div style={{ fontSize: 32, fontWeight: 900 }}>GitHub Pages 免費又固定網址</div>
+          </div>
+        </div>
+        <div style={{ fontSize: 28, color: muted, marginTop: 18, lineHeight: 1.5 }}>
+          我自己平常會用 GitHub Pages 發布，但對不熟悉電腦的老師來說，帳號與版控門檻偏高。
+        </div>
+      </Rise>
+
+      <Rise delay={240} style={{ ...card, padding: '32px 36px', borderRadius: 28 }}>
+        <div style={{ fontSize: 28, fontWeight: 900, color: deep, marginBottom: 18 }}>
+          老師們真正需要的入口頁條件
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {[
+            '免費、付費帳號都能直接做',
+            '以後改內容，網址固定不跑掉',
+            '學生點開畫面乾淨、沒有多餘外框',
+          ].map((item) => (
+            <div
+              key={item}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                fontSize: 30,
+                fontWeight: 700,
+              }}
+            >
+              <Icon name="check_circle" size={34} color="#10B981" />
+              {item}
+            </div>
+          ))}
+        </div>
+      </Rise>
+    </div>
+
+    <Rise
+      delay={340}
+      style={{
+        position: 'absolute',
+        left: 950,
+        right: 120,
+        top: 320,
+        height: 560,
+        borderRadius: 36,
+        background: '#0F172A',
+        color: '#ffffff',
+        padding: 52,
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        boxShadow: '0 32px 64px -28px rgba(15, 23, 42, 0.45)',
+      }}
+    >
+      <span
+        style={{
+          alignSelf: 'flex-start',
+          fontSize: 24,
+          fontWeight: 800,
+          color: '#5EEAD4',
+          background: 'rgba(94, 234, 212, 0.14)',
+          borderRadius: 999,
+          padding: '8px 24px',
+        }}
+      >
+        今天工作坊的推薦路線
+      </span>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.3 }}>
+          Gemini Canvas 生成入口頁
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, color: '#5EEAD4' }}>
+          <Icon name="arrow_forward" size={40} color="#5EEAD4" />
+          <span style={{ fontSize: 34, fontWeight: 800 }}>一鍵匯出</span>
+        </div>
+        <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.3 }}>
+          匯入 Google 協作平台發布
+        </div>
+      </div>
+
+      <div style={{ fontSize: 28, color: '#94A3B8', lineHeight: 1.5 }}>
+        免寫程式、網址永久固定、畫面乾淨，
+        <br />
+        有付費 Claude／ChatGPT 也可直接用公開連結。
+      </div>
+    </Rise>
     <Footer />
   </Stage>
 );
@@ -1687,38 +2056,83 @@ const Gemini2: Page = () => (
   />
 );
 
-const ClaudeOrg1: Page = () => (
-  <SkillStep
-    tag="CLAUDE 付費版"
-    n="1"
-    total="3"
-    title="清單丟給 Claude"
-    desc="把同一段咒語和清單貼給 Claude，它直接做出入口網頁。"
-    img={imgClaudeLinks}
-    alt="請 Claude 把網址做成入口"
-    maxW={900}
-  />
+const QuickStepsPage = ({
+  tag,
+  title,
+  steps,
+  visual,
+}: {
+  tag: string;
+  title: string;
+  steps: string[];
+  visual: ReactNode;
+}) => (
+  <Stage>
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 0,
+        bottom: 110,
+        width: 640,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
+      <Rise>
+        <div style={eyebrow}>{tag}</div>
+      </Rise>
+      <Rise delay={80} style={{ marginTop: 18 }}>
+        <h2 style={{ ...h2, fontSize: 64 }}>{title}</h2>
+      </Rise>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 40 }}>
+        {steps.map((s, i) => (
+          <Rise
+            key={s}
+            delay={180 + i * 70}
+            style={{
+              ...card,
+              borderRadius: 22,
+              padding: '18px 24px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 18,
+            }}
+          >
+            <NumBadge n={String(i + 1)} size={48} />
+            <span style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.45 }}>{s}</span>
+          </Rise>
+        ))}
+      </div>
+    </div>
+    <div
+      style={{
+        position: 'absolute',
+        left: 820,
+        right: 120,
+        top: 100,
+        bottom: 110,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {visual}
+    </div>
+    <Footer />
+  </Stage>
 );
 
-const ClaudeOrg2: Page = () => (
-  <SkillStep
-    tag="CLAUDE 付費版"
-    n="2"
-    total="3"
-    title="用說的加分類"
-    desc="說「要有分類功能」，它就依字、詞、句、篇章分好，還加上搜尋框。"
-    img={imgClaudeCategory}
-    alt="請 Claude 加上分類功能"
-  />
-);
-
-const ClaudeOrg3: Page = () => (
-  <SkillStep
-    tag="CLAUDE 付費版"
-    n="3"
-    total="3"
-    title="直接分享連結"
-    desc="按「匯出」選公開分享連結、複製連結。之後改完說「確認更新公開網頁」，同一個連結就是新版。"
+const ClaudeOrg: Page = () => (
+  <QuickStepsPage
+    tag="CLAUDE 付費版 · 補充"
+    title="Claude 怎麼生成網址？"
+    steps={[
+      '貼上同一段咒語和清單，請它加上分類與搜尋框',
+      '按「匯出」→ 選「公開分享連結」並複製',
+      '之後改完說「確認更新公開網頁」，同一個連結不變',
+    ]}
     visual={
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
         <Shot
@@ -1728,44 +2142,21 @@ const ClaudeOrg3: Page = () => (
           maxH={330}
           delay={220}
         />
-        <Shot src={imgClaudeUpdate} alt="確認更新公開網頁" maxW={980} maxH={330} delay={340} />
+        <Shot src={imgClaudeUpdate} alt="確認更新公開網頁" maxW={960} maxH={330} delay={340} />
       </div>
     }
   />
 );
 
-const Gpt1: Page = () => (
-  <SkillStep
-    tag="CHATGPT 付費版"
-    n="1"
-    total="3"
-    title="選「網站」，貼咒語"
-    desc="新對話按 ＋ 選「網站」（或輸入 @Sites），再貼上同一段咒語和清單。"
-    img={imgGptMenu}
-    alt="ChatGPT ＋ 選單裡的網站"
-    maxW={900}
-  />
-);
-
-const Gpt2: Page = () => (
-  <SkillStep
-    tag="CHATGPT 付費版"
-    n="2"
-    total="3"
-    title="網站直接做好"
-    desc="右邊馬上出現網站。想改就按「要求修改」，或直接用說的。"
-    img={imgGptBuilt}
-    alt="ChatGPT 做好的策略聯盟網站"
-  />
-);
-
-const Gpt3: Page = () => (
-  <SkillStep
-    tag="CHATGPT 付費版"
-    n="3"
-    total="3"
-    title="分享 → 改成公開"
-    desc="按右上「分享」，連結存取權限改成「公開」，再按「複製連結」。"
+const GptSite: Page = () => (
+  <QuickStepsPage
+    tag="CHATGPT 付費版 · 補充"
+    title="ChatGPT 怎麼生成網址？"
+    steps={[
+      '新對話按 ＋ 選「網站」（或輸入 @Sites），貼咒語和清單',
+      '右邊直接生出網站，想改用說的或按「要求修改」',
+      '按右上「分享」→ 權限改成「公開」→ 複製連結',
+    ]}
     visual={
       <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
         <Shot
@@ -1816,7 +2207,7 @@ const WhatSites: Page = () => (
     />
     <div style={{ position: 'absolute', left: 120, top: 400, display: 'flex', gap: 48 }}>
       <FeatureChip icon="money_off" title="免費" delay={160} />
-      <FeatureChip icon="touch_app" title="拖拉就好，不用寫程式" delay={220} />
+      <FeatureChip icon="touch_app" title="拖拉就好" delay={220} />
       <FeatureChip icon="cloud" title="直接放雲端檔案" delay={280} />
       <FeatureChip icon="devices" title="手機電腦都能看" delay={340} />
     </div>
@@ -2172,11 +2563,11 @@ const DocsVideo: Page = () => (
           justifyContent: 'center',
           gap: 14,
           fontSize: 28,
-          color: pink,
+          color: coral,
           fontWeight: 700,
         }}
       >
-        <Icon name="lightbulb" size={34} color={pink} />
+        <Icon name="lightbulb" size={34} color={coral} />
         雲端檔案記得改成「知道連結的任何人都能檢視」
       </div>
     </Rise>
@@ -2340,41 +2731,29 @@ const Publish: Page = () => (
 
 const PracticeSites: Page = () => (
   <Stage>
-    <Header tag="實作 · 15 分鐘" title="做出你的教材頁" />
+    <Header tag="實作 · 15 分鐘" title="做出你的入口網頁" />
     <div
       style={{
         position: 'absolute',
         left: 120,
-        top: 270,
+        top: 300,
         width: 1080,
         display: 'flex',
         flexDirection: 'column',
-        gap: 10,
+        gap: 24,
       }}
     >
-      <StepRow n="1" delay={100} size={32} height={78}>
-        咒語＋清單貼給 Gemini
+      <StepRow n="1" delay={100} size={36} height={112}>
+        整理自己手邊的網址清單
       </StepRow>
-      <StepRow n="2" delay={140} size={32} height={78}>
+      <StepRow n="2" delay={180} size={36} height={112}>
+        貼上咒語＋清單，請 Gemini 整理成「入口網頁」
+      </StepRow>
+      <StepRow n="3" delay={260} size={36} height={112}>
         再說一句：「要有分類功能」
       </StepRow>
-      <StepRow n="3" delay={180} size={32} height={78}>
+      <StepRow n="4" delay={340} size={36} height={112}>
         匯出 → Google 協作平台
-      </StepRow>
-      <StepRow n="4" delay={220} size={32} height={78}>
-        改網站名稱和橫幅標題
-      </StepRow>
-      <StepRow n="5" delay={260} size={32} height={78}>
-        新增頁面：放一份自己的教材
-      </StepRow>
-      <StepRow n="6" delay={300} size={32} height={78}>
-        換主題、調整版面
-      </StepRow>
-      <StepRow n="7" delay={340} size={32} height={78}>
-        加一個按鈕連到工具
-      </StepRow>
-      <StepRow n="8" delay={380} size={32} height={78}>
-        預覽 → 發布 → 網址貼到群組
       </StepRow>
     </div>
     <Rise
@@ -2592,7 +2971,7 @@ const CompareRow = ({
         fontSize: 32,
         fontWeight: 700,
         color: deep,
-        border: '2px solid rgba(124, 58, 237, 0.35)',
+        border: '2px solid rgba(13, 148, 136, 0.35)',
       }}
     >
       {skill}
@@ -2869,7 +3248,7 @@ const MapRow = ({
         display: 'flex',
         alignItems: 'center',
         gap: 16,
-        border: '2px solid rgba(124, 58, 237, 0.35)',
+        border: '2px solid rgba(13, 148, 136, 0.35)',
       }}
     >
       <span
@@ -3094,7 +3473,7 @@ const ToolChinese: Page = () => (
 const ToolMath: Page = () => (
   <ToolPage
     tag="數學 · 學習單"
-    title="數學階梯鷹架學習單"
+    title="數學簡化學習單"
     img={imgMathConcept}
     href={urls.mathScaffold}
   >
@@ -3113,18 +3492,18 @@ const ToolMath: Page = () => (
 const ToolEnglish: Page = () => (
   <ToolPage
     tag="英文 · 學習單"
-    title="英文資源班學習單"
-    img={imgEnglish}
-    href={urls.specialEdEnglish}
+    title="英文文法學習單"
+    img={imgEnglishGrammar}
+    href={urls.englishGrammar}
   >
     <Point n="1" delay={200}>
-      情境分鏡故事連環圖
+      先給文法重點，再開始練習
     </Point>
     <Point n="2" delay={260}>
-      英文字母四線格練寫
+      圈選、填充、重組到造句八種題型
     </Point>
     <Point n="3" delay={320}>
-      圖文重點單字檢核
+      由易到難自由搭配，一鍵列印
     </Point>
   </ToolPage>
 );
@@ -3266,11 +3645,12 @@ const Thanks: Page = () => (
 );
 
 export const meta: SlideMeta = {
-  title: '用 Google Sites 打造特教教材共享站（AI 整理版）',
+  title: '把散落的教材與網址整理成入口站：AI 整理 × Google Sites 上架',
   createdAt: '2026-11-13T12:30:07.004Z',
 };
 
 export default [
+  WorkshopEntry,
   Cover,
   Agenda,
   Speaker,
@@ -3282,17 +3662,15 @@ export default [
   ExampleSite,
   Takeaway,
   Part1,
+  Routes,
+  ClaudeOrg,
+  GptSite,
+  BestRoute,
   MaterialList,
   PromptPage,
-  Routes,
   Gemini1,
   Gemini2,
-  ClaudeOrg1,
-  ClaudeOrg2,
-  ClaudeOrg3,
-  Gpt1,
-  Gpt2,
-  Gpt3,
+  PracticeSites,
   WhatSites,
   TwoPaths,
   EditorTour,
@@ -3309,7 +3687,6 @@ export default [
   Embed2,
   SmallFeatures,
   Publish,
-  PracticeSites,
   Troubleshoot,
   Break,
   Part2,
@@ -3325,8 +3702,8 @@ export default [
   Part3,
   PrepEntry,
   ToolChinese,
-  ToolMath,
   ToolEnglish,
+  ToolMath,
   ToolUnscramble,
   ToolStepMath,
   Sharing,
@@ -3335,131 +3712,52 @@ export default [
 ] satisfies Page[];
 
 export const notes: (string | undefined)[] = [
-  // Cover
+  `請大家先搜尋「米克師」，點右上角的「研習簡報」，輸入「中區聯盟」就能直接看到今天的簡報。`,
   `大家午安，我是米克師朱旆誼，在宜蘭凱旋國中當特教老師。
 今天是實作工作坊，下午結束時，每個人都會帶走一個自己的教材頁。
 提醒：請先登入 Google 帳號，並打開 Gemini。`,
-  // Agenda
   `今天分三段：先做 Google Sites，休息後做 skill，最後介紹我做的 AI 備課幫手工具。
 Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
-  // Speaker
   `簡單自我介紹：特教背景，也念資訊。
 現在在凱旋國中資源班，平常把 AI 用在備課、做教材。`,
-  // SocialLinks
   `我的教材和工具都會在這三個社群發布，歡迎追蹤。`,
-  // MixerSites
   `這是我自己維護的三個網站：備課、共享、學生練習。
 今天最後一段會用到「AI 備課幫手」。`,
-  // FiveGems
   `去年社群的老師們各自用 Gem 做了 5 個通用設計國語文機器人：生字、語詞、句型、句子、課文閱讀理解。
 機器人做得很好，但問題來了：做出來的教材，放在哪裡？`,
-  // Mess
   `大家應該很有感：檔案在某個人的雲端、檔名看不出內容、LINE 群組要一直往上滑、版本一堆。
 停一下，問大家：你最常在哪裡找教材？`,
-  // WhyPublish
   `所以要整理、要上架。三個理由：
 找得到：一個網址就是入口。
 拿得到：點開就能用，不用再要權限。
 用得久：有固定位置，之後由舊生接手維護和上架，教材就不會斷掉。`,
-  // ExampleSite
   `先看完成的樣子：中區聯盟範例站。
 這一頁是我請 AI 整理成入口網頁，再放上 Google Sites 的。
 （打開範例站，點分類按鈕和搜尋框給大家看。請大家掃 QR code 一起看。）`,
-  // Takeaway
   `今天的兩個成果：一個自己的教材頁、一個能用的 skill。
 接下來先做第一個。`,
-  // Part1
   `PART 1：Google Sites。先示範，再給大家 15 分鐘實作。`,
-  // MaterialList
+  `三種 AI 其實都能直接生出公開連結，但有三個關鍵差異：
+第一，以免費版來說，只有 Gemini 能直接做出公開分享的連結，Claude 和 ChatGPT 都需要付費版。
+第二，比一鍵生成出來的畫面乾淨度，ChatGPT 最乾淨，再來是 Claude，最後是 Gemini。
+第三，如果之後修改網站內容，Claude 和 ChatGPT 都可以維持同一個連結不變；但 Gemini 修改功能後再分享，連結會改變，比較不適合當作需要固定網址的入口頁。`,
+  `補充給有付費 Claude 的老師：把同一段咒語和清單貼給 Claude，用說的加分類，按「匯出」選公開分享連結就能直接用。
+之後改內容只要說「確認更新公開網頁」，同一個連結打開就是新版。不過今天實作主軸還是帶大家做出自己的 Google Sites。`,
+  `補充給有付費 ChatGPT 的老師：新對話按 ＋ 選「網站」（或輸入 @Sites），貼上同一段咒語和清單就會直接生出網站。
+按右上「分享」把存取權限改成「公開」就能複製連結，也可以掃右邊 QR code 看看 GPT 版範例。`,
+  `講到免費又固定網址的發布空間，我自己平常會用 GitHub Pages，但對不熟悉電腦的老師來說，入門門檻太高了。
+所以為了讓不管有沒有付費的老師都能用、網址固定不變、畫面又乾淨，這裡我會選擇用 Gemini Canvas 生成入口頁，再透過它內建的匯出功能，一鍵匯入 Google 協作平台發布。
+（有付費 Claude 或 ChatGPT 的老師，也可以直接用它們的公開連結。）`,
   `上架前先整理成一張清單：編號、名稱、網址、研發單位。
 這是策略聯盟的 7 個工具，今天就用它來示範。
 清單整理好，後面整份貼給 Claude 就好。`,
-  // PromptPage
   `這就是我用的咒語：清單前面加一句「新增一個專案叫…，把以下網址做成入口」，整份貼上去。
 做好後再說一句「要有分類功能」，它就會依字、詞、句、篇章分好，還加上搜尋框。
 這段咒語 Gemini 和 Claude 都能用。`,
-  // Routes
-  `那要用哪個 AI？看你有沒有付費：
-完全沒付費的老師，用 Gemini，免費、付費都可以，做好直接匯出到 Google 協作平台。
-有付費 Claude 的老師，可以直接公開分享連結，之後用說的就更新，連結都不變。
-有付費 ChatGPT 的老師，用「網站」功能，一句話就生出網站，一樣能公開分享。
-今天實作以 Gemini 為主。`,
-  // Gemini1
   `Gemini 的做法：把咒語和清單貼上，Canvas 會做出入口網頁。
 右上角「匯出」選「Google 協作平台」。`,
-  // Gemini2
   `按下去就直接進到 Google 協作平台，網頁已經放好了。
 改網站名稱，按右上「發布」就上線，接下來就是剛剛講的 Google Sites 操作。`,
-  // ClaudeOrg1
-  `有付費 Claude 的老師：同一段咒語和清單貼給 Claude，它會直接做出入口網頁。`,
-  // ClaudeOrg2
-  `一樣用說的加功能：「要有分類功能」。`,
-  // ClaudeOrg3
-  `付費版最方便的地方：按匯出選公開分享連結，確認「任何人都可以開啟此連結」，複製連結就能分享，不用經過 Google Sites。
-之後改內容，說「確認更新公開網頁」，同一個連結打開就是新版。`,
-  // Gpt1
-  `有付費 ChatGPT 的老師：新對話按 ＋，選「網站」，或直接輸入 @Sites，再貼上同一段咒語和清單。`,
-  // Gpt2
-  `右邊會直接出現做好的網站。要改就按上方「要求修改」，或在左邊用說的。`,
-  // Gpt3
-  `分享：按右上「分享」，連結存取權限從「只有我」改成「公開」，再複製連結。
-這是我做的 GPT 版範例，大家可以掃 QR code 看看，跟 Gemini、Claude 做的比一比。`,
-  // WhatSites
-  `Google Sites 是 Google 的免費建站工具，用學校帳號就能用。
-操作像在排簡報，拖拉就好，也能直接放雲端檔案。
-請大家現在打開 sites.google.com。`,
-  // TwoPaths
-  `進來會看到上方的範本，和左邊的空白網站。
-範本套了就有版面；空白網站從零開始。
-今天示範從空白開始，這樣每個功能都會看到。`,
-  // EditorTour
-  `進到編輯畫面，右邊面板有三個分頁：插入、頁面、主題。
-今天的操作幾乎都在這三個分頁裡。`,
-  // Banner
-  `最上面的橫幅是網站門面。點標題直接打字，工具列可以調字級和字型。
-滑過橫幅可以換背景圖。`,
-  // NameLogo
-  `左上角是網站名稱，這是訪客看到的名字；檔案名稱是另一個。
-滑過去會出現「新增標誌」，可以放學校或社群 Logo。`,
-  // Settings
-  `右上齒輪是設定，裡面有幾個實用功能：
-導覽可以選選單放上方或側邊；品牌圖片放標誌和網站小圖示；
-檢視者工具可以顯示最後更新時間；公告橫幅適合放重要通知。
-自訂網域和分析知道有就好，今天不用設。`,
-  // ThemePage
-  `主題分頁可以一鍵換風格。選一個主題，再用下方圓點換配色，字型樣式換字體。
-建議先選主題再放內容。`,
-  // Pages
-  `頁面分頁右下角按 ＋，新增頁面，打名稱。
-頁面會自動出現在上方選單。拖曳可以排順序，拉進另一頁底下就變子頁面。`,
-  // FabMenu
-  `＋ 按鈕其實有四個選項：
-新增頁面是一般頁；新增連結可以讓選單直接連到外部網址，例如 Gem；
-整頁嵌入是整頁放一個網頁；新增選單專區把多頁收成一組下拉選單。`,
-  // ContentBlocks
-  `插入分頁下面的內容區塊是我最推薦的功能：點一下，版面就排好了。
-再點 ＋ 放圖片或檔案。往下還有可收合群組和目錄。`,
-  // DocsVideo
-  `放文件：插入 → 雲端硬碟 → 選檔案。放影片：插入 → YouTube。
-最重要的提醒：雲端檔案的共用設定要改成「知道連結的任何人都能檢視」，不然別人打不開。
-（截圖待補，可直接現場示範。）`,
-  // ButtonPage
-  `按鈕很適合連到 Gem、表單或工具。名稱寫清楚，例如「開啟生字機器人」。`,
-  // Embed1
-  `內嵌是 Google Sites 的精華：插入 → 內嵌 → 嵌入程式碼，貼上整份 HTML。
-例如用 Gemini Canvas 做的互動遊戲，複製程式碼貼進來就好。`,
-  // Embed2
-  `按下一個會先預覽，確認沒問題再插入。插入後拉角落調整大小。
-學生在網站上就能直接玩，不用另外開連結。`,
-  // SmallFeatures
-  `快速帶過其他小功能：可收合群組適合放長的說明；目錄自動抓標題；
-公告橫幅放重要通知；最後更新時間讓大家知道內容新不新；右上角的裝置圖示可以看手機版。`,
-  // Publish
-  `做好先預覽，切手機、平板、電腦看看。
-右上角發布，設定網址和誰可以看。
-最常見的錯：改完內容忘記再按發布，別人看到的還是舊版。
-（截圖待補，可現場示範發布視窗。）`,
-  // PracticeSites
   `實作 15 分鐘。這頁會一直留在螢幕上，照步驟做。
 按播放鍵開始倒數。
 沒有自己清單的老師，可以先用策略聯盟這 7 個網址練習。
@@ -3467,60 +3765,77 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 提醒：先做出一頁就好，不求完美。
 做完把網址貼到群組，最後成果分享會用到。
 （巡場看大家卡在哪一步。）`,
-  // Troubleshoot
+  `Google Sites 是 Google 的免費建站工具，用學校帳號就能用。
+操作像在排簡報，拖拉就好，也能直接放雲端檔案。
+請大家現在打開 sites.google.com。`,
+  `進來會看到上方的範本，和左邊的空白網站。
+範本套了就有版面；空白網站從零開始。
+今天示範從空白開始，這樣每個功能都會看到。`,
+  `進到編輯畫面，右邊面板有三個分頁：插入、頁面、主題。
+今天的操作幾乎都在這三個分頁裡。`,
+  `最上面的橫幅是網站門面。點標題直接打字，工具列可以調字級和字型。
+滑過橫幅可以換背景圖。`,
+  `左上角是網站名稱，這是訪客看到的名字；檔案名稱是另一個。
+滑過去會出現「新增標誌」，可以放學校或社群 Logo。`,
+  `右上齒輪是設定，裡面有幾個實用功能：
+導覽可以選選單放上方或側邊；品牌圖片放標誌和網站小圖示；
+檢視者工具可以顯示最後更新時間；公告橫幅適合放重要通知。
+自訂網域和分析知道有就好，今天不用設。`,
+  `主題分頁可以一鍵換風格。選一個主題，再用下方圓點換配色，字型樣式換字體。
+建議先選主題再放內容。`,
+  `頁面分頁右下角按 ＋，新增頁面，打名稱。
+頁面會自動出現在上方選單。拖曳可以排順序，拉進另一頁底下就變子頁面。`,
+  `＋ 按鈕其實有四個選項：
+新增頁面是一般頁；新增連結可以讓選單直接連到外部網址，例如 Gem；
+整頁嵌入是整頁放一個網頁；新增選單專區把多頁收成一組下拉選單。`,
+  `插入分頁下面的內容區塊是我最推薦的功能：點一下，版面就排好了。
+再點 ＋ 放圖片或檔案。往下還有可收合群組和目錄。`,
+  `放文件：插入 → 雲端硬碟 → 選檔案。放影片：插入 → YouTube。
+最重要的提醒：雲端檔案的共用設定要改成「知道連結的任何人都能檢視」，不然別人打不開。
+（截圖待補，可直接現場示範。）`,
+  `按鈕很適合連到 Gem、表單或工具。名稱寫清楚，例如「開啟生字機器人」。`,
+  `內嵌是 Google Sites 的精華：插入 → 內嵌 → 嵌入程式碼，貼上整份 HTML。
+例如用 Gemini Canvas 做的互動遊戲，複製程式碼貼進來就好。`,
+  `按下一個會先預覽，確認沒問題再插入。插入後拉角落調整大小。
+學生在網站上就能直接玩，不用另外開連結。`,
+  `快速帶過其他小功能：可收合群組適合放長的說明；目錄自動抓標題；
+公告橫幅放重要通知；最後更新時間讓大家知道內容新不新；右上角的裝置圖示可以看手機版。`,
+  `做好先預覽，切手機、平板、電腦看看。
+右上角發布，設定網址和誰可以看。
+最常見的錯：改完內容忘記再按發布，別人看到的還是舊版。
+（截圖待補，可現場示範發布視窗。）`,
   `巡場時最常遇到這三個狀況：檔案打不開是共用權限；內嵌空白是對方網站不給嵌，改用按鈕；
 看不到新內容是忘記發布。`,
-  // Break
   `休息 10 分鐘。回來做 skill，請先打開 Gemini。`,
-  // Part2
   `PART 2：Skills。目標是讓社群的 5 個機器人延續下去。`,
-  // WhatSkill
   `Skill 就是把一整段備課流程打包起來。
 例如我做的 classical-chinese-prep：丟一篇文言文，一次就拿到 Word 對照講義和互動遊戲。`,
-  // GemVsSkill
   `和 Gem 的差別：Gem 要從側欄點開，是一個固定角色在陪你對話；
 Skill 在任何對話打 @ 就能叫出來，能串好幾個步驟，一次產出好幾樣。
 最大的不同是做法：Gem 要自己寫一大段指令；Skill 是先做一次，再請 AI 幫你打包。
 （依現場 Gemini 介面實際狀況調整說法。）`,
-  // Skill1
   `示範第一步：先正常備課。我貼了〈愛蓮說〉，請它做白話對照版，輸出 Word。`,
-  // Skill2
   `第二步：接著請它做互動遊戲，目標是學生精熟這些翻譯。`,
-  // Skill3
   `第三步：滿意了，就請它把剛剛的流程做成 skill。
 它會幫你取名、寫好說明，並且啟用。`,
-  // Skill4
   `第四步：開新對話，輸入 @，在「技能」裡就看得到剛做好的 skill。`,
-  // Skill5
   `第五步：測試。換一篇〈登鸛雀樓〉，看它是不是照流程一次做完。
 不滿意的地方，就請它修改 skill。`,
-  // PracticeSkill
   `換大家做。用你們社群的 Gem，或你平常的備課方式，先做一次，再打包成 skill。
 右邊這段話可以直接照打。
 提醒：一定要開新對話用 @ 測試，才知道 skill 有沒有成功。`,
-  // FiveSkills
   `社群的 5 個機器人，都可以用同樣方式變成 5 個 skill。
 之後由舊生負責維護，教材做好就上架到共享站。`,
-  // Part3
   `PART 3：介紹我自己做的 AI 備課幫手。時間夠的話多講幾個工具。`,
-  // PrepEntry
   `AI 備課幫手是一個網址，所有工具都在裡面，免安裝。
 請大家掃 QR code 打開，等一下可以邊看邊試。`,
-  // ToolChinese
   `國文課堂學習單：原文與易讀版雙軌對照，加田字格、段落摘要和隨段檢核。`,
-  // ToolMath
-  `數學階梯鷹架學習單：輸入題型或貼課本截圖，先講概念再拆例題，可以一鍵 A4 列印。`,
-  // ToolEnglish
-  `英文資源班學習單：用分鏡故事帶單字，搭配四線格練寫。`,
-  // ToolUnscramble
+  `英文文法學習單：先給文法重點，再從圈選、填充、重組到造句八種題型由易到難自由搭配，一鍵列印。`,
+  `數學簡化學習單：輸入題型或貼課本截圖，先講概念再拆例題，可以一鍵 A4 列印。`,
   `句型重組：學生點卡片排句子，有語音朗讀，適合書寫困難的學生。
 這種互動網頁也可以用剛剛學的內嵌，放進你的 Google Sites。`,
-  // ToolStepMath
   `互動步驟數學：把解題拆成小步驟，每一步即時回饋。`,
-  // Sharing
   `成果分享：打開你的教材頁，每人一分鐘，回答這三個問題。`,
-  // Resources
   `今天用到的連結都在這裡，可以拍照或掃 QR code。`,
-  // Thanks
   `謝謝大家。你們今天做的教材頁，就是共享站的第一頁。`,
 ];
