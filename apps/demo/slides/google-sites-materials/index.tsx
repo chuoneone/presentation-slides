@@ -37,13 +37,14 @@ import imgMathConcept from './assets/math-ebook-concept.webp';
 import imgSettingsBrand from './assets/settings-brand.png';
 import imgSiteNameLogo from './assets/site-name-logo.png';
 import imgSitesHome from './assets/sites-home.png';
-import imgSkillAt from './assets/skill-at.png';
-import imgSkillChatWord from './assets/skill-chat-word.png';
-import imgSkillGame from './assets/skill-game.png';
-import imgSkillMake from './assets/skill-make.png';
-import imgSkillTest from './assets/skill-test.png';
 import imgTheme from './assets/theme.png';
 import imgUnscramble from './assets/unscramble.webp';
+import imgVocabAsk from './assets/vocab-ask.png';
+import imgVocabAt from './assets/vocab-at.png';
+import imgVocabMakeSkill from './assets/vocab-make-skill.png';
+import imgVocabResult from './assets/vocab-result.png';
+import imgVocabTest from './assets/vocab-test.png';
+import imgVocabWord from './assets/vocab-word.png';
 
 export const design: DesignSystem = {
   palette: { bg: '#F8FAFC', text: '#0F172A', accent: '#0D9488' },
@@ -2917,17 +2918,17 @@ const WhatSkill: Page = () => (
         gap: 40,
       }}
     >
-      <FlowBox label="你丟進去" title="一篇文言文" delay={160} />
+      <FlowBox label="你丟進去" title="一組詞語" delay={160} />
       <Arrow delay={240} />
-      <FlowBox label="@ 技能" title="classical-chinese-prep" delay={320} strong />
+      <FlowBox label="@ 技能" title="vocab-fill-in-worksheet" delay={320} strong />
       <Arrow delay={400} />
       <FlowBox
         label="一次拿到"
         title={
           <>
-            Word 對照講義
+            句型填空
             <br />
-            ＋互動遊戲
+            Word 練習卷
           </>
         }
         delay={480}
@@ -3093,20 +3094,20 @@ const SkillStep = ({
 const Skill1: Page = () => (
   <SkillStep
     n="1"
-    title="先正常備課一次"
-    desc="貼一篇文言文，請 Gemini 做白話對照，輸出 Word。"
-    img={imgSkillChatWord}
-    alt="請 Gemini 做白話對照 Word"
+    title="先正常做一次"
+    desc="請 Gemini 把詞語做成句型填空練習卷，再貼上詞語和詞義。"
+    img={imgVocabAsk}
+    alt="請 Gemini 做句型填空練習卷"
   />
 );
 
 const Skill2: Page = () => (
   <SkillStep
     n="2"
-    title="再加一步：互動遊戲"
-    desc="接著請它做精熟練習網頁，讓學生把翻譯練熟。"
-    img={imgSkillGame}
-    alt="請 Gemini 做互動遊戲"
+    title="說「我要 Word 檔」"
+    desc="它直接做出 A4 直式的練習卷，有詞語提示框，可以匯出成 Word。"
+    img={imgVocabWord}
+    alt="詞語句型填空練習卷 Word 檔"
   />
 );
 
@@ -3114,8 +3115,8 @@ const Skill3: Page = () => (
   <SkillStep
     n="3"
     title="請它做成 skill"
-    desc="「把這個備課流程做成 skill，以後丟文言文就給我 Word＋遊戲。」"
-    img={imgSkillMake}
+    desc="說「把這個功能做成 skill」，它會建好 vocab-fill-in-worksheet。"
+    img={imgVocabMakeSkill}
     alt="請 Gemini 做成 skill"
   />
 );
@@ -3125,7 +3126,7 @@ const Skill4: Page = () => (
     n="4"
     title="打 @ 叫出技能"
     desc="開新對話輸入 @，在「技能」裡就找得到它。"
-    img={imgSkillAt}
+    img={imgVocabAt}
     alt="輸入 @ 找到技能"
   />
 );
@@ -3133,10 +3134,14 @@ const Skill4: Page = () => (
 const Skill5: Page = () => (
   <SkillStep
     n="5"
-    title="丟一篇新文本測試"
-    desc="換成〈登鸛雀樓〉，看它是不是一次就照流程做完。"
-    img={imgSkillTest}
-    alt="用新文本測試 skill"
+    title="丟一組新詞語測試"
+    desc="@ 技能後貼上新詞語：自律、勇敢、溫柔、堅持、熱愛，一次就做出練習卷。"
+    visual={
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+        <Shot src={imgVocabTest} alt="@ 技能貼上新詞語" maxW={760} maxH={300} delay={220} />
+        <Shot src={imgVocabResult} alt="新詞語做出的練習卷" maxW={980} maxH={360} delay={340} />
+      </div>
+    }
   />
 );
 
@@ -3809,17 +3814,17 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `休息 10 分鐘。回來做 skill，請先打開 Gemini。`,
   `PART 2：Skills。目標是讓社群的 5 個機器人延續下去。`,
   `Skill 就是把一整段備課流程打包起來。
-例如我做的 classical-chinese-prep：丟一篇文言文，一次就拿到 Word 對照講義和互動遊戲。`,
+例如我做的 vocab-fill-in-worksheet：丟一組詞語，一次就拿到句型填空 Word 練習卷。`,
   `和 Gem 的差別：Gem 要從側欄點開，是一個固定角色在陪你對話；
 Skill 在任何對話打 @ 就能叫出來，能串好幾個步驟，一次產出好幾樣。
 最大的不同是做法：Gem 要自己寫一大段指令；Skill 是先做一次，再請 AI 幫你打包。
 （依現場 Gemini 介面實際狀況調整說法。）`,
-  `示範第一步：先正常備課。我貼了〈愛蓮說〉，請它做白話對照版，輸出 Word。`,
-  `第二步：接著請它做互動遊戲，目標是學生精熟這些翻譯。`,
-  `第三步：滿意了，就請它把剛剛的流程做成 skill。
-它會幫你取名、寫好說明，並且啟用。`,
+  `示範第一步：先正常做一次。我請 Gemini 把詞語做成句型填空練習卷，再貼上微光、拾光、川流、安然、餘白和詞義。`,
+  `第二步：說「我要 Word 檔」。它做出 A4 直式的練習卷，上面有詞語提示框，下面是句型填空，可以匯出成 Word。`,
+  `第三步：滿意了，就說「把這個功能做成 skill」。
+它會取名 vocab-fill-in-worksheet，寫好說明並儲存：以後貼詞語，就會產出第 1 頁學生卷、第 2 頁教師解答。`,
   `第四步：開新對話，輸入 @，在「技能」裡就看得到剛做好的 skill。`,
-  `第五步：測試。換一篇〈登鸛雀樓〉，看它是不是照流程一次做完。
+  `第五步：測試。@ 技能後換一組新詞語：自律、勇敢、溫柔、堅持、熱愛，看它是不是一次就做出練習卷。
 不滿意的地方，就請它修改 skill。`,
   `換大家做。用你們社群的 Gem，或你平常的備課方式，先做一次，再打包成 skill。
 右邊這段話可以直接照打。
