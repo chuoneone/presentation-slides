@@ -4,7 +4,6 @@ import imgMixerShare from '@assets/mixer-share.webp';
 import imgMixerTeaching from '@assets/mixer-teaching.webp';
 import {
   type DesignSystem,
-  ImagePlaceholder,
   type Page,
   type SlideMeta,
   type SlideTransition,
@@ -34,10 +33,12 @@ import imgInsertButton from './assets/insert-button.png';
 import imgInsertPanel from './assets/insert-panel.png';
 import imgStepMath from './assets/interactive-step-math.webp';
 import imgMathConcept from './assets/math-ebook-concept.webp';
+import imgPublishDialog from './assets/publish-dialog.jpg';
 import imgSettingsBrand from './assets/settings-brand.png';
 import imgSiteNameLogo from './assets/site-name-logo.png';
 import imgSitesHome from './assets/sites-home.png';
 import imgTheme from './assets/theme.png';
+import imgToolbarPreview from './assets/toolbar-preview.png';
 import imgUnscramble from './assets/unscramble.webp';
 import imgVocabAsk from './assets/vocab-ask.png';
 import imgVocabAt from './assets/vocab-at.png';
@@ -2515,67 +2516,6 @@ const ContentBlocks: Page = () => (
   </Stage>
 );
 
-const DocCol = ({
-  icon,
-  title,
-  hint,
-  path,
-  delay,
-}: {
-  icon: string;
-  title: string;
-  hint: string;
-  path: string;
-  delay: number;
-}) => (
-  <Rise delay={delay} style={{ width: 816, display: 'flex', flexDirection: 'column', gap: 24 }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-      <Tile icon={icon} size={72} />
-      <span style={{ fontSize: 44, fontWeight: 900 }}>{title}</span>
-    </div>
-    <ImagePlaceholder hint={hint} width={816} height={400} />
-    <div style={{ fontSize: 30, fontWeight: 700, color: deep }}>{path}</div>
-  </Rise>
-);
-
-const DocsVideo: Page = () => (
-  <Stage>
-    <Header tag="插入" title="放文件和影片" />
-    <div style={{ position: 'absolute', left: 120, top: 280, display: 'flex', gap: 48 }}>
-      <DocCol
-        icon="description"
-        title="雲端文件"
-        hint="插入 → 雲端硬碟，選取學習單檔案的畫面"
-        path="插入 → 雲端硬碟 → 選檔案"
-        delay={160}
-      />
-      <DocCol
-        icon="play_arrow"
-        title="YouTube 影片"
-        hint="插入 → YouTube，搜尋或貼上影片網址的畫面"
-        path="插入 → YouTube → 搜尋或貼網址"
-        delay={260}
-      />
-    </div>
-    <Rise delay={420} style={{ position: 'absolute', left: 120, right: 120, top: 900 }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 14,
-          fontSize: 28,
-          color: coral,
-          fontWeight: 700,
-        }}
-      >
-        <Icon name="lightbulb" size={34} color={coral} />
-        雲端檔案記得改成「知道連結的任何人都能檢視」
-      </div>
-    </Rise>
-    <Footer />
-  </Stage>
-);
-
 const ButtonPage: Page = () => (
   <ScreenPage
     tag="插入"
@@ -2705,13 +2645,10 @@ const Publish: Page = () => (
     title="預覽，再發布"
     leftWidth={760}
     visual={
-      <Rise delay={200}>
-        <ImagePlaceholder
-          hint="「發布到網路」視窗截圖（網址 centralteachers、誰可以查看：所有人）"
-          width={900}
-          height={600}
-        />
-      </Rise>
+      <>
+        <Shot src={imgToolbarPreview} alt="工具列預覽按鈕" maxW={820} maxH={160} delay={180} />
+        <Shot src={imgPublishDialog} alt="發布到網路設定視窗" maxW={820} maxH={460} delay={260} />
+      </>
     }
   >
     <StepRow n="1" delay={160}>
@@ -3686,7 +3623,6 @@ export default [
   Pages,
   FabMenu,
   ContentBlocks,
-  DocsVideo,
   ButtonPage,
   Embed1,
   Embed2,
@@ -3795,9 +3731,6 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 整頁嵌入是整頁放一個網頁；新增選單專區把多頁收成一組下拉選單。`,
   `插入分頁下面的內容區塊是我最推薦的功能：點一下，版面就排好了。
 再點 ＋ 放圖片或檔案。往下還有可收合群組和目錄。`,
-  `放文件：插入 → 雲端硬碟 → 選檔案。放影片：插入 → YouTube。
-最重要的提醒：雲端檔案的共用設定要改成「知道連結的任何人都能檢視」，不然別人打不開。
-（截圖待補，可直接現場示範。）`,
   `按鈕很適合連到 Gem、表單或工具。名稱寫清楚，例如「開啟生字機器人」。`,
   `內嵌是 Google Sites 的精華：插入 → 內嵌 → 嵌入程式碼，貼上整份 HTML。
 例如用 Gemini Canvas 做的互動遊戲，複製程式碼貼進來就好。`,
@@ -3807,8 +3740,7 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 公告橫幅放重要通知；最後更新時間讓大家知道內容新不新；右上角的裝置圖示可以看手機版。`,
   `做好先預覽，切手機、平板、電腦看看。
 右上角發布，設定網址和誰可以看。
-最常見的錯：改完內容忘記再按發布，別人看到的還是舊版。
-（截圖待補，可現場示範發布視窗。）`,
+最常見的錯：改完內容忘記再按發布，別人看到的還是舊版。`,
   `巡場時最常遇到這三個狀況：檔案打不開是共用權限；內嵌空白是對方網站不給嵌，改用按鈕；
 看不到新內容是忘記發布。`,
   `休息 10 分鐘。回來做 skill，請先打開 Gemini。`,
