@@ -1,9 +1,9 @@
 import imgHeadshot from '@assets/headshot.webp';
 import imgMixerAiPrep from '@assets/mixer-ai-prep.webp';
 import imgMixerShare from '@assets/mixer-share.webp';
-import imgMixerTeaching from '@assets/mixer-teaching.webp';
 import {
   type DesignSystem,
+  MorphElement,
   type Page,
   type SlideMeta,
   type SlideTransition,
@@ -21,7 +21,6 @@ import imgEmbedCode from './assets/embed-code.png';
 import imgEmbedEmpty from './assets/embed-empty.png';
 import imgEmbedPlaced from './assets/embed-placed.png';
 import imgEmbedPreview from './assets/embed-preview.png';
-import imgEnglishGrammar from './assets/english-grammar.png';
 import imgEntryHome from './assets/entry-home.jpg';
 import imgEntryUnlock from './assets/entry-unlock.jpg';
 import imgExampleSite from './assets/example-site.jpg';
@@ -32,15 +31,16 @@ import imgGptShare from './assets/gpt-share-public.png';
 import imgInsertButton from './assets/insert-button.png';
 import imgInsertPanel from './assets/insert-panel.png';
 import imgStepMath from './assets/interactive-step-math.webp';
-import imgMathConcept from './assets/math-ebook-concept.webp';
 import imgPublishDialog from './assets/publish-dialog.jpg';
 import imgSettingsBrand from './assets/settings-brand.png';
 import imgSiteNameLogo from './assets/site-name-logo.png';
+import imgSimilarCharacters from './assets/similar-characters.png';
 import imgSitesHome from './assets/sites-home.png';
 import imgTheme from './assets/theme.png';
 import imgToolbarPreview from './assets/toolbar-preview.png';
 import imgUnscramble from './assets/unscramble.webp';
 import imgVocabAsk from './assets/vocab-ask.png';
+import imgVocabMaker from './assets/vocab-maker.jpg';
 import imgVocabAt from './assets/vocab-at.png';
 import imgVocabMakeSkill from './assets/vocab-make-skill.png';
 import imgVocabResult from './assets/vocab-result.png';
@@ -53,7 +53,7 @@ export const design: DesignSystem = {
     display: '"Outfit", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
     body: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif',
   },
-  typeScale: { hero: 104, body: 34 },
+  typeScale: { hero: 108, body: 40 },
   radius: 32,
 };
 
@@ -75,7 +75,8 @@ const urls = {
   threads: 'https://www.threads.com/@spedmix2025',
   chineseLessonWorksheet: 'https://spedmix.pages.dev/chinese-lesson-worksheet',
   mathScaffold: 'https://spedmix.pages.dev/math-scaffold',
-  englishGrammar: 'https://spedmix.pages.dev/english-grammar-worksheet',
+  similarCharacters: 'https://spedmix.pages.dev/Similarcharacters',
+  vocabMaker: 'https://spedmix.pages.dev/vocab-maker',
   unscramble: 'https://spedmix.pages.dev/unscramble',
   interactiveMath: 'https://spedmix.pages.dev/interativemath',
 } as const;
@@ -228,7 +229,7 @@ const gradFill = `linear-gradient(135deg, var(--osd-accent) 0%, ${sky} 100%)`;
 
 const eyebrow: CSSProperties = {
   fontFamily: 'var(--osd-font-display)',
-  fontSize: 26,
+  fontSize: 32,
   fontWeight: 800,
   letterSpacing: '0.14em',
   color: 'var(--osd-accent)',
@@ -236,7 +237,7 @@ const eyebrow: CSSProperties = {
 
 const h2: CSSProperties = {
   fontFamily: 'var(--osd-font-display)',
-  fontSize: 64,
+  fontSize: 70,
   fontWeight: 900,
   lineHeight: 1.2,
   letterSpacing: '-0.01em',
@@ -245,7 +246,7 @@ const h2: CSSProperties = {
 
 const pill: CSSProperties = {
   alignSelf: 'flex-start',
-  fontSize: 24,
+  fontSize: 30,
   fontWeight: 700,
   color: 'var(--osd-accent)',
   background: 'rgba(13, 148, 136, 0.10)',
@@ -300,11 +301,44 @@ const Blob = ({ x, y, size, color }: { x: number; y: number; size: number; color
   />
 );
 
-const Stage = ({ children, bold = false }: { children: ReactNode; bold?: boolean }) => (
-  <div style={fill}>
-    <Blob x={160} y={120} size={bold ? 1300 : 1000} color="rgba(13, 148, 136, 0.18)" />
-    <Blob x={1780} y={1000} size={bold ? 1400 : 1100} color="rgba(2, 132, 199, 0.18)" />
-    <Blob x={1520} y={140} size={bold ? 1000 : 760} color="rgba(249, 115, 22, 0.14)" />
+const Stage = ({
+  children,
+  bold = false,
+  dark = false,
+}: {
+  children: ReactNode;
+  bold?: boolean;
+  dark?: boolean;
+}) => (
+  <div
+    style={{
+      ...fill,
+      ...(dark
+        ? {
+            background: 'linear-gradient(135deg, #06141A 0%, #0B252C 55%, #0F172A 100%)',
+            color: '#F8FAFC',
+          }
+        : undefined),
+    }}
+  >
+    <Blob
+      x={160}
+      y={120}
+      size={bold ? 1300 : 1000}
+      color={dark ? 'rgba(13, 148, 136, 0.28)' : 'rgba(13, 148, 136, 0.18)'}
+    />
+    <Blob
+      x={1780}
+      y={1000}
+      size={bold ? 1400 : 1100}
+      color={dark ? 'rgba(2, 132, 199, 0.24)' : 'rgba(2, 132, 199, 0.18)'}
+    />
+    <Blob
+      x={1520}
+      y={140}
+      size={bold ? 1000 : 760}
+      color={dark ? 'rgba(249, 115, 22, 0.16)' : 'rgba(249, 115, 22, 0.14)'}
+    />
     {children}
   </div>
 );
@@ -345,7 +379,7 @@ const Footer = () => {
         bottom: 40,
         display: 'flex',
         justifyContent: 'space-between',
-        fontSize: 22,
+        fontSize: 27,
         color: muted,
         fontWeight: 500,
       }}
@@ -360,47 +394,71 @@ const Footer = () => {
   );
 };
 
-const Header = ({ tag, title, sub }: { tag: string; title: ReactNode; sub?: ReactNode }) => (
-  <div style={{ position: 'absolute', left: 120, right: 120, top: 92 }}>
-    <Rise>
-      <div style={eyebrow}>{tag}</div>
-    </Rise>
-    <Rise delay={80} style={{ marginTop: 12 }}>
-      <h2 style={h2}>{title}</h2>
-    </Rise>
-    {sub && (
-      <Rise delay={140} style={{ marginTop: 12 }}>
-        <p style={{ fontSize: 30, color: muted, margin: 0 }}>{sub}</p>
+const Header = ({ tag, title, sub }: { tag: string; title: ReactNode; sub?: ReactNode }) => {
+  const { current } = useSlidePageNumber();
+  const part = getPartInfo(current);
+  return (
+    <div style={{ position: 'absolute', left: 120, right: 120, top: 92 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        {part && <Tile icon={part.icon} size={50} morphId={part.morphId} />}
+        <Rise>
+          <div style={{ ...eyebrow, display: 'flex', alignItems: 'center', gap: 14 }}>
+            {part && (
+              <>
+                <span style={{ color: muted }}>{part.label}</span>
+                <span style={{ opacity: 0.4 }}>·</span>
+              </>
+            )}
+            {tag}
+          </div>
+        </Rise>
+      </div>
+      <Rise delay={80} style={{ marginTop: 12 }}>
+        <h2 style={h2}>{title}</h2>
       </Rise>
-    )}
-  </div>
-);
+      {sub && (
+        <Rise delay={140} style={{ marginTop: 12 }}>
+          <p style={{ fontSize: 36, color: muted, margin: 0 }}>{sub}</p>
+        </Rise>
+      )}
+    </div>
+  );
+};
 
 const Tile = ({
   icon,
   size = 88,
   soft = false,
+  morphId,
 }: {
   icon: string;
   size?: number;
   soft?: boolean;
-}) => (
-  <div
-    style={{
-      width: size,
-      height: size,
-      borderRadius: size * 0.3,
-      flexShrink: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: soft ? 'rgba(13, 148, 136, 0.10)' : gradFill,
-      boxShadow: soft ? 'none' : '0 16px 32px -14px rgba(13, 148, 136, 0.6)',
-    }}
-  >
-    <Icon name={icon} size={size * 0.55} color={soft ? 'var(--osd-accent)' : '#ffffff'} />
-  </div>
-);
+  morphId?: string;
+}) => {
+  const box = (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: Math.round(size * 0.28),
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: soft ? 'rgba(13, 148, 136, 0.10)' : gradFill,
+        boxShadow: soft
+          ? 'none'
+          : size > 200
+            ? '0 36px 80px -16px rgba(13, 148, 136, 0.55)'
+            : '0 16px 32px -14px rgba(13, 148, 136, 0.6)',
+      }}
+    >
+      <Icon name={icon} size={size * 0.55} color={soft ? 'var(--osd-accent)' : '#ffffff'} />
+    </div>
+  );
+  return morphId ? <MorphElement id={morphId}>{box}</MorphElement> : box;
+};
 
 const NumBadge = ({ n, size = 56 }: { n: string; size?: number }) => (
   <span
@@ -427,7 +485,7 @@ const StepRow = ({
   n,
   children,
   delay,
-  size = 34,
+  size = 40,
   height = 88,
 }: {
   n: string;
@@ -483,7 +541,7 @@ const Tip = ({ children, delay = 500 }: { children: ReactNode; delay?: number })
       display: 'flex',
       alignItems: 'flex-start',
       gap: 14,
-      fontSize: 28,
+      fontSize: 34,
       lineHeight: 1.5,
       color: deep,
       background: 'rgba(13, 148, 136, 0.08)',
@@ -517,7 +575,7 @@ const ScreenPage = ({
       style={{
         position: 'absolute',
         left: 120,
-        top: sub ? 330 : 290,
+        top: sub ? 345 : 300,
         width: leftWidth,
         display: 'flex',
         flexDirection: 'column',
@@ -557,53 +615,57 @@ const PartPage = ({
   sub: string;
   icon: string;
 }) => (
-  <Stage bold>
+  <Stage bold dark>
     <div
       style={{
         position: 'absolute',
-        left: 160,
-        top: 0,
-        bottom: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        left: 1120,
+        top: 130,
+        width: 820,
+        height: 820,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(13, 148, 136, 0.28) 0%, rgba(2, 132, 199, 0.14) 55%, transparent 72%)',
+        border: '2px solid rgba(45, 212, 191, 0.16)',
+        pointerEvents: 'none',
       }}
-    >
-      <Rise style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-        <Tile icon={icon} size={112} />
-        <span style={{ ...eyebrow, fontSize: 34 }}>PART {num}</span>
-      </Rise>
-      <Rise delay={100} style={{ marginTop: 40 }}>
-        <h1
-          style={{
-            fontFamily: 'var(--osd-font-display)',
-            fontSize: 112,
-            fontWeight: 900,
-            lineHeight: 1.12,
-            margin: 0,
-          }}
-        >
-          {title}
-        </h1>
-      </Rise>
-      <Rise delay={200} style={{ marginTop: 32 }}>
-        <p style={{ fontSize: 38, color: muted, margin: 0 }}>{sub}</p>
-      </Rise>
-    </div>
+    />
     <div
       style={{
         position: 'absolute',
-        right: 120,
-        bottom: 60,
+        left: 112,
+        top: 48,
         fontFamily: 'var(--osd-font-display)',
-        fontSize: 360,
+        fontSize: 380,
         fontWeight: 800,
-        lineHeight: 1,
-        opacity: 0.22,
+        lineHeight: 0.95,
+        letterSpacing: '-0.05em',
         ...gradText,
+        opacity: 0.92,
       }}
     >
       {num}
+    </div>
+    <Rise delay={80} style={{ position: 'absolute', left: 120, top: 450, width: 1040 }}>
+      <div style={{ ...eyebrow, fontSize: 34, color: '#2DD4BF', marginBottom: 18 }}>PART {num}</div>
+      <h1
+        style={{
+          fontFamily: 'var(--osd-font-display)',
+          fontSize: 120,
+          fontWeight: 900,
+          lineHeight: 1.08,
+          letterSpacing: '-0.025em',
+          margin: 0,
+          color: '#F8FAFC',
+        }}
+      >
+        {title}
+      </h1>
+    </Rise>
+    <Rise delay={180} style={{ position: 'absolute', left: 120, top: 820, width: 980 }}>
+      <p style={{ fontSize: 44, lineHeight: 1.45, color: 'rgba(226, 232, 240, 0.80)', margin: 0 }}>{sub}</p>
+    </Rise>
+    <div style={{ position: 'absolute', left: 1320, top: 330 }}>
+      <Tile icon={icon} size={420} morphId={`part-${num}-icon`} />
     </div>
   </Stage>
 );
@@ -703,8 +765,8 @@ const QrCard = ({
       <img src={qr(url)} alt={`${title} QR code`} style={{ width: size, height: size }} />
     </a>
     <span style={{ ...pill, alignSelf: 'center' }}>{label}</span>
-    <div style={{ fontSize: 34, fontWeight: 900 }}>{title}</div>
-    <div style={{ fontSize: 22, color: muted }}>
+    <div style={{ fontSize: 40, fontWeight: 900 }}>{title}</div>
+    <div style={{ fontSize: 27, color: muted }}>
       {shown ?? url.replace(/^https:\/\//, '').replace(/\/$/, '')}
     </div>
   </Rise>
@@ -751,7 +813,7 @@ const WorkshopEntry: Page = () => (
             }}
           >
             <NumBadge n={String(i + 1)} size={50} />
-            <span style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.4 }}>{step}</span>
+            <span style={{ fontSize: 36, fontWeight: 700, lineHeight: 1.4 }}>{step}</span>
           </Rise>
         ))}
       </div>
@@ -798,13 +860,13 @@ const Cover: Page = () => (
       }}
     >
       <Rise style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        <span style={{ ...pill, fontSize: 26, padding: '10px 26px' }}>
+        <span style={{ ...pill, fontSize: 32, padding: '10px 26px' }}>
           中區聯盟特教教材 · 實作工作坊
         </span>
         <span
           style={{
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 24,
+            fontSize: 30,
             fontWeight: 700,
             color: muted,
             letterSpacing: '0.06em',
@@ -826,15 +888,13 @@ const Cover: Page = () => (
               margin: 0,
             }}
           >
-            把散落的教材與網址
+            把教材與網址
             <br />
-            <span style={gradText}>整理成找得到的入口站</span>
+            <span style={gradText}>整理成專屬入口站</span>
           </h1>
         </Rise>
         <Rise delay={200} style={{ marginTop: 32 }}>
-          <p style={{ fontSize: 36, color: muted, margin: 0, fontWeight: 500, lineHeight: 1.45 }}>
-            用 AI 打包分類清單 × Google Sites 實作上架
-          </p>
+          <p style={{ fontSize: 42, color: muted, margin: 0, fontWeight: 500, lineHeight: 1.45 }}>{' Google Sites 實作上架×skill製作'}</p>
         </Rise>
       </div>
 
@@ -859,17 +919,15 @@ const Cover: Page = () => (
             justifyContent: 'center',
             color: '#ffffff',
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 26,
+            fontSize: 32,
             fontWeight: 900,
           }}
         >
           米
         </div>
         <div>
-          <div style={{ fontSize: 32, fontWeight: 900 }}>米克師 朱旆誼</div>
-          <div style={{ fontSize: 24, color: muted, marginTop: 2 }}>
-            宜蘭縣凱旋國中特教教師 · SPEDMIX
-          </div>
+          <div style={{ fontSize: 38, fontWeight: 900 }}>朱旆誼</div>
+          <div style={{ fontSize: 30, color: muted, marginTop: 2 }}>{'宜蘭縣凱旋國中特教教師 '}</div>
         </div>
       </Rise>
     </div>
@@ -896,7 +954,7 @@ const Cover: Page = () => (
     >
       <Rise delay={180} style={{ ...card, padding: '24px 28px', borderRadius: 24 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 22, fontWeight: 800, color: muted, letterSpacing: '0.06em' }}>
+          <span style={{ fontSize: 27, fontWeight: 800, color: muted, letterSpacing: '0.06em' }}>
             01 · 原本散落各處
           </span>
           <Icon name="folder_open" size={28} color={muted} />
@@ -906,7 +964,7 @@ const Cover: Page = () => (
             <span
               key={t}
               style={{
-                fontSize: 22,
+                fontSize: 27,
                 fontWeight: 600,
                 color: muted,
                 background: 'rgba(15, 23, 42, 0.05)',
@@ -932,7 +990,7 @@ const Cover: Page = () => (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span
             style={{
-              fontSize: 22,
+              fontSize: 27,
               fontWeight: 800,
               color: 'var(--osd-accent)',
               letterSpacing: '0.06em',
@@ -947,7 +1005,7 @@ const Cover: Page = () => (
             <span
               key={t}
               style={{
-                fontSize: 20,
+                fontSize: 26,
                 fontWeight: 700,
                 color: i === 0 ? '#ffffff' : deep,
                 background: i === 0 ? 'var(--osd-accent)' : 'rgba(13, 148, 136, 0.10)',
@@ -968,7 +1026,7 @@ const Cover: Page = () => (
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 20,
+            fontSize: 26,
             color: muted,
           }}
         >
@@ -990,7 +1048,7 @@ const Cover: Page = () => (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span
             style={{
-              fontSize: 22,
+              fontSize: 27,
               fontWeight: 800,
               color: '#5EEAD4',
               letterSpacing: '0.06em',
@@ -1004,14 +1062,14 @@ const Cover: Page = () => (
           style={{
             marginTop: 14,
             fontFamily: 'var(--osd-font-display)',
-            fontSize: 24,
+            fontSize: 30,
             fontWeight: 700,
             color: '#E2E8F0',
           }}
         >
           sites.google.com/view/…
         </div>
-        <div style={{ marginTop: 6, fontSize: 22, color: '#94A3B8' }}>
+        <div style={{ marginTop: 6, fontSize: 27, color: '#94A3B8' }}>
           找得到 · 點得開 · 可持續交接
         </div>
       </Rise>
@@ -1046,8 +1104,8 @@ const AgendaCard = ({
   >
     <Tile icon={icon} size={88} />
     <div style={{ ...eyebrow, marginTop: 36 }}>{part}</div>
-    <div style={{ fontSize: 42, fontWeight: 900, marginTop: 12, lineHeight: 1.3 }}>{title}</div>
-    <div style={{ fontSize: 28, color: muted, marginTop: 'auto', lineHeight: 1.5 }}>{sub}</div>
+    <div style={{ fontSize: 48, fontWeight: 900, marginTop: 12, lineHeight: 1.3 }}>{title}</div>
+    <div style={{ fontSize: 34, color: muted, marginTop: 'auto', lineHeight: 1.5 }}>{sub}</div>
   </Rise>
 );
 
@@ -1065,15 +1123,15 @@ const Agenda: Page = () => (
       <AgendaCard
         part="PART 01"
         icon="web"
-        title="AI 整理＋Google Sites"
-        sub="示範＋實作 15 分鐘"
+        title="自製入口頁"
+        sub="示範＋實作"
         delay={200}
       />
       <AgendaCard
         part="PART 02"
         icon="auto_awesome"
         title="Skills"
-        sub="讓 5 個機器人延續下去"
+        sub="讓gem延續下去"
         delay={280}
       />
       <AgendaCard
@@ -1101,15 +1159,15 @@ const BioRow = ({ school, dept, delay }: { school: string; dept: string; delay: 
       justifyContent: 'center',
     }}
   >
-    <div style={{ fontSize: 34, fontWeight: 900 }}>{school}</div>
-    <div style={{ fontSize: 26, color: muted, marginTop: 6 }}>{dept}</div>
+    <div style={{ fontSize: 40, fontWeight: 900 }}>{school}</div>
+    <div style={{ fontSize: 32, color: muted, marginTop: 6 }}>{dept}</div>
   </Rise>
 );
 
 const BioLabel = ({ icon, children }: { icon: string; children: ReactNode }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 4 }}>
     <Tile icon={icon} size={56} soft />
-    <span style={{ fontSize: 32, fontWeight: 900 }}>{children}</span>
+    <span style={{ fontSize: 38, fontWeight: 900 }}>{children}</span>
   </div>
 );
 
@@ -1140,7 +1198,7 @@ const Speaker: Page = () => (
       <div
         style={{
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 64,
+          fontSize: 70,
           fontWeight: 900,
           marginTop: 36,
         }}
@@ -1231,10 +1289,10 @@ const SocialCard = ({
         {letter}
       </div>
       <div>
-        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 800 }}>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 50, fontWeight: 800 }}>
           {platform}
         </div>
-        <div style={{ fontSize: 30, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
+        <div style={{ fontSize: 36, fontWeight: 700, color, marginTop: 4 }}>{handle}</div>
       </div>
     </a>
   </Rise>
@@ -1298,7 +1356,7 @@ const SiteColumn = ({
   desc: string;
   delay: number;
 }) => (
-  <Rise delay={delay} style={{ width: 528 }}>
+  <Rise delay={delay} style={{ width: 800 }}>
     <a href={href} target="_blank" rel="noreferrer" style={linkReset}>
       <div style={{ ...card, padding: 12, borderRadius: 26 }}>
         <img
@@ -1306,8 +1364,8 @@ const SiteColumn = ({
           alt={title}
           style={{
             display: 'block',
-            width: 504,
-            height: 260,
+            width: 776,
+            height: 400,
             objectFit: 'cover',
             objectPosition: 'top',
             borderRadius: 16,
@@ -1317,16 +1375,16 @@ const SiteColumn = ({
     </a>
     <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column' }}>
       <span style={pill}>{label}</span>
-      <div style={{ fontSize: 42, fontWeight: 900, marginTop: 18 }}>{title}</div>
-      <div style={{ fontSize: 26, lineHeight: 1.55, color: muted, marginTop: 10 }}>{desc}</div>
+      <div style={{ fontSize: 48, fontWeight: 900, marginTop: 18 }}>{title}</div>
+      <div style={{ fontSize: 32, lineHeight: 1.55, color: muted, marginTop: 10 }}>{desc}</div>
     </div>
   </Rise>
 );
 
 const MixerSites: Page = () => (
   <Stage>
-    <Header tag="SPEDMIX" title="我的三個網站" sub="備課、共享、學生練習，各有一個入口" />
-    <div style={{ position: 'absolute', left: 120, top: 340, display: 'flex', gap: 48 }}>
+    <Header tag="SPEDMIX" title="我的兩個網站" sub="備課與共享，各有一個入口" />
+    <div style={{ position: 'absolute', left: 120, top: 330, display: 'flex', gap: 80 }}>
       <SiteColumn
         src={imgMixerAiPrep}
         href={urls.prep}
@@ -1342,14 +1400,6 @@ const MixerSites: Page = () => (
         title="特教教材共享"
         desc="整理可分享的教材與資源，快速找到可改用的素材。"
         delay={230}
-      />
-      <SiteColumn
-        src={imgMixerTeaching}
-        href={urls.teaching}
-        label="學生入口"
-        title="步步練"
-        desc="學生端的互動教材，自學與課堂練習都好上手。"
-        delay={310}
       />
     </div>
     <Footer />
@@ -1372,7 +1422,7 @@ const GemCard = ({ icon, name, delay }: { icon: string; name: string; delay: num
     }}
   >
     <Tile icon={icon} size={112} />
-    <div style={{ fontSize: 40, fontWeight: 900 }}>{name}</div>
+    <div style={{ fontSize: 46, fontWeight: 900 }}>{name}</div>
   </Rise>
 );
 
@@ -1394,7 +1444,7 @@ const FiveGems: Page = () => (
       delay={600}
       style={{ position: 'absolute', left: 120, right: 120, top: 760, textAlign: 'center' }}
     >
-      <span style={{ fontSize: 44, fontWeight: 900 }}>
+      <span style={{ fontSize: 50, fontWeight: 900 }}>
         做出來的教材，<span style={gradText}>放在哪裡？</span>
       </span>
     </Rise>
@@ -1429,7 +1479,7 @@ const MessNote = ({
       }}
     >
       <Tile icon={icon} size={72} soft />
-      <span style={{ fontSize: 38, fontWeight: 700 }}>{text}</span>
+      <span style={{ fontSize: 44, fontWeight: 700 }}>{text}</span>
     </div>
   </Rise>
 );
@@ -1486,7 +1536,7 @@ const WhyCard = ({
     <div
       style={{
         fontFamily: 'var(--osd-font-display)',
-        fontSize: 64,
+        fontSize: 70,
         fontWeight: 900,
         marginTop: 48,
         ...gradText,
@@ -1494,7 +1544,7 @@ const WhyCard = ({
     >
       {title}
     </div>
-    <div style={{ fontSize: 32, color: muted, marginTop: 20, lineHeight: 1.5 }}>{desc}</div>
+    <div style={{ fontSize: 38, color: muted, marginTop: 20, lineHeight: 1.5 }}>{desc}</div>
   </Rise>
 );
 
@@ -1582,7 +1632,7 @@ const TakeCard = ({
       <Tile icon={icon} size={72} soft />
     </div>
     <div style={{ fontSize: 56, fontWeight: 900, marginTop: 48 }}>{title}</div>
-    <div style={{ fontSize: 32, color: muted, marginTop: 20, lineHeight: 1.5 }}>{desc}</div>
+    <div style={{ fontSize: 38, color: muted, marginTop: 20, lineHeight: 1.5 }}>{desc}</div>
   </Rise>
 );
 
@@ -1648,7 +1698,7 @@ const ListRow = ({
       height: 74,
       padding: '0 32px',
       borderTop: '1px solid rgba(13, 148, 136, 0.08)',
-      fontSize: 30,
+      fontSize: 36,
     }}
   >
     <span
@@ -1661,7 +1711,7 @@ const ListRow = ({
       href={url}
       target="_blank"
       rel="noreferrer"
-      style={{ ...linkReset, color: sky, fontFamily: 'var(--osd-font-display)', fontSize: 28 }}
+      style={{ ...linkReset, color: sky, fontFamily: 'var(--osd-font-display)', fontSize: 34 }}
     >
       {url.replace('https://', '')}
     </a>
@@ -1693,7 +1743,7 @@ const MaterialList: Page = () => (
           alignItems: 'center',
           height: 64,
           padding: '0 32px',
-          fontSize: 24,
+          fontSize: 30,
           fontWeight: 700,
           color: muted,
         }}
@@ -1773,13 +1823,11 @@ const PromptPage: Page = () => (
         color: '#ffffff',
       }}
     >
-      <div style={{ fontSize: 40, fontWeight: 900, lineHeight: 1.5 }}>
-        新增一個專案叫「策略聯盟AI研發教材」，把以下網址做成入口
-      </div>
+      <div style={{ fontSize: 46, fontWeight: 900, lineHeight: 1.5 }}>把以下網址做成入口</div>
       <div
         style={{
           marginTop: 28,
-          fontSize: 30,
+          fontSize: 36,
           lineHeight: 1.7,
           fontWeight: 500,
           background: 'rgba(255, 255, 255, 0.14)',
@@ -1795,7 +1843,7 @@ const PromptPage: Page = () => (
         <br />
         …（7 筆清單整份貼上）
       </div>
-      <div style={{ marginTop: 28, fontSize: 34, fontWeight: 700 }}>
+      <div style={{ marginTop: 28, fontSize: 40, fontWeight: 700 }}>
         做好再加一句：「要有分類功能」
       </div>
     </Rise>
@@ -1825,10 +1873,10 @@ const RouteMetric = ({
         background: 'rgba(15, 23, 42, 0.035)',
       }}
     >
-      <span style={{ fontSize: 22, fontWeight: 700, color: muted }}>{label}</span>
+      <span style={{ fontSize: 27, fontWeight: 700, color: muted }}>{label}</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <Icon name={icon} size={28} color={color} />
-        <span style={{ fontSize: 28, fontWeight: 800, color: 'var(--osd-text)' }}>{text}</span>
+        <span style={{ fontSize: 34, fontWeight: 800, color: 'var(--osd-text)' }}>{text}</span>
       </div>
     </div>
   );
@@ -1867,7 +1915,7 @@ const RouteCard = ({
     <div style={{ display: 'flex', alignItems: 'center', gap: 22, marginBottom: 4 }}>
       <Tile icon={icon} size={84} />
       <div>
-        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 38, fontWeight: 900 }}>
+        <div style={{ fontFamily: 'var(--osd-font-display)', fontSize: 44, fontWeight: 900 }}>
           {name}
         </div>
         <span style={{ ...pill, display: 'inline-block', marginTop: 6 }}>{badge}</span>
@@ -1941,17 +1989,17 @@ const BestRoute: Page = () => (
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <Tile icon="code" size={64} soft />
           <div>
-            <div style={{ fontSize: 22, fontWeight: 700, color: muted }}>進階方案參考</div>
-            <div style={{ fontSize: 32, fontWeight: 900 }}>GitHub Pages 免費又固定網址</div>
+            <div style={{ fontSize: 27, fontWeight: 700, color: muted }}>進階方案參考</div>
+            <div style={{ fontSize: 38, fontWeight: 900 }}>GitHub Pages 免費又固定網址</div>
           </div>
         </div>
-        <div style={{ fontSize: 28, color: muted, marginTop: 18, lineHeight: 1.5 }}>
+        <div style={{ fontSize: 34, color: muted, marginTop: 18, lineHeight: 1.5 }}>
           我自己平常會用 GitHub Pages 發布，但對不熟悉電腦的老師來說，帳號與版控門檻偏高。
         </div>
       </Rise>
 
       <Rise delay={240} style={{ ...card, padding: '32px 36px', borderRadius: 28 }}>
-        <div style={{ fontSize: 28, fontWeight: 900, color: deep, marginBottom: 18 }}>
+        <div style={{ fontSize: 34, fontWeight: 900, color: deep, marginBottom: 18 }}>
           老師們真正需要的入口頁條件
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -1966,7 +2014,7 @@ const BestRoute: Page = () => (
                 display: 'flex',
                 alignItems: 'center',
                 gap: 14,
-                fontSize: 30,
+                fontSize: 36,
                 fontWeight: 700,
               }}
             >
@@ -2000,7 +2048,7 @@ const BestRoute: Page = () => (
       <span
         style={{
           alignSelf: 'flex-start',
-          fontSize: 24,
+          fontSize: 30,
           fontWeight: 800,
           color: '#5EEAD4',
           background: 'rgba(94, 234, 212, 0.14)',
@@ -2012,19 +2060,19 @@ const BestRoute: Page = () => (
       </span>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.3 }}>
+        <div style={{ fontSize: 50, fontWeight: 900, lineHeight: 1.3 }}>
           Gemini Canvas 生成入口頁
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, color: '#5EEAD4' }}>
           <Icon name="arrow_forward" size={40} color="#5EEAD4" />
-          <span style={{ fontSize: 34, fontWeight: 800 }}>一鍵匯出</span>
+          <span style={{ fontSize: 40, fontWeight: 800 }}>一鍵匯出</span>
         </div>
-        <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.3 }}>
+        <div style={{ fontSize: 50, fontWeight: 900, lineHeight: 1.3 }}>
           匯入 Google 協作平台發布
         </div>
       </div>
 
-      <div style={{ fontSize: 28, color: '#94A3B8', lineHeight: 1.5 }}>
+      <div style={{ fontSize: 34, color: '#94A3B8', lineHeight: 1.5 }}>
         免寫程式、網址永久固定、畫面乾淨，
         <br />
         有付費 Claude／ChatGPT 也可直接用公開連結。
@@ -2086,7 +2134,7 @@ const QuickStepsPage = ({
         <div style={eyebrow}>{tag}</div>
       </Rise>
       <Rise delay={80} style={{ marginTop: 18 }}>
-        <h2 style={{ ...h2, fontSize: 64 }}>{title}</h2>
+        <h2 style={{ ...h2, fontSize: 70 }}>{title}</h2>
       </Rise>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 40 }}>
         {steps.map((s, i) => (
@@ -2103,7 +2151,7 @@ const QuickStepsPage = ({
             }}
           >
             <NumBadge n={String(i + 1)} size={48} />
-            <span style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.45 }}>{s}</span>
+            <span style={{ fontSize: 34, fontWeight: 700, lineHeight: 1.45 }}>{s}</span>
           </Rise>
         ))}
       </div>
@@ -2196,7 +2244,7 @@ const FeatureChip = ({ icon, title, delay }: { icon: string; title: string; dela
     }}
   >
     <Tile icon={icon} size={96} />
-    <div style={{ fontSize: 40, fontWeight: 900 }}>{title}</div>
+    <div style={{ fontSize: 46, fontWeight: 900 }}>{title}</div>
   </Rise>
 );
 
@@ -2224,7 +2272,7 @@ const WhatSites: Page = () => (
         style={{
           ...linkReset,
           ...pill,
-          fontSize: 36,
+          fontSize: 42,
           padding: '14px 40px',
           display: 'inline-flex',
           alignItems: 'center',
@@ -2232,7 +2280,7 @@ const WhatSites: Page = () => (
         }}
       >
         sites.google.com
-        <Icon name="open_in_new" size={36} />
+        <Icon name="open_in_new" size={42} />
       </a>
     </Rise>
     <Footer />
@@ -2248,13 +2296,13 @@ const TwoPaths: Page = () => (
   >
     <StepRow n="1" delay={160}>
       <div>範本</div>
-      <div style={{ fontSize: 26, color: muted, fontWeight: 500 }}>
+      <div style={{ fontSize: 32, color: muted, fontWeight: 500 }}>
         個人資料、活動、專案…套了就有版面
       </div>
     </StepRow>
     <StepRow n="2" delay={240}>
       <div>空白網站</div>
-      <div style={{ fontSize: 26, color: muted, fontWeight: 500 }}>從零開始，自己排每一區</div>
+      <div style={{ fontSize: 32, color: muted, fontWeight: 500 }}>從零開始，自己排每一區</div>
     </StepRow>
     <Tip delay={400}>今天示範從「空白網站」開始，每個功能都看得到。</Tip>
   </ScreenPage>
@@ -2284,8 +2332,8 @@ const PanelRow = ({
   >
     <Tile icon={icon} size={72} />
     <div>
-      <div style={{ fontSize: 38, fontWeight: 900 }}>{name}</div>
-      <div style={{ fontSize: 26, color: muted, marginTop: 4 }}>{desc}</div>
+      <div style={{ fontSize: 44, fontWeight: 900 }}>{name}</div>
+      <div style={{ fontSize: 32, color: muted, marginTop: 4 }}>{desc}</div>
     </div>
   </Rise>
 );
@@ -2361,8 +2409,8 @@ const SettingItem = ({
   <Rise delay={delay} style={{ display: 'flex', alignItems: 'center', gap: 20, height: 92 }}>
     <Tile icon={icon} size={64} soft />
     <div>
-      <div style={{ fontSize: 34, fontWeight: 900 }}>{name}</div>
-      <div style={{ fontSize: 24, color: muted }}>{desc}</div>
+      <div style={{ fontSize: 40, fontWeight: 900 }}>{name}</div>
+      <div style={{ fontSize: 30, color: muted }}>{desc}</div>
     </div>
   </Rise>
 );
@@ -2452,8 +2500,8 @@ const FabOption = ({
   >
     <Tile icon={icon} size={68} soft />
     <div>
-      <div style={{ fontSize: 34, fontWeight: 900 }}>{name}</div>
-      <div style={{ fontSize: 26, color: muted, marginTop: 2 }}>{desc}</div>
+      <div style={{ fontSize: 40, fontWeight: 900 }}>{name}</div>
+      <div style={{ fontSize: 32, color: muted, marginTop: 2 }}>{desc}</div>
     </div>
   </Rise>
 );
@@ -2486,7 +2534,7 @@ const MiniTip = ({ icon, text, delay }: { icon: string; text: string; delay: num
     }}
   >
     <Tile icon={icon} size={60} soft />
-    <span style={{ fontSize: 30, fontWeight: 700 }}>{text}</span>
+    <span style={{ fontSize: 36, fontWeight: 700 }}>{text}</span>
   </Rise>
 );
 
@@ -2503,14 +2551,22 @@ const ContentBlocks: Page = () => (
         justifyContent: 'center',
       }}
     >
-      <Shot src={imgContentBlock} alt="內容區塊" maxW={1500} maxH={540} />
+      <Shot src={imgContentBlock} alt="內容區塊" maxW={1500} maxH={500} />
     </div>
     <div
-      style={{ position: 'absolute', left: 120, right: 120, top: 860, display: 'flex', gap: 32 }}
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 840,
+        display: 'flex',
+        alignItems: 'stretch',
+        gap: 32,
+      }}
     >
       <MiniTip icon="touch_app" text="點一下就加到頁面" delay={360} />
       <MiniTip icon="layers" text="點 ＋ 放圖片或檔案" delay={420} />
-      <MiniTip icon="toc" text="下方還有可收合群組、目錄" delay={480} />
+      <MiniTip icon="toc" text="可收合群組、目錄也在這" delay={480} />
     </div>
     <Footer />
   </Stage>
@@ -2609,8 +2665,8 @@ const SmallFeature = ({
     }}
   >
     <Tile icon={icon} size={80} />
-    <div style={{ fontSize: 40, fontWeight: 900, marginTop: 28 }}>{name}</div>
-    <div style={{ fontSize: 28, color: muted, marginTop: 8 }}>{desc}</div>
+    <div style={{ fontSize: 46, fontWeight: 900, marginTop: 28 }}>{name}</div>
+    <div style={{ fontSize: 34, color: muted, marginTop: 8 }}>{desc}</div>
   </Rise>
 );
 
@@ -2669,7 +2725,7 @@ const Publish: Page = () => (
 
 const PracticeSites: Page = () => (
   <Stage>
-    <Header tag="實作 · 15 分鐘" title="做出你的入口網頁" />
+    <Header tag="實作 · 30 分鐘" title="做出你的入口網頁" />
     <div
       style={{
         position: 'absolute',
@@ -2681,16 +2737,16 @@ const PracticeSites: Page = () => (
         gap: 24,
       }}
     >
-      <StepRow n="1" delay={100} size={36} height={112}>
+      <StepRow n="1" delay={100} size={42} height={112}>
         整理自己手邊的網址清單
       </StepRow>
-      <StepRow n="2" delay={180} size={36} height={112}>
+      <StepRow n="2" delay={180} size={42} height={112}>
         貼上咒語＋清單，請 Gemini 整理成「入口網頁」
       </StepRow>
-      <StepRow n="3" delay={260} size={36} height={112}>
+      <StepRow n="3" delay={260} size={42} height={112}>
         再說一句：「要有分類功能」
       </StepRow>
-      <StepRow n="4" delay={340} size={36} height={112}>
+      <StepRow n="4" delay={340} size={42} height={112}>
         匯出 → Google 協作平台
       </StepRow>
     </div>
@@ -2712,7 +2768,7 @@ const PracticeSites: Page = () => (
       }}
     >
       <Tile icon="timer" size={96} />
-      <Countdown minutes={15} size={130} />
+      <Countdown minutes={30} size={130} />
     </Rise>
     <Footer />
   </Stage>
@@ -2732,8 +2788,8 @@ const HelpCard = ({ q, a, delay }: { q: string; a: string; delay: number }) => (
     }}
   >
     <Tile icon="help" size={88} soft />
-    <div style={{ fontSize: 40, fontWeight: 900, marginTop: 36, lineHeight: 1.35 }}>{q}</div>
-    <div style={{ fontSize: 30, color: deep, marginTop: 'auto', lineHeight: 1.5 }}>{a}</div>
+    <div style={{ fontSize: 46, fontWeight: 900, marginTop: 36, lineHeight: 1.35 }}>{q}</div>
+    <div style={{ fontSize: 36, color: deep, marginTop: 'auto', lineHeight: 1.5 }}>{a}</div>
   </Rise>
 );
 
@@ -2829,8 +2885,8 @@ const FlowBox = ({
       color: strong ? '#ffffff' : 'var(--osd-text)',
     }}
   >
-    <div style={{ fontSize: 26, fontWeight: 700, opacity: 0.8 }}>{label}</div>
-    <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.35 }}>{title}</div>
+    <div style={{ fontSize: 32, fontWeight: 700, opacity: 0.8 }}>{label}</div>
+    <div style={{ fontSize: 50, fontWeight: 900, lineHeight: 1.35 }}>{title}</div>
   </Rise>
 );
 
@@ -2895,10 +2951,10 @@ const CompareRow = ({
       alignItems: 'stretch',
     }}
   >
-    <div style={{ fontSize: 32, fontWeight: 900, display: 'flex', alignItems: 'center' }}>
+    <div style={{ fontSize: 38, fontWeight: 900, display: 'flex', alignItems: 'center' }}>
       {label}
     </div>
-    <div style={{ ...card, borderRadius: 22, padding: '28px 32px', fontSize: 32, color: muted }}>
+    <div style={{ ...card, borderRadius: 22, padding: '28px 32px', fontSize: 38, color: muted }}>
       {gem}
     </div>
     <div
@@ -2906,7 +2962,7 @@ const CompareRow = ({
         ...card,
         borderRadius: 22,
         padding: '28px 32px',
-        fontSize: 32,
+        fontSize: 38,
         fontWeight: 700,
         color: deep,
         border: '2px solid rgba(13, 148, 136, 0.35)',
@@ -3007,7 +3063,7 @@ const SkillStep = ({
         <h2 style={{ ...h2, fontSize: 60 }}>{title}</h2>
       </Rise>
       <Rise delay={200} style={{ marginTop: 24 }}>
-        <p style={{ fontSize: 32, color: muted, margin: 0, lineHeight: 1.55 }}>{desc}</p>
+        <p style={{ fontSize: 38, color: muted, margin: 0, lineHeight: 1.55 }}>{desc}</p>
       </Rise>
     </div>
     <div
@@ -3133,12 +3189,12 @@ const PracticeSkill: Page = () => (
       }}
     >
       <div
-        style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 28, fontWeight: 700 }}
+        style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 34, fontWeight: 700 }}
       >
-        <Icon name="alternate_email" size={36} color="#ffffff" />
+        <Icon name="alternate_email" size={42} color="#ffffff" />
         貼給 Gemini
       </div>
-      <div style={{ fontSize: 40, fontWeight: 700, lineHeight: 1.6, marginTop: 36 }}>
+      <div style={{ fontSize: 46, fontWeight: 700, lineHeight: 1.6, marginTop: 36 }}>
         請你幫我把這個備課流程做成一個 skill，以後我只要丟一份課文給你，你就照這個流程做出教材給我。
       </div>
     </Rise>
@@ -3178,7 +3234,7 @@ const MapRow = ({
       }}
     >
       <Tile icon={icon} size={60} soft />
-      <span style={{ fontSize: 34, fontWeight: 900 }}>{name} Gem</span>
+      <span style={{ fontSize: 40, fontWeight: 900 }}>{name} Gem</span>
     </div>
     <Icon name="arrow_forward" size={56} color="var(--osd-accent)" />
     <div
@@ -3196,14 +3252,14 @@ const MapRow = ({
       <span
         style={{
           fontFamily: 'var(--osd-font-display)',
-          fontSize: 34,
+          fontSize: 40,
           fontWeight: 800,
           color: 'var(--osd-accent)',
         }}
       >
         @{name}
       </span>
-      <span style={{ fontSize: 28, color: muted }}>{output}</span>
+      <span style={{ fontSize: 34, color: muted }}>{output}</span>
     </div>
   </Rise>
 );
@@ -3237,6 +3293,57 @@ const FiveSkills: Page = () => (
   </Stage>
 );
 
+const PracticeSkillTime: Page = () => (
+  <Stage>
+    <Header tag="實作 · 15 分鐘" title="自製你的 2～3 個 skill" />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        top: 300,
+        width: 1080,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+      }}
+    >
+      <StepRow n="1" delay={100} size={42} height={112}>
+        選 2～3 個常用備課流程（或社群機器人）
+      </StepRow>
+      <StepRow n="2" delay={180} size={42} height={112}>
+        先照平常流程做一次教材，確認滿意
+      </StepRow>
+      <StepRow n="3" delay={260} size={42} height={112}>
+        請 AI「把這個流程做成 skill」並存下來
+      </StepRow>
+      <StepRow n="4" delay={340} size={42} height={112}>
+        開新對話輸入 @ 實測，微調到一次就對
+      </StepRow>
+    </div>
+    <Rise
+      delay={300}
+      style={{
+        ...card,
+        position: 'absolute',
+        left: 1260,
+        right: 120,
+        top: 270,
+        height: 700,
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 32,
+      }}
+    >
+      <Tile icon="timer" size={96} />
+      <Countdown minutes={15} size={130} />
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
 /* PART 3 AI 備課幫手 */
 
 const Part3: Page = () => (
@@ -3257,7 +3364,7 @@ const Part3: Page = () => (
 const EntryPoint = ({ icon, text, delay }: { icon: string; text: string; delay: number }) => (
   <Rise delay={delay} style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
     <Tile icon={icon} size={72} soft />
-    <span style={{ fontSize: 38, fontWeight: 700 }}>{text}</span>
+    <span style={{ fontSize: 44, fontWeight: 700 }}>{text}</span>
   </Rise>
 );
 
@@ -3313,7 +3420,7 @@ const Point = ({ n, children, delay }: { n: string; children: ReactNode; delay: 
     }}
   >
     <NumBadge n={n} size={52} />
-    <span style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.4 }}>{children}</span>
+    <span style={{ fontSize: 38, fontWeight: 700, lineHeight: 1.4 }}>{children}</span>
   </Rise>
 );
 
@@ -3362,7 +3469,7 @@ const ToolPage = ({
             display: 'inline-flex',
             alignItems: 'center',
             gap: 12,
-            fontSize: 30,
+            fontSize: 36,
             fontWeight: 700,
             color: '#ffffff',
             background: gradFill,
@@ -3412,40 +3519,40 @@ const ToolChinese: Page = () => (
   </ToolPage>
 );
 
-const ToolMath: Page = () => (
+const ToolSimilarChars: Page = () => (
   <ToolPage
-    tag="數學 · 學習單"
-    title="數學簡化學習單"
-    img={imgMathConcept}
-    href={urls.mathScaffold}
+    tag="國語文 · 形近字"
+    title="形近字學習單"
+    img={imgSimilarCharacters}
+    href={urls.similarCharacters}
   >
     <Point n="1" delay={200}>
-      輸入題型或貼課本截圖
+      只輸入一個字（如「兌」），AI 自動找形近字
     </Point>
     <Point n="2" delay={260}>
-      先說明概念，再拆解例題
+      也可直接貼上自訂字群（如「青清倩」）
     </Point>
     <Point n="3" delay={320}>
-      一鍵 A4 乾淨列印
+      自動拆解部首提示與例句填空，一鍵列印
     </Point>
   </ToolPage>
 );
 
-const ToolEnglish: Page = () => (
+const ToolVocabMaker: Page = () => (
   <ToolPage
-    tag="英文 · 學習單"
-    title="英文文法學習單"
-    img={imgEnglishGrammar}
-    href={urls.englishGrammar}
+    tag="國語文 · 詞彙閱讀"
+    title="圖卡與文章測驗單"
+    img={imgVocabMaker}
+    href={urls.vocabMaker}
   >
     <Point n="1" delay={200}>
-      先給文法重點，再開始練習
+      貼文章與詞彙，產出 3D Pixar 風格圖卡
     </Point>
     <Point n="2" delay={260}>
-      圈選、填充、重組到造句八種題型
+      結構化例句、造句鷹架與克漏字練習
     </Point>
     <Point n="3" delay={320}>
-      由易到難自由搭配，一鍵列印
+      語境遷移、找錯與認知分級閱讀測驗
     </Point>
   </ToolPage>
 );
@@ -3495,7 +3602,7 @@ const ShareQ = ({ n, text, delay }: { n: string; text: string; delay: number }) 
     }}
   >
     <NumBadge n={n} size={80} />
-    <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1.35 }}>{text}</div>
+    <div style={{ fontSize: 50, fontWeight: 900, lineHeight: 1.35 }}>{text}</div>
   </Rise>
 );
 
@@ -3561,7 +3668,7 @@ const Thanks: Page = () => (
         </h1>
       </Rise>
       <Rise delay={120}>
-        <p style={{ fontSize: 40, color: muted, margin: 0 }}>你的教材頁，就是共享站的第一頁</p>
+        <p style={{ fontSize: 46, color: muted, margin: 0 }}>你的教材頁，就是共享站的第一頁</p>
       </Rise>
       <Rise
         delay={240}
@@ -3580,7 +3687,7 @@ const Thanks: Page = () => (
           alt="講師照片"
           style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }}
         />
-        <div style={{ fontSize: 32, fontWeight: 900 }}>米克師 · @spedmix2025</div>
+        <div style={{ fontSize: 38, fontWeight: 900 }}>米克師 · @spedmix2025</div>
       </Rise>
     </div>
   </Stage>
@@ -3591,18 +3698,49 @@ export const meta: SlideMeta = {
   createdAt: '2026-11-13T12:30:07.004Z',
 };
 
+const partMorphTransition: SlideTransition = {
+  duration: 300,
+  exit: {
+    duration: 320,
+    easing: 'cubic-bezier(0.4, 0, 1, 1)',
+    keyframes: [{ opacity: 1 }, { opacity: 1 }],
+  },
+  enter: {
+    duration: 320,
+    easing: 'cubic-bezier(0, 0, 0.2, 1)',
+    keyframes: [{ opacity: 0 }, { opacity: 1 }],
+  },
+  morph: { duration: 820, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+};
+
+Part1.transition = partMorphTransition;
+Routes.transition = partMorphTransition;
+Part2.transition = partMorphTransition;
+WhatSkill.transition = partMorphTransition;
+Part3.transition = partMorphTransition;
+PrepEntry.transition = partMorphTransition;
+
+const getPartInfo = (
+  pageNumber: number,
+): { label: string; icon: string; morphId: string } | null => {
+  if (pageNumber >= 13 && pageNumber <= 36) return { label: 'PART 01', icon: 'web', morphId: 'part-01-icon' };
+  if (pageNumber >= 38 && pageNumber <= 47) return { label: 'PART 02', icon: 'auto_awesome', morphId: 'part-02-icon' };
+  if (pageNumber >= 49 && pageNumber <= 52) return { label: 'PART 03', icon: 'school', morphId: 'part-03-icon' };
+  return null;
+};
+
 export default [
   WorkshopEntry,
   Cover,
-  Agenda,
   Speaker,
   SocialLinks,
+  Agenda,
+  Takeaway,
   MixerSites,
   FiveGems,
   Mess,
   WhyPublish,
   ExampleSite,
-  Takeaway,
   Part1,
   Routes,
   ClaudeOrg,
@@ -3626,9 +3764,7 @@ export default [
   ButtonPage,
   Embed1,
   Embed2,
-  SmallFeatures,
   Publish,
-  Troubleshoot,
   Break,
   Part2,
   WhatSkill,
@@ -3640,14 +3776,12 @@ export default [
   Skill5,
   PracticeSkill,
   FiveSkills,
+  PracticeSkillTime,
   Part3,
   PrepEntry,
   ToolChinese,
-  ToolEnglish,
-  ToolMath,
-  ToolUnscramble,
-  ToolStepMath,
-  Sharing,
+  ToolSimilarChars,
+  ToolVocabMaker,
   Resources,
   Thanks,
 ] satisfies Page[];
@@ -3657,12 +3791,14 @@ export const notes: (string | undefined)[] = [
   `大家午安，我是米克師朱旆誼，在宜蘭凱旋國中當特教老師。
 今天是實作工作坊，下午結束時，每個人都會帶走一個自己的教材頁。
 提醒：請先登入 Google 帳號，並打開 Gemini。`,
-  `今天分三段：先做 Google Sites，休息後做 skill，最後介紹我做的 AI 備課幫手工具。
-Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `簡單自我介紹：特教背景，也念資訊。
 現在在凱旋國中資源班，平常把 AI 用在備課、做教材。`,
   `我的教材和工具都會在這三個社群發布，歡迎追蹤。`,
-  `這是我自己維護的三個網站：備課、共享、學生練習。
+  `今天分三段：先做 Google Sites，休息後做 skill，最後介紹我做的 AI 備課幫手工具。
+Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
+  `今天的兩個成果：一個自己的教材頁、一個能用的 skill。
+接下來先做第一個。`,
+  `這是我自己維護的兩個網站：備課、共享。
 今天最後一段會用到「AI 備課幫手」。`,
   `去年社群的老師們各自用 Gem 做了 5 個通用設計國語文機器人：生字、語詞、句型、句子、課文閱讀理解。
 機器人做得很好，但問題來了：做出來的教材，放在哪裡？`,
@@ -3675,8 +3811,6 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `先看完成的樣子：中區聯盟範例站。
 這一頁是我請 AI 整理成入口網頁，再放上 Google Sites 的。
 （打開範例站，點分類按鈕和搜尋框給大家看。請大家掃 QR code 一起看。）`,
-  `今天的兩個成果：一個自己的教材頁、一個能用的 skill。
-接下來先做第一個。`,
   `PART 1：Google Sites。先示範，再給大家 15 分鐘實作。`,
   `三種 AI 其實都能直接生出公開連結，但有三個關鍵差異：
 第一，以免費版來說，只有 Gemini 能直接做出公開分享的連結，Claude 和 ChatGPT 都需要付費版。
@@ -3699,7 +3833,7 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 右上角「匯出」選「Google 協作平台」。`,
   `按下去就直接進到 Google 協作平台，網頁已經放好了。
 改網站名稱，按右上「發布」就上線，接下來就是剛剛講的 Google Sites 操作。`,
-  `實作 15 分鐘。這頁會一直留在螢幕上，照步驟做。
+  `實作 30 分鐘。這頁會一直留在螢幕上，照步驟做。
 按播放鍵開始倒數。
 沒有自己清單的老師，可以先用策略聯盟這 7 個網址練習。
 有付費 Claude 或 ChatGPT 的老師，也可以改走那兩條路，直接分享連結。
@@ -3736,13 +3870,9 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 例如用 Gemini Canvas 做的互動遊戲，複製程式碼貼進來就好。`,
   `按下一個會先預覽，確認沒問題再插入。插入後拉角落調整大小。
 學生在網站上就能直接玩，不用另外開連結。`,
-  `快速帶過其他小功能：可收合群組適合放長的說明；目錄自動抓標題；
-公告橫幅放重要通知；最後更新時間讓大家知道內容新不新；右上角的裝置圖示可以看手機版。`,
   `做好先預覽，切手機、平板、電腦看看。
 右上角發布，設定網址和誰可以看。
 最常見的錯：改完內容忘記再按發布，別人看到的還是舊版。`,
-  `巡場時最常遇到這三個狀況：檔案打不開是共用權限；內嵌空白是對方網站不給嵌，改用按鈕；
-看不到新內容是忘記發布。`,
   `休息 10 分鐘。回來做 skill，請先打開 Gemini。`,
   `PART 2：Skills。目標是讓社群的 5 個機器人延續下去。`,
   `Skill 就是把一整段備課流程打包起來。
@@ -3763,16 +3893,14 @@ Skill 在任何對話打 @ 就能叫出來，能串好幾個步驟，一次產�
 提醒：一定要開新對話用 @ 測試，才知道 skill 有沒有成功。`,
   `社群的 5 個機器人，都可以用同樣方式變成 5 個 skill。
 之後由舊生負責維護，教材做好就上架到共享站。`,
+  `接下來 15 分鐘實作時間，目標是自己做出 2 到 3 個 skill。
+挑自己平常最常做的備課流程，做一次、打包、開新對話 @ 實測，有卡住隨時舉手。`,
   `PART 3：介紹我自己做的 AI 備課幫手。時間夠的話多講幾個工具。`,
   `AI 備課幫手是一個網址，所有工具都在裡面，免安裝。
 請大家掃 QR code 打開，等一下可以邊看邊試。`,
   `國文課堂學習單：原文與易讀版雙軌對照，加田字格、段落摘要和隨段檢核。`,
-  `英文文法學習單：先給文法重點，再從圈選、填充、重組到造句八種題型由易到難自由搭配，一鍵列印。`,
-  `數學簡化學習單：輸入題型或貼課本截圖，先講概念再拆例題，可以一鍵 A4 列印。`,
-  `句型重組：學生點卡片排句子，有語音朗讀，適合書寫困難的學生。
-這種互動網頁也可以用剛剛學的內嵌，放進你的 Google Sites。`,
-  `互動步驟數學：把解題拆成小步驟，每一步即時回饋。`,
-  `成果分享：打開你的教材頁，每人一分鐘，回答這三個問題。`,
+  `形近字學習單：只輸入一個字（例如「兌」），AI 就會隨機產生形近字；也可直接貼上指定字群（例如「青清倩」），自動拆解部首提示與例句填空。`,
+  `圖卡與文章測驗單：貼上文章與目標詞彙，自動產出 3D 圖卡練習單與認知分級閱讀測驗單，從例句鷹架到語境遷移一次搞定。`,
   `今天用到的連結都在這裡，可以拍照或掃 QR code。`,
   `謝謝大家。你們今天做的教材頁，就是共享站的第一頁。`,
 ];
