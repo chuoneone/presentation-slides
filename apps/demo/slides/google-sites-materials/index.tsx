@@ -66,7 +66,7 @@ const SLIDE_ID = 'google-sites-materials';
 
 const urls = {
   sites: 'https://sites.google.com/',
-  gemini: 'https://gemini.google.com/',
+  gemini: 'https://gemini.google.com/customize/skills',
   prep: 'https://spedmix.pages.dev/',
   share: 'https://spedmixshare.pages.dev/',
   teaching: 'https://spedmixteaching.pages.dev/',
@@ -79,20 +79,20 @@ const urls = {
   vocabMaker: 'https://spedmix.pages.dev/vocab-maker',
   unscramble: 'https://spedmix.pages.dev/unscramble',
   interactiveMath: 'https://spedmix.pages.dev/interativemath',
+  githubPagesVideo: 'https://youtu.be/8Nd71kGVfj8',
 } as const;
 
 const exampleUrl = 'https://sites.google.com/view/centralteachers2/full-page-embed';
 
 const gptSiteUrl = 'https://alliance-ai-learning-hub.dicedphlox3.chatgpt.site';
 
-const qr = (url: string) =>
-  `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data=${encodeURIComponent(url)}`;
 
 const ICONS = [
   'alternate_email',
   'arrow_forward',
   'auto_awesome',
   'auto_stories',
+  'backpack',
   'autorenew',
   'calculate',
   'campaign',
@@ -105,6 +105,7 @@ const ICONS = [
   'description',
   'devices',
   'diversity_3',
+  'diamond',
   'download',
   'edit',
   'emoji_events',
@@ -115,6 +116,7 @@ const ICONS = [
   'layers',
   'lightbulb',
   'link',
+  'meeting_room',
   'menu_book',
   'money_off',
   'open_in_new',
@@ -139,6 +141,7 @@ const ICONS = [
   'unfold_more',
   'update',
   'view_agenda',
+  'warning',
   'web',
   'work',
 ].sort();
@@ -740,35 +743,47 @@ const QrCard = ({
   label,
   title,
   delay,
-  size = 220,
-  shown,
 }: {
   url: string;
   label: string;
   title: string;
   delay: number;
-  size?: number;
-  shown?: string;
 }) => (
   <Rise
     delay={delay}
     style={{
       ...card,
-      padding: 32,
+      padding: '40px 32px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: 18,
+      gap: 22,
+      textAlign: 'center',
     }}
   >
-    <a href={url} target="_blank" rel="noreferrer" style={linkReset}>
-      <img src={qr(url)} alt={`${title} QR code`} style={{ width: size, height: size }} />
-    </a>
     <span style={{ ...pill, alignSelf: 'center' }}>{label}</span>
-    <div style={{ fontSize: 40, fontWeight: 900 }}>{title}</div>
-    <div style={{ fontSize: 27, color: muted }}>
-      {shown ?? url.replace(/^https:\/\//, '').replace(/\/$/, '')}
-    </div>
+    <div style={{ fontSize: 40, fontWeight: 900, lineHeight: 1.3 }}>{title}</div>
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        ...linkReset,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 12,
+        fontSize: 34,
+        fontWeight: 700,
+        color: '#ffffff',
+        background: gradFill,
+        borderRadius: 999,
+        padding: '16px 36px',
+        marginTop: 8,
+      }}
+    >
+      點我開啟
+      <Icon name="open_in_new" size={30} color="#ffffff" />
+    </a>
   </Rise>
 );
 
@@ -1571,11 +1586,9 @@ const ExampleSite: Page = () => (
     <div style={{ position: 'absolute', left: 120, top: 340, width: 420 }}>
       <QrCard
         url={exampleUrl}
-        shown="…/view/centralteachers2"
-        label="掃我看範例"
+        label="看範例"
         title="中區聯盟"
         delay={160}
-        size={260}
       />
     </div>
     <div
@@ -1967,6 +1980,66 @@ const Routes: Page = () => (
   </Stage>
 );
 
+const GithubPages: Page = () => (
+  <Stage>
+    <Header
+      tag="進階方案參考"
+      title="GitHub Pages：免費又固定網址"
+      sub="我自己平常用的發布方式：GitHub Pages ＋ Antigravity"
+    />
+    <Rise
+      delay={140}
+      style={{
+        ...card,
+        position: 'absolute',
+        left: 120,
+        top: 320,
+        width: 1060,
+        height: 560,
+        padding: '48px 52px',
+        boxSizing: 'border-box',
+        borderRadius: 32,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 26,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <Tile icon="code" size={76} soft />
+        <div style={{ fontSize: 40, fontWeight: 900 }}>GitHub Pages ＋ Antigravity</div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {[
+          { icon: 'check_circle', color: '#10B981', text: '完全免費，網址固定不跑掉' },
+          { icon: 'check_circle', color: '#10B981', text: '畫面乾淨，沒有多餘外框' },
+          { icon: 'check_circle', color: '#10B981', text: '用 Antigravity 叫 AI 幫你上傳、更新' },
+          { icon: 'cancel', color: '#F43F5E', text: '要申請 GitHub 帳號、安裝 Antigravity' },
+        ].map((item) => (
+          <div
+            key={item.text}
+            style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 32, fontWeight: 700 }}
+          >
+            <Icon name={item.icon} size={38} color={item.color} />
+            {item.text}
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 28, color: muted, lineHeight: 1.5, marginTop: 'auto' }}>
+        對不熟悉電腦的老師來說門檻偏高，所以今天實作改走 Google 協作平台。
+      </div>
+    </Rise>
+    <div style={{ position: 'absolute', left: 1240, right: 120, top: 320 }}>
+      <QrCard
+        url={urls.githubPagesVideo}
+        label="有興趣可以看這支影片"
+        title="GitHub Pages × Antigravity"
+        delay={260}
+      />
+    </div>
+    <Footer />
+  </Stage>
+);
+
 const BestRoute: Page = () => (
   <Stage>
     <Header
@@ -1980,29 +2053,17 @@ const BestRoute: Page = () => (
         left: 120,
         top: 320,
         width: 780,
+        height: 560,
         display: 'flex',
         flexDirection: 'column',
-        gap: 28,
+        justifyContent: 'center',
       }}
     >
-      <Rise delay={140} style={{ ...card, padding: '32px 36px', borderRadius: 28 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <Tile icon="code" size={64} soft />
-          <div>
-            <div style={{ fontSize: 27, fontWeight: 700, color: muted }}>進階方案參考</div>
-            <div style={{ fontSize: 38, fontWeight: 900 }}>GitHub Pages 免費又固定網址</div>
-          </div>
-        </div>
-        <div style={{ fontSize: 34, color: muted, marginTop: 18, lineHeight: 1.5 }}>
-          我自己平常會用 GitHub Pages 發布，但對不熟悉電腦的老師來說，帳號與版控門檻偏高。
-        </div>
-      </Rise>
-
-      <Rise delay={240} style={{ ...card, padding: '32px 36px', borderRadius: 28 }}>
-        <div style={{ fontSize: 34, fontWeight: 900, color: deep, marginBottom: 18 }}>
+      <Rise delay={180} style={{ ...card, padding: '48px 52px', borderRadius: 32 }}>
+        <div style={{ fontSize: 34, fontWeight: 900, color: deep, marginBottom: 28 }}>
           老師們真正需要的入口頁條件
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           {[
             '免費、付費帳號都能直接做',
             '以後改內容，網址固定不跑掉',
@@ -2018,7 +2079,7 @@ const BestRoute: Page = () => (
                 fontWeight: 700,
               }}
             >
-              <Icon name="check_circle" size={34} color="#10B981" />
+              <Icon name="check_circle" size={40} color="#10B981" />
               {item}
             </div>
           ))}
@@ -2218,11 +2279,9 @@ const GptSite: Page = () => (
         />
         <QrCard
           url={gptSiteUrl}
-          shown="…chatgpt.site"
-          label="掃我看範例"
+          label="看範例"
           title="GPT 版範例"
           delay={340}
-          size={200}
         />
       </div>
     }
@@ -2931,84 +2990,292 @@ const WhatSkill: Page = () => (
   </Stage>
 );
 
-const CompareRow = ({
-  label,
-  gem,
-  skill,
+const SideCard = ({
+  icon,
+  name,
+  desc,
+  skill = false,
   delay,
 }: {
-  label: string;
-  gem: string;
-  skill: string;
+  icon: string;
+  name: string;
+  desc: string;
+  skill?: boolean;
   delay: number;
 }) => (
   <Rise
     delay={delay}
     style={{
-      display: 'grid',
-      gridTemplateColumns: '320px 1fr 1fr',
-      gap: 24,
-      alignItems: 'stretch',
+      ...card,
+      flex: 1,
+      borderRadius: 32,
+      padding: '36px 44px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 28,
+      border: skill ? '3px solid rgba(13, 148, 136, 0.45)' : card.border,
+      opacity: skill ? 1 : 0.78,
     }}
+  >
+    {skill ? (
+      <Tile icon={icon} size={104} />
+    ) : (
+      <div
+        style={{
+          width: 104,
+          height: 104,
+          borderRadius: 29,
+          flexShrink: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(100, 116, 139, 0.12)',
+        }}
+      >
+        <Icon name={icon} size={57} color={muted} />
+      </div>
+    )}
+    <div>
+      <div style={{ fontSize: 50, fontWeight: 900, color: skill ? deep : muted }}>{name}</div>
+      <div style={{ fontSize: 32, color: muted, marginTop: 6 }}>{desc}</div>
+    </div>
+  </Rise>
+);
+
+const GemSunset: Page = () => (
+  <Stage>
+    <Header
+      tag="GEM → SKILL"
+      title="Gem 正在變成 Skill"
+      sub="Google 宣布：Gem 會自動轉成 Skill，舊的 Gem 之後會移除"
+    />
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 330,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 36,
+      }}
+    >
+      <SideCard icon="diamond" name="Gem" desc="去年做的專屬機器人" delay={160} />
+      <Rise delay={260}>
+        <Icon name="arrow_forward" size={72} color="var(--osd-accent)" />
+      </Rise>
+      <SideCard icon="auto_awesome" name="Skill" desc="會自動轉換，去年的機器人搬得過來" skill delay={340} />
+    </div>
+
+    <div
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 610,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 28,
+      }}
+    >
+      {[
+        { date: '2026 / 11 / 17', text: '個人帳號：Gem 變唯讀，自動轉成 Skill', now: true },
+        { date: '2026 / 12 / 17', text: '個人帳號：Gem 完全移除，再也打不開', now: false },
+        { date: '2027 / 6', text: '學校帳號（教育版）才開始轉換', now: false },
+      ].map((item, i) => (
+        <Rise
+          key={item.date}
+          delay={460 + i * 100}
+          style={{
+            ...card,
+            borderRadius: 26,
+            padding: '30px 34px',
+            borderTop: `8px solid ${item.now ? coral : 'rgba(13, 148, 136, 0.45)'}`,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <span
+              style={{
+                fontFamily: 'var(--osd-font-display)',
+                fontSize: 36,
+                fontWeight: 800,
+                color: item.now ? coral : deep,
+              }}
+            >
+              {item.date}
+            </span>
+            {item.now && (
+              <span
+                style={{
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: '#ffffff',
+                  background: coral,
+                  borderRadius: 999,
+                  padding: '4px 16px',
+                }}
+              >
+                已生效
+              </span>
+            )}
+          </div>
+          <div style={{ fontSize: 32, fontWeight: 700, marginTop: 14, lineHeight: 1.45 }}>
+            {item.text}
+          </div>
+        </Rise>
+      ))}
+    </div>
+
+    <Rise
+      delay={800}
+      style={{
+        position: 'absolute',
+        left: 120,
+        right: 120,
+        top: 870,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        fontSize: 34,
+        fontWeight: 800,
+        color: deep,
+      }}
+    >
+      <Icon name="warning" size={42} color={coral} />
+      12/17 前先下載 Gem 的檔案：.doc／.ppt／.xls、壓縮檔、影音檔不會跟著轉。
+    </Rise>
+    <Footer />
+  </Stage>
+);
+
+const Chip = ({ text, off = false }: { text: string; off?: boolean }) => (
+  <span
+    style={{
+      fontSize: 28,
+      fontWeight: 700,
+      padding: '8px 22px',
+      borderRadius: 999,
+      color: off ? '#94A3B8' : deep,
+      background: off ? 'rgba(148, 163, 184, 0.14)' : 'rgba(13, 148, 136, 0.12)',
+      textDecoration: off ? 'line-through' : 'none',
+    }}
+  >
+    {text}
+  </span>
+);
+
+const DiffRow = ({
+  label,
+  gem,
+  gemChips,
+  skill,
+  skillChips,
+  delay,
+}: {
+  label: string;
+  gem: string;
+  gemChips: ReactNode;
+  skill: string;
+  skillChips: ReactNode;
+  delay: number;
+}) => (
+  <Rise
+    delay={delay}
+    style={{ display: 'grid', gridTemplateColumns: '260px 1fr 1fr', gap: 24, alignItems: 'stretch' }}
   >
     <div style={{ fontSize: 38, fontWeight: 900, display: 'flex', alignItems: 'center' }}>
       {label}
     </div>
-    <div style={{ ...card, borderRadius: 22, padding: '28px 32px', fontSize: 38, color: muted }}>
-      {gem}
+    <div style={{ ...card, borderRadius: 24, padding: '20px 30px' }}>
+      <div style={{ fontSize: 33, color: muted, fontWeight: 700 }}>{gem}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginTop: 12 }}>
+        {gemChips}
+      </div>
     </div>
     <div
       style={{
         ...card,
-        borderRadius: 22,
-        padding: '28px 32px',
-        fontSize: 38,
-        fontWeight: 700,
-        color: deep,
+        borderRadius: 24,
+        padding: '20px 30px',
         border: '2px solid rgba(13, 148, 136, 0.35)',
       }}
     >
-      {skill}
+      <div style={{ fontSize: 33, color: deep, fontWeight: 800 }}>{skill}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginTop: 12 }}>
+        {skillChips}
+      </div>
     </div>
   </Rise>
 );
 
 const GemVsSkill: Page = () => (
   <Stage>
-    <Header tag="GEM vs SKILL" title="Gem 和 Skill 差在哪？" />
+    <Header
+      tag="GEM vs SKILL"
+      title="Gem 和 Skill 差在哪？"
+      sub="Gem 像專科教室，要走進去才能用；Skill 像教具，帶到哪間教室都能用"
+    />
     <div
       style={{
         position: 'absolute',
         left: 120,
         right: 120,
-        top: 290,
+        top: 330,
         display: 'flex',
         flexDirection: 'column',
-        gap: 24,
+        gap: 18,
       }}
     >
-      <Rise delay={100} style={{ display: 'grid', gridTemplateColumns: '320px 1fr 1fr', gap: 24 }}>
+      <Rise delay={100} style={{ display: 'grid', gridTemplateColumns: '260px 1fr 1fr', gap: 24 }}>
         <span />
-        <span style={{ ...eyebrow, color: muted }}>GEM</span>
-        <span style={eyebrow}>SKILL</span>
+        <span style={{ ...eyebrow, color: muted, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Icon name="meeting_room" size={40} color={muted} />
+          GEM ＝ 專科教室
+        </span>
+        <span style={{ ...eyebrow, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Icon name="backpack" size={40} color="var(--osd-accent)" />
+          SKILL ＝ 教具
+        </span>
       </Rise>
-      <CompareRow
+      <DiffRow
         label="怎麼叫出來"
-        gem="從側欄點開那個 Gem"
-        skill="任何對話打 @ 就叫得出來"
-        delay={180}
+        gem="要先從側欄點進那個 Gem"
+        gemChips={<Chip text="側欄 → 點進去 → 才能用" />}
+        skill="任何對話都能叫出來"
+        skillChips={
+          <>
+            <Chip text="輸入 / ＋技能名稱" />
+            <span style={{ fontSize: 26, color: muted }}>（即將改成 @）</span>
+          </>
+        }
+        delay={200}
       />
-      <CompareRow
-        label="能做什麼"
-        gem="一個固定角色，陪你對話"
-        skill="一整套流程，一次產出好幾樣"
-        delay={260}
+      <DiffRow
+        label="能不能搭配"
+        gem="一次只能待在一個 Gem"
+        gemChips={
+          <>
+            <Chip text="語詞機器人" />
+            <Chip text="句型機器人" off />
+          </>
+        }
+        skill="同一段對話能疊好幾個"
+        skillChips={
+          <>
+            <Chip text="語詞學習單" />
+            <span style={{ fontSize: 30, fontWeight: 800, color: deep }}>＋</span>
+            <Chip text="報讀版排版" />
+          </>
+        }
+        delay={300}
       />
-      <CompareRow
-        label="怎麼做出來"
-        gem="自己寫一大段指令"
-        skill="先做一次，再請 AI 幫你打包"
-        delay={340}
+      <DiffRow
+        label="會不會自己來"
+        gem="每次都要自己點開"
+        gemChips={<Chip text="忘了點，就不會用" />}
+        skill="Gemini 會自動判斷、自己套用"
+        skillChips={<Chip text="貼上語詞 → 自動用上語詞學習單" />}
+        delay={400}
       />
     </div>
     <Footer />
@@ -3399,7 +3666,7 @@ const PrepEntry: Page = () => (
       }}
     >
       <Shot src={imgMixerAiPrep} alt="AI 備課幫手首頁" maxW={460} maxH={600} delay={200} />
-      <QrCard url={urls.prep} label="掃我開啟" title="AI 備課幫手" delay={320} size={240} />
+      <QrCard url={urls.prep} label="備課" title="AI 備課幫手" delay={320} />
     </div>
     <Footer />
   </Stage>
@@ -3423,6 +3690,27 @@ const Point = ({ n, children, delay }: { n: string; children: ReactNode; delay: 
     <span style={{ fontSize: 38, fontWeight: 700, lineHeight: 1.4 }}>{children}</span>
   </Rise>
 );
+
+const ToolEyebrow = ({ tag }: { tag: string }) => {
+  const { current } = useSlidePageNumber();
+  const part = getPartInfo(current);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      {part && <Tile icon={part.icon} size={50} morphId={part.morphId} />}
+      <Rise>
+        <div style={{ ...eyebrow, display: 'flex', alignItems: 'center', gap: 14 }}>
+          {part && (
+            <>
+              <span style={{ color: muted }}>{part.label}</span>
+              <span style={{ opacity: 0.4 }}>·</span>
+            </>
+          )}
+          {tag}
+        </div>
+      </Rise>
+    </div>
+  );
+};
 
 const ToolPage = ({
   tag,
@@ -3450,9 +3738,7 @@ const ToolPage = ({
         justifyContent: 'center',
       }}
     >
-      <Rise>
-        <div style={eyebrow}>{tag}</div>
-      </Rise>
+      <ToolEyebrow tag={tag} />
       <Rise delay={80} style={{ marginTop: 16 }}>
         <h2 style={{ ...h2, fontSize: 68 }}>{title}</h2>
       </Rise>
@@ -3541,7 +3827,7 @@ const ToolSimilarChars: Page = () => (
 const ToolVocabMaker: Page = () => (
   <ToolPage
     tag="國語文 · 詞彙閱讀"
-    title="圖卡與文章測驗單"
+    title="詞彙教材一鍵通"
     img={imgVocabMaker}
     href={urls.vocabMaker}
   >
@@ -3724,8 +4010,8 @@ const getPartInfo = (
   pageNumber: number,
 ): { label: string; icon: string; morphId: string } | null => {
   if (pageNumber >= 13 && pageNumber <= 36) return { label: 'PART 01', icon: 'web', morphId: 'part-01-icon' };
-  if (pageNumber >= 38 && pageNumber <= 47) return { label: 'PART 02', icon: 'auto_awesome', morphId: 'part-02-icon' };
-  if (pageNumber >= 49 && pageNumber <= 52) return { label: 'PART 03', icon: 'school', morphId: 'part-03-icon' };
+  if (pageNumber >= 38 && pageNumber <= 49) return { label: 'PART 02', icon: 'auto_awesome', morphId: 'part-02-icon' };
+  if (pageNumber >= 50 && pageNumber <= 54) return { label: 'PART 03', icon: 'school', morphId: 'part-03-icon' };
   return null;
 };
 
@@ -3745,6 +4031,7 @@ export default [
   Routes,
   ClaudeOrg,
   GptSite,
+  GithubPages,
   BestRoute,
   MaterialList,
   PromptPage,
@@ -3768,6 +4055,7 @@ export default [
   Break,
   Part2,
   WhatSkill,
+  GemSunset,
   GemVsSkill,
   Skill1,
   Skill2,
@@ -3810,7 +4098,7 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
 用得久：有固定位置，之後由舊生接手維護和上架，教材就不會斷掉。`,
   `先看完成的樣子：中區聯盟範例站。
 這一頁是我請 AI 整理成入口網頁，再放上 Google Sites 的。
-（打開範例站，點分類按鈕和搜尋框給大家看。請大家掃 QR code 一起看。）`,
+（打開範例站，點分類按鈕和搜尋框給大家看。請大家點按鈕一起看。）`,
   `PART 1：Google Sites。先示範，再給大家 15 分鐘實作。`,
   `三種 AI 其實都能直接生出公開連結，但有三個關鍵差異：
 第一，以免費版來說，只有 Gemini 能直接做出公開分享的連結，Claude 和 ChatGPT 都需要付費版。
@@ -3819,9 +4107,10 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `補充給有付費 Claude 的老師：把同一段咒語和清單貼給 Claude，用說的加分類，按「匯出」選公開分享連結就能直接用。
 之後改內容只要說「確認更新公開網頁」，同一個連結打開就是新版。不過今天實作主軸還是帶大家做出自己的 Google Sites。`,
   `補充給有付費 ChatGPT 的老師：新對話按 ＋ 選「網站」（或輸入 @Sites），貼上同一段咒語和清單就會直接生出網站。
-按右上「分享」把存取權限改成「公開」就能複製連結，也可以掃右邊 QR code 看看 GPT 版範例。`,
-  `講到免費又固定網址的發布空間，我自己平常會用 GitHub Pages，但對不熟悉電腦的老師來說，入門門檻太高了。
-所以為了讓不管有沒有付費的老師都能用、網址固定不變、畫面又乾淨，這裡我會選擇用 Gemini Canvas 生成入口頁，再透過它內建的匯出功能，一鍵匯入 Google 協作平台發布。
+按右上「分享」把存取權限改成「公開」就能複製連結，也可以點右邊按鈕看看 GPT 版範例。`,
+  `講到免費又固定網址的發布空間，我自己平常會用 GitHub Pages 搭配 Antigravity：免費、網址固定、畫面也乾淨，上傳和更新都交給 Antigravity 的 AI 幫忙。
+但它要申請 GitHub 帳號、安裝 Antigravity，對不熟悉電腦的老師來說，入門門檻還是偏高。有興趣的老師可以點右邊按鈕看這支影片。`,
+  `所以為了讓不管有沒有付費的老師都能用、網址固定不變、畫面又乾淨，這裡我會選擇用 Gemini Canvas 生成入口頁，再透過它內建的匯出功能，一鍵匯入 Google 協作平台發布。
 （有付費 Claude 或 ChatGPT 的老師，也可以直接用它們的公開連結。）`,
   `上架前先整理成一張清單：編號、名稱、網址、研發單位。
 這是策略聯盟的 7 個工具，今天就用它來示範。
@@ -3877,9 +4166,14 @@ Google Sites 會示範一輪，然後給大家 15 分鐘實作。`,
   `PART 2：Skills。目標是讓社群的 5 個機器人延續下去。`,
   `Skill 就是把一整段備課流程打包起來。
 例如我做的 vocab-fill-in-worksheet：丟一組詞語，一次就拿到句型填空 Word 練習卷。`,
-  `和 Gem 的差別：Gem 要從側欄點開，是一個固定角色在陪你對話；
-Skill 在任何對話打 @ 就能叫出來，能串好幾個步驟，一次產出好幾樣。
-最大的不同是做法：Gem 要自己寫一大段指令；Skill 是先做一次，再請 AI 幫你打包。
+  `先跟大家說一個重要的消息：Google 正在把 Gem 換成 Skill。
+個人帳號的 Gem 在 11 月 17 日已經變成唯讀，並自動轉成 Skill；12 月 17 日會完全移除。大家的學校帳號（教育版）比較晚，2027 年 6 月才轉換。
+所以去年社群做的 5 個機器人不會消失，會變成 Skill，而且更好用。
+提醒一件事：轉換時有些檔案不會跟著過去，像舊版的 .doc、.ppt、.xls，壓縮檔和影音檔。Gem 裡有放這類檔案的老師，12 月 17 日前記得先下載。`,
+  `那 Gem 和 Skill 差在哪？用教室來想：
+Gem 像一間專科教室，要先從側欄點進那個 Gem 才能用，一次只能待在一間，語詞機器人和句型機器人不能一起用。
+Skill 像教具，任何對話輸入斜線加技能名稱就能叫出來，Google 說之後會改成 @；同一段對話還可以疊好幾個，例如「語詞學習單」再加上「報讀版排版」。
+最方便的是，Gemini 會自己判斷：你貼上一組語詞，它就會自動用上語詞學習單這個技能，不用每次自己點。
 （依現場 Gemini 介面實際狀況調整說法。）`,
   `示範第一步：先正常做一次。我請 Gemini 把詞語做成句型填空練習卷，再貼上微光、拾光、川流、安然、餘白和詞義。`,
   `第二步：說「我要 Word 檔」。它做出 A4 直式的練習卷，上面有詞語提示框，下面是句型填空，可以匯出成 Word。`,
@@ -3897,10 +4191,10 @@ Skill 在任何對話打 @ 就能叫出來，能串好幾個步驟，一次產�
 挑自己平常最常做的備課流程，做一次、打包、開新對話 @ 實測，有卡住隨時舉手。`,
   `PART 3：介紹我自己做的 AI 備課幫手。時間夠的話多講幾個工具。`,
   `AI 備課幫手是一個網址，所有工具都在裡面，免安裝。
-請大家掃 QR code 打開，等一下可以邊看邊試。`,
+請大家點按鈕打開，等一下可以邊看邊試。`,
   `國文課堂學習單：原文與易讀版雙軌對照，加田字格、段落摘要和隨段檢核。`,
   `形近字學習單：只輸入一個字（例如「兌」），AI 就會隨機產生形近字；也可直接貼上指定字群（例如「青清倩」），自動拆解部首提示與例句填空。`,
   `圖卡與文章測驗單：貼上文章與目標詞彙，自動產出 3D 圖卡練習單與認知分級閱讀測驗單，從例句鷹架到語境遷移一次搞定。`,
-  `今天用到的連結都在這裡，可以拍照或掃 QR code。`,
+  `今天用到的連結都在這裡，點按鈕就能直接打開。`,
   `謝謝大家。你們今天做的教材頁，就是共享站的第一頁。`,
 ];
