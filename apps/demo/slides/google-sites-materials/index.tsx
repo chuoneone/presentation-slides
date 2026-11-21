@@ -66,6 +66,8 @@ const SLIDE_ID = 'google-sites-materials';
 
 const urls = {
   sites: 'https://sites.google.com/',
+  upload: 'https://forms.gle/wnErsVdegR1c1Dct8',
+  music: 'https://youtu.be/H9wpqs-F4Fg?si=q-GMhgw_3Mi6cqlM',
   gemini: 'https://gemini.google.com/customize/skills',
   prep: 'https://spedmix.pages.dev/',
   share: 'https://spedmixshare.pages.dev/',
@@ -118,6 +120,7 @@ const ICONS = [
   'link',
   'meeting_room',
   'menu_book',
+  'music_note',
   'money_off',
   'open_in_new',
   'palette',
@@ -140,6 +143,7 @@ const ICONS = [
   'travel_explore',
   'unfold_more',
   'update',
+  'upload',
   'view_agenda',
   'warning',
   'web',
@@ -1880,8 +1884,10 @@ const RouteMetric = ({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 6,
-        padding: '18px 20px',
+        flex: 1,
+        justifyContent: 'center',
+        gap: 12,
+        padding: '16px 24px',
         borderRadius: 18,
         background: 'rgba(15, 23, 42, 0.035)',
       }}
@@ -1919,10 +1925,10 @@ const RouteCard = ({
       width: 533,
       height: 620,
       boxSizing: 'border-box',
-      padding: 40,
+      padding: '36px 36px 40px',
       display: 'flex',
       flexDirection: 'column',
-      gap: 20,
+      gap: 18,
     }}
   >
     <div style={{ display: 'flex', alignItems: 'center', gap: 22, marginBottom: 4 }}>
@@ -1947,7 +1953,7 @@ const Routes: Page = () => (
       title="都能生出連結，但差在這三件事"
       sub="免費能不能用、畫面乾不乾淨、改完網址會不會變"
     />
-    <div style={{ position: 'absolute', left: 120, top: 300, display: 'flex', gap: 40 }}>
+    <div style={{ position: 'absolute', left: 120, top: 330, display: 'flex', gap: 40 }}>
       <RouteCard
         icon="web"
         name="ChatGPT"
@@ -2782,6 +2788,55 @@ const Publish: Page = () => (
   </ScreenPage>
 );
 
+const UploadButton = () => (
+  <a
+    href={urls.upload}
+    target="_blank"
+    rel="noreferrer"
+    style={{
+      ...linkReset,
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 14,
+      padding: '18px 44px',
+      borderRadius: 999,
+      background: gradFill,
+      color: '#ffffff',
+      fontSize: 40,
+      fontWeight: 800,
+      boxShadow: '0 18px 36px -18px rgba(13, 148, 136, 0.6)',
+    }}
+  >
+    <Icon name="upload" size={42} color="#ffffff" />
+    點我上傳
+  </a>
+);
+
+const MusicLink = () => (
+  <a
+    href={urls.music}
+    target="_blank"
+    rel="noreferrer"
+    aria-label="播放音樂"
+    title="播放音樂"
+    style={{
+      ...linkReset,
+      position: 'absolute',
+      top: 28,
+      right: 28,
+      width: 64,
+      height: 64,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'rgba(13, 148, 136, 0.10)',
+    }}
+  >
+    <Icon name="music_note" size={36} color="var(--osd-accent)" />
+  </a>
+);
+
 const PracticeSites: Page = () => (
   <Stage>
     <Header tag="實作 · 30 分鐘" title="做出你的入口網頁" />
@@ -2828,6 +2883,8 @@ const PracticeSites: Page = () => (
     >
       <Tile icon="timer" size={96} />
       <Countdown minutes={30} size={130} />
+      <UploadButton />
+      <MusicLink />
     </Rise>
     <Footer />
   </Stage>
@@ -3606,6 +3663,8 @@ const PracticeSkillTime: Page = () => (
     >
       <Tile icon="timer" size={96} />
       <Countdown minutes={15} size={130} />
+      <UploadButton />
+      <MusicLink />
     </Rise>
     <Footer />
   </Stage>
