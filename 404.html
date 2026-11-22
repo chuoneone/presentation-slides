@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>研習簡報已搬家</title>
+<script>
+  // 舊網址 chuoneone.github.io/presentation-slides/... → slides.spedmix.com/...（同一份簡報）
+  (function () {
+    var q = '/presentation-slides';
+    var p = location.pathname;
+    if (p.indexOf(q) === 0) p = p.slice(q.length);
+    location.replace('https://slides.spedmix.com' + (p || '/') + location.search + location.hash);
+  })();
+</script>
+</head>
+<body style="font-family:sans-serif;padding:2rem;line-height:1.7">
+<p>研習簡報已搬到新網址：<a href="https://slides.spedmix.com/">slides.spedmix.com</a>，正在為你轉過去…</p>
+</body>
+</html>
